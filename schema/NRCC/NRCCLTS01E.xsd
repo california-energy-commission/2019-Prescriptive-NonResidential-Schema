@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+   targetNamespace="http://www.lmonte.com/besm/NRCCLTS01E"
+   xmlns="http://www.lmonte.com/besm/NRCCLTS01E"
+   xmlns:d="http://www.lmonte.com/besm/d"
+   xmlns:bld="http://www.lmonte.com/besm/bld"
+   xmlns:env="http://www.lmonte.com/besm/env"
+   xmlns:lit="http://www.lmonte.com/besm/lit"
+   xmlns:hvac="http://www.lmonte.com/besm/hvac"
+   xmlns:comp="http://www.lmonte.com/besm/comp"
+   xmlns:com="http://www.lmonte.com/besm/com"
+   xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:altova="http://www.altova.com/xml-schema-extensions"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
+   <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/lit" schemaLocation="../base/NrPresLighting.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="../base/NrPresHvac.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="../base/DataTypes.xsd"/>
+   <xsd:element name="ComplianceDocumentPackage">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="DocID" minOccurs="0">
+               <xsd:complexType>
+                  <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCCLTSE"/>
+                  <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CERTIFICATE OF COMPLIANCE NR"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Signage Lighting"/>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Payload" type="comp:Payload"/>
+            <xsd:element name="DocumentData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="Header" type="comp:HeaderNRCC" />
+                     <xsd:element ref="nRCCLTS01E" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" />
+                     <xsd:element name="Footer" type="comp:FooterNRCC" />
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+         </xsd:sequence>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20190401"/>
+         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCLTSE"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="NRCCLTS01E">
+      <xsd:annotation>
+         <xsd:documentation>Signage Lighting</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b] A. GENERAL INFORMATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="A_BeforeNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">This document is used to demonstrate compliance with requirements in  [d:t24ref/]110.9, [d:t24ref/]110.12,  [d:t24ref/]130.0,  [d:t24ref/]130.3,  [d:t24ref/]140.8, and  [d:t24ref/]141.0(b)2M for sign lighting scopes using the prescriptive path.  Exit signs and traffic signs are not required to comply with prescriptive requirements per exceptions to [d:t24ref/]140.8 and do not need to complete this compliance document.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02_ClimateZone" type="com:ClimateZone" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Climate Zone</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User selects from list 1-16</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03_IsBuildingHeathcare" type="com:IsBuildingHeathcare" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building is a healthcare facility</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input;  If checked result = true; Else result = false.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="AErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_B" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b] B. PROJECT SCOPE[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="B__Tooltip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Table B expands the other tables in this compliance document which are applicable based on selections.  The ENERGY VERIFIED Label compliance method is only available for signs with a permanent, pre-printed, factory-installed, ENERGY VERIFIED label, confirming that the sign complies with the Section 140.8 of the California 2016 Title 24, Part 6 Standards.  The only labels that will be recognized for this purpose are ENERGY VERIFIED Certification Marks authorized by Underwriters Laboratories (UL) or other Product Certification Body accredited to ISO/IEC Guide 65 by the American National Standards Institute in accordance with ISO/IEC 17011. Surveillance by the Accredited Certification Body shall be an ongoing annual inspection program carried out by a Type A Inspection body in accordance with ISO/IEC 17020.  Note: Using an ENERGY VERIFIED label is an optional method to validate compliance. An ENERGY VERIFIED label is not needed for compliance.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Table Instructions: Include any illuminated signs that are within the scope of the permit application and are demonstrating compliance using the prescriptive path outlined in [d:t24ref/]140.8 or  [d:t24ref/]141.0(b)2M for alterations.  Exit signs and traffic signs are not required to comply with prescriptive requirements per exceptions to [d:t24ref/]140.8 and do not need to complete this compliance document.  WARNING:  Changing the Compliance Method in this table will result in the deletion of data previously input.  If you need to change the compliance method, please open a new form or use "Save As".   [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableProjectScope" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="B01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="B02_LightedSignDescription" type="lit:LightedSignDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Complete Sign Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="B03_ImprovementStatus" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Sign Status[d:sup]1[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: New, Altered</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="com:ImprovementStatus">
+                                             <xsd:enumeration value="Altered"/>
+                                             <xsd:enumeration value="New"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="B04_LightedSignLocation" type="lit:LightedSignLocation" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Sign Type</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: Indoor, Outdoor, ElecMessageCenter</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="B05_LightedSignPrescriptiveMethod" type="comp:LightedSignPrescriptiveMethod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Compliance Method[d:sup]2[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list.  If result == MaximumAllowedPower then section F is required; Else if result == AlternateLightSources then section G is required; Else if result == EnergyVerifiedLabel then section H is required.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="BEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTE: Sign alterations that increase the connected lighting load, replace and rewire more that 50% of the ballasts, or relocate the sign to a different location must comply with  [d:t24ref/]140.8.  See [d:t24ref/] 141.0(b)2M for more details.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="BEndNote2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup]The ENERGY VERIFIED Label compliance method is only applicable if the sign has a permanent, factory-installed, ENERGY VERIFIED label certified by UL or comparable, confirming the sign complies with  [d:t24ref/]140.8.    Note that using an ENERGY VERIFIED label is an optional compliance path, not a mandatory requirement.  See the tooltips for this table for more details.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="BErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_C" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]C. COMPLIANCE RESULTS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="C_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Table Instructions: If any cell on this table says "DOES NOT COMPLY" or "COMPLIES with Exceptional Conditions" refer to Table D. for guidance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableComplianceResults" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="C01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag [d:line1/] (See Table B)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B01_LightedSignName</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="C02_LightedSignDescription" type="lit:LightedSignDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Complete Sign Description [d:line1/] (See Table B)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B02_LightedSignDescription for sign defined in C01_LightedSignName</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="C03_LightedSignAllowedPower" type="comp:LightedSignAllowedPower" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Allowed (Watts) [d:line1/] (See Table F)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName  If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower
+result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in C03_NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="C03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Allowed (Watts) [d:line1/] (See Table F)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName  If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower
+result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="C03AfterSubheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">[d:gte/]</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="C04_LightedSignDesignedPower" type="comp:LightedSignDesignedPower" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Designed (Watts) [d:line1/] (See Table F)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower result = F07_LightedSignDesignedPower;  Else result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="C04_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Designed (Watts) [d:line1/] (See Table F)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower result = F07_LightedSignDesignedPower;  Else result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="C04AfterSubheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">OR</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="C05_IsAlternateLightSourceMethodCompliant" type="comp:IsAlternateLightSourceMethodCompliant" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliant Light Sources [d:line1/] (See Table G)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05_LightedSignPrescriptiveMethod == AlternateLightSources then If G03_CompliantLightSource NotNull result = true display text YES; else result = false display term No; Else If  B05_LightedSignPrescriptiveMethod !=  AlternateLightSources result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="C05_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliant Light Sources [d:line1/] (See Table G)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05_LightedSignPrescriptiveMethod == AlternateLightSources then If G03_CompliantLightSource NotNull result = true display text YES; else result = false display term No; Else If  B05_LightedSignPrescriptiveMethod !=  AlternateLightSources result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="C05AfterSubheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">OR</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="C06_IsMethodEnergyVerifiedLabel" type="comp:IsMethodEnergyVerifiedLabel" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:line1/] (See Table H)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05 LightedSignPrescriptiveMethod == EnergyVerifiedLabel result = true and display term is Yes; Else If B05 LightedSignPrescriptiveMethod != EnergyVerifiedLabel,  result = NotApplicable stored in C06_NotApplicableMessage and the cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="C06_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:line1/] (See Table H)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05 LightedSignPrescriptiveMethod == EnergyVerifiedLabel result = true and display term is Yes; Else If B05 LightedSignPrescriptiveMethod != EnergyVerifiedLabel,  result = NotApplicable stored in C06_NotApplicableMessage and the cell is grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="C07_DoesLightedSignComply" type="comp:DoesLightedSignComply" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">[d:b]Compliance Results[/d:b]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If C03_LightedSignAllowedPower GTE  C04_LightedSignDesignedPower Or If C05_IsAlternateLightSourceMethodCompliant == true Or If C06 IsMethodEnergyVerifiedLabel == true then result = true and display term is COMPLIES, else result = false and display term is DOES NOT COMPLY</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="C07Controls_LightedSignControlsCompliance" type="comp:LightedSignControlsCompliance" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">[d:b]Controls Compliance (See Table F/G/H for Details)[/d:b]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Section F controls:  If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower  then If any required F08a_SignShutOffControls Or F08b_SignDimmingControls Or F08c_SignDemandResponseControls  IsNull result = NotCompliant; Else If  F08a_SignShutOffControls == Other Or F08a_SignShutOffControls Or F08b_SignDimmingControls == Exempt And If any F_Exception02_SectionExceptionalConditionNote IsNull result = NotCompliant;  Else result = CompliantExceptionalConditions; Else result = Compliant.   Section G controls: If B05_LightedSignPrescriptiveMethod == AlternateLightSources then If any required G04a_SignShutOffControls Or G04b_SignDimmingControls Or G04c_SignDemandResponseControls  IsNull result = NotCompliant; Else If G04a_SignShutOffControls == Other Or G04a_SignShutOffControls Or G04b_SignDimmingControls == Exempt And If any G_Exception02_SectionExceptionalConditionNote IsNull result = NotCompliant;  Else result = CompliantExceptionalConditions; Else result = Compliant.    Section H controls:  If B05_LightedSignPrescriptiveMethod == EnergyVerifiedLabel then If any required  H03a_SignShutOffControls Or H03b_SignDimmingControls Or H03c_SignDemandResponseControls  IsNull result = NotCompliant; Else If H03a_SignShutOffControls == Other Or H03a_SignShutOffControls Or H03b_SignDimmingControls  == Exempt And If any H_Exception02_SectionExceptionalConditionNote IsNull result = NotCompliant;  Else result = CompliantExceptionalConditions; Else result = Compliant.  Display terms: If result == Compliant display term is COMPLIES; Else If result ==  NotCompliant display term is DOES NOT COMPLY,  and If result == CompliantExceptionalConditions display term is COMPLIES with Exceptional Conditions. If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_D" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]D. EXCEPTIONAL CONDITIONS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="D__ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Table D is auto-filled with warnings and compliance notes directed to the form user and the enforcement agency based on data inputs and calculations in the rest of the NRCC-LTS.  It may not be directly edited by the form user.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="D_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is auto-filled with uneditable comments because of selections made or data entered in tables throughout the form.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableAllExceptionalConditions" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if there are any exceptional conditions in sections F, G or H</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="D01_SectionTitle" type="comp:SectionTitle" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled with the section title string + Permit Applicant Notes. For section F result = F. Maximum Allowed Lighting Power and Controls Permit Applicant Notes.  For section G result = G. Light Sources and Controls Permit Applicant Notes For section H result = H. Energy Verified Labeled Signs and Controls Permit Applicant Notes</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="D02_SectionExceptionalConditionNotes" type="comp:SectionExceptionalConditionNotes"  maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This combines all exceptional condition notes for the section defined in D01_SectionTitle.  For section F,  each entry = F_Exception01_LightedSignName + : + F_Exception02_SectionExceptionalConditionNote.  For section G each entry = G_Exception01_LightedSignName + : + G_Exception02_SectionExceptionalConditionNote.  For section H  each entry = H_Exception01_LightedSignName + : + H_Exception02_SectionExceptionalConditionNote.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="D03_ExceptionalConditionMessageNRCCLTSE" type="comp:ExceptionalConditionMessageNRCCLTSE"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_E" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]E. ADDITIONAL REMARKS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="E__ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Table E allows user input of additional information to support the compliance documentation.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is includes remarks made by the permit applicant to the Authority Having Jurisdiction.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E01_CommentsToPermitAuthority" type="comp:CommentsToPermitAuthority"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_F" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]F. MAXIMUM ALLOWED LIGHTING POWER AND CONTROLS[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if B05_LightedSignPrescriptiveMethod == MaximumAllowedPower</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="F__ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Table F includes signs from Table B which have selected Maximum Allowed Lighting Power as the compliance method.  Dropdown choices for mandatory lighting controls change based on whether the sign is indoor or outdoor from Table B.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Table Instructions: Complete this table for illuminated signs using the Maximum Allowed Lighting Power compliance method per [d:t24ref/]140.8(a) as indicated on Table B of this compliance document.  Also demonstrate compliance with mandatory controls requirements from [d:t24ref/]130.3 by indicating control types for each sign. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TablePowerAllowance" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="F01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B01_LightedSignName for signs where  B05_LightedSignPrescriptiveMethod == MaximumAllowedPower</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F02_LightedSignDescription" type="lit:LightedSignDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Complete Sign Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B02_LightedSignDescription for F01_LightedSignName</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F03_IlluminationMethod" type="lit:IlluminationMethod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Illumination Method</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list. External, Internal</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F04_LightedSignArea" type="lit:LightedSignArea" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Sign Area (ft[d:sup]2[/d:sup])</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F05_LightedSignAllowedLPD" type="comp:LightedSignAllowedLPD" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Allowed Density (W/ft[d:sup]2[/d:sup])</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: If F03_IlluminationMethod == Internal result =  12; Else If F03_IlluminationMethod == External result =  2.3</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F06_LightedSignAllowedPower" type="comp:LightedSignAllowedPower" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Allowance (Watts)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = PRODUCT (F04_LightedSignArea, F05_LightedSignAllowedLPD)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F07_LightedSignDesignedPower" type="comp:LightedSignDesignedPower" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Design Watts</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If F03_IlluminationMethod == External result = SUM All ( PRODUCT (F12_LuminairePower, F14_LuminaireCountByType)) Else If F03_IlluminationMethod == Internal this is User input,</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F08_Header" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Mandatory Controls</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="F08a_SignShutOffControls" type="comp:SignShutOffControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation==Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="F08a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation==Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="F08b_SignDimmingControls" type="comp:SignDimmingControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains DimmingNA  Else If B04_LightedSignLocation == Outdoor, list  contains PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="F08b_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains DimmingNA  Else If B04_LightedSignLocation == Outdoor, list  contains PowerReduced65, Exempt</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="F08c_SignDemandResponseControls" type="comp:SignDemandResponseControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="F08c_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="F09_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This field is displayed as  Pass checkbox and a Fail checkbox in printed form that is given to the Field Inspector.  It is currently not part of the stored XML data</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="TableLuminaires" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This table is required if F03_IlluminationMethod == External</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                                <xsd:complexType>
+                                                   <xsd:sequence>
+                                                      <xsd:element name="F10_LuminaireName" type="lit:LuminaireName" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Luminaire Name or Item Tag</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User Input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F11_LuminaireDescription" type="lit:LuminaireDescription" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Complete Luminaire Description</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User Input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F12_LuminairePower" type="lit:LuminairePower" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Watts per luminaire</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User Input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F13_LuminaireSpecSource" type="comp:LuminaireSpecSource" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">How is Wattage determined</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: CEC_Default display term NA8 Default, ManufacturerSpec display term Mfr. Spec, Other display term Other, SeeOtherSection display term Alt. source per [d:t24ref/]140.8(b)</xsd:documentation>
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="CEC_Default">NA8 Default</dtyp:displayterm>
+                                                               <dtyp:displayterm value="SeeOtherSection">Alt. source per [d:t24ref/]140.8(b)</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F14_LuminaireCountByType" type="lit:LuminaireCountByType" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User Input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                   </xsd:sequence>
+                                                </xsd:complexType>
+                                             </xsd:element>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="FNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]* NOTES: Controls with a * require a note in the space below explaining how compliance is achieved.   EX: Sign within tunnel illuminated day and night; EXCEPTION to 130.3(a)2A. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_TableComplianceNotes" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if F08a_SignShutOffControls == Other or Exempt, Or If F08b_SignDimmingControls  == Exempt</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="F_Exception01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = F01_LightedSignName where F08a_SignShutOffControls = Other or Exempt, F08b_SignDimmingControls  = Exempt</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input explanation for exception(s) to this lighted sign</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="FEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]  FOOTNOTE: Demand response controls are only required for an Electronic Message Center having a new connected lighting power load greater than 15 kW per [d:t24ref/]110.12(d)[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="FErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_G" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]G. LIGHT SOURCES AND CONTROLS[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if B05_LightedSignPrescriptiveMethod == AlternateLightSources</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="G_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Table Instructions: Complete this table for illuminated signs using the Alternate Lighting Sources compliance method per [d:t24ref/]140.8(b) as indicated on Table B of this compliance document.  Also demonstrate compliance with mandatory controls requirements from [d:t24ref/]130.3 by indicating control types for each sign. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableLightingSourcesControls" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="G01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B01_LightedSignName where B05_LightedSignPrescriptiveMethod == AlternateLightSources</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="G02_LightedSignDescription" type="lit:LightedSignDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Complete Sign Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B02_LightedSignDescription for sign defined in G01_LightedSignName</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="G03_CompliantLightSource" type="comp:CompliantLightSource"  minOccurs="1" maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Compliant Light Sources[d:sup]1,2[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects one or more light sources from a list of 9 light sources.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="G04_Header" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Mandatory Controls</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="G04a_SignShutOffControls" type="comp:SignShutOffControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="G04a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter  result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="G04b_SignDimmingControls" type="comp:SignDimmingControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="G04b_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="G04c_SignDemandResponseControls" type="comp:SignDemandResponseControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response[d:sup]3[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="G04c_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response[d:sup]2[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="G05_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This field is displayed as  Pass checkbox and a Fail checkbox in printed form that is given to the Field Inspector.  It is currently not part of the stored XML data</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="GNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]* NOTES: Controls with a * require a note in the space below explaining how compliance is achieved.   EX: Sign within tunnel illuminated day and night; EXCEPTION to 130.3(a)2A. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G_TableComplianceNotes" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if G04a_SignShutOffControls == Other or Exempt, if G04b_SignDimmingControls  == Exempt</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="G_Exception01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = G01_LightedSignName where G04a_SignShutOffControls == Other or Exempt, G04b_SignDimmingControls  == Exempt</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="G_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input explanation for exception(s) to this lighted sign</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="GEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTE:  Dropdown choices have been abbreviated, please refer to [d:t24ref/]140.8(b) to confirm compliance with the specific light source technologies listed.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="GEndNote2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup] Authority having jurisdiction may ask for cutsheets to confirm compliance of light source.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="GEndNote3" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]3[/d:sup]  Demand response controls are only required for an Electronic Message Center having a new connected lighting power load greater than 15 kW per [d:t24ref/]110.12(d).[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="GErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_H" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]H. ENERGY VERIFIED LABELED SIGNS AND CONTROLS [/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if B05_LightedSignPrescriptiveMethod == EnergyVerifiedLabel</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="H_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Table Instructions: Complete this table to demonstrate compliance with mandatory controls requirements from [d:t24ref/]130.3 for illuminated signs using the ENERGY VERIFIED label compliance method per [d:t24ref/]140.8(b) as indicated on Table B of this compliance document.  Complete this table only if sign has a permanent, pre-printed, factory installed, ENERGY VERIFIED label confirming that the sign complies with the Section 140.8 of the California 2016 Title 24, Part 6 Standards. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableEnergyVerifiedLabels" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="H01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B01_LightedSignName where B05_LightedSignPrescriptiveMethod == EnergyVerifiedLabel</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H02_LightedSignDescription" type="lit:LightedSignDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Complete Sign Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = B02_LightedSignDescription value  for sign defined in H01_LightedSignName</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H03_Header" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Mandatory Controls</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H03a_SignShutOffControls" type="comp:SignShutOffControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains:  AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H03a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains:  AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H03b_SignDimmingControls" type="comp:SignDimmingControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H03b_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H03c_SignDemandResponseControls" type="comp:SignDemandResponseControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H03c_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="H04_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This field is displayed as  Pass checkbox and a Fail checkbox in printed form that is given to the Field Inspector.  It is currently not part of the stored XML data</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="HNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]* NOTES: Controls with a * require a note in the space below explaining how compliance is achieved.   EX: Sign within tunnel illuminated day and night; EXCEPTION to 130.3(a)2A. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="H_TableComplianceNotes" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required If H03a_SignShutOffControls == Other or Exempt, Or If H03b_SignDimmingControls  == Exempt</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="H_Exception01_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled result = H01_LightedSignName where H03a_SignShutOffControls == Other or Exempt Or H03b_SignDimmingControls == Exempt</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input explanation for exception(s) to this lighted sign</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="HEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTE:  Demand response controls are only required for an Electronic Message Center having a new connected lighting power load greater than 15 kW per [d:t24ref/]110.12(d).[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="HErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_I" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]I. DECLARATION OF REQUIRED CERTIFICATES OF INSTALLATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="I__ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">In addition to the Certificates of Compliance, the Standards also require Certificates of Installation to be submitted to the authority having jurisdiction.  This section of the compliance documentation serves as an acknowledgement of, and a declaration that Certificates of Installation are required to be submitted for compliance with the nonresidential lighting Standards.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="I_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i] Table Instructions: Selections have been made based on information provided in previous tables of this document. If any selection needs to be changed, please explain why in Table E. Additional Remarks.  These documents must be provided to the building inspector during construction and can be found online at https://www.energy.ca.gov/title24/2019standards/2019_compliance_documents/Nonresidential_Documents/NRCI/ [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="I01_RequireNRCILts01E" type="comp:RequireNRCILts01E"  fixed="true">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCI-LTS-01-E - Must be submitted for all buildings</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = true display term Yes represented as a radio button.  This needs to always be true and therefore the value is fixed.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="I01a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_J" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]J. DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE [/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="J_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]There are no Certificates of Acceptance applicable to sign lighting requirements.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="nRCCLTS01E" type="NRCCLTS01E">
+      <xsd:annotation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCCLTS01E compliance report.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+</xsd:schema>
