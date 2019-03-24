@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.lmonte.com/besm/NRCCELC01E" version="2019.0.002" xmlns="http://www.lmonte.com/besm/NRCCELC01E" xmlns:altova="http://www.altova.com/xml-schema-extensions" xmlns:bld="http://www.lmonte.com/besm/bld" xmlns:com="http://www.lmonte.com/besm/com" xmlns:comp="http://www.lmonte.com/besm/comp" xmlns:d="http://www.lmonte.com/besm/d" xmlns:dtyp="http://www.lmonte.com/besm/dtyp" xmlns:env="http://www.lmonte.com/besm/env" xmlns:hvac="http://www.lmonte.com/besm/hvac" xmlns:lit="http://www.lmonte.com/besm/lit" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="../base/DataTypes.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="../base/NrPresHvac.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/lit" schemaLocation="../base/NrPresLighting.xsd"/>
+   <xsd:element name="ComplianceDocumentPackage">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="DocID" minOccurs="0">
+               <xsd:complexType>
+                  <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCCELCE"/>
+                  <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CERTIFICATE OF COMPLIANCE NR"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Electrical Power Distribution"/>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Payload" type="comp:Payload"/>
+            <xsd:element name="DocumentData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="Header" type="comp:HeaderNRCC"/>
+                     <xsd:element ref="nRCCELC01E"/>
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor"/>
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC"/>
+                     <xsd:element name="Footer" type="comp:FooterNRCC"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+         </xsd:sequence>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20190401"/>
+         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCELCE"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="NRCCELC01E">
+      <xsd:annotation>
+         <xsd:documentation>Electrical Power Distribution</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b> A. GENERAL INFORMATION</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="A_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This document is used to demonstrate compliance with mandatory requirements in 
+                              <d:t24ref h="130.5"/>, for electrical systems in newly constructed nonresidential, high-rise residential and hotel/motel occupancies.  Additions and alterations to electrical service systems in these occupancies will also use this document to demonstrate compliance per 
+                              <d:t24ref h="141.0(a)"/> or  
+                              <d:t24ref h="141.0(b)2P"/> for alterations..</d:i>
+                        </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This note should be placed after the header and before section A</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A_Tooltip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Specify the occupancy types within the permitted scope.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A01_ProjectCity" type="comp:ProjectCity">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02_WholeBuildingOccupancy" minOccurs="1" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Occupancy Types Within Project:</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User selects one or more occupancy types in the project: OfficeBuilding display term Office, RetailBuilding display term Retail, Warehouse display term Warehouse, HotelMotel display term Hotel/Motel, SchoolBuilding display term School, SupportArea display term Support Areas, ParkingGarageBuilding display term Parking Garage, HighRiseResidential display term High-Rise Residential, RelocatablePublicSchoolBuilding display term Relocatable, HospitalBuilding display term Healthcare Facilities,  AllOthersBuildings display term Other (Write In).  Each display term has a checkbox. If selected the occupancy type  is added to the result.</xsd:documentation>
+                        <xsd:appinfo source="displayterm">
+                           <dtyp:displayterm value="HospitalBuilding">Healthcare Facilities</dtyp:displayterm>
+                           <dtyp:displayterm value="RelocatablePublicSchoolBuilding">Relocatable</dtyp:displayterm>
+                           <dtyp:displayterm value="RetailBuilding">Retail</dtyp:displayterm>
+                           <dtyp:displayterm value="AllOthersBuildings">Other (Write In)</dtyp:displayterm>
+                        </xsd:appinfo>
+                     </xsd:annotation>
+                     <xsd:simpleType>
+                        <xsd:restriction base="com:WholeBuildingOccupancy">
+                           <xsd:enumeration value="AllOthersBuildings"/>
+                           <xsd:enumeration value="HighRiseResidential"/>
+                           <xsd:enumeration value="HospitalBuilding"/>
+                           <xsd:enumeration value="HotelMotel"/>
+                           <xsd:enumeration value="OfficeBuilding"/>
+                           <xsd:enumeration value="ParkingGarageBuilding"/>
+                           <xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
+                           <xsd:enumeration value="RetailBuilding"/>
+                           <xsd:enumeration value="SchoolBuilding"/>
+                           <xsd:enumeration value="SupportArea"/>
+                           <xsd:enumeration value="Warehouse"/>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="A02a_TypeOtherDescription" type="com:TypeOtherDescription" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="CalculationsAndRules">If A02_WholeBuildingOccupancy includes AllOtherBuildings, this field is required.  User must input a short description of the occupancy  type in this field.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="AErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_B" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b> B. PROJECT SCOPE</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="B_Tooltip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Project Scope must be defined before other sections of the NRCC-ELC will expand for user input.  Indicate the scope of work for each electrical service in column 02.  Note alterations that change both branch circuits and feeders at the same time (not just one or the other) are required to comply with 
+                           <d:t24ref h="130.5"/>.  In column 04 indicate if the project is taking the exception to 
+                           <d:t24ref h="130.5(a)"/> because the utility company is providing a metering system.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>Table Instructions: Include any electrical systems that are within the scope of the permit application. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableProjectScope">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="B01_ElectricalServiceName" type="comp:ElectricalServiceName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="B02_ElectricalServiceProjectScope" type="comp:ElectricalServiceProjectScope">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Scope of Work<d:sup>1</d:sup>
+                                          </xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: AddAltFeedersBranchCircuitsOnly display term Add/Alt to feeders and branch circuits only, NewElectricalService display term New electrical service equipment and meter, NewReplacementServiceMeterOnly display term New or replacement service meter only, ReplacementElectricalService display term Complete replacement service equipment and meter, ReplacementElectricalServiceNotMeter display term Complete replacement service equipment, no meter change</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="B03_ElectricalServiceRating" type="comp:ElectricalServiceRating">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = N/A stored in NotApplicableMessage and cell is grayed out; Else user input</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="B03_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = N/A stored in NotApplicableMessage and cell is grayed out; Else user input</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="B04_UtilityProvidedMeterException130_5a" type="comp:UtilityProvidedMeterException130_5a">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Utility Provided Metering System Exception to  
+                                             <d:t24ref h="130.5(a)"/><d:sup>2</d:sup>
+                                          </xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly result = false and field is grayed out;  Else user input.  If checked result = true, Else result = false.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="B05_DoesElectricalCodeExceptionApply" type="comp:DoesElectricalCodeExceptionApply">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">System subject to CA Electrical Code Exception to 
+                                             <d:t24ref h="130.5(a)and"/> (b)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input;  If checked result = true; Else result = false</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="B06" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Demand Response Controls</xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Where required, demand response controls must be specified which are capable of receiving and automatically responding to at least one standards based messaging protocol which enables demand response after receiving a demand response signal.  Sections 
+                                             <d:t24ref h="120.2"/>, 
+                                             <d:t24ref h="130.1"/> and 
+                                             <d:t24ref h="130.3"/> and compliance documents NRCC-MCH, NRCC-LTI and NRCC-LTS will indicate when demand response controls are required.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="BEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i><d:sup>1</d:sup>FOOTNOTES:  Adding only new feeders and branch circuits triggers Voltage Drop 130.5(c), no other requirements from 130.5 are required. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="BEndNote2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i><d:sup>2</d:sup> Applicable if the utility company is providing a metering system that indicates instantaneous kW demand and kWh for a utility-defined period. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="BErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_C" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>C. COMPLIANCE RESULTS</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="C_ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Table C is auto-filled from data found in the rest of the NRCC-ELC, and it may not be directly edited by the form user.  Table C compliance results are automatically calculated from data input and calculations in Tables F through I.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>Table Instructions: If this table says "DOES NOT COMPLY"  refer to Table D. for guidance and review the Table that indicates "No".</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C01_DoesElectricalServiceMeteringComply" type="comp:DoesElectricalServiceMeteringComply">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Service Electrical Metering 
+                              <d:t24ref h="130.5(a)"/>
+                              <d:line1/> (See Table F)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = NotApplicable stored in C01_NotApplicableMessage and field is grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C01_NotApplicableMessage" type="comp:NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Service Electrical Metering 
+                              <d:t24ref h="130.5(a)"/>
+                              <d:line1/> (See Table F)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = NotApplicable stored in C01_NotApplicableMessage and field is grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="C01AfterSubheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">AND</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C02_DoesLoadSeparationMonitoringComply" type="comp:DoesLoadSeparationMonitoringComply">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Separation for Monitoring 
+                              <d:t24ref h="130.5(b)"/>
+                              <d:line1/> (See Table G)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope Not== NewElectricalService And Not== ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = NotApplicable stored in C02_NotApplicableMessage and field is grayed out;  Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else
+ If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C02_NotApplicableMessage" type="comp:NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Separation for Monitoring 
+                              <d:t24ref h="130.5(b)"/>
+                              <d:line1/> (See Table G)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope Not== NewElectricalService And Not== ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = NotApplicable stored in C02_NotApplicableMessage and field is grayed out;  Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else
+ If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="C02AfterSubheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">AND</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C03_DoesVoltageDropComply" type="comp:DoesVoltageDropComply">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Voltage Drop 
+                              <d:t24ref h="130.5(c)"/>
+                              <d:line1/> (See Table H)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = NotApplicable stored in C03_NotApplicableMessage and field is grayed out;  Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C03_NotApplicableMessage" type="comp:NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Voltage Drop 
+                              <d:t24ref h="130.5(c)"/>
+                              <d:line1/> (See Table H)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = NotApplicable stored in C03_NotApplicableMessage and field is grayed out;  Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="C03AfterSubheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">AND</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C04_DoControlledReceptaclesComply" type="comp:DoControlledReceptaclesComply">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Controlled Receptacles 
+                              <d:t24ref h="130.5(d)"/>
+                              <d:line1/> (See Table I)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuilndOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = NotApplicable stored in C04_NotApplicableMessage and cell is grayed out;  Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No;</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C04_NotApplicableMessage" type="comp:NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Controlled Receptacles 
+                              <d:t24ref h="130.5(d)"/>
+                              <d:line1/> (See Table I)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuilndOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = NotApplicable stored in C04_NotApplicableMessage and cell is grayed out;  Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No;</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="C05_DoesElectricalServiceProjectComplyWithAllRequirements" type="comp:DoesElectricalServiceProjectComplyWithAllRequirements">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Compliance Results</d:b>
+                        </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value:  If C01_DoesElectricalServiceMeteringComply == false Or C02_DoesLoadSeparationMonitoringComply == false Or C03_DoesVoltageDropComply == false Or C04_DoControlledReceptaclesComply == false, then result = false display term DOES NOT COMPLY Else result = true display text COMPLIES</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_D" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>D. EXCEPTIONAL CONDITIONS</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="D_ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Table D is auto-filled with warnings and compliance notes directed to the form user and the enforcement agency based on data inputs and calculations in the rest of the NRCC-ELC.  It may not be directly edited by the form user.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="D_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This table is auto-filled with uneditable comments because of selections made or data entered in tables throughout the form.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableAllExceptionalConditions" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if there are any exceptional conditions in sections G, H or I</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="D01_SectionTitle" type="comp:SectionTitle">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled with the section title string + Permit Applicant Notes. For Section_G result = G. Separation Of Electrical Circuits For Energy Monitoring Permit Applicant Notes  For Section_H result = H. Voltage Drop  Permit Applicant Notes  For Section_I result = I. Circuit Controls For 120-Volt Receptacles And Controlled Receptacles Permit Applicant Notes</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="D02_SectionExceptionalConditionNotes" type="comp:SectionExceptionalConditionNotes" maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">This combines all exceptional condition notes for the section defined in D01_SectionTitle.  For section G,  each entry = G_Exception01_ElectricalLoadType + : + G_Exception02_SectionExceptionalConditionNote.  For section H  each entry = H_Exception01_ElectricalServiceName + : + H_Exception02_SectionExceptionalConditionNote.  For section I  each entry = I_Exception01_ElectricalServiceName + : + I_Exception02_SectionExceptionalConditionNote.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="D03_ExceptionalConditionMessageNRCCELCE" type="comp:ExceptionalConditionMessageNRCCELCE" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_E" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>E. ADDITIONAL REMARKS</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="E_ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Table E allows user input of additional information to support the compliance documentation.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This table is includes remarks made by the permit applicant to the Authority Having Jurisdiction.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E01_CommentsToPermitAuthority" type="comp:CommentsToPermitAuthority" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_F" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>F. SERVICE ELECTRICAL METERING</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If B02_ElectricalServiceProjectScope != AlterationsFeedersBranchCircuitsOnly Or ReplacementElectricalServiceNotMeter  And B04_UtilityProvidedMeterException130_5a == false And B05_DoesElectricalCodeExceptionApply == false</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="F_ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Table F autofills with required metering capabilities depending on the service rating in accordance with Table 130.5-A in the Energy Standards.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>Table Instructions: Complete the table below for new or replacement electrical service systems OR equipment to demonstrate compliance with 
+                              <d:t24ref h="130.5(a)"/>
+                           </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableElectricalService">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="F01_ElectricalServiceName" type="comp:ElectricalServiceName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = B01_ElectricalServiceName where B02_ElectricalServiceProjectScope != AlterationsFeedersBranchCircuitsOnly Or ReplacementElectricalServiceNotMeter</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F02_ElectricalServiceRating" type="comp:ElectricalServiceRating">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = B03_ElectricalServiceRating for F01_ElectricalServiceName value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F03_Header" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">Required Metering Capabilities per Table 130.5-A</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F03a_MeteringDemandRequired" type="comp:MeteringDemandRequired">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Instantaneous Demand (kW)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = true and checkbox is checked.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F03b_MeteringPeakDemandRequired" type="comp:MeteringPeakDemandRequired">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: If F02_ElectricalServiceRating GT 250 result = true and checkbox checked  Else result = false and checkbox is unchecked</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F03c_MeteringkWhPerUserPeriodRequired" type="comp:MeteringkWhPerUserPeriodRequired">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = true and checkbox is checked.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F03d_MeteringkWhPerRatePeriodRequired" type="comp:MeteringkWhPerRatePeriodRequired">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: If F02_ElectricalServiceRating GT 1000 result = true and checkbox checked  Else result = false and checkbox is unchecked</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F04_BuildingPlanName" type="comp:BuildingPlanName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="F05_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This field is displayed as  Pass checkbox and a Fail checkbox in printed form that is given to the Field Inspector.  It is currently not part of the stored XML data</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="FErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_G" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>G. SEPARATION OF ELECTRICAL CIRCUITS FOR ENERGY MONITORING</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">Section G is required if any row in section B has B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter And if B05_DoesElectricalCodeExceptionApply == false</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="G_ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Electrical Services indicated in  Table B  as being new or replacements will automatically be brought into Table G for demonstration of compliance with 
+                           <d:t24ref h="130.5(b)"/>.  Using the dropdown choices in column 01, indicate the load types included for each service.  Any load types that are not included in the service do not need to be shown.  If there is no requirement for that load type, column 02 will automatically say "not required" and no inputs will be required for columns 03 and 04.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>Table Instructions: Complete this table for entirely new or complete replacement electrical power distribution systems to demonstrate compliance with 
+                              <d:t24ref h="130.5(b)"/>.  Using the dropdown choices in column 01, indicate the load types included for each service.  Any load types that are not included in the service do not need to be shown. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="ElectricalService" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Electrical Service</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">There is an Electrical Service subsection for every B01_ElectricalServiceName where B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter And if B05_DoesElectricalCodeExceptionApply == false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="G00_ElectricalServiceName" type="comp:ElectricalServiceName">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Electrical Service Designation/Description</d:b>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated value:  result = B01_ElectricalServiceName where B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter And if B05_DoesElectricalCodeExceptionApply == false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="TableLoadSeparation">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="G01_ElectricalLoadType" type="com:ElectricalLoadType">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Load Type per Table 130.5-B<d:sup>1</d:sup>
+                                                   </xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: LightingLoad display term Lighting including exit, egress and exterior, HVAC_Load display term HVAC systems and components, WaterSystemsLoad display term Domestic and service water systems, PlugLoadsLT25kVA display term Plug Loads and appliances less than 25kVA, ElevatorEscalatorMovingWalkwayLoad display term Elevators, escalators, moving walkways, PlugLoadsGTE25kVA display term Other non-HVAC loads and appliances greater than or equal to 25kVA, IndustrialCommercialLoadCentersGTE25kVA display term Industrial/Commercial Load Centers greater than or equal to 25kVA, RenewablePowerSources display term Renewable power sources (net or total), RenewablePowerSourcesAssociatedLoad display term Loads associated with renewable power sources, ElectricalVehicleChargingStationLoad display term Charging stations for electrical vehicle</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="G02_ElectricalLoadSeparationRequirement" type="comp:ElectricalLoadSeparationRequirement">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Minimum Required Separation of Load per Table 130.5-B</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">Calculated value:  If  B03_ElectricalServiceRating LTE 50 And G01_ElectricalLoadType != ElectricalVehicleChargingStationLoad Or RenewablePowerSources result = NoRequirementForLoadType;   Else If G01_ElectricalLoadType == ElectricalVehicleChargingStationLoad  Or ElevatorEscalatorMovingWalkwayLoad Or IndustrialCommercialLoadCentersGTE25kVA Or PlugLoadsGTE25kVA Or RenewablePowerSourcesAssociatedLoad Or WaterSystemsLoad  result = AllLoadsAggregated;  Else If G01_ElectricalLoadType == RenewablePowerSources result = EachGroup; Else If B03_ElectricalServiceRating in InclusiveRange (GT50, 250) And G01_ElectricalLoadType == HVAC_Load result = HVAC_LoadsAggregated; Else If B03_ElectricalServiceRating GT 250  And G01_ElectricalLoadType == HVAC_Load result = HVAC_LoadsAggregatedEachRatedGTE50kVA; Else If B03_ElectricalServiceRating in InclusiveRange (GT50, 250) And G01_ElectricalLoadType == LightingLoad result = LightingLoadsAggregated; Else If B03_ElectricalServiceRating GT 250 And G01_ElectricalLoadType == LightingLoad result = LightingLoadsDisaggregated; Else If B03_ElectricalServiceRating in InclusiveRange (GT50, 250) And G01_ElectricalLoadType == PlugLoadsLT25kVA result = PlugLoadsAggregated; Else If B03_ElectricalServiceRating GT 250 And G01_ElectricalLoadType ==  PlugLoadsLT25kVA result = PlugLoadsDisaggregated;</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="G03_ElectricalLoadComplianceMethod" type="comp:ElectricalLoadComplianceMethod">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Compliance Method<d:sup>2</d:sup>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G03_NotApplicableMessage; Else user selects from dropdown list: Method1ControlBoardsDisaggregateLoads display term Method1, Method2DistributionEquipmentWithLoadsDisaggregated display term Method2, Method3MeteringSystemReportsLoads display term Method3, OtherComplianceMethod display term Other*</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="G03_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Compliance Method<d:sup>2</d:sup>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G03_NotApplicableMessage; Else user selects from dropdown list: Method1ControlBoardsDisaggregateLoads display term Method1, Method2DistributionEquipmentWithLoadsDisaggregated display term Method2, Method3MeteringSystemReportsLoads display term Method3, OtherComplianceMethod display term Other*</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="G04_BuildingPlanName" type="comp:BuildingPlanName">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G04_NotApplicableMessage; Else user input</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="G04_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G04_NotApplicableMessage; Else user input</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:element name="G05_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">This field is displayed as  Pass checkbox and a Fail checkbox in printed form that is given to the Field Inspector.  It is currently not part of the stored XML data</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="GNote1" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="AdditionalRequirements">
+                                    <d:i>* NOTES: If "Other*" is selected under Compliance Method above, please indicate how compliance has been achieved in the space provided below.</d:i>
+                                 </xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="TableComplianceNotes" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="G_Exception01_ElectricalLoadType" type="com:ElectricalLoadType">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">Auto-filled from G01_ElectricalLoadType  where G03_ElectricalLoadComplianceMethod == OtherComplianceMethod</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="G_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="GEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i><d:sup>1</d:sup>  FOOTNOTES: For each separate load type, up to 10% of the connected load may be of any type.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="GEndNote2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i><d:sup>2</d:sup>  Method 1: Switchboards/ motor control centers/ panelboard loads disaggregated for each load type. 
+                              <d:line1/> Method 2: Switchboards/ motor control centers/ panelboard supply other distribution equipment with loads disaggregated for each load type.  
+                              <d:line1/> Method 3: Complete metering system measures and reports loads by type.   
+                              <d:line1/>  See Chapter 8 of the Nonresidential Compliance Manual for more detail on Compliance Methods.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="GErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_H" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>H. VOLTAGE DROP </d:b>
+               </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">Section H is required If B02_ElectricalServiceProjectScope !=  NewReplacementServiceMeterOnly</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="H_Tooltip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Table H. is required to show compliance with voltage drop requirements in 
+                           <d:t24ref h="130.5(c)"/> for new or replacement electrical power distribution systems and alterations that add, modify or replace both feeders and branch circuits.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="H_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>Table Instructions: Please complete this table for entirely new or complete replacement electrical power distribution systems, or alterations that add, modify or replace both feeders and branch circuits to demonstrate compliance with 
+                              <d:t24ref h="130.5(c)"/>.  For alterations, only the altered circuits must demonstrate compliance per 
+                              <d:t24ref h="141.0(b)2Piii"/> .</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableVoltageDrop">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="H01_ElectricalServiceName" type="comp:ElectricalServiceName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = B01_ElectricalServiceName where B02_ElectricalServiceProjectScope !=  NewReplacementServiceMeterOnly</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H02ColumnHeading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">Combined Voltage Drop on Installed Feeder/Branch Circuit Conductors Compliance Method</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H02a_CircuitVoltageDropCompliance" type="comp:CircuitVoltageDropCompliance" fixed="VoltageDropLT5Percent">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Voltage drop 
+                                                <d:lt/> 5%</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">User either: checks 1st choice, Voltage drop less than 5%, and result = VoltageDropLT5Percent; Else user checks 2nd choice Permitted by CEC and result = VoltageDropException</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H02b_CircuitVoltageDropCompliance" type="comp:CircuitVoltageDropCompliance" fixed="VoltageDropException">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Permitted by CA Elec Code (Exception to 
+                                                <d:t24ref/>130.5(c))*</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">User either: checks 1st choice, Voltage drop less than 5%, and result = VoltageDropLT5Percent; Else user checks 2nd choice Permitted by CEC and result = VoltageDropException</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="H03_CircuitVoltageDropCalculations" type="comp:CircuitVoltageDropCalculations">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Location of Voltage Drop Calculations<d:sup>1</d:sup>
+                                          </xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: CalculationsAttached display term Attached, CalculationsContractorResponsible display term Contractor Responsible, CalculationsInDoc display term In construction documents;  If result = CalculationsContractorResponsible section D D03_ExceptionalConditionMessageNRCCELCE = CalculationsProvidedInH</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H04_BuildingPlanName" type="comp:BuildingPlanName" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Sheet Number for Voltage Drop Calculations in Construction Documents</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If H03_CircuitVoltageDropCalculations = CalculationsInDocs this is enabled and requires input from the user; Else this field is not required and grayed out.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H05_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This field is displayed as  Pass checkbox and a Fail checkbox in printed form that is given to the Field Inspector.  It is currently not part of the stored XML data</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="HNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>* NOTES: If "Permitted by CA Elec Code *" is selected under Compliance Method above, please indicate where the exception applies in the space provided below.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableComplianceNotes" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if H02_CircuitVoltageDropCompliance ==VoltageDropException</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="H_Exception01_ElectricalServiceName" type="comp:ElectricalServiceName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value:  result = 01_ElectricalServiceName where H02_CircuitVoltageDropCompliance == VoltageDropException</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">User input compliance explanation for exception</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="HEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i><d:sup>1</d:sup>  FOOTNOTES: Voltage drop calculations may be attached to the permit application outside the construction documents if allowed by the Authority Having Jurisdiction.  Select "attached" if applicable.  If calculations will be the responsibility of the installing contractor, select "Contractor Responsible". </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="HErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_I" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>I.CIRCUIT CONTROLS FOR 120-VOLT RECEPTACLES AND CONTROLLED RECEPTACLES</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">Section I is required if  A02_WholeBuildingOccupancy != HospitalBuilding  And B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="I_Tooltip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">Table I. is used to demonstrate compliance with 
+                           <d:t24ref h="130.5(d)"/>.  The following receptacles are excepted from the requirements: 
+                           <d:line1/> - Refrigerators and water dispensers in kitchens 
+                           <d:line1/> - Located a minimum of 6ft above the floor specifically for clocks 
+                           <d:line1/> - Network copiers, fax machines, A/V and data equipment other than personal computers in copy rooms 
+                           <d:line1/> - Circuits rated more than 20 Amps 
+                           <d:line1/> - Connected to a UPS that are intended to be in continuous use and are marked to differentiate them from other receptacles or circuits 
+                           <d:line1/> Controlled receptacles are required to be permanently marked for building occupant identification.  Indicate the permanent marking requirement will be met in column 04.  Split-wired receptacles may have one controlled and one uncontrolled outlet and can be used to comply per [dt24ref/]130.5(d)2.  A combination of split-wired and controlled receptacles within 6ft of uncontrolled receptacles may be used as a compliance strategy.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="I_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>Table Instructions: Please complete this table for entirely new or complete replacement electrical power distribution systems to demonstrate compliance with 
+                              <d:t24ref h="130.5(d)"/>.  Both controlled and uncontrolled receptacles must be provided in office areas, lobbies, conference rooms, kitchen areas in office spaces, copy rooms and hotel/motel guest rooms.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableControlledReceptacles">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="I01_SpaceDescription" type="com:SpaceDescription">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Room name or Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="I02_ControlledReceptacleComplianceType" type="comp:ControlledReceptacleComplianceType">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Location/ Type of Controlled Receptacles</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: ControlledWithin6ftOfUncontrolledReceptacle display term Within 6ft of uncontrolled receptacle, SplitWiredReceptacle display term Split-wired receptacle, ControlledWithin6ftOfUncontrolledAndSplitWiredReceptacle display term Within 6ft of uncontrolled AND Split-wired receptacle, ControlledReceptacle50PercentHotelMotel display term 50 % are controlled receptacle (hotel/motel room), ControlledReceptacleAtEachWorkstation display term At each workstation (modular furniture only), ControlledReceptacleNotApplicable display term NA: No applicable space types on this service</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="I03_ControlledReceptacleShutOffControl" type="comp:ControlledReceptacleShutOffControl" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, this field is not required and grayed out; Else user selects from dropdown list: AutomaticTimerSwitch display term Auto Time-Switch with applicable overrides, OccupancySensor display term Occupancy Sensor, HardwiredOccupancySensorPowerStrip display term Occ-sensing Hardwired Power Strip,   CardKeyHotelControlledReceptacles display term Captive Card Key (hotel only),  OtherShutOffControl display term Other*</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="I04_AreControlledReceptaclesPermanentlyMarked" type="comp:AreControlledReceptaclesPermanentlyMarked" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Permanent Durable Marking Will be Used</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable,  this field is not required and grayed out; Else user input is required; If checked result = true Else result = false</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="I05_BuildingPlanName" type="comp:BuildingPlanName" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable,  this field is not required and grayed out;  Else user input is required</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="I06_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="INote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>* NOTES: If "Other*" is selected under Shut-Off Controls above, please indicate how compliance has been achieved in the space provided below.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableComplianceNotes" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="I_Exception01_ElectricalServiceName" type="comp:ElectricalServiceName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value:  result = I01_ElectricalServiceName where I03_ControlledReceptacleShutOffControl == OtherShutOffControl</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="I_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="IErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_J" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>J. DECLARATION OF REQUIRED CERTIFICATES OF INSTALLATION</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="J_ToolTip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">In addition to the Certificates of Compliance, the Standards also require Certificates of Installation to be submitted to the authority having jurisdiction.  This section of the compliance documentation serves as an acknowledgement of, and a declaration that Certificates of Installation are required to be submitted for compliance with the nonresidential electrical power distribution Standards.  The boxes must be checked for every Certificate of Installation that applies to the job.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="J_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i> Table Instructions: Selections have been made based on information provided in previous tables of this document. If any selection needs to be changed, please explain why in Table E. Additional Remarks.  These documents must be provided to the building inspector during construction and can be found online at https://www.energy.ca.gov/title24/2019standards/2019_compliance_documents/Nonresidential_Documents/NRCI/ </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="J01a_RequireNRCIElc01E" type="comp:RequireNRCIElc01E">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCI-ELC-01-E - Must be submitted for all buildings</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = true display term Yes represented as a radio button.  If user changes this value to false display term No represented as a radio button, an explanation is required in Section E Additional Remarks.  This will also result in D03_ExceptionalConditionMessageNRCCELCE = UserChangedSelectionInJ</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="J01b_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_K" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>K. DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="K_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>There are no Certificates of Acceptance applicable to electrical power distribution requirements.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="nRCCELC01E" type="NRCCELC01E">
+      <xsd:annotation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCCELC01E compliance report.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+</xsd:schema>
