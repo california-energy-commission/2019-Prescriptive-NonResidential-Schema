@@ -1,0 +1,2095 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+   targetNamespace="http://www.lmonte.com/besm/NRCCCXR01E"
+   xmlns="http://www.lmonte.com/besm/NRCCCXR01E"
+   xmlns:d="http://www.lmonte.com/besm/d"
+   xmlns:bld="http://www.lmonte.com/besm/bld"
+   xmlns:env="http://www.lmonte.com/besm/env"
+   xmlns:lit="http://www.lmonte.com/besm/lit"
+   xmlns:hvac="http://www.lmonte.com/besm/hvac"
+   xmlns:comp="http://www.lmonte.com/besm/comp"
+   xmlns:com="http://www.lmonte.com/besm/com"
+   xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:altova="http://www.altova.com/xml-schema-extensions"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
+   <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/lit" schemaLocation="../base/NrPresLighting.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="../base/NrPresHvac.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="../base/DataTypes.xsd"/>
+   <xsd:element name="ComplianceDocumentPackage">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="DocID" minOccurs="0">
+               <xsd:complexType>
+                  <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCCCXRE"/>
+                  <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CERTIFICATE OF COMPLIANCE NR"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Nonresidential Building Commissioning"/>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Payload" type="comp:Payload"/>
+            <xsd:element name="DocumentData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="Header" type="comp:HeaderNRCC" />
+                     <xsd:element ref="nRCCCXR01E" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" />
+                     <xsd:element name="Footer" type="comp:FooterNRCC" />
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+         </xsd:sequence>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20190401"/>
+         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCCXRE"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="NRCCCXR01E">
+      <xsd:annotation>
+         <xsd:documentation>Nonresidential Building Commissioning</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]A. GENERAL INFORMATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="A_BeforeNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This document is used to demonstrate compliance with mandatory commissioning requirements in [d:t24ref/]120.8 for nonresidential buildings and hotel/motel or high-rise residential buildings with nonresidential spaces. This document does not demonstrate compliance with commissioning requirements within Title 24, Part 11, which need to be documented separately if they apply.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02_CommissioningOccupancy" type="comp:CommissioningOccupancy" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Occupancy Type</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input selected from occupancy types in dropdown: Nonresidential, HighRiseResidential, HotelMotel, MixedUse, Healthcare, AllOthers.  If result == Healthcare A02StopMessage is displayed; Else If result ==  AllOthers A0203StopMessage is displayed.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03_CommissioningProjectScope" type="comp:CommissioningProjectScope" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Type</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input selected from project types: NewConstruction, MajorRenovation, ShellCoreOnly, TenantFitOutOnly and AdditionAlteration. If result ==  AdditionAlteration A0203StopMessage is displayed.
+</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A04_TotalGrossFloorArea" type="com:TotalGrossFloorArea" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building Size (ft[d:sup]2[/d:sup])</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A05_ConditionedFloorAreaRangeNR" type="env:ConditionedFloorAreaRangeNR" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Nonresidential Conditioned Floor Area  (ft[d:sup]2[/d:sup])</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input selected from list of floor area ranges:  LT10000Ft2, 10000To49999Ft2 and GTE50000Ft2</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A06_CommissioningHvacSystem" type="hvac:CommissioningHvacSystem" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">HVAC System Type</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input selected from list of HVAC system types: UnitaryPackagedEquipmentPerZone, TwoPipeHeatingOnly, and ComplexHvacSystem</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A0203StopMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP! Occupancy types that are not nonresidential, high-rise residential ([d:gte/]4 stories), hotel/motel or mixed-use and project types which are additions or alterations, are not required to comply with commissioning requirements in [d:t24ref/]120.8 and do not need to complete this compliance document.[/d:i][/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02StopMessage" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP! Healthcare facilities are not required to comply with the Commissioning requirements in Part 6, but must comply with the applicable requirements in Chapter 7 of Title 24 Part 1 (OSHPD)..[/d:i][/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_B" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]B. PROJECT SCOPE[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="B_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Based on project information provided in Table A, Table B indicates which commissioning related requirements apply per  [d:t24ref/]120.8.  Table B is not editable by the user.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B_Subheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b]Commissioning Requirements per [d:t24ref/]120.8[/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table F: Design Review Kickoff</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">The design review kickoff meeting establishes who will play the role of the design reviewer, the project schedule and identify owner's requirements.  This meeting should be conducted during schematic design.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This  applies to all projects and is never grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(d)1 and [d:t24ref/]120.8(d)2
+</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B02_RequiredOPR" type="comp:RequiredOPR" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table G: Owner's Project Requirements (OPR)</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">The owner's project requirements establish the owner's goals, requirements and expectations for everything related to energy consumption and operation.  This should be completed during schematic design.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result = true and  AdditionalRequirements is displayed;  Else result = false display term, This requirement does not apply. and row is grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B02Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(b)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B03_RequiredBOD" type="comp:RequiredBOD" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table H: Basis of Design (BOD)</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">The basis of design documents the design elements such as calculations and product selections that meet the owner's project requirements and applicable regulatory requirements.  This should be completed during schematic design.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result = true and  AdditionalRequirements is displayed  Else result = false false display term, This requirement does not apply. and row is grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B03Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(c)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B04" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table I: Design Review</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">The design reviewer(s) reviews the construction documents for clarity, completeness, and adherence to the owner's goals.  Commissioning measures must be included in the construction documents to facilitate the design review and commissioning process.  For projects with [d:gte/] 10,000 ft[d:sup]2[/d:sup] of nonresidential conditioned floor area, or with complex mechanical systems, the design review is for adherence with the Owner's Project Requirements (OPR) and Basis of Design (BOD).  This should be conducted during design.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This  applies to all projects and AdditionalRequirements text is displayed and the row is never grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B04Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(d) and [d:t24ref/]120.8(e)
+</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B05_RequiredCommissioningPlan" type="comp:RequiredCommissioningPlan" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table J: Commissioning Plan</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">The commissioning plan is developed by the commissioning provider with input from the designer and defines the scope of commissioning the project.  This should be drafted during design and completed during early construction.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result = true and  AdditionalRequirements is displayed  Else result = false display term, This requirement does not apply. and row is grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B05Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(f)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B06_RequiredTesting" type="comp:RequiredTesting" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table K: Functional Performance Testing</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Functional performance testing is conducted on building systems to demonstrate correct installation and operation.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result = true and  AdditionalRequirements is displayed  Else result = false display term, This requirement does not apply. and row is grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B06Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(g)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B07_RequiredDocumentationTraining" type="comp:RequiredDocumentationTraining" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table L: Documentation and Training</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Documentation of the operational aspects of the building shall be completed within the Systems Manual and delivered to the building owner or representative and facilities operator.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result = true and  AdditionalRequirements is displayed  Else result = false display term, This requirement does not apply. and row is grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B07Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(h)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B08_RequiredCommissioningReport" type="comp:RequiredCommissioningReport" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table M: Commissioning Report</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">A complete report of commissioning process activities undertaken through the design, construction and reporting recommendations for post-construction phases of the building project shall be completed and provided to the owner or representative.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result = true and  AdditionalRequirements is displayed  Else result = false display term, This requirement does not apply. and row is grayed out.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B08Ref" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:t24ref/]120.8(i)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This contains one or more hyperlinked references and is displayed in the cell between the FieldText and AdditionalRequirements documentation elements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_C" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]C. COMPLIANCE RESULTS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="C_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Table C will indicate if the project data input into the compliance document is compliant with commissioning requirements per [d:t24ref/]120.8.  This table is not editable by the user.   If any cell on this table says "DOES NOT COMPLY" or "COMPLIES with Exceptional Conditions" refer to Table D. for guidance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01_CompliantSectionF" type="comp:CompliantSectionF" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Design Kickoff Review [d:line1/] Table F</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated field: If  F01_MeetingDate IsNull result = false; Switch ( A05_ConditionedFloorAreaRangeNR) case 10000To49999Ft2: If F03_Bldg10000ToLT50000Ft2DesignReviewerQualifies == true then result = true; Else result = false; case GTE50000Ft2: If F03_BldgGTE50000Ft2DesignReviewerQualifies == true Then result = true; Else result = false;  case LT10000Ft2: If  F03_BldgLT10000Ft2DesignReviewerQualifies == false result = false; Else If any field in ProjectGoalsEE which includes F10-F20 IsNull  result = false; Else result = true.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C02_CompliantSectionG" type="comp:CompliantSectionG" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Owner's Project Requirements [d:line1/] Table G</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C02_CompliantSectionG.   If G01_IsUserAttachingOPR == true then If G02_DocumentAuthorDetailsOPR IsNull result = false; Else result = true; Else If G01_IsUserAttachingOPR == false then If any field in EnergyEfficiencyGoalsOPR which includes G03-G52 IsNull  result = false; Else result = true.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C02_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Owner's Project Requirements [d:line1/] Table G</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = NotApplicable stored in C02_NotApplicableMessage and field is grayed out</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C03_CompliantSectionH" type="comp:CompliantSectionH" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Basis of Design [d:line1/] Table H</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C03_CompliantSectionH.   If H01_IsUserAttachingBOD == true then If H02_DocumentAuthorDetailsBOD IsNull result = false; Else result = true; Else If H01_IsUserAttachingBOD == false then If any field in EnergyEfficiencyDetailsBOD which includes H03-H34  IsNull  result = false; Else result = true.
+</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Basis of Design [d:line1/] Table H</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C03_CompliantSectionH.   If H01_IsUserAttachingBOD == true then If H02_DocumentAuthorDetailsBOD IsNull result = false; Else result = true; Else If H01_IsUserAttachingBOD == false then If any field in EnergyEfficiencyDetailsBOD which includes H03-H34  IsNull  result = false; Else result = true.
+</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="C04_CompliantSectionI" type="comp:CompliantSectionI" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Design Review [d:line1/] Table I</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated field:  If I01_IsUserAttachingDesignReviewDoc == true result = true; Else If any field in DesignReviewChecklist which includes I02-I09  IsNull  result = false; Else result = true.
+</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C05_CompliantSectionJ" type="comp:CompliantSectionJ" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Commissioning Plan [d:line1/] Table J</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C05_CompliantSectionJ.  If J01_IsUserAttachingCommissioningPlan == true then If J02__DocumentAuthorDetailsCommissioningPlan IsNull result = false; Else result = true; Else If J01_IsUserAttachingCommissioningPlan == false then If any field in DetailsCommissioningPlan which includes J03-J14  IsNull  result = false; Else result = true.
+</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C05_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Commissioning Plan [d:line1/] Table J</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2  result = NotApplicable stored in C05_NotApplicableMessage and field is grayed out</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C06_CompliantSectionK" type="comp:CompliantSectionK" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Functional Performance Testing [d:line1/] Table K</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C06_CompliantSectionK. If K01_FunctionalTestingRequirementsWillBeMet == true result = true Else result  = false.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C06_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Functional Performance Testing [d:line1/] Table K</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = NotApplicable stored in C06_NotApplicableMessage and field is grayed out</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C07_CompliantSectionL" type="comp:CompliantSectionL" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Documentation and Training [d:line1/] Table L</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C07_CompliantSectionL. If L01_OwnerSystemsManualRequirementsWillBeMet == true And L02_StaffTrainingRequirementsWillBeMet == true result = true Else result = false</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C07_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Documentation and Training [d:line1/] Table L</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = NotApplicable stored in C07_NotApplicableMessage and field is grayed out</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C08_CompliantSectionM" type="comp:CompliantSectionM" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Commissioning Report [d:line1/] Table M</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2  result is stored in C08_CompliantSectionM.   If M01_CommissioningReportRequirementsWillBeMet == true result = true Else result = false.</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C08_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Commissioning Report [d:line1/] Table M</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = NotApplicable stored in C08_NotApplicableMessage and field is grayed out</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="C09_DoAllSectionsComply" type="comp:DoAllSectionsComply" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Compliance Results</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated field: For fields C01 - C08 that are not grayed out, If  C01_CompliantSectionF == true And C02_CompliantSectionG == true And C03_CompliantSectionH == true And C04_CompliantSectionI == true And C05_CompliantSectionJ == true And C06_CompliantSectionK == true  And C07_CompliantSectionL == true And C08_CompliantSectionM == true result = true Else result = false</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C10a_PersonFullName" type="comp:PersonFullName"  minOccurs="1" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Design Reviewer(s) for the project include:</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled from section F F04_PersonFullName</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C10b_DoesDesignReviewerQualify" type="comp:DoesDesignReviewerQualify" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated field: If the displayed choice  in F03, F03_BldgLT10000Ft2DesignReviewerQualifies, F03_Bldg10000To49999Ft2DesignReviewerQualifies Or F03_BldgGTE50000Ft2DesignReviewerQualifies  == true then result = true Else result = false</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_D" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]D. EXCEPTIONAL CONDITIONS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="D_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is auto-filled with uneditable comments because of selections made or data entered in tables throughout the form.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableAllExceptionalConditions" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if there are any exceptional conditions in sections</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="D01_SectionTitle" type="comp:SectionTitle" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="D02_SectionExceptionalConditionNotes" type="comp:SectionExceptionalConditionNotes"  maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="D03_ExceptionalConditionMessageNRCCCXRE" type="comp:ExceptionalConditionMessageNRCCCXRE"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_E" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]E. ADDITIONAL REMARKS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="E_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes remarks made by the permit applicant to the Authority Having Jurisdiction.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E01_CommentsToPermitAuthority" type="comp:CommentsToPermitAuthority"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_F" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]F. DESIGN REVIEW KICKOFF MEETING[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="F_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates that the design reviewer meets the qualification requirements per Title 24, Part 1 Section 10-103(a)1 and demonstrates compliance with design review kickoff requirements per [d:t24ref/]120.8(d)2.  This meeting should occur during the Schematic Design phase of the project. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_ColumnHeading01To09" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b]Design Review Kickoff Meeting Details[/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F01_MeetingDate" type="comp:MeetingDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of Design Review Kickoff Meeting</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input  Internal schema  format for date is yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F02Subheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Meeting Attendees: (one person may play multiple roles)</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02a_OwnerRepAttending = true and F02a_PersonFullName is required; Else F02a_OwnerRepAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02a_OwnerRepAttending" type="comp:OwnerRepAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Owner/Facility Manager:</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02a_PersonFullName" type="comp:PersonFullName"  minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Owner/Facility Manager:</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02a_OwnerRepAttending == false this field is not required and should be disabled, Else user must provide the name of the owner or facility manager attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02b_ProjectManagerAttending = true and F02b_PersonFullName is required Else F02b_ProjectManagerAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02b_ProjectManagerAttending" type="comp:ProjectManagerAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Project Manager:</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02b_PersonFullName" type="comp:PersonFullName"  minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Project Manager:</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02b_ProjectManagerAttending == false this field is not required and should be disabled, Else user must provide the name of the project manager attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02c_ContractorAttending = true and F02c_PersonFullName is required Else F02c_ContractorAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02c_ContractorAttending" type="comp:ContractorAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Contractor:</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02c_PersonFullName" type="comp:PersonFullName"  minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Contractor:</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02c_ContractorAttending == false this field is not required and should be disabled, Else user must provide the name of the contractor attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02d_CommissioningProviderAttending = true and F02d_PersonFullName is required Else F02d_CommissioningProviderAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02d_CommissioningProviderAttending" type="comp:CommissioningProviderAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Commissioning Provider:</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02d_PersonFullName" type="comp:PersonFullName"  minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Commissioning Provider:</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02d_CommissioningProviderAttending == false this field is not required and should be disabled, Else user must provide the name of the commissioning provider attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02e_DesignReviewerAttending = true and F02e_PersonFullName is required Else F02e_DesignReviewerAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02e_DesignReviewerAttending" type="comp:DesignReviewerAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Design Reviewer(s)</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02e_PersonFullName" type="comp:PersonFullName"  minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Design Reviewer(s)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02e_DesignReviewerAttending == false this field is not required and should be disabled, Else user must provide the name(s) of the design  reviewer(s) attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02f_DesignArchitectEngineerAttending = true and F02f_PersonFullName is required Else F02f_DesignArchitectEngineerAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02f_DesignArchitectEngineerAttending" type="comp:DesignArchitectEngineerAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Design Architect/ Engineer(s):</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02f_PersonFullName" type="comp:PersonFullName"  minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Design Architect/ Engineer(s):</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02f_DesignArchitectEngineerAttending == false this field is not required and should be disabled, Else user must provide the name(s) of the design architect and or engineer(s) attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02g_AcceptanceTestTechAttending = true and F02g_PersonFullName is required Else F02g_AcceptanceTestTechAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02g_AcceptanceTestTechAttending" type="comp:AcceptanceTestTechAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Certified Acceptance Test Tech(s):</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02g_PersonFullName" type="comp:PersonFullName"  minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Certified Acceptance Test Tech(s):</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02g_AcceptanceTestTechAttending == false this field is not required and should be disabled, Else user must provide the name(s) of the certified acceptance test tech(s) attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:sequence maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02h_EnergyT24P6ConsultantAttending = true and F02h_PersonFullName is required Else F02h_EnergyT24P6ConsultantAttending = false</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:element name="F02h_EnergyT24P6ConsultantAttending" type="comp:EnergyT24P6ConsultantAttending" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Energy/ T24 Part 6 Consultant:</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F02h_PersonFullName" type="comp:PersonFullName"  minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Energy/ T24 Part 6 Consultant:</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If F02h_EnergyT24P6ConsultantAttending == false this field is not required and should be disabled, Else user must provide the name of the energy or Title 24 Part 6 consultant attending the meeting</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:sequence>
+                  <xsd:element name="F03Heading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b]Design Reviewer Qualifications per Title 24 Part 1 Section 10-103(a)1[/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F03Note1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">The design reviewer(s) must be licensed professional engineers or licensed architects, or licensed contractors representing services performed by or under the direct supervision of a licensed engineer or architect, as specified in the provisions of Division 3 of the Business and Professions Code.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="F03_BldgLT10000Ft2DesignReviewerQualifies" type="comp:BldgLT10000Ft2DesignReviewerQualifies" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Do the Design Reviewer(s) meet these qualifications?</xsd:documentation>
+                           <xsd:documentation source="AdditionalRequirements">In addition, for buildings with [d:lt/] 10,000 ft[d:sup]2[/d:sup], the design reviewer(s) may be the engineer or architect of record.  The design reviewer(s) may also be a qualified in-house engineer or architect with no other project involvement or a third party engineer, architect or contractor.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR == LT10000Ft2  the correct option to display is F03_BldgLT10000Ft2DesignReviewerQualifies and associated text.  If user selects Yes,  F03_BldgLT10000Ft2DesignReviewerQualifies = true, Else F03_BldgLT10000Ft2DesignReviewerQualifies = false</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F03_Bldg10000ToLT50000Ft2DesignReviewerQualifies" type="comp:Bldg10000ToLT50000Ft2DesignReviewerQualifies" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Do the Design Reviewer(s) meet these qualifications?</xsd:documentation>
+                           <xsd:documentation source="AdditionalRequirements">In addition, for buildings with [d:gte/] 10,000 ft [d:sup]2[/d:sup] but [d:lt/] 50,000[d:sup]2[/d:sup], the design reviewer(s) shall be a qualified in-house engineer or architect with no other project involvement or a third party engineer, architect, or contractor</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR == 10000ToLT50000Ft2 the correct option to display is F03_Bldg10000To49999Ft2DesignReviewerQualifies and associated text.  If user selects Yes, F03_Bldg10000To49999Ft2DesignReviewerQualifies = true Else F03_Bldg10000To49999Ft2DesignReviewerQualifies = false</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="F03_BldgGTE50000Ft2DesignReviewerQualifies" type="comp:BldgGTE50000Ft2DesignReviewerQualifies" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Do the Design Reviewer(s) meet these qualifications?</xsd:documentation>
+                           <xsd:documentation source="AdditionalRequirements">In addition, for buildings with [d:gte/] 50,000 ft [d:sup]2[/d:sup], or complex mechanical systems[d:sup]1[/d:sup], the design reviewer(s) shall be a third party design engineer, architect, or contractor.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR == GTE50000Ft2 Or A06_CommissioningHvacSystem == ComplexHvacSystem  the correct option to display is  F03_BldgGTE50000Ft2DesignReviewerQualifies and associated text.  If user selects Yes, F03_BldgGTE50000Ft2DesignReviewerQualifies = true Else F03_BldgGTE50000Ft2DesignReviewerQualifies  = false</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="F04_PersonFullName" type="comp:PersonFullName"  minOccurs="1" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">The design reviewer(s) for this project will be:</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F04AfterFootnote" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTE: Complex Mechanical Systems are systems that include 1) fan systems each serving multiple thermostatically controlled zones, or 2) built-up air handler systems (non-unitary or non-packaged HVAC equipment), or 3) hydronic or steam heating systems, or 4) hydronic cooling systems. [/d:i]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR == GTE50000Ft2 Or A06_CommissioningHvacSystem == ComplexHvacSystem then display this footnote</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F05to19Subheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b] Preliminary Construction Schedule[/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F05aTo09aColumnLabel" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b]Start Date[/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F05bTo09bColumnLabel" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b]Completion Date[/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F05a_SchematicDesignBeginDate" type="comp:SchematicDesignBeginDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Schematic Design</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage starts in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F05b_SchematicDesignEndDate" type="comp:SchematicDesignEndDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Schematic Design</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage is completed in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F06a_DesignDevelopmentBeginDate" type="comp:DesignDevelopmentBeginDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Design Development</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage starts in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F06b_DesignDevelopmentEndDate" type="comp:DesignDevelopmentEndDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Design Development</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage is completed in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F07a_ConstructionDocumentsBeginDate" type="comp:ConstructionDocumentsBeginDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Construction Documents</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage starts in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F07b_ConstructionDocumentsEndDate" type="comp:ConstructionDocumentsEndDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Construction Documents</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage is completed in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F08a_ConstructionBeginDate" type="comp:ConstructionBeginDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage starts in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F08b_ConstructionEndDate" type="comp:ConstructionEndDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage is completed in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F09a_BuildingTurnoverBeginDate" type="comp:BuildingTurnoverBeginDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building Turnover</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage starts in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F09b_BuildingTurnoverEndDate" type="comp:BuildingTurnoverEndDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building Turnover</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User enters the date this stage is completed in the format yyyy-mm-dd</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="ProjectGoalsEE" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR == LT10000Ft2   this subsection is required; Else user is instructed to proceed to section G</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="F10toF20Subheading" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Project Goals Related to Energy Efficiency[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F10_GoalsOperationCosts" type="comp:GoalsOperationCosts" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Operational Costs</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F11_GoalsBuildingLifespan" type="comp:GoalsBuildingLifespan" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Desired Building Lifespan</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F12_GoalsEquipmentLifecycle" type="comp:GoalsEquipmentLifecycle" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Equipment Lifecycle</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F13_GoalsEE" type="comp:GoalsEE" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Project Energy Efficiency Goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F14_GoalsEnvelope" type="comp:GoalsEnvelope" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Envelope  Goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F15_GoalsHVAC" type="comp:GoalsHVAC" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">HVAC System Goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F16_GoalsIndoorLighting" type="comp:GoalsIndoorLighting" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Indoor Lighting System Goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F17_GoalsOutdoorLighting" type="comp:GoalsOutdoorLighting" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Outdoor Lighting System Goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F18_GoalsWaterHeating" type="comp:GoalsWaterHeating" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Water Heating System Goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F19_GoalsEquipmentSpecs" type="comp:GoalsEquipmentSpecs" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Equipment and System Specifications</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="F20_GoalsOperationsMaintenance" type="comp:GoalsOperationsMaintenance" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Operations and Maintenance</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User enters description of goals for this category</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_G" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]G. OWNER'S PROJECT REQUIREMENTS (OPR)[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If A05_ConditionedFloorAreaRangeNR Not== LT10000Ft2</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="G_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i] This table is only completed if  an OPR document is not attached  to permit application to demonstrate compliance with [d:t24ref/]120.8(b).  If a specific field is not applicable to the project scope, "NA" is indicated in the table.  Per [d:t24ref/]120.8(b), the OPR is to be completed before design begins.  This may be done at the Design Review Kickoff Meeting (see Table F)[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G01_IsUserAttachingOPR" type="comp:IsUserAttachingOPR" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Attaching Completed Owner's Project Requirements Document?</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: If user selects No, result = false and the goal subsection in G is required, Else if user selects Yes result = true.
+</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G02_DocumentAuthorDetailsOPR" type="comp:DocumentAuthorDetailsOPR"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Owner's Project Requirements Document Authors and Roles</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This user input field is required If G01_IsUserAttachingOPR == true, Else it is not required</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="EnergyEfficiencyGoalsOPR" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If IsUserAttachingOPR == false, user must provide input for the fields in this subsection, Else this subsection is not required.
+</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="G_GeneralTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Energy Efficiency Goals: General[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G03_AnnualEUI_GoalOPR" type="comp:AnnualEUI_GoalOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What is the target total energy usage per square foot per year?  (ie, Energy User Intensity (EUI) in kBtu/ft[d:sup]2[/d:sup])</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input numeric value</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G04_AnnualEnergyCostGoalOPR" type="comp:AnnualEnergyCostGoalOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What is the target total energy cost per square foot per year?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input numeric value, unit US dollars
+</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G05_ElectricityDemandControlGoalOPR" type="comp:ElectricityDemandControlGoalOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Is kW demand control specifically an interest of the client or the design team?  If so, for what reason?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G06_BuildingSitingGoalOPR" type="comp:BuildingSitingGoalOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the project goals and requirements for building siting that will impact energy use?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G07_LandscapeDesignGoalOPR" type="comp:LandscapeDesignGoalOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the project goals and requirements for landscape that will impact energy use?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G08_GeneralEnergyEfficiencyNotesOPR" type="comp:GeneralEnergyEfficiencyNotesOPR"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Additional notes regarding general  efficiency</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If there are any additional notes regarding general EE  OPR goals the user enters them here, Else this field is not required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G_EnvelopeTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Energy Efficiency Goals: Envelope[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G09_FenestrationGoalsOPR" type="comp:FenestrationGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the project goals and requirements for building fenestration that will impact energy use?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G10_WallsFloorsGoalsOPR" type="comp:WallsFloorsGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the project goals and requirements for walls/floors that will impact energy use?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text
+</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G11_RoofGoalsOPR" type="comp:RoofGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the project goals and requirements for building roof that will impact energy use?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text
+</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G12_EnvelopeNotesGoalsOPR" type="comp:EnvelopeNotesGoalsOPR"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Additional notes regarding envelope efficiency</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If there are any additional notes regarding envelope OPR goals the user enters them here, Else this field is not required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G_HvacTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Energy Efficiency Goals: HVAC Systems[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G13_HvacSystemTypesGoalsOPR" type="comp:HvacSystemTypesGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">List the HVAC system types considered desirable, and ones that are not to be considered.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G14_ThermostatSetpointsGoalsOPR" type="comp:ThermostatSetpointsGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What is the desired thermostatic setpoint range in the heating season, and cooling season?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G15_OccupancyScheduleGoalsOPR" type="comp:OccupancyScheduleGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What is the expected occupancy schedule?  Will the occupants be allowed to override the mechanical system controls during "unoccupied hours"?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G16_ZoneTemperatureDriftGoalsOPR" type="comp:ZoneTemperatureDriftGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Are there times during the day that the zone temperature is allowed to drift out of the temperature setpoint range?  If so, how long and what times are acceptable.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G17_WinterNightimeTemperatureGoalsOPR" type="comp:WinterNightimeTemperatureGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Is it acceptable to let the facility cool down to a night setback temperature in the winter?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G18_SummerNightimeTemperatureGoalsOPR" type="comp:SummerNightimeTemperatureGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Is it acceptable to let the facility temperature drift above setpoint during the summer evenings?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G19_CoolingHeatingLoadsAnnualGoalsOPR" type="comp:CoolingHeatingLoadsAnnualGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">How many days out of the year is it acceptable to not meet the entire cooling/heating load?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G20_ZoneEnvironmentalControlGoalsOPR" type="comp:ZoneEnvironmentalControlGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Are there zones with special temperature, humidity, air filtering, etc., requirements?  If so, identify and list the special environmental control requirements.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G21_BuildingVentilationGoalsOPR" type="comp:BuildingVentilationGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What expectations are there around building ventilation?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G22_DemandControlVentilationGoalsOPR" type="comp:DemandControlVentilationGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Is occupancy-based demand control ventilation (DCV) desired, or required?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G23_BuildingAutomationSystemGoalsOPR" type="comp:BuildingAutomationSystemGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Is a building automation system (BAS) desired?  If so, what are the requirements of the BAS and what value is expected to be added with the BAS?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G24_ZoneSetpointControlGoalsOPR" type="comp:ZoneSetpointControlGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Will zone setpoints be controlled locally by the user, or via the BAS only by the maintenance staff?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G25_TempHumidityDraftControlGoalsOPR" type="comp:TempHumidityDraftControlGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Explain the requirements of the HVAC system in regards to temperature, humidity and draft control.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G26_IndoorAirQualityGoalsOPR" type="comp:IndoorAirQualityGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Explain the requirements of the facility in regards to indoor air quality</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G27_HvacAcousticGoalsOPR" type="comp:HvacAcousticGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the acoustic requirements of the HVAC system within the various spaces of the facility?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G28_HvacOperationsMaintenanceGoalsOPR" type="comp:HvacOperationsMaintenanceGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe the maintenance plan and how the HVAC design needs to address operation and maintenance issues.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G29_HvacNotesGoalsOPR" type="comp:HvacNotesGoalsOPR"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Additional notes regarding HVAC system efficiency</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If there are any additional notes regarding HVAC OPR goals the user enters them here, Else this field is not required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G_IndoorLightingTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Energy Efficiency Goals: Indoor Lighting Systems[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G30_IndoorLightingQualityGoalsOPR" type="comp:IndoorLightingQualityGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe specific lighting requirements including quality and glare.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G31_IndoorLightingComponentGoalsOPR" type="comp:IndoorLightingComponentGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">List the desired types of lighting (if any) and ones that are not to be considered. (example: fluorescent in 2x2 grid, accent lighting, particular lamps)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G32_TaskLightingGoalsOPR" type="comp:TaskLightingGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe (if any) task lighting requirements.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G33_IndoorLightingControlSystemGoalsOPR" type="comp:IndoorLightingControlSystemGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe any desired features of the lighting control system including occupancy, daylighting, and demand response if applicable.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G34_IndoorLightingScheduleGoalsOPR" type="comp:IndoorLightingScheduleGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What is the expected occupancy schedule? Will the occupants be allowed to override the lighting system controls during "unoccupied hours"?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G35_LightingOccupancyControlWithDCV_GoalsOPR" type="comp:LightingOccupancyControlWithDCV_GoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Does occupancy-based control need to be coordinated with mechanical demand control ventilation?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G36_IndoorLightingOccupantControlGoalsOPR" type="comp:IndoorLightingOccupantControlGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe how occupants will interact with the lighting control system (overrides etc)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G37_IndoorLightingNotesGoalsOPR" type="comp:IndoorLightingNotesGoalsOPR"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Additional notes regarding Indoor Lighting system efficiency</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If there are any additional indoor lighting OPR goals the user enters them here, Else this field is not required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G_OutdoorLightingTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Energy Efficiency Goals: Outdoor Lighting Systems[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G38_OutdoorLightingGoalsOPR" type="comp:OutdoorLightingGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe specific outdoor lighting requirements.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G39_OutdoorLightingTypesGoalsOPR" type="comp:OutdoorLightingTypesGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">List the desired types of outdoor lighting, including lighting for building facade, landscape, walkways, roof-top, etc. if applicable.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G40_OutdoorLightingControlsGoalsOPR" type="comp:OutdoorLightingControlsGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe any features of the outdoor lighting control system, including motion sensors, photocontrol, time-switch and automatic scheduling.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G41_OutdoorLightingOccupantControlGoalsOPR" type="comp:OutdoorLightingOccupantControlGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe how occupants will interact with the lighting control system (overrides etc)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G42_OutdoorLightingNotesGoalsOPR" type="comp:OutdoorLightingNotesGoalsOPR"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Additional notes regarding Outdoor lighting system efficiency</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If there are any additional outdoor lighting OPR goals the user enters them here, Else this field is not required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G_WaterHeatingTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Energy Efficiency Goals: Water Heating Systems[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G43_WaterHeatingUsesGoalsOPR" type="comp:WaterHeatingUsesGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe what the water heating system will be used for and expected demand?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G44_WaterHeatingComponentsGoalsOPR" type="comp:WaterHeatingComponentsGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Describe the desired type (if any) of water heating system and those that should not be considered, (example: instantaneous, heatpump, manufacturer, etc.)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G45_WaterHeatingAutomationControlsGoalsOPR" type="comp:WaterHeatingAutomationControlsGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the desired automation features and controls for the water heating system.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G46_WaterHeatingEfficiencyGoalsOPR" type="comp:WaterHeatingEfficiencyGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the efficiency requirements of the water heating system?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G47_WaterHeatingNotesGoalsOPR" type="comp:WaterHeatingNotesGoalsOPR"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Additional notes regarding Water Heating system efficiency.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If there are any additional water heating OPR goals the user enters them here, Else this field is not required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G_OperationsMaintenanceTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Operations and Maintenance Requirements
+[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G48_BuildingLifespanGoalsOPR" type="comp:BuildingLifespanGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Desired building life span</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G49_EquipmentLifeCycleGoalsOPR" type="comp:EquipmentLifeCycleGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What are the broad goals relative to life cycle of the equipment?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G50_OccupantTrainingGoalsOPR" type="comp:OccupantTrainingGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What is the desired level of training and orientation for building occupants to understand and use the building systems?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G51_BuildingStaffTrainingGoalsOPR" type="comp:BuildingStaffTrainingGoalsOPR" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">What is the desired level of training and orientation for O&amp;M staff to understand and maintain the building systems?</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G_AddSystem" minOccurs="0" maxOccurs="unbounded">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is required if user selects to add one or more additional systems and their goals</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="G_AddSystems01_SystemDescription" type="comp:SystemDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="G_AddSystems02_AdditionalSystemGoalsOPR" type="comp:AdditionalSystemGoalsOPR" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User can add one or more goals to this added system</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_H" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]H. BASIS OF DESIGN (BOD)[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If A05_ConditionedFloorAreaRangeNR Not== LT10000Ft2</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="H_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i] This table is only completed if a BOD document is not attached to the permit application to demonstrate compliance with [d:t24ref/]120.8(c). If a specific field is not applicable to the project scope, "NA" is indicated in the table. Per [d:t24ref/]120.8(c), the BOD should be completed and updated during the design phase.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="H01_IsUserAttachingBOD" type="comp:IsUserAttachingBOD" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Attaching Completed Basis of Design Document?</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: If user select No, result = false and the goal subsection in H is required, Else if user selects Yes result = true.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="H02_DocumentAuthorDetailsBOD" type="comp:DocumentAuthorDetailsBOD"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Basis of Design Document Authors and Roles</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This user input field is required If H01_IsUserAttachingBOD == true, Else it is not required</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="EnergyEfficiencyDetailsBOD" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If IsUserAttachingBOD == false, user must provide input for the fields in this subsection, Else this subsection is not required.</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="H03_CompliancePath" type="comp:CompliancePath" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Title 24 Part 6 Compliance Approach (select one)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User selects from three values Prescriptive, Performance or PerformanceAndPrescriptive</xsd:documentation>
+                                 <xsd:appinfo source="displayterm">
+                                    <dtyp:displayterm value="PerformanceAndPrescriptive">Both (Prescriptive and Performance)</dtyp:displayterm>
+                                 </xsd:appinfo>
+                                 
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H04_ProjectScopePerfPrescBOD" type="comp:ProjectScopePerfPrescBOD"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Description of prescriptive scope and performance scope</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If CompliancePath == PerformanceAndPrescriptive, user must enter a description, Else data in this field is not required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_GeneralTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b] General Energy Efficiency Goals[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H05_EnergyUseIntensityCalculationBOD" type="comp:EnergyUseIntensityCalculationBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Energy Use Intensity (EUI)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how design EUI will be calculated.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H06_EnergyCostPerFt2CalculationBOD" type="comp:EnergyCostPerFt2CalculationBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Energy Cost Budget</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how design energy cost per square foot will be calculated.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_EnvelopeTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b] Envelope Basis of Design[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H07_WindowWallRatioBOD" type="comp:WindowWallRatioBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Window to Wall Ratio</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing target design window to wall ratio.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H08_WallAssemblyBOD" type="comp:WallAssemblyBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Opaque Wall Assembly</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing wall assemblies and energy efficiency features/ strategies</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H09_WindowPerformanceDetailsBOD" type="comp:WindowPerformanceDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Window Performance</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing all window types'  U values, glazing and solar heat gain coefficient</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H10_EnvelopeDesignMeetsGoals" type="comp:EnvelopeDesignMeetsGoals" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Response to OPR Document</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how envelpe design meets OPR</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_HvacTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b] HVAC System Basis of Design[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H11_HvacSystemDetailsBOD" type="comp:HvacSystemDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">HVAC System Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input general description of HVAC system</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H12_HeatingSystemDetailsBOD" type="comp:HeatingSystemDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Heating System Description</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of this system such as location, control type, EE features, IAQ features, etc.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H13_CoolingSystemDetailsBOD" type="comp:CoolingSystemDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Cooling System Description</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of this system such as location, control type, EE features, IAQ features, etc.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H14_VentilationSystemDetailsBOD" type="comp:VentilationSystemDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Ventilation System Description</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of this system such as location, control type, EE features, IAQ features, etc.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H15_HvacOperationsControlDetailsBOD" type="comp:HvacOperationsControlDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Control Intent Narrative/ Sequence of Operations</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of operating schedules, setpoints, or description of intent of the control system</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H16_OutdoorAirSupplyDetailsBOD" type="comp:OutdoorAirSupplyDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Outside Air Supply</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of meeting outside air ventilation OPR</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H17_HvacLoadCalculationsDetailsBOD" type="comp:HvacLoadCalculationsDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Load Calculation</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of  load calculation metholodgy used to meet OPR</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_IndoorDesignConditions" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Indoor Design Conditions</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="H18Row0Col1Heading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Occupied Spaces</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row0Col2To3Heading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Unoccupied Spaces</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row1Col0Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Occupied Periods</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row1Col1Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Temp ([d:deg/]F)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row1Col2Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Temp ([d:deg/]F)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row1Col3Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Relative Humidity (%)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row2Col1_HeatingTempOccupiedSpaceAndPeriod" type="hvac:HeatingTempOccupiedSpaceAndPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Heating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row2Col2_HeatingTempUnoccupiedSpaceOccupiedPeriod" type="hvac:HeatingTempUnoccupiedSpaceOccupiedPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Heating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row2Col3_HeatingRelativeHumidityUnoccupiedSpaceOccupiedPeriod" type="hvac:HeatingRelativeHumidityUnoccupiedSpaceOccupiedPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Heating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input relative humidity</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row3Col1_CoolingTempOccupiedSpaceAndPeriod" type="hvac:CoolingTempOccupiedSpaceAndPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Cooling</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row3Col2_CoolingTempUnoccupiedSpaceOccupiedPeriod" type="hvac:CoolingTempUnoccupiedSpaceOccupiedPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Cooling</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row3Col3_CoolingRelativeHumidityUnoccupiedSpaceOccupiedPeriod" type="hvac:CoolingRelativeHumidityUnoccupiedSpaceOccupiedPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Cooling</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input relative humidity</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row4Col0Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Unoccupied Periods</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row4Col1Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Temp ([d:deg/]F)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row4Co2lSubheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Temp ([d:deg/]F)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row4Col3Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Relative Humidity (%)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row5Col1_HeatingTempOccupiedSpaceUnoccupiedPeriod" type="hvac:HeatingTempOccupiedSpaceUnoccupiedPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Heating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row5Col2_HeatingTempUnoccupiedSpaceAndPeriod" type="hvac:HeatingTempUnoccupiedSpaceAndPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Heating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row5Col3_HeatingRelativeHumidityUnoccupiedSpaceAndPeriod" type="hvac:HeatingRelativeHumidityUnoccupiedSpaceAndPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Heating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input relative humidity</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row6Col1_CoolingTempOccupiedSpaceUnoccupiedPeriod" type="hvac:CoolingTempOccupiedSpaceUnoccupiedPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Cooling</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row6Col2_CoolingTempUnoccupiedSpaceAndPeriod" type="hvac:CoolingTempUnoccupiedSpaceAndPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Cooling</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input temperature F</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H18Row6Col3_CoolingRelativeHumidityUnoccupiedSpaceAndPeriod" type="hvac:CoolingRelativeHumidityUnoccupiedSpaceAndPeriod" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Cooling</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input relative humidity</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="H19_HvacSystemDesignMeetsGoals" type="comp:HvacSystemDesignMeetsGoals" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Response to OPR Document</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how HVAC  design meets OPR</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_IndoorLightingTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b] Indoor Lighting System Basis of Design[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H20_IndoorLightingSystemDetailsBOD" type="comp:IndoorLightingSystemDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Indoor Lighting System Narrative</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the indoor lighting system</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H21_IndoorLightingFixtureDetailsBOD" type="comp:IndoorLightingFixtureDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Fixture Types</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing indoor lighting system fixture types</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H22_IndoorLampBallastTypesBOD" type="comp:IndoorLampBallastTypesBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Lamp and Ballast Types</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing indoor lighting system lamp and ballast types</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H23_IndoorLightingControlsDetailsBOD" type="comp:IndoorLightingControlsDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Control Types</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing indoor lighting system control types and areas controlled</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H24_IndoorLightingOperationsControlDetailsBOD" type="comp:IndoorLightingOperationsControlDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Control Intent Narrative/ Sequence of Operations</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of operating schedules, setpoints, or description of intent of the control system</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H25_IndoorLightingDesignMeetsGoals" type="comp:IndoorLightingDesignMeetsGoals" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Response to OPR Document</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how indoor lighting system  design meets OPR</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_OutdoorLightingTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b] Outdoor Lighting System Basis of Design[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H26_OutdoorLightingDetailsBOD" type="comp:OutdoorLightingDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Outdoor Lighting System Narrative</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the outdoor lighting system</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H27_OutdoorLightingFixtureDetailsBOD" type="comp:OutdoorLightingFixtureDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Fixture Types</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing outdoor lighting system fixture types</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H28_OutdoorLampBallastTypesBOD" type="comp:OutdoorLampBallastTypesBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Lamp and Ballast Types</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing outdoor lighting system lamp and ballast types</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H29_OutdoorLightingControlsDetailsBOD" type="comp:OutdoorLightingControlsDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Control Types</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing outdoor lighting system control types and areas controlled</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H30_OutdoorLightingOperationsControlDetailsBOD" type="comp:OutdoorLightingOperationsControlDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Control Intent Narrative/ Sequence of Operations</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input design details of operating schedules, setpoints, or description of intent of the control system</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H31_OutdoorLightingDesignMeetsGoals" type="comp:OutdoorLightingDesignMeetsGoals" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Response to OPR Document</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how the outdoor lighting system  design meets OPR</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_WaterHeatingTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b] Water Heating System Basis of Design[/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H32_WaterHeatingDetailsBOD" type="comp:WaterHeatingDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Water Heating System Narrative</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the water heating system</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H33_WaterHeatingLoadCalculationsDetailsBOD" type="comp:WaterHeatingLoadCalculationsDetailsBOD" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Water Heating Load Calculations</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the water heating system sizing calculation method</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H34_WaterHeatingDesignMeetsGoals" type="comp:WaterHeatingDesignMeetsGoals" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Response to OPR Document</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how the water heating system  design meets OPR</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="H_AddSystem" minOccurs="0" maxOccurs="unbounded">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is required if user selects to add one or more additional systems and their goals</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="H_AddSystems01_SystemDescription" type="comp:SystemDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="H_AddSystems02_AdditionalSystemDetailsBOD" type="comp:AdditionalSystemDetailsBOD" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User can add one or more details to this added system</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_I" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]I. CONSTRUCTION DOCUMENT DESIGN REVIEW CHECKLIST[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="I_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i] This table is only completed if a design review document is not attached to permit application to demonstrate compliance with [d:t24ref/]120.8(b) and [d:t24ref/]120.8(e).  For buildings with [d:gte/] 10,000 ft[d:sup]2[/d:sup] conditioned floor area, the design review will ensure the construction documents meet tthe Owner's Project Requirements (Table G.) and the Basis of Design Documents (Table H.). For buildings with [d:lt/] 10,000 ft[d:sup]2[/d:sup] conditioned floor area, the design review will ensure the construction documents meet the goals documented in Table F. during the Design Review Kickoff.  [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="I01_IsUserAttachingDesignReviewDoc" type="comp:IsUserAttachingDesignReviewDoc" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Attaching Completed Design Review Documentation?</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: If user selects No, result = false and the design review checklist subsection is required, Else if user selects Yes result = true.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="DesignReviewChecklist" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b] Design Review Checklist [/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If IsUserAttachingDesignReviewDoc == false, user must provide input for the fields in this subsection, Else this subsection is not required.</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="I02_DesignReviewEnvelopeDetails" type="comp:DesignReviewEnvelopeDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Envelope Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how envelope design in contract documents meets each owner requirement documented in the OPR/ BOD or Table F, and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="I03_DesignReviewHvacDetails" type="comp:DesignReviewHvacDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">HVAC System Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how HVAC system design in contract documents meets each owner requirement documented in the OPR/ BOD or Table F,  and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="I04_DesignReviewHvacControlsDetails" type="comp:DesignReviewHvacControlsDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">HVAC Controls Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how HVAC control design in contract documents meets each owner requirement documented in the OPR/ BOD or Table F, and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="I05_DesignReviewIndoorLightingDetails" type="comp:DesignReviewIndoorLightingDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Indoor Lighting  System Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how indoor lighting system design in contract documents meets each owner requirement documented in the OPR/ BOD or Table F, and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="I06_DesignReviewIndoorLightingControlsDetails" type="comp:DesignReviewIndoorLightingControlsDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Indoor Lighting  Controls Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how indoor lighting controls design in contract documents meets each owner requirement documented in the OPR/ BOD or Table F, and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="I07_DesignReviewOutdoorLightingDetails" type="comp:DesignReviewOutdoorLightingDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Outdoor Lighting  System and Controls Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how outdoor lighting system and controls design in contract documents meets each owner requirement documented in the OPR/ BOD or Table F, and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="I08_DesignReviewWaterHeatingDetails" type="comp:DesignReviewWaterHeatingDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Water Heating  System Design</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how water heating system design in contract documents meets each owner requirement documented in the OPR/ BOD or Table F, and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="I09_DesignReviewOtherSystemsDetails" type="comp:DesignReviewOtherSystemsDetails" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Other  Systems and Features</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describes how other systems and features  in contract documents meets each owner requirement documented in the OPR/ BOD or Table F, and describes any issues identified and their resolution</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_J" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]J. COMMISSIONING PLAN[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If A05_ConditionedFloorAreaRangeNR Not== LT10000Ft2</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="J_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is only completed if  a Commissioning Plan document is not attached to permit application to demonstrate compliance with [d:t24ref/]120.8(f).  Per [d:t24ref/]120.8(f), the Commissioning Plan is to be started during the design phase and a completed draft must be submitted with permit application [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="J01_IsUserAttachingCommissioningPlan" type="comp:IsUserAttachingCommissioningPlan" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Attaching Completed Commissioning Plan?</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: If user select No, result = false and the goal subsection in J is required, Else if user selects Yes result = true.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="J02_DocumentAuthorDetailsCommissioningPlan" type="comp:DocumentAuthorDetailsCommissioningPlan"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Commissioning Plan Authors and Roles</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This user input field is required If J01_IsUserAttachingCommissioningPlan == true, Else it is not required</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="DetailsCommissioningPlan" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If IsUserAttachingCommissioningPlan == false, user must provide input for the fields in this subsection, Else this subsection is not required.</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="J_ProviderTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Commissioning Provider Information [/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J03_ContactCompany" type="com:ContactCompany" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Company Name</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J04_ContactName" type="com:ContactName" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Contact Person</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J05_ContactEmailAddress" type="com:ContactEmailAddress" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Contact Email</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J06_ContactTelephoneNumber" type="com:ContactTelephoneNumber" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Contact Phone</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J_ProcessTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Commissioning Process Overview [/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J07_CommissioningProcessGoals" type="comp:CommissioningProcessGoals" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Owner Goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the goals for the commissioning process including but not limited to meeting code requirements, meeting OPR and BOD requirements.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J08_CommissioningProcessRoles" type="comp:CommissioningProcessRoles" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Roles and Responsibilities</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the roles and responsibilities of the commissioning provider, owner/owners representative, design team, construction manager, certified Acceptance Test Technician, mechanical, electrical, and controls contractors, testing and balancing contractor, equipment suppliers, and building inspector.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J09_CommissioningProcessSchedule" type="comp:CommissioningProcessSchedule" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Schedule</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how the commissioning and acceptance testing process will fit into the construction schedule.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J_ActivitiesTitle" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:b]Commissioning Activities During Construction [/d:b]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J10_ConstructionObservationActivities" type="comp:ConstructionObservationActivities" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Construction Observation</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing when jobsite observations will be conducted and the intent of these observations.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J11_IssuesLogsActivities" type="comp:IssuesLogsActivities" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Issues Logs</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how issues logs will be used and the project team members these will be submitted to for recertification.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J12_InstallationVerificationActivities" type="comp:InstallationVerificationActivities" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Installation Verification</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the installation verification processes and responsible parties.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J13_FunctionalPerformanceTestingActivities" type="comp:FunctionalPerformanceTestingActivities" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Functional Performance Testing</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing how the Commissioning Provider, Acceptance Test Technician and Subcontractor will interact during tests listed in Table K. Functional Performance Testing.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="J14_DocumentationTrainingActivities" type="comp:DocumentationTrainingActivities" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Documentation and Training</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input describing the review of the operation manuals and how the commissioning provider will facilitate the training of owner and applicable maintenance staff on the building systems.</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_K" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]K.  FUNCTIONAL PERFORMANCE TESTING[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If A05_ConditionedFloorAreaRangeNR Not== LT10000Ft2</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="K_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]The table below is compmleted to demonstrate compliance with functional performance testing requirements per [d:t24ref/]120.8(g).[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="K01_FunctionalTestingRequirementsWillBeMet" type="comp:FunctionalTestingRequirementsWillBeMet" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">By checking this box, the responsible party[d:sup]1[/d:sup] certifies that functional performance testing will be executed to demonstrate the correct installation and operation of each component, system and system-to-system interface in accordance with the acceptance test requirements in [d:t24ref/] 120.5, [d:t24ref/]130.4 and [d:t24ref/]140.9.  The functional performance testing reports shall contain information addressing each of the building components tested, the testing methods utilized, and include any readings and adjustments made.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: if checked result = true Else result = false</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="K_ColumnSubheading02To05" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b]The following acceptance tests have been identified as applicable to the project scope:[d:sup]2[/d:sup] [/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableAcceptanceTests" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="K02_TestedSystemDescription" type="comp:TestedSystemDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">System/ Equipment to be Tested</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="K03_FunctionalTestDescription" type="comp:FunctionalTestDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Brief description of functional performance test</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="K04_TestingT24AppendixRef" type="comp:TestingT24AppendixRef" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Applicable Reference Appendix</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from list of Appendix references</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="K05_IsAcceptanceTestTechRequired" type="comp:IsAcceptanceTestTechRequired" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Certified Acceptance Test Technician Required?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated field: If K04_TestingT24AppendixRef == any of these values: NA761, NA762, A763, NA782, NA784, NA786, OR NA788 result = true Else result = false</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="KBefore06Note" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">The acceptance tests required by Title 24, Part 6 outline the minimum functional performance testing scope to be conducted for compliance.  However, the commissioning scope may include additional functional performance tests on systems or equipment not having acceptance tests required by Title 24 Part 6.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="KColumnHeading06to07" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b]The following additional functional performance tests have been requested by the owner or owner's representative:[/d:b]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableAdditionalTests" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if the user has additional functional performance tests requested by the owner</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="K06_TestedSystemDescription" type="comp:TestedSystemDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">System/ Equipment to be Tested</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="K07_FunctionalTestDescription" type="comp:FunctionalTestDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Brief description of functional performance test</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="KEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTE: See the signature block on the last page of this compliance document for the responsible party.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="KEndNote2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup]Required acceptance tests can be determined by reviewing the "Certificates of Acceptance" table on each Certificate of Compliance submitted for permit application. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_L" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]L. DOCUMENTATION AND TRAINING[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If A05_ConditionedFloorAreaRangeNR Not== LT10000Ft2</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="L_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]The table below is completed to demonstrate compliance with documentation and training requirements per [d:t24ref/]120.8(h)[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="L01_OwnerSystemsManualRequirementsWillBeMet" type="comp:OwnerSystemsManualRequirementsWillBeMet" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">By checking this box, the responsible party[d:sup]1[/d:sup] certifies that a systems manual will be provided to the building owner or representative per [d:t24ref/]120.8(h)1.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: if checked result = true Else result = false</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="L02_StaffTrainingRequirementsWillBeMet" type="comp:StaffTrainingRequirementsWillBeMet" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">By checking this box, the responsible party[d:sup]1[/d:sup] certifies that a training of the appropriate maintenance staff for each equipment and system will be completed and documented in the commissioning report  per [d:t24ref/]120.8(h21.  Training requirements should be included in the contract document in the specifications.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: if checked result = true Else result = false</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="LEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTE: See the signature block on the last page of this compliance document for the responsible party. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_M" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]M. COMMISSIONING REPORT[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If A05_ConditionedFloorAreaRangeNR Not== LT10000Ft2</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="M_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]The table below is completed to demonstrate compliance with commissioning report  requirements per [d:t24ref/]120.8(i)[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="M01_CommissioningReportRequirementsWillBeMet" type="comp:CommissioningReportRequirementsWillBeMet" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">By checking this box, the responsible party[d:sup]1[/d:sup] certifies that a complete report of commissioning process' activities undertaken through the design, construction and reporting recommendations for post-construction phases of the building project shall be completed and provided to the owner or owner's representative.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: if checked result = true Else result = false</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="MEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup] FOOTNOTES: See the signature block on the last page of this compliance document for the responsible party.[/d:i]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules"> </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_N" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]N. DECLARATION OF REQUIRED CERTIFICATES OF INSTALLATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="N_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]There are no Certificates of Installation applicable to commissioning requirements.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_O" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]O.  DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="O_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Although there are no "CXR" Certificates of Acceptance required to document commissioning requirements, Certificates of Acceptance may be used to supplement functional performance testing required by [d:t24ref/]120.8(g).[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="nRCCCXR01E" type="NRCCCXR01E">
+      <xsd:annotation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCCCXR01E compliance report.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+</xsd:schema>
