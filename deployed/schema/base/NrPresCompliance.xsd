@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.lmonte.com/besm/comp" version="2019.0.002" xmlns:bld="http://www.lmonte.com/besm/bld" xmlns:com="http://www.lmonte.com/besm/com" xmlns:comp="http://www.lmonte.com/besm/comp" xmlns:d="http://www.lmonte.com/besm/d" xmlns:dtyp="http://www.lmonte.com/besm/dtyp" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.lmonte.com/besm/comp" version="2019.0.000" xmlns:bld="http://www.lmonte.com/besm/bld" xmlns:com="http://www.lmonte.com/besm/com" xmlns:comp="http://www.lmonte.com/besm/comp" xmlns:d="http://www.lmonte.com/besm/d" xmlns:dtyp="http://www.lmonte.com/besm/dtyp" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
@@ -983,6 +983,8 @@
             <dtyp:displayterm value="NRCCLTIE">NRCC-LTI-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCCLTOE">NRCC-LTO-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCCLTSE">NRCC-LTS-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCMCHE">NRCC-MCH-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCPLBE">NRCCPLBE</dtyp:displayterm>
             <dtyp:displayterm value="NRCCSRAE">NRCC-SRA-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04cH">NRCVMCH04cH</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04dH">NRCVMCH04dH</dtyp:displayterm>
@@ -999,6 +1001,8 @@
          <xsd:enumeration value="NRCCLTIE"/>
          <xsd:enumeration value="NRCCLTOE"/>
          <xsd:enumeration value="NRCCLTSE"/>
+         <xsd:enumeration value="NRCCMCHE"/>
+         <xsd:enumeration value="NRCCPLBE"/>
          <xsd:enumeration value="NRCCSRAE"/>
          <xsd:enumeration value="NRCVMCH04cH"/>
          <xsd:enumeration value="NRCVMCH04dH"/>
@@ -1011,24 +1015,28 @@
    <xsd:simpleType name="ComplianceDocumentTitleNR">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Domestic Water Heating System">Domestic Water Heating System</dtyp:displayterm>
             <dtyp:displayterm value="Electrical Power Distribution">Electrical Power Distribution</dtyp:displayterm>
             <dtyp:displayterm value="Global Project Data">Global Project Data</dtyp:displayterm>
             <dtyp:displayterm value="Indoor Lighting">Indoor Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="Mechanical Systems">Mechanical Systems</dtyp:displayterm>
             <dtyp:displayterm value="Nonresidential Building Commissioning">Nonresidential Building Commissioning</dtyp:displayterm>
             <dtyp:displayterm value="Outdoor Air Acceptance">Outdoor Air Acceptance</dtyp:displayterm>
             <dtyp:displayterm value="Outdoor Lighting">Outdoor Lighting</dtyp:displayterm>
-            <dtyp:displayterm value="Signage Lighting">Signage Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="Sign Lighting">Sign Lighting</dtyp:displayterm>
             <dtyp:displayterm value="Solar Ready Areas">Solar Ready Areas</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstantPermissive">
+         <xsd:enumeration value="Domestic Water Heating System"/>
          <xsd:enumeration value="Electrical Power Distribution"/>
          <xsd:enumeration value="Global Project Data"/>
          <xsd:enumeration value="Indoor Lighting"/>
+         <xsd:enumeration value="Mechanical Systems"/>
          <xsd:enumeration value="Nonresidential Building Commissioning"/>
          <xsd:enumeration value="Outdoor Air Acceptance"/>
          <xsd:enumeration value="Outdoor Lighting"/>
-         <xsd:enumeration value="Signage Lighting"/>
+         <xsd:enumeration value="Sign Lighting"/>
          <xsd:enumeration value="Solar Ready Areas"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -1908,7 +1916,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="Fail">Fail - one or more applicable requirements are not met. Enter reason for failure in corrections notes field below</dtyp:displayterm>
-            <dtyp:displayterm value="N/A">This field or section is not applicable</dtyp:displayterm>
+            <dtyp:displayterm value="N/A">n/a</dtyp:displayterm>
             <dtyp:displayterm value="Pass">Pass - all applicable requirements are met.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -2066,9 +2074,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:token"/>
-   </xsd:simpleType>
-   <xsd:simpleType name="EnergyUseTotalCardinalDirection">
-      <xsd:restriction base="dtyp:EnumerationConstant"/>
    </xsd:simpleType>
    <xsd:simpleType name="EnergyUseTypeNR">
       <xsd:annotation>
@@ -3449,9 +3454,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="LuminaireAlteredPercentRange">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="GTE10PercentLT50Percent">Greater than or equal to 10% and less than 50%</dtyp:displayterm>
-            <dtyp:displayterm value="GTE50Percent">Greater than or equal to 50%</dtyp:displayterm>
-            <dtyp:displayterm value="LT10Percent">LessThan 10%</dtyp:displayterm>
+            <dtyp:displayterm value="GTE10PercentLT50Percent">
+               <d:gte/> 10% and 
+               <d:lt/> 50%</dtyp:displayterm>
+            <dtyp:displayterm value="GTE50Percent">
+               <d:gte/> 50%</dtyp:displayterm>
+            <dtyp:displayterm value="LT10Percent">
+               <d:lt/> 10%</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -3639,7 +3648,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="BlankGrayedOut"/>
-            <dtyp:displayterm value="N/A">This field or section is not applicable</dtyp:displayterm>
+            <dtyp:displayterm value="N/A">n/a</dtyp:displayterm>
             <dtyp:displayterm value="Not Applicable">Not applicable</dtyp:displayterm>
             <dtyp:displayterm value="NotApplicable">N/A</dtyp:displayterm>
             <dtyp:displayterm value="NotApplicableRequirement">
@@ -6122,6 +6131,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="Compliance2015">Compliance 2015</dtyp:displayterm>
             <dtyp:displayterm value="Compliance2016">Compliance 2016</dtyp:displayterm>
             <dtyp:displayterm value="Compliance2017">Compliance 2017</dtyp:displayterm>
+            <dtyp:displayterm value="Compliance2019">Compliance 2019</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -6130,6 +6140,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="Compliance2015"/>
          <xsd:enumeration value="Compliance2016"/>
          <xsd:enumeration value="Compliance2017"/>
+         <xsd:enumeration value="Compliance2019"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="TotalPAF_AllowedAllAreas">

@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.000">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -35,7 +35,7 @@
                <xsd:complexType>
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCC" />
-                     <xsd:element ref="nRCCELC01E" />
+                     <xsd:element ref="nRCCELCE" />
                      <xsd:element name="DocAuthor" type="comp:DocumentAuthor" />
                      <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" />
                      <xsd:element name="Footer" type="comp:FooterNRCC" />
@@ -48,7 +48,7 @@
          <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCELCE"/>
       </xsd:complexType>
    </xsd:element>
-   <xsd:complexType name="NRCCELC01E">
+   <xsd:complexType name="NRCCELCE">
       <xsd:annotation>
          <xsd:documentation>Electrical Power Distribution</xsd:documentation>
       </xsd:annotation>
@@ -67,21 +67,26 @@
                         <xsd:documentation source="CalculationsAndRules">This note should be placed after the header and before section A</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="A_Tooltip" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Specify the occupancy types within the permitted scope.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A02_WholeBuildingOccupancy"  minOccurs="1" maxOccurs="unbounded">
+                  <xsd:element name="A02_WholeBuildingOccupancy"  maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Occupancy Types Within Project:</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User selects one or more occupancy types in the project: OfficeBuilding display term Office, RetailBuilding display term Retail, Warehouse display term Warehouse, HotelMotel display term Hotel/Motel, SchoolBuilding display term School, SupportArea display term Support Areas, ParkingGarageBuilding display term Parking Garage, HighRiseResidential display term High-Rise Residential, RelocatablePublicSchoolBuilding display term Relocatable, HospitalBuilding display term Healthcare Facilities,  AllOthersBuildings display term Other (Write In).  Each display term has a checkbox. If selected the occupancy type  is added to the result.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User selects one or more occupancy types in the project</xsd:documentation>
                         <xsd:appinfo source="displayterm">
-                           <dtyp:displayterm value="HospitalBuilding"> Healthcare Facilities</dtyp:displayterm>
-                           <dtyp:displayterm value="RelocatablePublicSchoolBuilding"> Relocatable</dtyp:displayterm>
-                           <dtyp:displayterm value="RetailBuilding"> Retail</dtyp:displayterm>
-                           <dtyp:displayterm value="AllOthersBuildings"> Other (Write In)</dtyp:displayterm>
+                           <dtyp:displayterm value="HospitalBuilding">Healthcare Facilities</dtyp:displayterm>
+                           <dtyp:displayterm value="RelocatablePublicSchoolBuilding">Relocatable</dtyp:displayterm>
+                           <dtyp:displayterm value="RetailBuilding">Retail</dtyp:displayterm>
+                           <dtyp:displayterm value="AllOthersBuildings">Other (Write In)</dtyp:displayterm>
                         </xsd:appinfo>
                         
                      </xsd:annotation>
@@ -103,7 +108,7 @@
                   </xsd:element>
                   <xsd:element name="A02a_TypeOtherDescription" type="com:TypeOtherDescription"  minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="FieldText">Other (write in)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">If A02_WholeBuildingOccupancy includes AllOtherBuildings, this field is required.  User must input a short description of the occupancy  type in this field.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -125,7 +130,7 @@
                   <xsd:element name="B_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes electrical systems that are within the scope of the permit application. [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Table Instructions: Include any electrical systems that are within the scope of the permit application. [/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="TableProjectScope" >
@@ -146,27 +151,32 @@
                                     <xsd:element name="B02_ElectricalServiceProjectScope" type="comp:ElectricalServiceProjectScope" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Scope of Work [d:sup]1[/d:sup]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: AddAltFeedersBranchCircuitsOnly display term Add/Alt to feeders and branch circuits only, NewElectricalService display term New electrical service equipment and meter, NewReplacementServiceMeterOnly display term New or replacement service meter only, ReplacementElectricalService display term Complete replacement service equipment and meter, ReplacementElectricalServiceNotMeter display term Complete replacement service equipment, no meter change</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="B03_ElectricalServiceRating" type="comp:ElectricalServiceRating" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = N/A stored in NotApplicableMessage and cell is grayed out; Else user input</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and cell is blank and grayed out; Else user input</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="B03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="B03_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = N/A stored in NotApplicableMessage and cell is grayed out; Else user input</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and cell is blank and grayed out; Else user input</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="B04_UtilityProvidedMeterException130_5a" type="comp:UtilityProvidedMeterException130_5a" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Utility Provided Metering System Exception to  [d:t24ref/]130.5(a)[d:sup]2[/d:sup]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly result = false and field is grayed out;  Else user input.  If checked result = true, Else result = false.</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Utility Provided Metering System Exception to  [d:t24ref/]130.5(a)[d:sup]1[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly result = false and field is grayed out  Else user input.  If checked result = true, Else result = false.</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="B05_DoesElectricalCodeExceptionApply" type="comp:DoesElectricalCodeExceptionApply" >
@@ -224,14 +234,19 @@
                      <xsd:element name="C01_DoesElectricalServiceMeteringComply" type="comp:DoesElectricalServiceMeteringComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Service Electrical Metering [d:t24ref/]130.5(a) [d:line1/] (See Table F)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = NotApplicable stored in C01_NotApplicableMessage and field is grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C01_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C01_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Service Electrical Metering [d:t24ref/]130.5(a) [d:line1/] (See Table F)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = NotApplicable stored in C01_NotApplicableMessage and field is grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C01AfterSubheading" minOccurs="0">
@@ -244,16 +259,19 @@
                      <xsd:element name="C02_DoesLoadSeparationMonitoringComply" type="comp:DoesLoadSeparationMonitoringComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Separation for Monitoring [d:t24ref/]130.5(b) [d:line1/] (See Table G)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope Not== NewElectricalService And Not== ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = NotApplicable stored in C02_NotApplicableMessage and field is grayed out;  Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else
- If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope != NewElectricalService And != ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else  If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C02_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C02_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Separation for Monitoring [d:t24ref/]130.5(b) [d:line1/] (See Table G)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope Not== NewElectricalService And Not== ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = NotApplicable stored in C02_NotApplicableMessage and field is grayed out;  Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else
- If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope != NewElectricalService And != ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else  If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C02AfterSubheading" minOccurs="0">
@@ -266,14 +284,19 @@
                      <xsd:element name="C03_DoesVoltageDropComply" type="comp:DoesVoltageDropComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Voltage Drop [d:t24ref/]130.5(c) [d:line1/] (See Table H)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = NotApplicable stored in C03_NotApplicableMessage and field is grayed out;  Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C03_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Voltage Drop [d:t24ref/]130.5(c) [d:line1/] (See Table H)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = NotApplicable stored in C03_NotApplicableMessage and field is grayed out;  Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C03AfterSubheading" minOccurs="0">
@@ -286,14 +309,19 @@
                      <xsd:element name="C04_DoControlledReceptaclesComply" type="comp:DoControlledReceptaclesComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Controlled Receptacles [d:t24ref/]130.5(d) [d:line1/] (See Table I)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuilndOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = NotApplicable stored in C04_NotApplicableMessage and cell is grayed out;  Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No;</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuildingOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C04_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C04_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Controlled Receptacles [d:t24ref/]130.5(d) [d:line1/] (See Table I)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuilndOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = NotApplicable stored in C04_NotApplicableMessage and cell is grayed out;  Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No;</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuildingOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C05_DoesElectricalServiceProjectComplyWithAllRequirements" type="comp:DoesElectricalServiceProjectComplyWithAllRequirements" >
@@ -312,12 +340,6 @@
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
-                  <xsd:element name="D_ToolTip" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">Table D is auto-filled with warnings and compliance notes directed to the form user and the enforcement agency based on data inputs and calculations in the rest of the NRCC-ELC.  It may not be directly edited by the form user.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
                   <xsd:element name="D_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
@@ -368,12 +390,6 @@
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
-                  <xsd:element name="E_ToolTip" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">Table E allows user input of additional information to support the compliance documentation.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
                   <xsd:element name="E_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
@@ -400,7 +416,7 @@
                   <xsd:element name="F_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes new or replacement electrical service systems OR equipment to demonstrate compliance with [d:t24ref/]130.5(a)  [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes new or replacement electrical service systems OR equipment to demonstrate compliance with [d:t24ref/]130.5(a)[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="TableElectricalService" >
@@ -472,6 +488,11 @@
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
+                  <xsd:element name="FExceptionalCondition_ExceptionalConditionNote" type="comp:ExceptionalConditionNote"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="FErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
@@ -497,7 +518,6 @@
                   <xsd:element name="ElectricalService" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Electrical Service</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">There is an Electrical Service subsection for every B01_ElectricalServiceName where B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter And if B05_DoesElectricalCodeExceptionApply == false</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -519,7 +539,7 @@
                                              <xsd:element name="G01_ElectricalLoadType" type="com:ElectricalLoadType" >
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Load Type per Table 130.5-B[d:sup]1[/d:sup]</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: LightingLoad display term Lighting including exit, egress and exterior, HVAC_Load display term HVAC systems and components, WaterSystemsLoad display term Domestic and service water systems, PlugLoadsLT25kVA display term Plug Loads and appliances less than 25kVA, ElevatorEscalatorMovingWalkwayLoad display term Elevators, escalators, moving walkways, PlugLoadsGTE25kVA display term Other non-HVAC loads and appliances greater than or equal to 25kVA, IndustrialCommercialLoadCentersGTE25kVA display term Industrial/Commercial Load Centers greater than or equal to 25kVA, RenewablePowerSources display term Renewable power sources (net or total), RenewablePowerSourcesAssociatedLoad display term Loads associated with renewable power sources, ElectricalVehicleChargingStationLoad display term Charging stations for electrical vehicle</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">ser selects from dropdown list: LightingLoad display term Lighting including exit, egress and exterior, HVAC_Load display term HVAC systems and components, WaterSystemsLoad display term Domestic and service water systems, PlugLoadsLT25kVA display term Plug Loads and appliances less than 25kVA, ElevatorEscalatorMovingWalkwayLoad display term Elevators, escalators, moving walkways, PlugLoadsGTE25kVA display term Other non-HVAC loads and appliances greater than or equal to 25kVA, IndustrialCommercialLoadCentersGTE25kVA display term Industrial/Commercial Load Centers greater than or equal to 25kVA, RenewablePowerSources display term Renewable power sources (net or total), RenewablePowerSourcesAssociatedLoad display term Loads associated with renewable power sources, ElectricalVehicleChargingStationLoad display term Charging stations for electrical vehicle</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="G02_ElectricalLoadSeparationRequirement" type="comp:ElectricalLoadSeparationRequirement" >
@@ -538,7 +558,7 @@
                                                 <xsd:element name="G03_NotApplicableMessage" type="comp:NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Compliance Method[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G03_NotApplicableMessage; Else user selects from dropdown list: Method1ControlBoardsDisaggregateLoads display term Method 1, Method2DistributionEquipmentWithLoadsDisaggregated display term Method 2, Method3MeteringSystemReportsLoads display term Method 3, Method4MeteringReportsLoadsByType display term Method 4, OtherComplianceMethod display term Other*</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G03_NotApplicableMessage; Else user selects from dropdown list: Method1ControlBoardsDisaggregateLoads display term Method 1, Method2DistributionEquipmentWithLoadsDisaggregated display term Method 2, Method3BranchCircuitServesLoadTypes display term Method 3, Method4MeteringReportsLoadsByType display term Method 4, OtherComplianceMethod display term Other*</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                              </xsd:choice>
@@ -546,13 +566,13 @@
                                                 <xsd:element name="G04_BuildingPlanName" type="comp:BuildingPlanName" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G04_NotApplicableMessage; Else user input</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G04_NotApplicableMessage, Else user input</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="G04_NotApplicableMessage" type="comp:NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G04_NotApplicableMessage; Else user input</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If G02_ElectricalLoadSeparationRequirement == NoRequirementForLoadType result = NotApplicable stored in G04_NotApplicableMessage, Else user input</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                              </xsd:choice>
@@ -655,8 +675,7 @@
                                     </xsd:element>
                                     <xsd:element name="H02ColumnHeading" minOccurs="0">
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText"></xsd:documentation>
-                                          <xsd:documentation source="AdditionalRequirements">Combined Voltage Drop on Installed Feeder/Branch Circuit Conductors Compliance Method</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Combined Voltage Drop on Installed Feeder/Branch Circuit Conductors Compliance Method</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
@@ -668,7 +687,7 @@
                                        </xsd:element>
                                        <xsd:element name="H02b_CircuitVoltageDropCompliance" type="comp:CircuitVoltageDropCompliance"  fixed="VoltageDropException">
                                           <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Permitted by CA Elec Code (Exception to [d:t24ref/]130.5(c))*</xsd:documentation>
+                                             <xsd:documentation source="FieldText">Permitted by CA Elec Code (Exception to 130.5(c))*</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">User either: checks 1st choice, Voltage drop less than 5%, and result = VoltageDropLT5Percent; Else user checks 2nd choice Permitted by CEC and result = VoltageDropException</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -679,12 +698,25 @@
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: CalculationsAttached display term Attached, CalculationsContractorResponsible display term Contractor Responsible, CalculationsInDoc display term In construction documents;  If result = CalculationsContractorResponsible section D D03_ExceptionalConditionMessageNRCCELCE = CalculationsProvidedInH</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="H04_BuildingPlanName" type="comp:BuildingPlanName"  minOccurs="0">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Sheet Number for Voltage Drop Calculations in Construction Documents</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If H03_CircuitVoltageDropCalculations = CalculationsInDocs this is enabled and requires input from the user; Else this field is not required and grayed out.</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                    <xsd:choice minOccurs="0" maxOccurs="1">
+                                       <xsd:element name="H04_BuildingPlanName" type="comp:BuildingPlanName" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Sheet Number for Voltage Drop Calculations in Construction Documents</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">User input: If H03_CircuitVoltageDropCalculations = CalculationsInDocs this is enabled and requires input from the user; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H04_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Sheet Number for Voltage Drop Calculations in Construction Documents</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">User input: If H03_CircuitVoltageDropCalculations = CalculationsInDocs this is enabled and requires input from the user; Else result = BlankGrayedOut and field is blank and grayed out.</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
                                     <xsd:element name="H05_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -780,24 +812,63 @@
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: ControlledWithin6ftOfUncontrolledReceptacle display term Within 6ft of uncontrolled receptacle, SplitWiredReceptacle display term Split-wired receptacle, ControlledWithin6ftOfUncontrolledAndSplitWiredReceptacle display term Within 6ft of uncontrolled AND Split-wired receptacle, ControlledReceptacle50PercentHotelMotel display term 50 % are controlled receptacle (hotel/motel room), ControlledReceptacleAtEachWorkstation display term At each workstation (modular furniture only), ControlledReceptacleNotApplicable display term NA: No applicable space types on this service</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="I03_ControlledReceptacleShutOffControl" type="comp:ControlledReceptacleShutOffControl"  minOccurs="0">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, this field is not required and grayed out; Else user selects from dropdown list: AutomaticTimerSwitch display term Auto Time-Switch with applicable overrides, OccupancySensor display term Occupancy Sensor, HardwiredOccupancySensorPowerStrip display term Occ-sensing Hardwired Power Strip,   CardKeyHotelControlledReceptacles display term Captive Card Key (hotel only),  OtherShutOffControl display term Other*</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="I04_AreControlledReceptaclesPermanentlyMarked" type="comp:AreControlledReceptaclesPermanentlyMarked"  minOccurs="0">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Permanent Durable Marking Will be Used</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable,  this field is not required and grayed out; Else user input is required; If checked result = true Else result = false</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="I05_BuildingPlanName" type="comp:BuildingPlanName"  minOccurs="0">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable,  this field is not required and grayed out;  Else user input is required</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="I03_ControlledReceptacleShutOffControl" type="comp:ControlledReceptacleShutOffControl" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user selects from dropdown list: AutomaticTimerSwitch display term Auto Time-Switch with applicable overrides, OccupancySensor display term Occupancy Sensor, HardwiredOccupancySensorPowerStrip display term Occ-sensing Hardwired Power Strip,   CardKeyHotelControlledReceptacles display term Captive Card Key (hotel only),  OtherShutOffControl display term Other*</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="I03_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user selects from dropdown list</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="I04_AreControlledReceptaclesPermanentlyMarked" type="comp:AreControlledReceptaclesPermanentlyMarked" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Permanent Durable Marking Will be Used</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user input is required. If checked result = true Else result = false</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="I04_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Permanent Durable Marking Will be Used</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user input is required. If checked result = true Else result = false</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="I05_BuildingPlanName" type="comp:BuildingPlanName" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user input is required</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="I05_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Location of Requirements in Construction Documents</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user input is required</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
                                     <xsd:element name="I06_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -896,9 +967,9 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:element name="nRCCELC01E" type="NRCCELC01E">
+   <xsd:element name="nRCCELCE" type="NRCCELCE">
       <xsd:annotation>
-         <xsd:documentation>This element contains all of the data and text required to generate the NRCCELC01E compliance report.</xsd:documentation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCCELCE compliance report.</xsd:documentation>
       </xsd:annotation>
    </xsd:element>
 </xsd:schema>

@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.000">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -113,34 +113,18 @@
                         <xsd:documentation source="CalculationsAndRules">This field is required If A03_WholeBuildingOccupancy == AllOthersBuildings.  User input should describe the type of  occupancy.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:choice maxOccurs="1">
-                     <xsd:element name="A04_TotalConditionedFloorArea" type="com:TotalConditionedFloorArea" >
-                        <xsd:annotation>
-                           <xsd:documentation source="FieldText">Total Conditioned Floor Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                        </xsd:annotation>
-                     </xsd:element>
-                     <xsd:element name="A04_NotApplicableMessage" type="comp:NotApplicableMessage" >
-                        <xsd:annotation>
-                           <xsd:documentation source="FieldText">Total Conditioned Floor Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If there is no value for conditioned floor area, store  BlankGrayOut in NotApplicableMessage which means cell should be blank and grayed out</xsd:documentation>
-                        </xsd:annotation>
-                     </xsd:element>
-                  </xsd:choice>
-                  <xsd:choice maxOccurs="1">
-                     <xsd:element name="A05_TotalUnconditionedFloorArea" type="com:TotalUnconditionedFloorArea" >
-                        <xsd:annotation>
-                           <xsd:documentation source="FieldText">Total Unconditioned Floor Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                        </xsd:annotation>
-                     </xsd:element>
-                     <xsd:element name="A05_NotApplicableMessage" type="comp:NotApplicableMessage" >
-                        <xsd:annotation>
-                           <xsd:documentation source="FieldText">Total Unconditioned Floor Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If there is no value for conditioned floor area, store  BlankGrayOut in NotApplicableMessage which means cell should be blank and grayed out</xsd:documentation>
-                        </xsd:annotation>
-                     </xsd:element>
-                  </xsd:choice>
+                  <xsd:element name="A04_TotalConditionedFloorArea" type="com:TotalConditionedFloorArea"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Total Conditioned Floor Area (ft[d:sup]2[/d:sup])</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input  which can include 0;  If user doesn't enter anything the cell is blank</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A05_TotalUnconditionedFloorArea" type="com:TotalUnconditionedFloorArea"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Total Unconditioned Floor Area (ft[d:sup]2[/d:sup])</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input  which can include 0;  If user doesn't enter anything the cell is blank</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="A06_AboveGradeStoryCount" type="env:AboveGradeStoryCount" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"># of Stories (Habitable Above Grade)</xsd:documentation>
@@ -253,7 +237,7 @@
                            <xsd:element name="Bnew03_NewLightingConditionedFloorArea" type="lit:NewLightingConditionedFloorArea"  minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">IIf  Bnew02_LightingPrescriptiveMethodNR == NotApplicableLightingMethod  field is grayed out and not required; Else user inputs value.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If  Bnew02_LightingPrescriptiveMethodNR == NotApplicableLightingMethod  field is blank and not required; Else user inputs value.</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Bnew04_LightingPrescriptiveMethodNR" >
@@ -275,7 +259,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                            <xsd:element name="Bnew05_NewLightingUnconditionedFloorArea" type="lit:NewLightingUnconditionedFloorArea"  minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If  Bnew04_LightingPrescriptiveMethodNR == NotApplicableLightingMethod field is grayed out and not required; Else user inputs value.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If  Bnew04_LightingPrescriptiveMethodNR == NotApplicableLightingMethod field is blank and not required; Else user inputs value.</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                         </xsd:sequence>
@@ -315,7 +299,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                            <xsd:element name="Bpark03_NewLightingConditionedFloorArea" type="lit:NewLightingConditionedFloorArea"  minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Area (ft[d:sup]2[/d:sup]</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If  Bpark02_LightingPrescriptiveMethodNR == NotApplicableLightingMethod field is grayed out and not required; Else user inputs value.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If  Bpark02_LightingPrescriptiveMethodNR == NotApplicableLightingMethod field is blank and not required; Else user inputs value.</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Bpark04_LightingPrescriptiveMethodNR" >
@@ -333,7 +317,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                            <xsd:element name="Bpark05_NewLightingUnconditionedFloorArea" type="lit:NewLightingUnconditionedFloorArea"  minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Area (ft[d:sup]2[/d:sup]</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If  Bpark04_LightingPrescriptiveMethodNR == NotApplicableLightingMethod  field is grayed out and not required; Else user inputs value.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If  Bpark04_LightingPrescriptiveMethodNR == NotApplicableLightingMethod  field is blank and not required; Else user inputs value.</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                         </xsd:sequence>
@@ -370,7 +354,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                                     <xsd:element name="Baltered03_AlteredLightingConditionedFloorArea" type="lit:AlteredLightingConditionedFloorArea"  minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Area (ft[d:sup]2[/d:sup]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Baltered02_LightingPrescriptiveMethodNR  == NotApplicableLightingMethod field is grayed out and not required; Else user inputs value.</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Baltered02_LightingPrescriptiveMethodNR  == NotApplicableLightingMethod field is blank and not required; Else user inputs value.</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Baltered04_LightingPrescriptiveMethodNR" type="comp:LightingPrescriptiveMethodNR" >
@@ -383,7 +367,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                                     <xsd:element name="Baltered05_AlteredLightingUnconditionedFloorArea" type="lit:AlteredLightingUnconditionedFloorArea"  minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Area (ft[d:sup]2[/d:sup]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If  Baltered04_LightingPrescriptiveMethodNR == NotApplicableLightingMethod field is grayed out and not required; Else user inputs value.</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If  Baltered04_LightingPrescriptiveMethodNR == NotApplicableLightingMethod field is blank and not required; Else user inputs value.</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
@@ -400,13 +384,13 @@ user selects calculation method from dropdown list,</xsd:documentation>
                   <xsd:element name="BTotals03_LightingProjectTotalConditionedFloorArea" type="comp:LightingProjectTotalConditionedFloorArea"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value: If Bnew03_NewLightingConditionedFloorArea IsNull And Bpark03_NewLightingConditionedFloorArea IsNull And  All Baltered03_AlteredLightingConditionedFloorArea IsNull result = field grayed out and not required;  Else for Bnew03, Bpark03 and all Baltered03  values NotNull result =  SUM  ( Bnew03_NewLightingConditionedFloorArea, Bpark03_NewLightingConditionedFloorArea, Baltered03_AlteredLightingConditionedFloorArea)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value: If Bnew03_NewLightingConditionedFloorArea IsNull And Bpark03_NewLightingConditionedFloorArea IsNull And  All Baltered03_AlteredLightingConditionedFloorArea IsNull result = field blank and not required;  Else for Bnew03, Bpark03 and all Baltered03  values NotNull result =  SUM  ( Bnew03_NewLightingConditionedFloorArea, Bpark03_NewLightingConditionedFloorArea, Baltered03_AlteredLightingConditionedFloorArea)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="BTotals05_LightingProjectTotalUnconditionedFloorArea" type="comp:LightingProjectTotalUnconditionedFloorArea"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value: If Bnew05_NewLightingUnconditionedFloorArea IsNull And Bpark05_NewLightingUnconditionedFloorArea IsNull And  Baltered05_AlteredLightingUnconditionedFloorArea IsNull result = field grayed out and not required;  Else for Bnew05, Bpark05 and all Baltered05  values NotNull result = SUM ( Bnew05_NewLightingUnconditionedFloorArea, Bpark05_NewLightingUnconditionedFloorArea, Baltered05_AlteredLightingUnconditionedFloorArea)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value: If Bnew05_NewLightingUnconditionedFloorArea IsNull And Bpark05_NewLightingUnconditionedFloorArea IsNull And  Baltered05_AlteredLightingUnconditionedFloorArea IsNull result = field blank and not required;  Else for Bnew05, Bpark05 and all Baltered05  values NotNull result = SUM ( Bnew05_NewLightingUnconditionedFloorArea, Bpark05_NewLightingUnconditionedFloorArea, Baltered05_AlteredLightingUnconditionedFloorArea)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="BalteredMessage03_05" minOccurs="0">
@@ -484,18 +468,44 @@ user selects calculation method from dropdown list,</xsd:documentation>
                         <xsd:documentation source="FieldText">(See Table I)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C01Row01_BuildingLightingPowerAllowedConditioned" type="comp:BuildingLightingPowerAllowedConditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If  a project has Bnew02_LightingPrescriptiveMethodNR Or Bpark02_LightingPrescriptiveMethodNR Or Baltered02_LightingPrescriptiveMethodNR ==  CompleteBuilding this field is required and  auto-filled result = IcTotals05AllowedWatt_LightingPowerAllowanceTotalConditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C01Row02_BuildingLightingPowerAllowedUnconditioned" type="comp:BuildingLightingPowerAllowedUnconditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If  a project has Bnew04_LightingPrescriptiveMethodNR Or Bpark04_LightingPrescriptiveMethodNR Or Baltered04_LightingPrescriptiveMethodNR ==  CompleteBuilding this field is required and  auto-filled result =  IuTotals05AllowedWatt_LightingPowerAllowanceTotalUnconditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C01Row01_BuildingLightingPowerAllowedConditioned" type="comp:BuildingLightingPowerAllowedConditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew02_LightingPrescriptiveMethodNR Or Bpark02_LightingPrescriptiveMethodNR Or Baltered02_LightingPrescriptiveMethodNR ==  CompleteBuilding this field is required and  auto-filled result = IcTotals05AllowedWatt_LightingPowerAllowanceTotalConditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C01Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew02_LightingPrescriptiveMethodNR Or Bpark02_LightingPrescriptiveMethodNR Or Baltered02_LightingPrescriptiveMethodNR ==  CompleteBuilding this field is required and  auto-filled result = IcTotals05AllowedWatt_LightingPowerAllowanceTotalConditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C01Row02_BuildingLightingPowerAllowedUnconditioned" type="comp:BuildingLightingPowerAllowedUnconditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew04_LightingPrescriptiveMethodNR Or Bpark04_LightingPrescriptiveMethodNR Or Baltered04_LightingPrescriptiveMethodNR ==  CompleteBuilding this field is required and  auto-filled result =  IuTotals05AllowedWatt_LightingPowerAllowanceTotalUnconditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C01Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew04_LightingPrescriptiveMethodNR Or Bpark04_LightingPrescriptiveMethodNR Or Baltered04_LightingPrescriptiveMethodNR ==  CompleteBuilding this field is required and  auto-filled result =  IuTotals05AllowedWatt_LightingPowerAllowanceTotalUnconditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C02_ColumnLabel1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Area Category [d:t24ref/]140.6(c)2</xsd:documentation>
@@ -506,18 +516,44 @@ user selects calculation method from dropdown list,</xsd:documentation>
                         <xsd:documentation source="FieldText">(See Table I)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C02Row01_AreaTotalLightingPowerAllowedConditioned" type="comp:AreaTotalLightingPowerAllowedConditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If  a project has Bnew02_LightingPrescriptiveMethodNR Or  Baltered02_LightingPrescriptiveMethodNR == AreaCategory Or AreaCategoryAndTailored  this field is required and auto-filled result = IcTotals05AllowedWatt_LightingPowerAllowanceTotalConditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C02Row02_AreaTotalLightingPowerAllowedUnconditioned" type="comp:AreaTotalLightingPowerAllowedUnconditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If  a project has Bnew04_LightingPrescriptiveMethodNR Or  Baltered04_LightingPrescriptiveMethodNR == AreaCategory Or AreaCategoryAndTailored this field is required and auto-filled result =  IuTotals05AllowedWatt_LightingPowerAllowanceTotalUnconditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C02Row01_AreaTotalLightingPowerAllowedConditioned" type="comp:AreaTotalLightingPowerAllowedConditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew02_LightingPrescriptiveMethodNR Or  Baltered02_LightingPrescriptiveMethodNR == AreaCategory Or AreaCategoryAndTailored  this field is required and auto-filled result = IcTotals05AllowedWatt_LightingPowerAllowanceTotalConditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C02Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew02_LightingPrescriptiveMethodNR Or  Baltered02_LightingPrescriptiveMethodNR == AreaCategory Or AreaCategoryAndTailored  this field is required and auto-filled result = IcTotals05AllowedWatt_LightingPowerAllowanceTotalConditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C02Row02_AreaTotalLightingPowerAllowedUnconditioned" type="comp:AreaTotalLightingPowerAllowedUnconditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew04_LightingPrescriptiveMethodNR Or  Baltered04_LightingPrescriptiveMethodNR == AreaCategory Or AreaCategoryAndTailored this field is required and auto-filled result =  IuTotals05AllowedWatt_LightingPowerAllowanceTotalUnconditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C02Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  a project has Bnew04_LightingPrescriptiveMethodNR Or  Baltered04_LightingPrescriptiveMethodNR == AreaCategory Or AreaCategoryAndTailored this field is required and auto-filled result =  IuTotals05AllowedWatt_LightingPowerAllowanceTotalUnconditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C03_ColumnLabel1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Area Category Additional  [d:t24ref/]140.6(c)2G [d:line1/]   ( +)</xsd:documentation>
@@ -528,18 +564,44 @@ user selects calculation method from dropdown list,</xsd:documentation>
                         <xsd:documentation source="FieldText">(See Table J)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C03Row01_AreaAdditionalLightingPowerAllowedConditioned" type="comp:AreaAdditionalLightingPowerAllowedConditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section J IsPresent this field is required and auto-filled result =  Jc11_AreaAdditionalLightingPowerAllowedConditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned" type="comp:AreaAdditionalLightingPowerAllowedUnconditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section J IsPresent this field is required and auto-filled result =  Ju11_AreaAdditionalLightingPowerAllowedUnconditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C03Row01_AreaAdditionalLightingPowerAllowedConditioned" type="comp:AreaAdditionalLightingPowerAllowedConditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section J IsPresent this field is required and auto-filled result =  Jc11_AreaAdditionalLightingPowerAllowedConditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C03Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section J IsPresent this field is required and auto-filled result =  Jc11_AreaAdditionalLightingPowerAllowedConditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned" type="comp:AreaAdditionalLightingPowerAllowedUnconditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section J IsPresent this field is required and auto-filled result =  Ju11_AreaAdditionalLightingPowerAllowedUnconditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C03Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section J IsPresent this field is required and auto-filled result =  Ju11_AreaAdditionalLightingPowerAllowedUnconditioned; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C04_ColumnLabel1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Tailored [d:t24ref/]140.6(c)3 [d:line1/]   ( +)</xsd:documentation>
@@ -550,35 +612,87 @@ user selects calculation method from dropdown list,</xsd:documentation>
                         <xsd:documentation source="FieldText">(See Table K)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C04Row01_TailoredTotalLightingPowerAllowedConditioned" type="comp:TailoredTotalLightingPowerAllowedConditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section K IsPresent this field is required and auto-filled result =  Kc01_TailoredTotalLightingPowerAllowedConditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C04Row02_TailoredTotalLightingPowerAllowedUnconditioned" type="comp:TailoredTotalLightingPowerAllowedUnconditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section K IsPresent this field is required and  auto-filled result =  Ku01_TailoredTotalLightingPowerAllowedUnconditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C04Row01_TailoredTotalLightingPowerAllowedConditioned" type="comp:TailoredTotalLightingPowerAllowedConditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section K IsPresent this field is required and auto-filled result =  Kc01_TailoredTotalLightingPowerAllowedConditioned; Else field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C04Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section K IsPresent this field is required and auto-filled result =  Kc01_TailoredTotalLightingPowerAllowedConditioned; Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C04Row02_TailoredTotalLightingPowerAllowedUnconditioned" type="comp:TailoredTotalLightingPowerAllowedUnconditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section K IsPresent this field is required and  auto-filled result =  Ku01_TailoredTotalLightingPowerAllowedUnconditioned; Else field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C04Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section K IsPresent this field is required and  auto-filled result =  Ku01_TailoredTotalLightingPowerAllowedUnconditioned; Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C05_ColumnLabel" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">[d:b]Total Allowed [/d:b] (Watts)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C05Row01_LightingPowerAllowanceTotalConditioned" type="comp:LightingPowerAllowanceTotalConditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If  C01Row01_BuildingLightingPowerAllowedConditioned NotNull Or  C02Row01_AreaTotalLightingPowerAllowedConditioned NotNull Or   C03Row01_AreaAdditionalLightingPowerAllowedConditioned NotNull Or  C04Row01_TailoredTotalLightingPowerAllowedConditioned NotNull  result = Sum of all present (C01Row01_BuildingLightingPowerAllowedConditioned, C02Row01_AreaTotalLightingPowerAllowedConditioned,  C03Row01_AreaAdditionalLightingPowerAllowedConditioned, C04Row01_TailoredTotalLightingPowerAllowedConditioned); Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C05Row02_LightingPowerAllowanceTotalUnconditioned" type="comp:LightingPowerAllowanceTotalUnconditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If C01Row02_BuildingLightingPowerAllowedUnconditioned NotNull Or  C02Row02_AreaTotalLightingPowerAllowedUnconditioned NotNull Or  C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned NotNull Or  C04Row02_TailoredTotalLightingPowerAllowedUnconditioned NotNull result =  Sum of all present (  C01Row02_BuildingLightingPowerAllowedUnconditioned, C02Row02_AreaTotalLightingPowerAllowedUnconditioned, C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned, C04Row02_TailoredTotalLightingPowerAllowedUnconditioned); Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C05Row01_LightingPowerAllowanceTotalConditioned" type="comp:LightingPowerAllowanceTotalConditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  C01Row01_BuildingLightingPowerAllowedConditioned NotNull Or  C02Row01_AreaTotalLightingPowerAllowedConditioned NotNull Or   C03Row01_AreaAdditionalLightingPowerAllowedConditioned NotNull Or  C04Row01_TailoredTotalLightingPowerAllowedConditioned NotNull  result = Sum of all present (C01Row01_BuildingLightingPowerAllowedConditioned, C02Row01_AreaTotalLightingPowerAllowedConditioned,  C03Row01_AreaAdditionalLightingPowerAllowedConditioned, C04Row01_TailoredTotalLightingPowerAllowedConditioned); Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C05Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  C01Row01_BuildingLightingPowerAllowedConditioned NotNull Or  C02Row01_AreaTotalLightingPowerAllowedConditioned NotNull Or   C03Row01_AreaAdditionalLightingPowerAllowedConditioned NotNull Or  C04Row01_TailoredTotalLightingPowerAllowedConditioned NotNull  result = Sum of all present (C01Row01_BuildingLightingPowerAllowedConditioned, C02Row01_AreaTotalLightingPowerAllowedConditioned,  C03Row01_AreaAdditionalLightingPowerAllowedConditioned, C04Row01_TailoredTotalLightingPowerAllowedConditioned); Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C05Row02_LightingPowerAllowanceTotalUnconditioned" type="comp:LightingPowerAllowanceTotalUnconditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C01Row02_BuildingLightingPowerAllowedUnconditioned NotNull Or  C02Row02_AreaTotalLightingPowerAllowedUnconditioned NotNull Or  C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned NotNull Or  C04Row02_TailoredTotalLightingPowerAllowedUnconditioned NotNull result =  Sum of all present (  C01Row02_BuildingLightingPowerAllowedUnconditioned, C02Row02_AreaTotalLightingPowerAllowedUnconditioned, C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned, C04Row02_TailoredTotalLightingPowerAllowedUnconditioned); Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C05Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C01Row02_BuildingLightingPowerAllowedUnconditioned NotNull Or  C02Row02_AreaTotalLightingPowerAllowedUnconditioned NotNull Or  C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned NotNull Or  C04Row02_TailoredTotalLightingPowerAllowedUnconditioned NotNull result =  Sum of all present (  C01Row02_BuildingLightingPowerAllowedUnconditioned, C02Row02_AreaTotalLightingPowerAllowedUnconditioned, C03Row02_AreaAdditionalLightingPowerAllowedUnconditioned, C04Row02_TailoredTotalLightingPowerAllowedUnconditioned); Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C06_ColumnLabel1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Total Designed (Watts)</xsd:documentation>
@@ -589,18 +703,44 @@ user selects calculation method from dropdown list,</xsd:documentation>
                         <xsd:documentation source="FieldText">(See Table F)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C06Row01_LightingPowerInstalledTotalConditioned" type="comp:LightingPowerInstalledTotalConditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section F IsPresent  And Fc09Totals_LightingPowerInstalledTotalConditioned NotNull, this field is required and result = Fc09Totals_LightingPowerInstalledTotalConditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C06Row02_LightingPowerInstalledTotalUnconditioned" type="comp:LightingPowerInstalledTotalUnconditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section F IsPresent And Fu09Totals_LightingPowerInstalledTotalUnconditioned NotNull, this field is required and result = Fu09Totals_LightingPowerInstalledTotalUnconditioned; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C06Row01_LightingPowerInstalledTotalConditioned" type="comp:LightingPowerInstalledTotalConditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section F IsPresent  And Fc09Totals_LightingPowerInstalledTotalConditioned NotNull, this field is required and result = Fc09Totals_LightingPowerInstalledTotalConditioned; Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C06Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section F IsPresent  And Fc09Totals_LightingPowerInstalledTotalConditioned NotNull, this field is required and result = Fc09Totals_LightingPowerInstalledTotalConditioned; Else result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C06Row02_LightingPowerInstalledTotalUnconditioned" type="comp:LightingPowerInstalledTotalUnconditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section F IsPresent And Fu09Totals_LightingPowerInstalledTotalUnconditioned NotNull, this field is required and result = Fu09Totals_LightingPowerInstalledTotalUnconditioned; result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C06Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section F IsPresent And Fu09Totals_LightingPowerInstalledTotalUnconditioned NotNull, this field is required and result = Fu09Totals_LightingPowerInstalledTotalUnconditioned; result = BlankGrayedOut and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C07_ColumnLabel1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">PAF Lighting Control Credits  [d:t24ref/]140.6(a)2 [d:line1/]       (-)</xsd:documentation>
@@ -611,35 +751,87 @@ user selects calculation method from dropdown list,</xsd:documentation>
                         <xsd:documentation source="FieldText">(See Table P)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C07Row01_ControlsTotalLightingPowerAllowedConditioned" type="comp:ControlsTotalLightingPowerAllowedConditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section P IsPresent And Pc09_TotalPAF_AllowedAllAreas NotNull this field is required and result = Pc09_TotalPAF_AllowedAllAreas; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C07Row02_ControlsTotalLightingPowerAllowedUnconditioned" type="comp:ControlsTotalLightingPowerAllowedUnconditioned"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section P IsPresent And Pu09_TotalPAF_AllowedAllAreas NotNull this field is required and result = Pu09_TotalPAF_AllowedAllAreas; Else field is grayed out and blank</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C07Row01_ControlsTotalLightingPowerAllowedConditioned" type="comp:ControlsTotalLightingPowerAllowedConditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section P IsPresent And Pc09_TotalPAF_AllowedAllAreas NotNull this field is required and result = Pc09_TotalPAF_AllowedAllAreas; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C07Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section P IsPresent And Pc09_TotalPAF_AllowedAllAreas NotNull this field is required and result = Pc09_TotalPAF_AllowedAllAreas; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C07Row02_ControlsTotalLightingPowerAllowedUnconditioned" type="comp:ControlsTotalLightingPowerAllowedUnconditioned" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section P IsPresent And Pu09_TotalPAF_AllowedAllAreas NotNull this field is required and result = Pu09_TotalPAF_AllowedAllAreas; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C07Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section P IsPresent And Pu09_TotalPAF_AllowedAllAreas NotNull this field is required and result = Pu09_TotalPAF_AllowedAllAreas; Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C08_ColumnLabel" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">[d:b]Total Adjusted [/d:b] (Watts) *Includes Adjustments</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="C08Row01_LightingPowerInstalledTotalConditionedAdjusted" type="comp:LightingPowerInstalledTotalConditionedAdjusted"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If C06Row01_LightingPowerInstalledTotalConditioned NotNull Then If C08Row01_ControlsTotalLightingPowerAllowedConditioned NotNull result = C06Row01_LightingPowerInstalledTotalConditioned - C08Row01_ControlsTotalLightingPowerAllowedConditioned); Else result = C06Row01_LightingPowerInstalledTotalConditioned;  Else field is grayed out and blank.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted" type="comp:LightingPowerInstalledTotalUnconditionedAdjusted"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If C06Row02_LightingPowerInstalledTotalUnconditioned NotNull Then If C08Row02_ControlsTotalLightingPowerAllowedUnconditioned NotNull result = C06Row02_LightingPowerInstalledTotalUnconditioned - C08Row02_ControlsTotalLightingPowerAllowedUnconditioned); Else result = C06Row02_LightingPowerInstalledTotalUnconditioned;  Else field is grayed out and blank.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C08Row01_LightingPowerInstalledTotalConditionedAdjusted" type="comp:LightingPowerInstalledTotalConditionedAdjusted" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C06Row01_LightingPowerInstalledTotalConditioned NotNull Then If C08Row01_ControlsTotalLightingPowerAllowedConditioned NotNull result = C06Row01_LightingPowerInstalledTotalConditioned - C08Row01_ControlsTotalLightingPowerAllowedConditioned); Else result = C06Row01_LightingPowerInstalledTotalConditioned;  Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C08Row01_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C06Row01_LightingPowerInstalledTotalConditioned NotNull Then If C08Row01_ControlsTotalLightingPowerAllowedConditioned NotNull result = C06Row01_LightingPowerInstalledTotalConditioned - C08Row01_ControlsTotalLightingPowerAllowedConditioned); Else result = C06Row01_LightingPowerInstalledTotalConditioned;  Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted" type="comp:LightingPowerInstalledTotalUnconditionedAdjusted" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C06Row02_LightingPowerInstalledTotalUnconditioned NotNull Then If C08Row02_ControlsTotalLightingPowerAllowedUnconditioned NotNull result = C06Row02_LightingPowerInstalledTotalUnconditioned - C08Row02_ControlsTotalLightingPowerAllowedUnconditioned); Else result = C06Row02_LightingPowerInstalledTotalUnconditioned;  Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="C08Row02_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C06Row02_LightingPowerInstalledTotalUnconditioned NotNull Then If C08Row02_ControlsTotalLightingPowerAllowedUnconditioned NotNull result = C06Row02_LightingPowerInstalledTotalUnconditioned - C08Row02_ControlsTotalLightingPowerAllowedUnconditioned); Else result = C06Row02_LightingPowerInstalledTotalUnconditioned;  Else result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="C09_ColumnLabel" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">[d:b]05 must be [d:gte/] 08 [d:line1/] [d:t24ref/]140.6[/d:b]</xsd:documentation>
@@ -649,28 +841,38 @@ user selects calculation method from dropdown list,</xsd:documentation>
                      <xsd:element name="C09Row01_DoesLightingPowerConditionedComply" type="comp:DoesLightingPowerConditionedComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If C08Row1_LightingPowerInstalledTotalConditionedAdjusted IsNull  result = NotApplicable in C10Row01_NotApplicableMessage and field is grayed out and blank; Else If C05Row01_LightingPowerAllowanceTotalConditioned GTE C08Row01_LightingPowerInstalledTotalConditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C08Row1_LightingPowerInstalledTotalConditionedAdjusted IsNull  result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else If C05Row01_LightingPowerAllowanceTotalConditioned GTE C08Row01_LightingPowerInstalledTotalConditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C09Row01_NotApplicableMessage" type="comp:NotApplicableMessage"  fixed="Not Applicable">
+                     <xsd:element name="C09Row01_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If C08Row1_LightingPowerInstalledTotalConditionedAdjusted IsNull  result = NotApplicable in C10Row01_NotApplicableMessage and field is grayed out and blank; Else If C05Row01_LightingPowerAllowanceTotalConditioned GTE C08Row01_LightingPowerInstalledTotalConditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C08Row1_LightingPowerInstalledTotalConditionedAdjusted IsNull  result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else If C05Row01_LightingPowerAllowanceTotalConditioned GTE C08Row01_LightingPowerInstalledTotalConditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C09Row02_DoesLightingPowerUnconditionedComply" type="comp:DoesLightingPowerUnconditionedComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If C08Row2_LightingPowerInstalledTotalUnonditionedAdjusted IsNull  result = NotApplicable in C10Row02_NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C08Row2_LightingPowerInstalledTotalUnonditionedAdjusted IsNull  result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C09Row02_NotApplicableMessage" type="comp:NotApplicableMessage"  fixed="Not Applicable">
+                     <xsd:element name="C09Row02_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If BTotals05_LightingProjectTotalUnconditionedFloorArea NotPresent, result = NotApplicable in C10Row02_NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If BTotals05_LightingProjectTotalUnconditionedFloorArea NotPresent, result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
@@ -1105,13 +1307,13 @@ user selects calculation method from dropdown list,</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User input; If checked result is true, else false</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="TrackLightingCalculation">
+                                    <xsd:element name="TrackLightingCalculation" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText"></xsd:documentation>
                                        </xsd:annotation>
                                        <xsd:complexType>
                                           <xsd:choice >
-                                             <xsd:element name="G03iCalculationMethod">
+                                             <xsd:element name="G03iCalculationMethod" >
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText"></xsd:documentation>
                                                 </xsd:annotation>
@@ -4009,14 +4211,19 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                               <xsd:element name="Pc08_DaylightRequirementsMetForPAF" type="comp:DaylightRequirementsMetForPAF" >
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 includes a daylight design meeting requirements in [d:t24ref/]140.3(d)</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If all Pc02h_ApplyClerestoryFenestrationPAF And Pc02i_ApplyHorizontalSlatsPAF And Pc02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If all Pc02h_ApplyClerestoryFenestrationPAF And Pc02i_ApplyHorizontalSlatsPAF And Pc02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="Pc08_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                              <xsd:element name="Pc08_NotApplicableMessage" >
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 includes a daylight design meeting requirements in [d:t24ref/]140.3(d)</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If all Pc02h_ApplyClerestoryFenestrationPAF And Pc02i_ApplyHorizontalSlatsPAF And Pc02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If all Pc02h_ApplyClerestoryFenestrationPAF And Pc02i_ApplyHorizontalSlatsPAF And Pc02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
                                  </xsd:annotation>
+                                 <xsd:simpleType>
+                                    <xsd:restriction base="comp:NotApplicableMessage">
+                                       <xsd:enumeration value="BlankGrayedOut"/>
+                                    </xsd:restriction>
+                                 </xsd:simpleType>
                               </xsd:element>
                            </xsd:choice>
                            <xsd:element name="Pc09_TotalPAF_AllowedAllAreas" type="comp:TotalPAF_AllowedAllAreas" >
@@ -4160,14 +4367,19 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                               <xsd:element name="Pu08_DaylightRequirementsMetForPAF" type="comp:DaylightRequirementsMetForPAF" >
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 includes a daylight design meeting requirements in [d:t24ref/]140.3(d)</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If all Pu02h_ApplyClerestoryFenestrationPAF And Pu02i_ApplyHorizontalSlatsPAF And Pu02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If all Pu02h_ApplyClerestoryFenestrationPAF And Pu02i_ApplyHorizontalSlatsPAF And Pu02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="Pu08_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                              <xsd:element name="Pu08_NotApplicableMessage" >
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 includes a daylight design meeting requirements in [d:t24ref/]140.3(d)</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If all Pu02h_ApplyClerestoryFenestrationPAF And Pu02i_ApplyHorizontalSlatsPAF And Pu02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If all Pu02h_ApplyClerestoryFenestrationPAF And Pu02i_ApplyHorizontalSlatsPAF And Pu02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
                                  </xsd:annotation>
+                                 <xsd:simpleType>
+                                    <xsd:restriction base="comp:NotApplicableMessage">
+                                       <xsd:enumeration value="BlankGrayedOut"/>
+                                    </xsd:restriction>
+                                 </xsd:simpleType>
                               </xsd:element>
                            </xsd:choice>
                            <xsd:element name="Pu09_TotalPAF_AllowedAllAreas" type="comp:TotalPAF_AllowedAllAreas" >
@@ -4260,32 +4472,36 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Exception 6 applies to all spaces</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">Exception 6 applies to all spaces within the permit application</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  If result == true, all fields Q03 - Q18 are grayed out</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  If result == true, all fields Q03 - Q19 are grayed out</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="ChoiceQTables">
+                  <xsd:element name="ChoiceQTables" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:choice >
-                           <xsd:element name="QTableNA_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                           <xsd:element name="QTablesNA_NotApplicableMessage" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"></xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If Q02b_RatedPowerReductionException6AppliesToAll == true result = BlankGrayedOut and data is not required and table cells are grayed out; Else table with Q03-Q18 fields is required.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If Q02b_RatedPowerReductionException6AppliesToAll == true result = BlankGrayedOut stored in NotApplicableMessage and data is not required fields Q03-Q19 and they are blank and grayed out; Else  Q03-Q19 fields are required.</xsd:documentation>
                               </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="comp:NotApplicableMessage">
+                                    <xsd:enumeration value="BlankGrayedOut"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
                            </xsd:element>
                            <xsd:element name="QTablesRequired" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"></xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If Q02b_RatedPowerReductionException6AppliesToAll == true result = BlankGrayedOut and data is not required and table cells are grayed out; Else table with Q03-Q18 fields is required.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If Q02b_RatedPowerReductionException6AppliesToAll == true result = BlankGrayedOut stored in NotApplicableMessage and data is not required fields Q03-Q19 and they are blank and grayed out; Else  Q03-Q19 fields are required.</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
                                     <xsd:element name="TableAllLuminairesAltered" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText"></xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If   Q01 RatedPowerReductionScopeApplies == true And  Q02_RatedPowerReductionException6AppliesToAll == false data is required from this able, Else data is not required and table cells are grayed out</xsd:documentation>
                                        </xsd:annotation>
                                        <xsd:complexType>
                                           <xsd:sequence>

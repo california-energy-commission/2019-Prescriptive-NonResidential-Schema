@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.000">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -27,7 +27,7 @@
                <xsd:complexType>
                   <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCCLTSE"/>
                   <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CERTIFICATE OF COMPLIANCE NR"/>
-                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Signage Lighting"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Sign Lighting"/>
                </xsd:complexType>
             </xsd:element>
             <xsd:element name="Payload" type="comp:Payload"/>
@@ -50,7 +50,7 @@
    </xsd:element>
    <xsd:complexType name="NRCCLTS01E">
       <xsd:annotation>
-         <xsd:documentation>Signage Lighting</xsd:documentation>
+         <xsd:documentation>Sign Lighting</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
@@ -214,15 +214,20 @@
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Total Allowed (Watts) [d:line1/] (See Table F)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName  If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower
-result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in C03_NotApplicableMessage and cell is grayed out.</xsd:documentation>
+result = F06_LightedSignAllowedPower; Else result = BlankGrayedOut in stored in C03_NotApplicableMessage and cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="C03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="C03_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Total Allowed (Watts) [d:line1/] (See Table F)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName  If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower
-result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+result = F06_LightedSignAllowedPower; Else result = BlankGrayedOut in stored in C03_NotApplicableMessage and cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="C03AfterSubheading" minOccurs="0">
@@ -235,14 +240,19 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                        <xsd:element name="C04_LightedSignDesignedPower" type="comp:LightedSignDesignedPower" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Total Designed (Watts) [d:line1/] (See Table F)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower result = F07_LightedSignDesignedPower;  Else result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower result = F07_LightedSignDesignedPower;  Else result = BlankGrayedOut  in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="C04_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="C04_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Total Designed (Watts) [d:line1/] (See Table F)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower result = F07_LightedSignDesignedPower;  Else result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName If B05_LightedSignPrescriptiveMethod == MaximumAllowedPower result = F07_LightedSignDesignedPower;  Else result = BlankGrayedOut  in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="C04AfterSubheading" minOccurs="0">
@@ -255,14 +265,19 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                        <xsd:element name="C05_IsAlternateLightSourceMethodCompliant" type="comp:IsAlternateLightSourceMethodCompliant" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Compliant Light Sources [d:line1/] (See Table G)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05_LightedSignPrescriptiveMethod == AlternateLightSources then If G03_CompliantLightSource NotNull result = true display text YES; else result = false display term No; Else If  B05_LightedSignPrescriptiveMethod !=  AlternateLightSources result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05_LightedSignPrescriptiveMethod == AlternateLightSources then If G03_CompliantLightSource NotNull result = true display text YES; else result = false display term No; Else If  B05_LightedSignPrescriptiveMethod !=  AlternateLightSources result = BlankGrayedOut  in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="C05_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="C05_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Compliant Light Sources [d:line1/] (See Table G)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05_LightedSignPrescriptiveMethod == AlternateLightSources then If G03_CompliantLightSource NotNull result = true display text YES; else result = false display term No; Else If  B05_LightedSignPrescriptiveMethod !=  AlternateLightSources result = NotApplicable in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05_LightedSignPrescriptiveMethod == AlternateLightSources then If G03_CompliantLightSource NotNull result = true display text YES; else result = false display term No; Else If  B05_LightedSignPrescriptiveMethod !=  AlternateLightSources result = BlankGrayedOut  in stored in NotApplicableMessage and cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="C05AfterSubheading" minOccurs="0">
@@ -275,14 +290,19 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                        <xsd:element name="C06_IsMethodEnergyVerifiedLabel" type="comp:IsMethodEnergyVerifiedLabel" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:line1/] (See Table H)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05 LightedSignPrescriptiveMethod == EnergyVerifiedLabel result = true and display term is Yes; Else If B05 LightedSignPrescriptiveMethod != EnergyVerifiedLabel,  result = NotApplicable stored in C06_NotApplicableMessage and the cell is grayed out.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05 LightedSignPrescriptiveMethod == EnergyVerifiedLabel result = true and display term is Yes; Else If B05 LightedSignPrescriptiveMethod != EnergyVerifiedLabel,  result = BlankGrayedOut stored in C06_NotApplicableMessage and the cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="C06_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="C06_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:line1/] (See Table H)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05 LightedSignPrescriptiveMethod == EnergyVerifiedLabel result = true and display term is Yes; Else If B05 LightedSignPrescriptiveMethod != EnergyVerifiedLabel,  result = NotApplicable stored in C06_NotApplicableMessage and the cell is grayed out.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For sign defined in C01_LightedSignName: If B05 LightedSignPrescriptiveMethod == EnergyVerifiedLabel result = true and display term is Yes; Else If B05 LightedSignPrescriptiveMethod != EnergyVerifiedLabel,  result = BlankGrayedOut stored in C06_NotApplicableMessage and the cell is grayed out.</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="C07_DoesLightedSignComply" type="comp:DoesLightedSignComply" >
@@ -465,7 +485,7 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                        <xsd:element name="F08a_SignShutOffControls" type="comp:SignShutOffControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation==Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation==Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
@@ -473,43 +493,58 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                              
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="F08a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="F08a_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation==Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation==Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="F08b_SignDimmingControls" type="comp:SignDimmingControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Dimming</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains DimmingNA  Else If B04_LightedSignLocation == Outdoor, list  contains PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains DimmingNA  Else If B04_LightedSignLocation == Outdoor, list  contains PowerReduced65, Exempt</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="F08b_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="F08b_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Dimming</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains DimmingNA  Else If B04_LightedSignLocation == Outdoor, list  contains PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains DimmingNA  Else If B04_LightedSignLocation == Outdoor, list  contains PowerReduced65, Exempt</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="F08c_SignDemandResponseControls" type="comp:SignDemandResponseControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="F08c_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="F08c_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="F09_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -674,7 +709,7 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                        <xsd:element name="G04a_SignShutOffControls" type="comp:SignShutOffControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut  stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
@@ -682,43 +717,58 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                              
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="G04a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="G04a_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter  result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter  result = BlankGrayedOut  stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains:  AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains: AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="G04b_SignDimmingControls" type="comp:SignDimmingControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Dimming</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut  stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="G04b_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="G04b_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Dimming</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut  stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="G04c_SignDemandResponseControls" type="comp:SignDemandResponseControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Demand Response[d:sup]3[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = BlankGrayedOut  stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="G04c_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="G04c_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Demand Response[d:sup]3[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="G05_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -838,7 +888,7 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                        <xsd:element name="H03a_SignShutOffControls" type="comp:SignShutOffControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains:  AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains:  AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
@@ -846,60 +896,75 @@ result = F06_LightedSignAllowedPower; Else result = NotApplicable in stored in N
                                              
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="H03a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="H03a_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains:  AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: AutoTimeSwitch,  AstronomicalTimeSwitch, Other;  Else If B04_LightedSignLocation == Outdoor, list contains:  AutoTimeSwitchPhotoControl, AstronomicalTimeSwitchPhotoControl, Other, Exempt.</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="H03b_SignDimmingControls" type="comp:SignDimmingControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Dimming</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="H03b_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="H03b_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Dimming</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true Or B04_LightedSignLocation == ElecMessageCenter result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list loaded as follows: If B04_LightedSignLocation == Indoor, list contains: DimmingNA  Else If B04_LightedSignLocation == Outdoor, list contains: PowerReduced65, Exempt</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="H03c_SignDemandResponseControls" type="comp:SignDemandResponseControls" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
                                           </xsd:annotation>
                                        </xsd:element>
-                                       <xsd:element name="H03c_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                       <xsd:element name="H03c_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Demand Response[d:sup]1[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = N/A stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If A03_IsBuildingHeathcare == true result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out;  Else user selects from dropdown list as follows: If  B04_LightedSignLocation == ElecMessageCenter list PowerReduced30, Exempt; Else list DemandResponseNA</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:element name="H04_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">

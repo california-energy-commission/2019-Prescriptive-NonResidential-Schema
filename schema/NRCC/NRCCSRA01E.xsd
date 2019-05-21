@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.000">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -171,20 +171,46 @@
                         <xsd:documentation source="CalculationsAndRules">By default result = false and unchecked.  If user checks it, the result = true, and  for all other paths in B01 result = false and unchecked.  If another path in B01 is checked, result = false and unchecked</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="B01c_IsProjectInstalledSolarWaterHeating" type="comp:IsProjectInstalledSolarWaterHeating" >
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Exception to Solar Ready Area: Installed Solar Water Heating System</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">The project  is a hotel/motel or high-rise multifamily occupancy and includes a permanently installed domestic solar water-heating system complying with [d:t24ref/]150.1(c)8Biii and Reference Residential Appendix RA4, as documented in Table H.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If A04_SolarReadyBuildingTypeNR != HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories this field is not required and grayed out; Else by default result = false and unchecked;  If user checks it, the result = true, and  for all other paths in B01 result = false and unchecked.  If another path in B01 is checked, result = false and unchecked</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="B01d_IsProjectSmartTstatPlusEE_Measure" type="comp:IsProjectSmartTstatPlusEE_Measure"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Exception to Solar Ready Area: Smart Thermostat and Alternative Energy Efficiency Measure</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">The project is a high-rise multifamily occupancy where all thermostats in each dwelling unit comply with [d:t24ref/]110.12(a)  AND at least one additional measure listed in Exception 4 to [d:t24ref/]110.10(b)1B is installed, as documented in Table I.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If A04_SolarReadyBuildingTypeNR != HighRiseMultifamilyLTE10Stories this field is not required and grayed out; Else  by default result = false and unchecked.  If user checks it, the result = true, and  for all other paths in B01 result = false and unchecked.  If another path in B01 is checked, result = false and unchecked</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="B01c_IsProjectInstalledSolarWaterHeating" type="comp:IsProjectInstalledSolarWaterHeating" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Exception to Solar Ready Area: Installed Solar Water Heating System</xsd:documentation>
+                           <xsd:documentation source="AdditionalRequirements">The project  is a hotel/motel or high-rise multifamily occupancy and includes a permanently installed domestic solar water-heating system complying with [d:t24ref/]150.1(c)8Biii and Reference Residential Appendix RA4, as documented in Table H.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If A04_SolarReadyBuildingTypeNR != HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else by default result = false and unchecked;  If user checks it, the result = true, and  for all other paths in B01 result = false and unchecked.  If another path in B01 is checked, result = false and unchecked</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="B01c_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Exception to Solar Ready Area: Installed Solar Water Heating System</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If A04_SolarReadyBuildingTypeNR != HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="B01d_IsProjectSmartTstatPlusEE_Measure" type="comp:IsProjectSmartTstatPlusEE_Measure" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Exception to Solar Ready Area: Smart Thermostat and Alternative Energy Efficiency Measure</xsd:documentation>
+                           <xsd:documentation source="AdditionalRequirements">The project is a high-rise multifamily occupancy where all thermostats in each dwelling unit comply with [d:t24ref/]110.12(a)  AND at least one additional measure listed in Exception 4 to [d:t24ref/]110.10(b)1B is installed, as documented in Table I.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If A04_SolarReadyBuildingTypeNR != HighRiseMultifamilyLTE10Stories result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else  by default result = false and unchecked.  If user checks it, the result = true, and  for all other paths in B01 result = false and unchecked.  If another path in B01 is checked, result = false and unchecked</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="B01d_NotApplicableMessage" >
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Exception to Solar Ready Area: Smart Thermostat and Alternative Energy Efficiency Measure</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If A04_SolarReadyBuildingTypeNR != HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="BErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
@@ -226,14 +252,19 @@
                      <xsd:element name="C01_SolarZoneAreaRequiredMinimum" type="comp:SolarZoneAreaRequiredMinimum" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Required Minimum Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If B01a_IsProjectAllocatedSolarZone == true,  result = F08_SolarZoneAreaRequiredMinimum; Else result = NotApplicable stored in C01_NotApplicableMessage and field is grayed out,</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If B01a_IsProjectAllocatedSolarZone == true,  result = F08_SolarZoneAreaRequiredMinimum; Else result = BlankGrayedOut  stored in NotApplicableMessage and field is grayed out,</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C01_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C01_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Required Minimum Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If B01a_IsProjectAllocatedSolarZone == true,  result = F08_SolarZoneAreaRequiredMinimum; Else result = NotApplicable stored in C01_NotApplicableMessage and field is grayed out,</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If B01a_IsProjectAllocatedSolarZone == true,  result = F08_SolarZoneAreaRequiredMinimum; Else result =  BlankGrayedOut  stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C01AfterSubheading" minOccurs="0">
@@ -246,14 +277,19 @@
                      <xsd:element name="C02_SolarZoneSubAreasTotalSquareFootage" type="comp:SolarZoneSubAreasTotalSquareFootage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designated Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated  field:  If B01a_IsProjectAllocatedSolarZone == true And F08_SolarZoneAreaRequiredMinimum GT 0  result =  FTotals18_SolarZoneSubAreasTotalSquareFootage; Else result =  NotApplicable stored in C02_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated  field:  If B01a_IsProjectAllocatedSolarZone == true And F08_SolarZoneAreaRequiredMinimum GT 0  result =  FTotals18_SolarZoneSubAreasTotalSquareFootage; Else result =   BlankGrayedOut  stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C02_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C02_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designated Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated  field:  If B01a_IsProjectAllocatedSolarZone == true And F08_SolarZoneAreaRequiredMinimum GT 0  result =  FTotals18_SolarZoneSubAreasTotalSquareFootage; Else result =  NotApplicable stored in C02_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated  field:  If B01a_IsProjectAllocatedSolarZone == true And F08_SolarZoneAreaRequiredMinimum GT 0  result =  FTotals18_SolarZoneSubAreasTotalSquareFootage; Else result =   BlankGrayedOut  stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
@@ -261,14 +297,23 @@
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="AdditionalRequirements">Location within the construction documents showing the location for inverters and metering equipment and a pathway for the routing of conduit/plumbing to the electrical service/ water heating system per [d:t24ref/]110.10(c).</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01a_IsProjectAllocatedSolarZone == true, result =  F19a_BuildingPlanReference; Else result =  NotApplicable stored in C02a_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01a_IsProjectAllocatedSolarZone == true, result =  F19a_BuildingPlanReference; Else result =  NotApplicable display term Not Applicable stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C02a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C02a_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01a_IsProjectAllocatedSolarZone == true, result =  F19a_BuildingPlanReference; Else result =  NotApplicable stored in C02a_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01a_IsProjectAllocatedSolarZone == true, result =  F19a_BuildingPlanReference; Else result =  NotApplicable display term Not Applicable stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:appinfo source="displayterm">
+                              <dtyp:displayterm value="NotApplicable">Not Applicable</dtyp:displayterm>
+                           </xsd:appinfo>
+                           
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C02AfterSubheading" minOccurs="0">
@@ -291,14 +336,19 @@
                      <xsd:element name="C03_PV_SystemTotalRatedPowerDC_Minimum" type="hvac:PV_SystemTotalRatedPowerDC_Minimum" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Required Minimum DC Power Rating (Watts)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,   result = G02_PV_SystemTotalRatedPowerDC_Minimum;  Else result = NotApplicable stored in C03_NotApplicableMessage and field is grayed out,</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,   result = G02_PV_SystemTotalRatedPowerDC_Minimum;  Else result =  BlankGrayedOut  stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C03_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Required Minimum DC Power Rating (Watts)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,   result = G02_PV_SystemTotalRatedPowerDC_Minimum;  Else result = NotApplicable stored in C03_NotApplicableMessage and field is grayed out,</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,   result = G02_PV_SystemTotalRatedPowerDC_Minimum;  Else result =  BlankGrayedOut  stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C03AfterSubheading" minOccurs="0">
@@ -311,14 +361,19 @@
                      <xsd:element name="C04_PV_SystemTotalRatedPowerDC" type="hvac:PV_SystemTotalRatedPowerDC" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designed DC Power Rating (Watts)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,  result = G03_PV_SystemTotalRatedPowerDC;  Else result = NotApplicable stored in C04_NotApplicableMessage and field is grayed out,</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,  result = G03_PV_SystemTotalRatedPowerDC;  Else result =  BlankGrayedOut  stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C04_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C04_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designed DC Power Rating (Watts)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,  result = G03_PV_SystemTotalRatedPowerDC;  Else result = NotApplicable stored in C04_NotApplicableMessage and field is grayed out,</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01b_IsProjectInstalledPhotovoltaicSystem == true,  result = G03_PV_SystemTotalRatedPowerDC;  Else result =  BlankGrayedOut  stored in NotApplicableMessage and field is grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C04AfterSubheading" minOccurs="0">
@@ -341,14 +396,19 @@
                      <xsd:element name="C05_SolarWaterHeatingSavingsFractionRequired" type="comp:SolarWaterHeatingSavingsFractionRequired" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Required Minimum Solar Savings Fraction</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result = NotApplicable stored in C05_NotApplicableMessage and field is grayed out; Else If H00c_IsDWHR_Installed == false for A02_ClimateZone InRange (1,9) result = 0.2; for A02_ClimateZone InRange (10,16) result = 0.35;  Else If  H00c_IsDWHR_Installed == true for A02_ClimateZone InRange (1,9) result = 0.15; for A02_ClimateZone InRange (10,16) result = 0.30</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result =  BlankGrayedOut  stored in NotApplicableMessage and field is grayed out; Else If H00c_IsDWHR_Installed == false for A02_ClimateZone InRange (1,9) result = 0.2; for A02_ClimateZone InRange (10,16) result = 0.35;  Else If  H00c_IsDWHR_Installed == true for A02_ClimateZone InRange (1,9) result = 0.15; for A02_ClimateZone InRange (10,16) result = 0.30</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C05_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C05_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Required Minimum Solar Savings Fraction</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result = NotApplicable stored in C05_NotApplicableMessage and field is grayed out; Else If H00c_IsDWHR_Installed == false for A02_ClimateZone InRange (1,9) result = 0.2; for A02_ClimateZone InRange (10,16) result = 0.35;  Else If  H00c_IsDWHR_Installed == true for A02_ClimateZone InRange (1,9) result = 0.15; for A02_ClimateZone InRange (10,16) result = 0.30</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result = BlankGrayedOut  stored in NotApplicableMessage and field is grayed out; Else If H00c_IsDWHR_Installed == false for A02_ClimateZone InRange (1,9) result = 0.2; for A02_ClimateZone InRange (10,16) result = 0.35;  Else If  H00c_IsDWHR_Installed == true for A02_ClimateZone InRange (1,9) result = 0.15; for A02_ClimateZone InRange (10,16) result = 0.30</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C05AfterSubheading" minOccurs="0">
@@ -361,14 +421,19 @@
                      <xsd:element name="C06_SolarWaterHeatingSavingsFraction" type="comp:SolarWaterHeatingSavingsFraction" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designed/Rated Solar Savings Fraction</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result = NotApplicable stored in C06_NotApplicableMessage and field is grayed out, Else If H00a_IsSolarWaterHeatingOG100 == true then result = H03_SolarSavingsFractionOG100, else if H00b_IsSolarWaterHeatingOG300 == true then result = H05_SolarSavingsFractionOG300</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result = BlankGrayedOut  stored in NotApplicableMessage and field is grayed out; Else If H00a_IsSolarWaterHeatingOG100 == true then result = H03_SolarSavingsFractionOG100, else if H00b_IsSolarWaterHeatingOG300 == true then result = H05_SolarSavingsFractionOG300</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C06_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C06_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designed/Rated Solar Savings Fraction</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result = NotApplicable stored in C06_NotApplicableMessage and field is grayed out, Else If H00a_IsSolarWaterHeatingOG100 == true then result = H03_SolarSavingsFractionOG100, else if H00b_IsSolarWaterHeatingOG300 == true then result = H05_SolarSavingsFractionOG300</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01c_IsProjectInstalledSolarWaterHeating == false result =BlankGrayedOut  stored in NotApplicableMessage and field is grayed out; Else If H00a_IsSolarWaterHeatingOG100 == true then result = H03_SolarSavingsFractionOG100, else if H00b_IsSolarWaterHeatingOG300 == true then result = H05_SolarSavingsFractionOG300</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="C06AfterSubheading" minOccurs="0">
@@ -391,17 +456,22 @@
                      <xsd:element name="C07_IsOCST_RequirementSatisfied" type="comp:IsOCST_RequirementSatisfied" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">JA5 Compliant Thermostat Specified?</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01d_IsProjectSmartTstatPlusEE_Measure == false  result = NotApplicable stored in C07_NotApplicableMessage and field is grayed out;  Else If I01a_IsOCST_RequirementSatisfied == true and I01b_BuildingPlanName NotNull, then result = true, display term Yes, Else result = false display term No</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01d_IsProjectSmartTstatPlusEE_Measure == false  result = BlankGrayedOut  stored in NotApplicableMessage and field is grayed out; Else If I01a_IsOCST_RequirementSatisfied == true and I01b_BuildingPlanName NotNull, then result = true, display term Yes, Else result = false display term No</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C07_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C07_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">JA5 Compliant Thermostat Specified?</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01d_IsProjectSmartTstatPlusEE_Measure == false  result = NotApplicable stored in C07_NotApplicableMessage and field is grayed out;  Else If I01a_IsOCST_RequirementSatisfied == true and I01b_BuildingPlanName NotNull, then result = true, display term Yes, Else result = false display term No</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  If  B01d_IsProjectSmartTstatPlusEE_Measure == false  result = BlankGrayedOut  stored in NotApplicableMessage and field is grayed out;  Else If I01a_IsOCST_RequirementSatisfied == true and I01b_BuildingPlanName NotNull, then result = true, display term Yes, Else result = false display term No</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
-                  <xsd:element name="C08List">
+                  <xsd:element name="C08List" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
                      </xsd:annotation>
@@ -410,14 +480,19 @@
                            <xsd:element name="C08_SolarReadyAlternativeEfficiencyMeasure" type="comp:SolarReadyAlternativeEfficiencyMeasure"  maxOccurs="unbounded">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Alternative Energy Efficiency Measure</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">Calculated field:  B01d_IsProjectSmartTstatPlusEE_Measure == false result = NotApplicable stored in C08_NotApplicableMessage and field is grayed out;  Else If I02a_SolarReadyAlternativeEfficiencyMeasure And I02b_SolarReadyAlternativeEfficiencyMeasure And I02c_SolarReadyAlternativeEfficiencyMeasure And I02d_SolarReadyAlternativeEfficiencyMeasure And I02e_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure result = NoEfficiencyMeasure and field is grayed out; Else If I02f_BuildingPlanReference NotNull If I02a_SolarReadyAlternativeEfficiencyMeasure == EnergyStarAppliances add  it to result; If I02b_SolarReadyAlternativeEfficiencyMeasure == HomeAutomationDemandResponseCapable  add it to result; If I02c_SolarReadyAlternativeEfficiencyMeasure == AlternativePlumbingForGrayWaterIrrigation  add it to result;  If  I02d_SolarReadyAlternativeEfficiencyMeasure == RainwaterCatchmentSystem  add it to result; If  I02e_SolarReadyAlternativeEfficiencyMeasure == ChargingSpaceForEV  add it to result.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated field:  B01d_IsProjectSmartTstatPlusEE_Measure == false result = BlankGrayedOut  stored in NotApplicableMessage and field is grayed out;  Else If I02a_SolarReadyAlternativeEfficiencyMeasure And I02b_SolarReadyAlternativeEfficiencyMeasure And I02c_SolarReadyAlternativeEfficiencyMeasure And I02d_SolarReadyAlternativeEfficiencyMeasure And I02e_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure result = NoEfficiencyMeasure and field is grayed out; Else If I02f_BuildingPlanReference NotNull If I02a_SolarReadyAlternativeEfficiencyMeasure == EnergyStarAppliances add  it to result; If I02b_SolarReadyAlternativeEfficiencyMeasure == HomeAutomationDemandResponseCapable  add it to result; If I02c_SolarReadyAlternativeEfficiencyMeasure == AlternativePlumbingForGrayWaterIrrigation  add it to result;  If  I02d_SolarReadyAlternativeEfficiencyMeasure == RainwaterCatchmentSystem  add it to result; If  I02e_SolarReadyAlternativeEfficiencyMeasure == ChargingSpaceForEV  add it to result.</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
-                           <xsd:element name="C08_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                           <xsd:element name="C08_NotApplicableMessage" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Alternative Energy Efficiency Measure</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">Calculated field:  B01d_IsProjectSmartTstatPlusEE_Measure == false result = NotApplicable stored in C08_NotApplicableMessage and field is grayed out;  Else If I02a_SolarReadyAlternativeEfficiencyMeasure And I02b_SolarReadyAlternativeEfficiencyMeasure And I02c_SolarReadyAlternativeEfficiencyMeasure And I02d_SolarReadyAlternativeEfficiencyMeasure And I02e_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure result = NoEfficiencyMeasure and field is grayed out; Else If I02f_BuildingPlanReference NotNull If I02a_SolarReadyAlternativeEfficiencyMeasure == EnergyStarAppliances add  it to result; If I02b_SolarReadyAlternativeEfficiencyMeasure == HomeAutomationDemandResponseCapable  add it to result; If I02c_SolarReadyAlternativeEfficiencyMeasure == AlternativePlumbingForGrayWaterIrrigation  add it to result;  If  I02d_SolarReadyAlternativeEfficiencyMeasure == RainwaterCatchmentSystem  add it to result; If  I02e_SolarReadyAlternativeEfficiencyMeasure == ChargingSpaceForEV  add it to result.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated field:  B01d_IsProjectSmartTstatPlusEE_Measure == false result = BlankGrayedOut  stored in NotApplicableMessage and field is grayed out;  Else If I02a_SolarReadyAlternativeEfficiencyMeasure And I02b_SolarReadyAlternativeEfficiencyMeasure And I02c_SolarReadyAlternativeEfficiencyMeasure And I02d_SolarReadyAlternativeEfficiencyMeasure And I02e_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure result = NoEfficiencyMeasure and field is grayed out; Else If I02f_BuildingPlanReference NotNull If I02a_SolarReadyAlternativeEfficiencyMeasure == EnergyStarAppliances add  it to result; If I02b_SolarReadyAlternativeEfficiencyMeasure == HomeAutomationDemandResponseCapable  add it to result; If I02c_SolarReadyAlternativeEfficiencyMeasure == AlternativePlumbingForGrayWaterIrrigation  add it to result;  If  I02d_SolarReadyAlternativeEfficiencyMeasure == RainwaterCatchmentSystem  add it to result; If  I02e_SolarReadyAlternativeEfficiencyMeasure == ChargingSpaceForEV  add it to result.</xsd:documentation>
                               </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="comp:NotApplicableMessage">
+                                    <xsd:enumeration value="BlankGrayedOut"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
                            </xsd:element>
                         </xsd:choice>
                      </xsd:complexType>
@@ -541,12 +616,6 @@
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
-                  <xsd:element name="F_ToolTip" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">Table F documents the project has designated the minimum area required for the Allocated Solar Zone, and also that the requirements for Solar Zone Subareas have been met.  There are two calculation methods for the minimum area required, and Table F adjusts based on the calculation method chosen.  Each subarea must be shown on a roof plan or documented in construction documents.  The solar zones must also comply with fire code requirements, including, but not limited to, setback and pathway requirements. Current fire code requirements can be found in Title 24 Part 2 [d:t24ref/]3111, Title 24 Part 2.5 [d:t24ref/]R331, and Title 24 Part 9 [d:t24ref/]903.3.  Requirements for interconnection pathways must also be included in construction documents, and the location is specified in Table F.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
                   <xsd:element name="F_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
@@ -603,14 +672,19 @@
                      <xsd:element name="F05_SolarAccessMethodDescription" type="comp:SolarAccessMethodDescription" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Method/ Tools Used to Determine Annual Solar Access for Potential Zones[d:sup]1[/d:sup]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result =  NotApplicable stored in F05_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result =  BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="F05_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="F05_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Method/ Tools Used to Determine Annual Solar Access for Potential Zones[d:sup]1[/d:sup]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result =  NotApplicable stored in F05_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result =  BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="F06aToF06cColumnHeading" minOccurs="0">
@@ -623,56 +697,76 @@
                      <xsd:element name="F06a_RoofAreaLowSlope70PercentSolarAccess" type="comp:RoofAreaLowSlope70PercentSolarAccess" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Low-Sloped Area ([d:lte/] 2:12 pitch) (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result = NotApplicable stored in F06a_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="F06a_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="F06a_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Low-Sloped Area ([d:lte/] 2:12 pitch) (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result = NotApplicable stored in F06a_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result =BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="F06b_RoofAreaSteepSlope70PercentSolarAccess" type="comp:RoofAreaSteepSlope70PercentSolarAccess" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Steep-Sloped Area ([d:gt/] 2:12 pitch) Oriented 110[d:deg/] - 270 [d:deg/] (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result = NotApplicable stored in F06b_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="FieldText">Steep-Sloped Area ([d:gt/] 2:12 pitch) Oriented 90[d:deg/] - 300 [d:deg/] (ft[d:sup]2[/d:sup])</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="F06b_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="F06b_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Steep-Sloped Area ([d:gt/] 2:12 pitch) Oriented 110[d:deg/] - 270 [d:deg/] (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result = NotApplicable stored in F06b_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="FieldText">Steep-Sloped Area ([d:gt/] 2:12 pitch) Oriented 90[d:deg/] - 300 [d:deg/] (ft[d:sup]2[/d:sup])</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="F06c_SolarZoneAreaPotential" type="comp:SolarZoneAreaPotential" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Total Potential Solar Zone Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod  result = SUM (F06a_RoofAreaLowSlope70PercentSolarAccess, F06b_RoofAreaSteepSlope70PercentSolarAccess); Else result = NotApplicable stored in F06c_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod  result = SUM (F06a_RoofAreaLowSlope70PercentSolarAccess, F06b_RoofAreaSteepSlope70PercentSolarAccess); Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="F06c_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="F06c_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Total Potential Solar Zone Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod  result = SUM (F06a_RoofAreaLowSlope70PercentSolarAccess, F06b_RoofAreaSteepSlope70PercentSolarAccess); Else result = NotApplicable stored in F06c_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod  result = SUM (F06a_RoofAreaLowSlope70PercentSolarAccess, F06b_RoofAreaSteepSlope70PercentSolarAccess); Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="F07_SolarZoneAreaSolarAccessMethod" type="comp:SolarZoneAreaSolarAccessMethod" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Minimum Solar Zone Based on Potential Zone (0.5 x (Total Potential Zone)) (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod result = PRODUCT (0.5, F06c_SolarZoneAreaPotential); Else result = NotApplicable stored in F07_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod result = PRODUCT (0.5, F06c_SolarZoneAreaPotential); Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="F07_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="F07_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Minimum Solar Zone Based on Potential Zone (0.5 x (Total Potential Zone)) (ft[d:sup]2[/d:sup])</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod result = PRODUCT (0.5, F06c_SolarZoneAreaPotential); Else result = NotApplicable stored in F07_NotApplicableMessage and field is grayed out.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If F01_SolarZoneAreaCalculationMethodNR == PotentialSolarZoneMethod result = PRODUCT (0.5, F06c_SolarZoneAreaPotential); Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out.</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="F08_SolarZoneAreaRequiredMinimum" type="comp:SolarZoneAreaRequiredMinimum" >
@@ -687,113 +781,142 @@
                         <xsd:documentation source="AdditionalRequirements">[d:b] Designated Solar Zone Subareas [/d:b]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="TableSubArea" minOccurs="0">
+                  <xsd:element name="ChoiceSubAreas" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This table is required If F08_SolarZoneAreaRequiredMinimum GT 0;  Else no data required and in display all fields are grayed out.</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                        <xsd:choice >
+                           <xsd:element name="F09to19NA_NotApplicableMessage" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If F08_SolarZoneAreaRequiredMinimum == 0 result = BlankGrayedOut for this subsection.  No data is required for F09 - F19 and the fields are blank and grayed out</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="comp:NotApplicableMessage">
+                                    <xsd:enumeration value="BlankGrayedOut"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="SubAreas" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If F08_SolarZoneAreaRequiredMinimum GT 0 data on solar Zone Subareas is required.</xsd:documentation>
+                              </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="F09_SolarZoneSubAreaID" type="comp:SolarZoneSubAreaID" >
+                                    <xsd:element name="TableSubArea" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Subarea Name or Tag</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
                                        </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F10_BuildingPlanName" type="comp:BuildingPlanName" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Building Plan Reference</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F11_RoofSlope" type="env:RoofSlope" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Roof or Overhang Slope (Low [d:lte/] 2:12 pitch) (Steep [d:gt/] 2:12 pitch)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from list: LowSlope  
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                                <xsd:complexType>
+                                                   <xsd:sequence>
+                                                      <xsd:element name="F09_SolarZoneSubAreaID" type="comp:SolarZoneSubAreaID" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Subarea Name or Tag</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F10_BuildingPlanName" type="comp:BuildingPlanName" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Building Plan Reference</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F11_RoofSlope" type="env:RoofSlope" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Roof or Overhang Slope (Low [d:lte/] 2:12 pitch) (Steep [d:gt/] 2:12 pitch)</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: LowSlope  
 SteepSlope</xsd:documentation>
-                                          <xsd:appinfo source="displayterm">
-                                             <dtyp:displayterm value="LowSlope"> Low-sloped</dtyp:displayterm>
-                                             <dtyp:displayterm value="SteepSlope"> Steep-sloped</dtyp:displayterm>
-                                          </xsd:appinfo>
-                                          
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="F12_IsSolarZoneSubAreaSteepSlopeAzimuthCompliant" type="comp:IsSolarZoneSubAreaSteepSlopeAzimuthCompliant" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Is Steep-Sloped Roof or Overhang between 110 and 270 degrees?</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F11_RoofSlope != SteepSlope result = NotApplicable stored in F12_NotApplicableMessage; Else User input.   If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                       <xsd:element name="F12_NotApplicableMessage" type="comp:NotApplicableMessage" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Is Steep-Sloped Roof or Overhang between 110 and 270 degrees?</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F11_RoofSlope != SteepSlope result = NotApplicable stored in F12_NotApplicableMessage; Else User input.   If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="F13_IsSolarZoneSubAreaT24Part9Compliant" type="comp:IsSolarZoneSubAreaT24Part9Compliant" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Subarea Complies with Title 24, Part 9</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F14_IsSolarZoneSubAreaObstructionsFree" type="comp:IsSolarZoneSubAreaObstructionsFree" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Solar Zone Subarea Free of Obstructions per [d:t24ref/]110.10(b)3A</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F15_IsSolarZoneSubAreaDistantFromObstructions" type="comp:IsSolarZoneSubAreaDistantFromObstructions" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Subarea is Required Distance from Potential Obstructions per [d:t24ref/]110.10(b)3B</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F16_IsSolarZoneSubAreaSmallDimension5ftPlus" type="comp:IsSolarZoneSubAreaSmallDimension5ftPlus" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Is the Smallest Dimension 5 feet or greater?</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F17_SolarZoneSubAreaSizeRequiredMinimum" type="comp:SolarZoneSubAreaSizeRequiredMinimum" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Min. Area Required per Subarea (ft[d:sup]2[/d:sup]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated value: If F02_RoofAreaNewOrAdded LTE 10,000 ft2 result = 80 ft2; Else result = 160 ft2</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F18_SolarZoneSubAreaSquareFootage" type="comp:SolarZoneSubAreaSquareFootage" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Designated Area (ft[d:sup]2[/d:sup])</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="F19_DoesSolarZoneSubAreaQualify" type="comp:DoesSolarZoneSubAreaQualify" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Subarea Complies?</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated value: If F12_IsSolarZoneSubAreaSteepSlopeAzimuthCompliant == true Or F12_NotApplicableMessage == NotApplicable, And If F13_IsSolarZoneSubAreaT24Part9Compliant ==true And F14_ IsSolarZoneSubAreaObstructionsFree
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="LowSlope"> Low-sloped</dtyp:displayterm>
+                                                               <dtyp:displayterm value="SteepSlope"> Steep-sloped</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="F12_IsSolarZoneSubAreaSteepSlopeAzimuthCompliant" type="comp:IsSolarZoneSubAreaSteepSlopeAzimuthCompliant" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Is Steep-Sloped Roof or Overhang between 90 and 300 degrees?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If F11_RoofSlope != SteepSlope result = NotApplicable stored in F12_NotApplicableMessage; Else User input.   If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="F12_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Is Steep-Sloped Roof or Overhang between 90 and 300 degrees?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If F11_RoofSlope != SteepSlope result = NotApplicable stored in F12_NotApplicableMessage; Else User input.   If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="F13_IsSolarZoneSubAreaT24Part9Compliant" type="comp:IsSolarZoneSubAreaT24Part9Compliant" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Subarea Complies with Title 24, Part 9</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F14_IsSolarZoneSubAreaObstructionsFree" type="comp:IsSolarZoneSubAreaObstructionsFree" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Solar Zone Subarea Free of Obstructions per [d:t24ref/]110.10(b)3A</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F15_IsSolarZoneSubAreaDistantFromObstructions" type="comp:IsSolarZoneSubAreaDistantFromObstructions" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Subarea is Required Distance from Potential Obstructions per [d:t24ref/]110.10(b)3B</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F16_IsSolarZoneSubAreaSmallDimension5ftPlus" type="comp:IsSolarZoneSubAreaSmallDimension5ftPlus" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Is the Smallest Dimension 5 feet or greater?</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input.  If user selects Yes, result = true, else If user selects No result = false</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F17_SolarZoneSubAreaSizeRequiredMinimum" type="comp:SolarZoneSubAreaSizeRequiredMinimum" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Min. Area Required per Subarea (ft[d:sup]2[/d:sup]</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">Calculated value: If F02_RoofAreaNewOrAdded LTE 10,000 ft2 result = 80 ft2; Else result = 160 ft2</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F18_SolarZoneSubAreaSquareFootage" type="comp:SolarZoneSubAreaSquareFootage" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Designated Area (ft[d:sup]2[/d:sup])</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="F19_DoesSolarZoneSubAreaQualify" type="comp:DoesSolarZoneSubAreaQualify" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Subarea Complies?</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">Calculated value: If F12_IsSolarZoneSubAreaSteepSlopeAzimuthCompliant == true Or F12_NotApplicableMessage == NotApplicable, And If F13_IsSolarZoneSubAreaT24Part9Compliant ==true And F14_ IsSolarZoneSubAreaObstructionsFree
 ==true And F15_ IsSolarZoneSubAreaDistantFromObstructions==true And F16_ IsSolarZoneSubAreaSmallDimension5ftPlus == true And F18_SolarZoneSubAreaSquareFootage GTE F17_SolarZoneSubAreaSizeRequiredMinimum Then result = true display term COMPLIES Else result = false display term  DOES NOT COMPLY and SubAreaComplianceInF message is displayed in section D</xsd:documentation>
-                                          <xsd:appinfo source="displayterm">
-                                             <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
-                                             <dtyp:displayterm value="false">DOES NOT COMPLY</dtyp:displayterm>
-                                          </xsd:appinfo>
-                                          
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
+                                                               <dtyp:displayterm value="false">DOES NOT COMPLY</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                   </xsd:sequence>
+                                                </xsd:complexType>
+                                             </xsd:element>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                    <xsd:element name="FTotals18_SolarZoneSubAreasTotalSquareFootage" type="comp:SolarZoneSubAreasTotalSquareFootage"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">[d:b]Total Designated Solar Zone Area (ft[d:sup]2[/d:sup]):[/d:b]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If F08_SolarZoneAreaRequiredMinimum GT 0 result = SUM All (F18_SolarZoneSubAreaSquareFootage   where F19_DoesSolarZoneSubAreaQualify == true ) Else Else no data required and in display field is grayed out</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
                               </xsd:complexType>
                            </xsd:element>
-                        </xsd:sequence>
+                        </xsd:choice>
                      </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="FTotals18_SolarZoneSubAreasTotalSquareFootage" type="comp:SolarZoneSubAreasTotalSquareFootage"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">[d:b]Total Designated Solar Zone Area (ft[d:sup]2[/d:sup]):[/d:b]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F08_SolarZoneAreaRequiredMinimum GT 0 result = SUM All (F18_SolarZoneSubAreaSquareFootage   where F19_DoesSolarZoneSubAreaQualify == true ) Else Else no data required and in display field is grayed out</xsd:documentation>
-                     </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="F20_BuildingPlanName" type="comp:BuildingPlanName" >
                      <xsd:annotation>
@@ -946,42 +1069,57 @@ SRCC#</xsd:documentation>
                      <xsd:element name="H03_SolarSavingsFractionOG100" type="comp:SolarSavingsFractionOG100" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designed Solar Savings Fraction for OG-100</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = NotApplicable stored in H03_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and  grayed out</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="H03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="H03_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Designed Solar Savings Fraction for OG-100</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = NotApplicable stored in H03_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and  grayed out</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="H04_IsT24SWHCalculatorOutputAttached" type="comp:IsT24SWHCalculatorOutputAttached" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Output from CEC's T24 SWH Calculator Attached[d:sup]1[/d:sup]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = NotApplicable stored in H04_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and  grayed out</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="H04_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="H04_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Output from CEC's T24 SWH Calculator Attached[d:sup]1[/d:sup]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = NotApplicable stored in H04_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG100 == true; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and  grayed out</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="H05_SolarSavingsFractionOG300" type="comp:SolarSavingsFractionOG300" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Rated Solar Savings Fraction for OG-300</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG300 == true; Else result = NotApplicable stored in H05_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG300 == true; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and  grayed out</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="H05_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="H05_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Rated Solar Savings Fraction for OG-300</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG300 == true; Else result = NotApplicable stored in H05_NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input required if IsSolarWaterHeatingOG300 == true; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and  grayed out</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:element name="H06_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
