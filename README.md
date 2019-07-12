@@ -26,6 +26,6 @@ Options:
 #### Example run
 
 ```
-cd 2019-HERS-Documents-Schema
-deploy-schema.exe -d . -s schema -v 2019.0.002
+cd 2019-Prescriptive-NonResidential-Development
+deploy-schema.exe -d . -s schema -v 2019.0.000
 ```
