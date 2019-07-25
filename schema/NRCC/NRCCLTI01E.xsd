@@ -879,27 +879,32 @@ user selects calculation method from dropdown list,</xsd:documentation>
                      <xsd:element name="C10_DoLightingControlsComply" type="comp:DoLightingControlsComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Controls Compliance (See Table H for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = NotApplicable stored in C11_NotApplicableMessage and field is grayed out and blank; Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull, result = DoesNotComply display term DOES NOT COMPLY; Else result = Complies display term COMPLIES</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull, result = DoesNotComply display term DOES NOT COMPLY; Else If H01, H02 and H04-H10 are completed result = Complies display term COMPLIES; Else result =  DoesNotComply display term DOES NOT COMPLY;</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C10_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                     <xsd:element name="C10_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Controls Compliance (See Table H for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = NotApplicable stored in C11_NotApplicableMessage and field is grayed out and blank; Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull, result = DoesNotComply display term DOES NOT COMPLY; Else result = Complies display term COMPLIES</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank;</xsd:documentation>
                         </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C11_DoesRatedPowerReductionComply" type="comp:DoesRatedPowerReductionComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Rated Power Reduction Compliance (See Table Q for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else  If QPercentReduction_LightingPowerReductionPercent GTE .40 result = true display term COMPLIES Else result = false display term DOES NOT COMPLY</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If Q01, And Q03-Q19 have been completed or are not required And QPercentReduction_LightingPowerReductionPercent GTE .40 result = true display term COMPLIES Else result = false display term DOES NOT COMPLY</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C11_NotApplicableMessage" type="comp:NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Rated Power Reduction Compliance (See Table Q for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else  If QPercentReduction_LightingPowerReductionPercent GTE .40 result = true display term COMPLIES Else result = false display term DOES NOT COMPLY</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE;</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:choice>
@@ -1568,7 +1573,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                                        <xsd:element name="H05_NotApplicableMessage" type="comp:NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Complete Building or Area Category Primary Function Area</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If  values for  Bnew02_LightingPrescriptiveMethodNR Or Bnew04_LightingPrescriptiveMethodNR == Tailored And  If  All values for  Baltered02_LightingPrescriptiveMethodNR  Or Baltered04_LightingPrescriptiveMethodNR ==  Tailored  Or RatedPowerReduction   result = Not Applicable stored in the NotApplicableMessage</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If  values for  Bnew02_LightingPrescriptiveMethodNR Or Bnew04_LightingPrescriptiveMethodNR == Tailored And  If  All values for  Baltered02_LightingPrescriptiveMethodNR  Or Baltered04_LightingPrescriptiveMethodNR ==  Tailored     result = Not Applicable stored in the NotApplicableMessage</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                     </xsd:choice>
@@ -4210,7 +4215,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                            <xsd:choice maxOccurs="1">
                               <xsd:element name="Pc08_DaylightRequirementsMetForPAF" type="comp:DaylightRequirementsMetForPAF" >
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 includes a daylight design meeting requirements in [d:t24ref/]140.3(d)</xsd:documentation>
+                                    <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 include a daylight design meeting requirements in [d:t24ref/]140.3(d).  See Table S.</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If all Pc02h_ApplyClerestoryFenestrationPAF And Pc02i_ApplyHorizontalSlatsPAF And Pc02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -4366,7 +4371,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                            <xsd:choice maxOccurs="1">
                               <xsd:element name="Pu08_DaylightRequirementsMetForPAF" type="comp:DaylightRequirementsMetForPAF" >
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 includes a daylight design meeting requirements in [d:t24ref/]140.3(d)</xsd:documentation>
+                                    <xsd:documentation source="FieldText">All spaces applying PAF 5, 6 or 7 include a daylight design meeting requirements in [d:t24ref/]140.3(d).  See Table S.</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If all Pu02h_ApplyClerestoryFenestrationPAF And Pu02i_ApplyHorizontalSlatsPAF And Pu02j_ApplyLightShelvesPAF == false result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else user input.  Checked result = true; unchecked result = false.</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -5043,91 +5048,192 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                   <xsd:element name="R09bPercentAllowance_LightingPowerInstalledPowerAllowedRatio" type="comp:LightingPowerInstalledPowerAllowedRatio" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Percent of Indoor Lighting Power Allowance:</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value:   result = RTotals09_LightingPowerInstalledTotal / RTotals05_LightingPowerAllowedTotal. Display of percent = result x 100.  If result GT 80 percent add LP80PercentAlterationExceededInR to  D03_  ExceptionalConditionMessageNRCCLTIE</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value:   result = RTotals09_LightingPowerInstalledTotal / RTotals05_LightingPowerAllowedTotal. Display of percent = result x 100.  If result GT .80  add LP80PercentAlterationExceededInR to  D03_  ExceptionalConditionMessageNRCCLTIE</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
-         <xsd:element name="Section_S" minOccurs="1">
+         <xsd:element name="Section_S" minOccurs="0">
             <xsd:annotation>
-               <xsd:documentation source="FieldText">[d:b]S.  DECLARATION OF REQUIRED CERTIFICATES OF INSTALLATION[/d:b]</xsd:documentation>
-               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+               <xsd:documentation source="FieldText">[d:b]DAYLIGHT DESIGN POWER ADJUSTMENT FACTOR (PAF)[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If in section P Pc08 Or Pu08 == true</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
                   <xsd:element name="S_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i] Selections have been made based on information provided in this document. If any selection have been changed by permit applicant, an explanation should be included in Table E. Additional Remarks.  These documents must be provided to the building inspector during construction and can be found online at https://www.energy.ca.gov/title24/2019standards/2019_compliance_documents/Nonresidential_Documents/NRCI/ [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table documents clerestories, horizontal slats or light shelves meet the requirements in [d:t24ref/]140.3(d) if a Power Adjustment Factor was claimed on Table P.  These features must be documented on the architectural plans or where appropriate within the construction documents.  This PAF also must be verified in the field with an acceptance test per Table U. [/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="S01_RequireNRCILti01E" type="comp:RequireNRCILti01E" >
+                  <xsd:element name="S01_PAFCreditType" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-01-E - Must be submitted for all buildings</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. In all cases result = true display term Yes represented as a radio button.</xsd:documentation>
+                        <xsd:documentation source="FieldText">Compliance Strategy</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Use selects from dropdown list: Clerestories, Horizontal Slats, Light Shelves</xsd:documentation>
                      </xsd:annotation>
+                     <xsd:simpleType>
+                        <xsd:restriction base="comp:PAFCreditType">
+                           <xsd:enumeration value="Clerestories"/>
+                           <xsd:enumeration value="HorizontalSlats"/>
+                           <xsd:enumeration value="LightShelves"/>
+                        </xsd:restriction>
+                     </xsd:simpleType>
                   </xsd:element>
-                  <xsd:element name="S01a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                  <xsd:element name="Clerestories" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                        <xsd:documentation source="FieldText">[d:b]Clerestory Fenestration[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required if S01_PAFCreditType == Clerestories</xsd:documentation>
                      </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="S02_ClerestoryLocation" type="comp:ClerestoryLocation" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Installed on East, West or South facade</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S03_ClerestoryHeadHeight" type="comp:ClerestoryHeadHeight" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Head height [d:gte/]10ft above finished floor</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S04_ClerestoryGlazingHeight" type="comp:ClerestoryGlazingHeight" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Glazing height [d:gte/]0.10 x head height</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S05_ClerestoryShading" type="comp:ClerestoryShading" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Operable shading on clerestory is controlled separately from other shading</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes is checked result = true Else If Not Applicable is checked result = false display term Not Applicable</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="S02_RequireNRCILti02E" type="comp:RequireNRCILti02E" >
+                  <xsd:element name="HorizontalSlats" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-02-E- Must be submitted for a lighting control system, or for an Energy Management Control System (EMCS), to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = true display term Yes represented as a radio button.    If user changes this value to false display term No represented as a radio button, an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="FieldText">[d:b]Interior and Exterior Horizontal Slats[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required if S01_PAFCreditType == HorizontalSlats</xsd:documentation>
                      </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="S06_HorizontalSlatsLocation" type="comp:HorizontalSlatsLocation" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Installed on East or West facade with 20-30% WWR and extend the entire height of vertical fenestration</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S07_HorizontalSlatsMounting" type="comp:HorizontalSlatsMounting" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Exterior slats level or sloped downward from fenestration.  Interior slats level or sloped upward from fenestration.  Slats are permanently mounted and not adjustable</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S08_HorizontalSlatsProjection" type="comp:HorizontalSlatsProjection" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Slats have a Projection Factor per Table 140.3-D Daylighting Devices and extend beyond each side of the window jamb by a distance [d:gte/] their horizontal projection.  Slats do not need to extend beyond the jamb if they are located entirely within the fenestration rough opening or a fin is located at the jamb and extends vertically the entire height of the jamb and horizontally the entire depth of the projection.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S09_HorizontalSlatsDistanceFactor" type="comp:HorizontalSlatsDistanceFactor" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Slats have a minimum Distance Factor of 0.3 calculated per [t24ref/]140.3(d)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes is checked result = true Else If Not Applicable is checked result = false display term Not Applicable</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S10_HorizontalSlatsVisibleReflectance" type="comp:HorizontalSlatsVisibleReflectance" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Slats have a minimum Visible Reflectance of 0.50 tested in accordance with ASTM E903, and are either opaque or have a maximum Visible Transmittance of 0.03 tested in accordance with ASTM E1175</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S11_BuildingPlanName" type="comp:BuildingPlanName" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Location of slat design in construction documents:</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">User input string</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="S02a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                  <xsd:element name="LightShelves" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                        <xsd:documentation source="FieldText">[d:b]Interior and Exterior Light Shelves[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required if S01_PAFCreditType == LightShelves</xsd:documentation>
                      </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="S03_RequireNRCILti04E" type="comp:RequireNRCILti04E" >
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-04-E - Must be submitted for two interlocked systems serving an auditorium, a convention center, a conference room, a multipurpose room or a theater to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. Before any input from the user the default result = false  display term No represented as a radio button.  If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="S03a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="S04_RequireNRCILti05E" type="comp:RequireNRCILti05E" >
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-05-E- Must be submitted for a Power Adjustment Factor (PAF) to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="S04a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="S05_RequireNRCILti06E" type="comp:RequireNRCILti06E" >
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-06-E- Must be submitted for additional wattage installed in a video conferencing studio to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="S05a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
-                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="S12_LightShelvesInteriorExterior" type="comp:LightShelvesInteriorExterior" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Where there is vertical fenestration area below the light shelf, both interior and exterior light shelves shall be installed.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes is checked result = true Else If Not Applicable is checked result = false display term Not Applicable</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S13_LightShelvesLocation" type="comp:LightShelvesLocation" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Light shelves installed adjacent to clerestory fenestration on south facade with [d:gt/] 30% WWR and with a head height [d:lte/] 1ft below the finished ceiling.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S14_LightShelvesMounting" type="comp:LightShelvesMounting" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Exterior shelves level or sloped downward from fenestration.  Interior shelves level or sloped upward from fenestration.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S15_LightShelvesProjection" type="comp:LightShelvesProjection" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Shelves have a Projection Factor per Table 140.3-D Daylighting Devices and extend beyond each side of the window jamb by a distance [d:gte/] their horizontal projection.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S16_LightShelvesDistanceFactor" type="comp:LightShelvesDistanceFactor" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Shelves  have a minimum Distance Factor of 0.3 calculated per [t24ref/]140.3(d)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S17_LightShelvesVisibleReflectance" type="comp:LightShelvesVisibleReflectance" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Requirement</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Shelves have a minimum Visible Reflectance of 0.50 tested in accordance with ASTM E903, or an exterior light shelf installed [d:gt/] 2ft below the clerestory sill.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="S18_BuildingPlanName" type="comp:BuildingPlanName" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Location of light shelve design in construction documents:</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">User input string</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
                   </xsd:element>
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
          <xsd:element name="Section_T" minOccurs="1">
             <xsd:annotation>
-               <xsd:documentation source="FieldText">[d:b]T.  DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE[/d:b]</xsd:documentation>
+               <xsd:documentation source="FieldText">[d:b]T.  DECLARATION OF REQUIRED CERTIFICATES OF INSTALLATION[/d:b]</xsd:documentation>
                <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -5135,14 +5241,14 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                   <xsd:element name="T_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]Selections have been made based on information provided in this document.  If any selection have been changed by the permit applicant, an explanation should be included in Table E. Additional Remarks. These documents must be provided to the building inspector during construction and must be completed through an Acceptance Test Technician Certification Provider (ATTCP). For more information visit: http://www.energy.ca.gov/title24/attcp/providers.html[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i] Selections have been made based on information provided in this document. If any selection have been changed by permit applicant, an explanation should be included in Table E. Additional Remarks.  These documents must be provided to the building inspector during construction and can be found online at https://www.energy.ca.gov/title24/2019standards/2019_compliance_documents/Nonresidential_Documents/NRCI/ [/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="T01_RequireNRCALti02A" type="comp:RequireNRCALti02A" >
+                  <xsd:element name="T01_RequireNRCILti01E" type="comp:RequireNRCILti01E" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-02-A - Must be submitted for occupancy sensors and automatic time switch controls.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button.  If H02_ShutOffControlsBuilding == AreaLevelControls  result = false; Else If Q18_ ShutOffControlsBuilding == WholeBuildingAutoTimeSwitch, WholeBuildingEMCS Or WholeBuildingOccupancySensors Or Q18_ ShutOffControlsArea == AutomaticTimerSwitch, EMCS Or OccupancySensor  result = true.   If user changes this value to false, an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-01-E - Must be submitted for all buildings</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. In all cases result = true display term Yes represented as a selected radio button.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T01a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5150,11 +5256,11 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="T02_RequireNRCALti03A" type="comp:RequireNRCALti03A" >
+                  <xsd:element name="T02_RequireNRCILti02E" type="comp:RequireNRCILti02E" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-03-A - Must be submitted for automatic daylight controls.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If all values for H09_PrimarySkylitDaylightControlsInclude Or H10_SecondaryDaylightControlsIncluded == Exempt  result = false.  If user changes this value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-02-E- Must be submitted for a lighting control system, or for an Energy Management Control System (EMCS), to be recognized for compliance.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. In Section H If any H08_ShutOffControlsArea == EMCS  result = true represented as a selected Yes radio button.   If user changes this value, an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T02a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5162,11 +5268,11 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="T03_RequireNRCALti04A" type="comp:RequireNRCALti04A" >
+                  <xsd:element name="T03_RequireNRCILti04E" type="comp:RequireNRCILti04E" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-04-A - Must be submitted for demand responsive lighting controls.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If H01_MandatoryLightingDemandResponseNR  == RequiredGT10000SF  Or H11_ InterlockedLightingSystems == true result = true display term Yes represented as radio button.   If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-04-E - Must be submitted for two interlocked systems serving an auditorium, a convention center, a conference room, a multipurpose room or a theater to be recognized for compliance.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. Before any input from the user the default result = false represented as a selected No radio button. If H11_InterlockedLightingSystems == true result = true represented by a selected Yes radio button;  If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T03a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5174,11 +5280,11 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="T04_RequireNRCALti05A" type="comp:RequireNRCALti05A" >
+                  <xsd:element name="T04_RequireNRCILti05E" type="comp:RequireNRCILti05E" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-05-A. - Must be submitted for institutional tuning power adjustment factor (PAF)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If Pc02e_ApplyInstitutionalTuningNonDaylit Or Pc02f_ApplyInstitutionalTuningDaylit == true   Or Pu02e_ApplyInstitutionalTuningNonDaylit Or Pu02f_ApplyInstitutionalTuningDaylit == true  result = true display term Yes represented as a radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-05-E- Must be submitted for a Power Adjustment Factor (PAF) to be recognized for compliance.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T04a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5186,14 +5292,90 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="T05_RequireNRCAEnv03A" type="comp:RequireNRCAEnv03A" >
+                  <xsd:element name="T05_RequireNRCILti06E" type="comp:RequireNRCILti06E" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-ENV-03-A. - Must be submitted for daylighting design power adjustment factors (PAF)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false . If Pc02h_ApplyClerestoryFenestrationPAF  Or Pu02h_ApplyClerestoryFenestrationPAF  == true result = true display term Yes represented as a radio button.   If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCI-LTI-06-E- Must be submitted for additional wattage installed in a video conferencing studio to be recognized for compliance.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T05a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_U" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]U.  DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="U_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Selections have been made based on information provided in this document.  If any selection have been changed by the permit applicant, an explanation should be included in Table E. Additional Remarks. These documents must be provided to the building inspector during construction and any with "-A" in the form name must be completed through an Acceptance Test Technician Certification Provider (ATTCP). For more information visit: http://www.energy.ca.gov/title24/attcp/providers.html[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U01_RequireNRCALti02A" type="comp:RequireNRCALti02A" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-02-A - Must be submitted for occupancy sensors and automatic time switch controls.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.  If H02_ShutOffControlsBuilding == AreaLevelControls  result = false; Else If Q18_ ShutOffControlsBuilding == WholeBuildingAutoTimeSwitch, WholeBuildingEMCS Or WholeBuildingOccupancySensors Or Q18_ ShutOffControlsArea == AutomaticTimerSwitch, EMCS Or OccupancySensor  result = true represented as a selected Yes radio button.   If user changes this value to false, an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U01a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U02_RequireNRCALti03A" type="comp:RequireNRCALti03A" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-03-A - Must be submitted for automatic daylight controls.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. If all values for H09_PrimarySkylitDaylightControlsInclude Or H10_SecondaryDaylightControlsIncluded == Exempt  result = false; Else result = true represented as a selected Yes radio button.  If user changes this value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U02a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U03_RequireNRCALti04A" type="comp:RequireNRCALti04A" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-04-A - Must be submitted for demand responsive lighting controls.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.. If H01_MandatoryLightingDemandResponseNR  == RequiredGT10000SF  Or H11_ InterlockedLightingSystems == true result = true represented as a selected Yes radio button.  If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U03a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U04_RequireNRCALti05A" type="comp:RequireNRCALti05A" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-LTI-05-A. - Must be submitted for institutional tuning power adjustment factor (PAF)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.. If Pc02e_ApplyInstitutionalTuningNonDaylit Or Pc02f_ApplyInstitutionalTuningDaylit == true   Or Pu02e_ApplyInstitutionalTuningNonDaylit Or Pu02f_ApplyInstitutionalTuningDaylit == true  result = true represented as a selected Yes radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U04a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U05_RequireNRCAEnv03F" type="comp:RequireNRCAEnv03F" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-ENV-03-F. - Must be submitted for daylighting design power adjustment factors (PAF)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. . If Pc02h_ApplyClerestoryFenestrationPAF, Pc02i_ApplyHorizontalSlatsPAF Or Pc02j_ApplyLightShelvesPAF == true Or If Pu02h_ApplyClerestoryFenestrationPAF, Pu02i_ApplyHorizontalSlatsPAF Or Pu02j_ApplyLightShelvesPAF == true result = true represented as a selected Yes radio button.   If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="U05a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
                      </xsd:annotation>

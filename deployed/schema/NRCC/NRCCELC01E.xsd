@@ -642,37 +642,37 @@
                                  </xsd:sequence>
                               </xsd:complexType>
                            </xsd:element>
-                           <xsd:element name="GNote1" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">
-                                    <d:i>* NOTES: If "Other*" is selected under Compliance Method above, please indicate how compliance has been achieved in the space provided below.</d:i>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="TableComplianceNotes" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                              </xsd:annotation>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="GNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>* NOTES: If "Other*" is selected under Compliance Method above, please indicate how compliance has been achieved in the space provided below.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableComplianceNotes" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
-                                       <xsd:complexType>
-                                          <xsd:sequence>
-                                             <xsd:element name="G_Exception01_ElectricalLoadType" type="com:ElectricalLoadType">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText"/>
-                                                   <xsd:documentation source="CalculationsAndRules">Auto-filled from G01_ElectricalLoadType  where G03_ElectricalLoadComplianceMethod == OtherComplianceMethod</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="G_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText"/>
-                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                          </xsd:sequence>
-                                       </xsd:complexType>
+                                    <xsd:element name="G_Exception01_ElectricalLoadType" type="com:ElectricalLoadType">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">Auto-filled from G01_ElectricalLoadType  where G03_ElectricalLoadComplianceMethod == OtherComplianceMethod</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="G_Exception02_ExceptionalConditionNote" type="comp:ExceptionalConditionNote">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
                               </xsd:complexType>
@@ -770,8 +770,8 @@
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: CalculationsAttached display term Attached, CalculationsContractorResponsible display term Contractor Responsible, CalculationsInDoc display term In construction documents;  If result = CalculationsContractorResponsible section D D03_ExceptionalConditionMessageNRCCELCE = CalculationsProvidedInH</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:choice minOccurs="0" maxOccurs="1">
-                                       <xsd:element name="H04_BuildingPlanName" type="comp:BuildingPlanName">
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H04_BuildingPlanName" type="comp:BuildingPlanName" minOccurs="0">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Sheet Number for Voltage Drop Calculations in Construction Documents</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">User input: If H03_CircuitVoltageDropCalculations = CalculationsInDocs this is enabled and requires input from the user; Else result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;</xsd:documentation>
@@ -897,7 +897,7 @@
                                        <xsd:element name="I03_ControlledReceptacleShutOffControl" type="comp:ControlledReceptacleShutOffControl">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user selects from dropdown list: AutomaticTimerSwitch display term Auto Time-Switch with applicable overrides, OccupancySensor display term Occupancy Sensor, HardwiredOccupancySensorPowerStrip display term Occ-sensing Hardwired Power Strip,   CardKeyHotelControlledReceptacles display term Captive Card Key (hotel only),  OtherShutOffControl display term Other*</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable, result = BlankGrayedOut stored in NotApplicableMessage and this field is blank and grayed out; Else user selects from dropdown list: AutomaticTimerSwitch display term Auto Time-Switch with applicable overrides, OccupancySensor display term Occupancy Sensor, HardwiredOccupancySensorPowerStrip display term Occ-sensing Hardwired Power Strip,   CardKeyHotelControlledReceptacles display term Captive Card Key (hotel/motel room only only),  OtherShutOffControl display term Other*</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="I03_NotApplicableMessage">
