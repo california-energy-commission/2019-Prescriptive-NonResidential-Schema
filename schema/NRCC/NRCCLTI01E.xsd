@@ -879,32 +879,27 @@ user selects calculation method from dropdown list,</xsd:documentation>
                      <xsd:element name="C10_DoLightingControlsComply" type="comp:DoLightingControlsComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Controls Compliance (See Table H for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull, result = DoesNotComply display term DOES NOT COMPLY; Else If H01, H02 and H04-H10 are completed result = Complies display term COMPLIES; Else result =  DoesNotComply display term DOES NOT COMPLY;</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = NotApplicable stored in C11_NotApplicableMessage and field is grayed out and blank; Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull, result = DoesNotComply display term DOES NOT COMPLY; Else result = Complies display term COMPLIES</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
-                     <xsd:element name="C10_NotApplicableMessage" >
+                     <xsd:element name="C10_NotApplicableMessage" type="comp:NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Controls Compliance (See Table H for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank;</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = NotApplicable stored in C11_NotApplicableMessage and field is grayed out and blank; Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull, result = DoesNotComply display term DOES NOT COMPLY; Else result = Complies display term COMPLIES</xsd:documentation>
                         </xsd:annotation>
-                        <xsd:simpleType>
-                           <xsd:restriction base="comp:NotApplicableMessage">
-                              <xsd:enumeration value="BlankGrayedOut"/>
-                           </xsd:restriction>
-                        </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C11_DoesRatedPowerReductionComply" type="comp:DoesRatedPowerReductionComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Rated Power Reduction Compliance (See Table Q for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If Q01, And Q03-Q19 have been completed or are not required And QPercentReduction_LightingPowerReductionPercent GTE .40 result = true display term COMPLIES Else result = false display term DOES NOT COMPLY</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else  If QPercentReduction_LightingPowerReductionPercent GTE .40 result = true display term COMPLIES Else result = false display term DOES NOT COMPLY</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C11_NotApplicableMessage" type="comp:NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Rated Power Reduction Compliance (See Table Q for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE;</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE; Else  If QPercentReduction_LightingPowerReductionPercent GTE .40 result = true display term COMPLIES Else result = false display term DOES NOT COMPLY</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:choice>
@@ -1573,7 +1568,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                                        <xsd:element name="H05_NotApplicableMessage" type="comp:NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Complete Building or Area Category Primary Function Area</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If  values for  Bnew02_LightingPrescriptiveMethodNR Or Bnew04_LightingPrescriptiveMethodNR == Tailored And  If  All values for  Baltered02_LightingPrescriptiveMethodNR  Or Baltered04_LightingPrescriptiveMethodNR ==  Tailored     result = Not Applicable stored in the NotApplicableMessage</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If  values for  Bnew02_LightingPrescriptiveMethodNR Or Bnew04_LightingPrescriptiveMethodNR == Tailored And  If  All values for  Baltered02_LightingPrescriptiveMethodNR  Or Baltered04_LightingPrescriptiveMethodNR ==  Tailored  Or RatedPowerReduction   result = Not Applicable stored in the NotApplicableMessage</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                     </xsd:choice>
@@ -5048,7 +5043,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                   <xsd:element name="R09bPercentAllowance_LightingPowerInstalledPowerAllowedRatio" type="comp:LightingPowerInstalledPowerAllowedRatio" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Percent of Indoor Lighting Power Allowance:</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value:   result = RTotals09_LightingPowerInstalledTotal / RTotals05_LightingPowerAllowedTotal. Display of percent = result x 100.  If result GT .80  add LP80PercentAlterationExceededInR to  D03_  ExceptionalConditionMessageNRCCLTIE</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value:   result = RTotals09_LightingPowerInstalledTotal / RTotals05_LightingPowerAllowedTotal. Display of percent = result x 100.  If result GT 80 percent add LP80PercentAlterationExceededInR to  D03_  ExceptionalConditionMessageNRCCLTIE</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -5248,7 +5243,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCI-LTI-01-E - Must be submitted for all buildings</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. In all cases result = true display term Yes represented as a selected radio button.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. In all cases result = true display term Yes represented as a radio button.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T01a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5260,7 +5255,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCI-LTI-02-E- Must be submitted for a lighting control system, or for an Energy Management Control System (EMCS), to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. In Section H If any H08_ShutOffControlsArea == EMCS  result = true represented as a selected Yes radio button.   If user changes this value, an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = true display term Yes represented as a radio button.    If user changes this value to false display term No represented as a radio button, an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T02a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5272,7 +5267,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCI-LTI-04-E - Must be submitted for two interlocked systems serving an auditorium, a convention center, a conference room, a multipurpose room or a theater to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. Before any input from the user the default result = false represented as a selected No radio button. If H11_InterlockedLightingSystems == true result = true represented by a selected Yes radio button;  If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. Before any input from the user the default result = false  display term No represented as a radio button.  If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T03a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5284,7 +5279,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCI-LTI-05-E- Must be submitted for a Power Adjustment Factor (PAF) to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T04a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5296,7 +5291,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCI-LTI-06-E- Must be submitted for additional wattage installed in a video conferencing studio to be recognized for compliance.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="T05a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5324,7 +5319,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-LTI-02-A - Must be submitted for occupancy sensors and automatic time switch controls.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.  If H02_ShutOffControlsBuilding == AreaLevelControls  result = false; Else If Q18_ ShutOffControlsBuilding == WholeBuildingAutoTimeSwitch, WholeBuildingEMCS Or WholeBuildingOccupancySensors Or Q18_ ShutOffControlsArea == AutomaticTimerSwitch, EMCS Or OccupancySensor  result = true represented as a selected Yes radio button.   If user changes this value to false, an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button.  If H02_ShutOffControlsBuilding == AreaLevelControls  result = false; Else If Q18_ ShutOffControlsBuilding == WholeBuildingAutoTimeSwitch, WholeBuildingEMCS Or WholeBuildingOccupancySensors Or Q18_ ShutOffControlsArea == AutomaticTimerSwitch, EMCS Or OccupancySensor  result = true.   If user changes this value to false, an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="U01a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5336,7 +5331,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-LTI-03-A - Must be submitted for automatic daylight controls.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. If all values for H09_PrimarySkylitDaylightControlsInclude Or H10_SecondaryDaylightControlsIncluded == Exempt  result = false; Else result = true represented as a selected Yes radio button.  If user changes this value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If all values for H09_PrimarySkylitDaylightControlsInclude Or H10_SecondaryDaylightControlsIncluded == Exempt  result = false; Else result = true.  If user changes this value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="U02a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5348,7 +5343,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-LTI-04-A - Must be submitted for demand responsive lighting controls.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.. If H01_MandatoryLightingDemandResponseNR  == RequiredGT10000SF  Or H11_ InterlockedLightingSystems == true result = true represented as a selected Yes radio button.  If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If H01_MandatoryLightingDemandResponseNR  == RequiredGT10000SF  Or H11_ InterlockedLightingSystems == true result = true display term Yes represented as radio button.   If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="U03a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5360,7 +5355,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-LTI-05-A. - Must be submitted for institutional tuning power adjustment factor (PAF)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.. If Pc02e_ApplyInstitutionalTuningNonDaylit Or Pc02f_ApplyInstitutionalTuningDaylit == true   Or Pu02e_ApplyInstitutionalTuningNonDaylit Or Pu02f_ApplyInstitutionalTuningDaylit == true  result = true represented as a selected Yes radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false display term No represented as a radio button. If Pc02e_ApplyInstitutionalTuningNonDaylit Or Pc02f_ApplyInstitutionalTuningDaylit == true   Or Pu02e_ApplyInstitutionalTuningNonDaylit Or Pu02f_ApplyInstitutionalTuningDaylit == true  result = true display term Yes represented as a radio button. If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="U04a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -5372,7 +5367,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-ENV-03-F. - Must be submitted for daylighting design power adjustment factors (PAF)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button. . If Pc02h_ApplyClerestoryFenestrationPAF, Pc02i_ApplyHorizontalSlatsPAF Or Pc02j_ApplyLightShelvesPAF == true Or If Pu02h_ApplyClerestoryFenestrationPAF, Pu02i_ApplyHorizontalSlatsPAF Or Pu02j_ApplyLightShelvesPAF == true result = true represented as a selected Yes radio button.   If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false . If Pc02h_ApplyClerestoryFenestrationPAF, Pc02i_ApplyHorizontalSlatsPAF Or Pc02j_ApplyLightShelvesPAF == true Or If Pu02h_ApplyClerestoryFenestrationPAF, Pu02i_ApplyHorizontalSlatsPAF Or Pu02j_ApplyLightShelvesPAF == true result = true display term Yes represented as a radio button.   If user changes the value an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="U05a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
