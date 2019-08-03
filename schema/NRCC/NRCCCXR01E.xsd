@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.000">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -288,22 +288,42 @@
                         <xsd:documentation source="AdditionalRequirements">[d:i]Table C will indicate if the project data input into the compliance document is compliant with commissioning requirements per [d:t24ref/]120.8.  This table is not editable by the user.   If any cell on this table says "DOES NOT COMPLY" or "COMPLIES with Exceptional Conditions" refer to Table D. for guidance.[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="C01ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Design Kickoff Review</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table F</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="C01_CompliantSectionF" type="comp:CompliantSectionF" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Design Kickoff Review [d:line1/] Table F</xsd:documentation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated field: If  F01_MeetingDate IsNull result = false; Switch ( A05_ConditionedFloorAreaRangeNR) case 10000To49999Ft2: If F03_Bldg10000ToLT50000Ft2DesignReviewerQualifies == true then result = true; Else result = false; case GTE50000Ft2: If F03_BldgGTE50000Ft2DesignReviewerQualifies == true Then result = true; Else result = false;  case LT10000Ft2: If  F03_BldgLT10000Ft2DesignReviewerQualifies == false result = false; Else If any field in ProjectGoalsEE which includes F10-F20 IsNull  result = false; Else result = true.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C02ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Owner's Project Requirements</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C02ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table G</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C02_CompliantSectionG" type="comp:CompliantSectionG" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Owner's Project Requirements [d:line1/] Table G</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field:  If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C02_CompliantSectionG.   If G01_IsUserAttachingOPR == true then If G02_DocumentAuthorDetailsOPR IsNull result = false; Else result = true; Else If G01_IsUserAttachingOPR == false then If any field in EnergyEfficiencyGoalsOPR which includes G03-G52 IsNull  result = false; Else result = true.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C02_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Owner's Project Requirements [d:line1/] Table G</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
@@ -313,16 +333,26 @@
                         </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
+                  <xsd:element name="C03ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Basis of Design</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C03ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table H</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C03_CompliantSectionH" type="comp:CompliantSectionH" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Basis of Design [d:line1/] Table H</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field:  If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C03_CompliantSectionH.   If H01_IsUserAttachingBOD == true then If H02_DocumentAuthorDetailsBOD IsNull result = false; Else result = true; Else If H01_IsUserAttachingBOD == false then If any field in EnergyEfficiencyDetailsBOD which includes H03-H34  IsNull  result = false; Else result = true.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C03_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Basis of Design [d:line1/] Table H</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
@@ -332,22 +362,42 @@
                         </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
+                  <xsd:element name="C04ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Design Review</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C04ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table I</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="C04_CompliantSectionI" type="comp:CompliantSectionI" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Design Review [d:line1/] Table I</xsd:documentation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated field:  If I01_IsUserAttachingDesignReviewDoc == true result = true; Else If any field in DesignReviewChecklist which includes I02-I09  IsNull  result = false; Else result = true.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C05ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Commissioning Plan</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C05ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table J</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C05_CompliantSectionJ" type="comp:CompliantSectionJ" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Commissioning Plan [d:line1/] Table J</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C05_CompliantSectionJ.  If J01_IsUserAttachingCommissioningPlan == true then If J02__DocumentAuthorDetailsCommissioningPlan IsNull result = false; Else result = true; Else If J01_IsUserAttachingCommissioningPlan == false then If any field in DetailsCommissioningPlan which includes J03-J14  IsNull  result = false; Else result = true.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C05_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Commissioning Plan [d:line1/] Table J</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2  result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
@@ -357,16 +407,26 @@
                         </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
+                  <xsd:element name="C06ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Functional Performance Testing</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C06ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table K</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C06_CompliantSectionK" type="comp:CompliantSectionK" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Functional Performance Testing [d:line1/] Table K</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C06_CompliantSectionK. If K01_FunctionalTestingRequirementsWillBeMet == true result = true Else result  = false.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C06_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Functional Performance Testing [d:line1/] Table K</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
@@ -376,16 +436,26 @@
                         </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
+                  <xsd:element name="C07ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Documentation and Training</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C07ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table L</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C07_CompliantSectionL" type="comp:CompliantSectionL" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Documentation and Training [d:line1/] Table L</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2 result is stored in C07_CompliantSectionL. If L01_OwnerSystemsManualRequirementsWillBeMet == true And L02_StaffTrainingRequirementsWillBeMet == true result = true Else result = false</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C07_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Documentation and Training [d:line1/] Table L</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
@@ -395,16 +465,26 @@
                         </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
+                  <xsd:element name="C08ColumnLabel1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Commissioning Report</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C08ColumnLabel2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Table M</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C08_CompliantSectionM" type="comp:CompliantSectionM" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Commissioning Report [d:line1/] Table M</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR != LT10000Ft2  result is stored in C08_CompliantSectionM.   If M01_CommissioningReportRequirementsWillBeMet == true result = true Else result = false.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C08_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Commissioning Report [d:line1/] Table M</xsd:documentation>
+                           <xsd:documentation source="FieldText"></xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
@@ -530,11 +610,10 @@
                   </xsd:element>
                   <xsd:element name="F02Subheading" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">Meeting Attendees: (one person may play multiple roles)</xsd:documentation>
+                        <xsd:documentation source="FieldText">Meeting Attendees: (one person may play multiple roles)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02a_OwnerRepAttending = true and F02a_PersonFullName is required; Else F02a_OwnerRepAttending = false</xsd:documentation>
                      </xsd:annotation>
@@ -550,7 +629,7 @@
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:sequence>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02b_ProjectManagerAttending = true and F02b_PersonFullName is required Else F02b_ProjectManagerAttending = false</xsd:documentation>
                      </xsd:annotation>
@@ -566,7 +645,7 @@
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:sequence>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02c_ContractorAttending = true and F02c_PersonFullName is required Else F02c_ContractorAttending = false</xsd:documentation>
                      </xsd:annotation>
@@ -582,7 +661,7 @@
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:sequence>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02d_CommissioningProviderAttending = true and F02d_PersonFullName is required Else F02d_CommissioningProviderAttending = false</xsd:documentation>
                      </xsd:annotation>
@@ -598,7 +677,7 @@
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:sequence>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02e_DesignReviewerAttending = true and F02e_PersonFullName is required Else F02e_DesignReviewerAttending = false</xsd:documentation>
                      </xsd:annotation>
@@ -614,7 +693,7 @@
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:sequence>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02f_DesignArchitectEngineerAttending = true and F02f_PersonFullName is required Else F02f_DesignArchitectEngineerAttending = false</xsd:documentation>
                      </xsd:annotation>
@@ -630,7 +709,7 @@
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:sequence>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02g_AcceptanceTestTechAttending = true and F02g_PersonFullName is required Else F02g_AcceptanceTestTechAttending = false</xsd:documentation>
                      </xsd:annotation>
@@ -646,7 +725,7 @@
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:sequence>
-                  <xsd:sequence maxOccurs="unbounded">
+                  <xsd:sequence maxOccurs="1">
                      <xsd:annotation>
                         <xsd:documentation source="CalculationsAndRules">User input:  If user checks the box,  F02h_EnergyT24P6ConsultantAttending = true and F02h_PersonFullName is required Else F02h_EnergyT24P6ConsultantAttending = false</xsd:documentation>
                      </xsd:annotation>
