@@ -6,7 +6,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:hvac="http://www.lmonte.com/besm/hvac"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.000">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
    <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="NrPresHvac.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
    <xsd:simpleType name="AdditionTotalConditionedFloorArea">
@@ -65,6 +65,13 @@
          <xsd:enumeration value="FieldFabricated"/>
          <xsd:enumeration value="Manufactured"/>
          <xsd:enumeration value="SiteBuilt"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="BedroomCount">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:ItemCount">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="BuildingStoryName">
@@ -242,6 +249,14 @@
       <xsd:restriction base="dtyp:EnumerationConstant">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ClimateZoneNumber">
+      <xsd:annotation>
+         <xsd:documentation>Numeric representation of the climate zone used in table lookups  Units: none</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ConditioningType">
       <xsd:annotation>
          <xsd:documentation>One of a list of categories which characterize the type of conditioning for a space.</xsd:documentation>
@@ -405,6 +420,13 @@
          <xsd:enumeration value="Swinging"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="DwellingUnitsCount">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ElectricalLoadType">
       <xsd:annotation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
@@ -440,6 +462,28 @@
          <xsd:appinfo source="displaytermType">
             <dtyp:displayterm>Elevation</dtyp:displayterm>
          </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExhaustNumberFixtures">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExhaustPerSpace">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExhaustSpaceRequiredMin">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
@@ -908,6 +952,30 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="FlowPerZone"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="OA_SpaceRequiredMin">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="OA_SystemRequiredMin">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="OccupantCount">
+      <xsd:annotation>
+         <xsd:documentation>The maximum number of people who can occupy a space  or building  Units: person</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Occupant Capacity</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="OccupantDensity">
       <xsd:annotation>
          <xsd:documentation>The areal density of people associated with a space expressed in people per 1000 square feet.  Units: person per thousand ft2</xsd:documentation>
@@ -1110,6 +1178,7 @@ receives the most illumination.  Units: ft2</xsd:documentation>
             <dtyp:displayterm value="DataCenter">Data Center</dtyp:displayterm>
             <dtyp:displayterm value="Health">Health</dtyp:displayterm>
             <dtyp:displayterm value="HighRiseResidential">High-Rise Residential</dtyp:displayterm>
+            <dtyp:displayterm value="LodgingAssembly">Multipurpose assembly</dtyp:displayterm>
             <dtyp:displayterm value="Laboratory">Laboratory</dtyp:displayterm>
             <dtyp:displayterm value="LightManufacturing">Light Manufacturing</dtyp:displayterm>
             <dtyp:displayterm value="Office">Office</dtyp:displayterm>
@@ -1127,6 +1196,7 @@ receives the most illumination.  Units: ft2</xsd:documentation>
          <xsd:enumeration value="DataCenter"/>
          <xsd:enumeration value="Health"/>
          <xsd:enumeration value="HighRiseResidential"/>
+         <xsd:enumeration value="LodgingAssembly"/>
          <xsd:enumeration value="Laboratory"/>
          <xsd:enumeration value="LightManufacturing"/>
          <xsd:enumeration value="Office"/>
@@ -1308,6 +1378,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="CorridorArea">Corridor Area</dtyp:displayterm>
             <dtyp:displayterm value="CorridorRestroomStairsSupportArea">Corridor, Restroom, Stairs or Support Area</dtyp:displayterm>
             <dtyp:displayterm value="DiningArea">Dining Area</dtyp:displayterm>
+            <dtyp:displayterm value="LaundryCoinOperated">Coin-operated Laundry</dtyp:displayterm>
             <dtyp:displayterm value="ElectricalMechancialTelephoneRoom">Electrical Mechancial Telephone Room</dtyp:displayterm>
             <dtyp:displayterm value="ExerciseCenterGymnasiumArea">Exercise/Fitness Center GymnasiumArea</dtyp:displayterm>
             <dtyp:displayterm value="ExhibitMuseumArea">Museum Area Exhibit/Display</dtyp:displayterm>
@@ -1394,6 +1465,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="CorridorArea"/>
          <xsd:enumeration value="CorridorRestroomStairsSupportArea"/>
          <xsd:enumeration value="DiningArea"/>
+         <xsd:enumeration value="LaundryCoinOperated"/>
          <xsd:enumeration value="ElectricalMechancialTelephoneRoom"/>
          <xsd:enumeration value="ExerciseCenterGymnasiumArea"/>
          <xsd:enumeration value="ExhibitMuseumArea"/>
@@ -1484,6 +1556,16 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:IntegerNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="SpaceName">
+      <xsd:annotation>
+         <xsd:documentation>Uniquely identifies each Space and is an attribute of Space and any components such as walls or interior lighting system  that are part of the Space</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Space Name</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:ObjectNamePermissive">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SpacePerimeter">
@@ -1769,6 +1851,14 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="VentilationPerSpace">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="VentilationRate">
       <xsd:annotation>
          <xsd:documentation>The amount of outside air provided to a space during occupied hours divided by the floor area of that space.  Units: ft3 per min ft2</xsd:documentation>
@@ -1778,6 +1868,186 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="VentilationSpaceFunction">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="AerobicsRoom">Health club/aerobics</dtyp:displayterm>
+            <dtyp:displayterm value="AllOthersVent">All others</dtyp:displayterm>
+            <dtyp:displayterm value="ArenasVent">Gym/ sports arena (play area)</dtyp:displayterm>
+            <dtyp:displayterm value="AssemblyLobby">Lobbies</dtyp:displayterm>
+            <dtyp:displayterm value="AudienceSeatingArea">Auditorium seating</dtyp:displayterm>
+            <dtyp:displayterm value="AutoRepairVent">Auto-repair room</dtyp:displayterm>
+            <dtyp:displayterm value="BankLobby">Bank or bank lobby</dtyp:displayterm>
+            <dtyp:displayterm value="BankVault">Bank Vault/safe deposit</dtyp:displayterm>
+            <dtyp:displayterm value="BarberShop">Barbershop</dtyp:displayterm>
+            <dtyp:displayterm value="BarracksSleepingArea">Barracks sleeping area</dtyp:displayterm>
+            <dtyp:displayterm value="BeautyNailSalon">Beauty/ nail salons</dtyp:displayterm>
+            <dtyp:displayterm value="BedroomLivingRoom">Bedroom/living room</dtyp:displayterm>
+            <dtyp:displayterm value="BowlingAlleySeatingVent">Bowling alley (seating)</dtyp:displayterm>
+            <dtyp:displayterm value="CellWithToiletVent">Cells with toilet</dtyp:displayterm>
+            <dtyp:displayterm value="ClassroomArt">Art Classroom</dtyp:displayterm>
+            <dtyp:displayterm value="ClassroomComputer">Computer Lab</dtyp:displayterm>
+            <dtyp:displayterm value="ClassroomPerformance">Music/theater/dance</dtyp:displayterm>
+            <dtyp:displayterm value="ClassroomPostsecondary">Lecture/ postsecondary classroom</dtyp:displayterm>
+            <dtyp:displayterm value="CollegeLab">University/ College Laboratory</dtyp:displayterm>
+            <dtyp:displayterm value="ConferenceMeetingVent">Conference/ meeting</dtyp:displayterm>
+            <dtyp:displayterm value="CopyPrintRoom">Copy/ printing room</dtyp:displayterm>
+            <dtyp:displayterm value="CorridorsResidential">Corridor</dtyp:displayterm>
+            <dtyp:displayterm value="CorridorTransition">Corridor Transition</dtyp:displayterm>
+            <dtyp:displayterm value="Courtroom">Courtroom</dtyp:displayterm>
+            <dtyp:displayterm value="DanceFloor">Disco/ dance floor</dtyp:displayterm>
+            <dtyp:displayterm value="DarkRoom">Darkroom</dtyp:displayterm>
+            <dtyp:displayterm value="DataEntryTelephoneSpace">Telephone/data entry</dtyp:displayterm>
+            <dtyp:displayterm value="DaycareSickRoom">Daycare sickroom</dtyp:displayterm>
+            <dtyp:displayterm value="DaycareToAge4">Daycare (through age 4)</dtyp:displayterm>
+            <dtyp:displayterm value="DiningArea">Dining Area</dtyp:displayterm>
+            <dtyp:displayterm value="DwellingUnitLaundryRoom">Laundry room (dwelling unit)</dtyp:displayterm>
+            <dtyp:displayterm value="FastfoodCafeteriaVent">Cafeteria/ fastfood dining</dtyp:displayterm>
+            <dtyp:displayterm value="FoodServiceKitchen">Kitchen (cooking)</dtyp:displayterm>
+            <dtyp:displayterm value="GamblingArea">Gambling casino</dtyp:displayterm>
+            <dtyp:displayterm value="GameArcadesVent">Game arcade</dtyp:displayterm>
+            <dtyp:displayterm value="GeneralCoffeeStation">Coffee station</dtyp:displayterm>
+            <dtyp:displayterm value="GeneralManufacturingLightIndustrial">General Manufacturing- non chemical</dtyp:displayterm>
+            <dtyp:displayterm value="JanitorRoom">Janitor closet</dtyp:displayterm>
+            <dtyp:displayterm value="KitchenetteVent">Kitchenettes</dtyp:displayterm>
+            <dtyp:displayterm value="LaundryCoinOperated">Coin-operated Laundry</dtyp:displayterm>
+            <dtyp:displayterm value="LectureHall">Lecture hall (fixed seats)</dtyp:displayterm>
+            <dtyp:displayterm value="LegislativeChambers">Legislative chamber</dtyp:displayterm>
+            <dtyp:displayterm value="LibraryAssembly">Library - reading room/ stacks</dtyp:displayterm>
+            <dtyp:displayterm value="LockerAllOthers">Locker room (all others)</dtyp:displayterm>
+            <dtyp:displayterm value="LockerAthleticIndustrial">Locker room (athletic facility)</dtyp:displayterm>
+            <dtyp:displayterm value="LodgingAssembly">Multipurpose assembly</dtyp:displayterm>
+            <dtyp:displayterm value="MainEntryOffice">Main Entry Lobby</dtyp:displayterm>
+            <dtyp:displayterm value="MallAndAtria">Malls And Atria</dtyp:displayterm>
+            <dtyp:displayterm value="MallCommon">Mall common area</dtyp:displayterm>
+            <dtyp:displayterm value="MediaCenter">Media Center</dtyp:displayterm>
+            <dtyp:displayterm value="MiscComputerSpace">Computer (not printing)</dtyp:displayterm>
+            <dtyp:displayterm value="MiscWarehouse">Warehouse</dtyp:displayterm>
+            <dtyp:displayterm value="MultiuseAssembly">Multiuse assembly-</dtyp:displayterm>
+            <dtyp:displayterm value="MuseumAssembly">Museum/ galleries</dtyp:displayterm>
+            <dtyp:displayterm value="MuseumChildrenAssembly">Museum (children's)</dtyp:displayterm>
+            <dtyp:displayterm value="OfficeBreakRoom">Break room</dtyp:displayterm>
+            <dtyp:displayterm value="OfficeReception">Reception area</dtyp:displayterm>
+            <dtyp:displayterm value="OfficeSpaceVent">Office space</dtyp:displayterm>
+            <dtyp:displayterm value="ParkingGarageVent">Parking Garage</dtyp:displayterm>
+            <dtyp:displayterm value="PetShop">Pet shops (animal area)</dtyp:displayterm>
+            <dtyp:displayterm value="PharmacyPrepArea">Pharmacy prep</dtyp:displayterm>
+            <dtyp:displayterm value="PhotoStudio">Photo studio</dtyp:displayterm>
+            <dtyp:displayterm value="ReligiousAssemblyArea">Place of religious worship</dtyp:displayterm>
+            <dtyp:displayterm value="RestaurantDining">Restaurant Dining Rooms</dtyp:displayterm>
+            <dtyp:displayterm value="RestroomPrivate">Toilet, private</dtyp:displayterm>
+            <dtyp:displayterm value="RestroomPublic">Toilet, public</dtyp:displayterm>
+            <dtyp:displayterm value="RetailSales">Retail sales</dtyp:displayterm>
+            <dtyp:displayterm value="ScienceLab">Science Laboratories</dtyp:displayterm>
+            <dtyp:displayterm value="ShippingReceiving">Shipping/ receiving</dtyp:displayterm>
+            <dtyp:displayterm value="ShowerContExhaust">Shower room - cont. exh.</dtyp:displayterm>
+            <dtyp:displayterm value="ShowerRoom">Shower room</dtyp:displayterm>
+            <dtyp:displayterm value="SoiledLaundryStorage">Laundry (soiled storage)</dtyp:displayterm>
+            <dtyp:displayterm value="SportsSpectatorAreaVent">Spectator area</dtyp:displayterm>
+            <dtyp:displayterm value="StagesStudios">Stages, studios</dtyp:displayterm>
+            <dtyp:displayterm value="StorageOccupiableDryMaterials">Occupiable storage rooms for dry materials</dtyp:displayterm>
+            <dtyp:displayterm value="StorageOccupiableLiquids">Occupiable storage rooms for liquids/ gels</dtyp:displayterm>
+            <dtyp:displayterm value="Supermarket">Supermarket</dtyp:displayterm>
+            <dtyp:displayterm value="SwimmingDeck">Swimming deck</dtyp:displayterm>
+            <dtyp:displayterm value="SwimmingPool">Swimming pool</dtyp:displayterm>
+            <dtyp:displayterm value="TelephoneRoom">Telephone closet</dtyp:displayterm>
+            <dtyp:displayterm value="RestroomPrivateContExhaust">Toilet (private) - cont. exh.</dtyp:displayterm>
+            <dtyp:displayterm value="RestroomPublicContExhaust">Toilet (public) - cont. exh.</dtyp:displayterm>
+            <dtyp:displayterm value="TransportWaiting">Transportation waiting</dtyp:displayterm>
+            <dtyp:displayterm value="TrashRecyclingRoom">Trash / recycling</dtyp:displayterm>
+            <dtyp:displayterm value="WeightRoom">Health club/ weight rooms</dtyp:displayterm>
+            <dtyp:displayterm value="WorkshopSortingPacking">Sorting, packing, light assembly</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="AerobicsRoom"/>
+         <xsd:enumeration value="AllOthersVent"/>
+         <xsd:enumeration value="ArenasVent"/>
+         <xsd:enumeration value="AssemblyLobby"/>
+         <xsd:enumeration value="AudienceSeatingArea"/>
+         <xsd:enumeration value="AutoRepairVent"/>
+         <xsd:enumeration value="BankLobby"/>
+         <xsd:enumeration value="BankVault"/>
+         <xsd:enumeration value="BarberShop"/>
+         <xsd:enumeration value="BarracksSleepingArea"/>
+         <xsd:enumeration value="BeautyNailSalon"/>
+         <xsd:enumeration value="BedroomLivingRoom"/>
+         <xsd:enumeration value="BowlingAlleySeatingVent"/>
+         <xsd:enumeration value="CellWithToiletVent"/>
+         <xsd:enumeration value="ClassroomArt"/>
+         <xsd:enumeration value="ClassroomComputer"/>
+         <xsd:enumeration value="ClassroomPerformance"/>
+         <xsd:enumeration value="ClassroomPostsecondary"/>
+         <xsd:enumeration value="CollegeLab"/>
+         <xsd:enumeration value="ConferenceMeetingVent"/>
+         <xsd:enumeration value="CopyPrintRoom"/>
+         <xsd:enumeration value="CorridorsResidential"/>
+         <xsd:enumeration value="CorridorTransition"/>
+         <xsd:enumeration value="Courtroom"/>
+         <xsd:enumeration value="DanceFloor"/>
+         <xsd:enumeration value="DarkRoom"/>
+         <xsd:enumeration value="DataEntryTelephoneSpace"/>
+         <xsd:enumeration value="DaycareSickRoom"/>
+         <xsd:enumeration value="DaycareToAge4"/>
+         <xsd:enumeration value="DiningArea"/>
+         <xsd:enumeration value="DwellingUnitLaundryRoom"/>
+         <xsd:enumeration value="FastfoodCafeteriaVent"/>
+         <xsd:enumeration value="FoodServiceKitchen"/>
+         <xsd:enumeration value="GamblingArea"/>
+         <xsd:enumeration value="GameArcadesVent"/>
+         <xsd:enumeration value="GeneralCoffeeStation"/>
+         <xsd:enumeration value="GeneralManufacturingLightIndustrial"/>
+         <xsd:enumeration value="JanitorRoom"/>
+         <xsd:enumeration value="KitchenetteVent"/>
+         <xsd:enumeration value="LaundryCoinOperated"/>
+         <xsd:enumeration value="LectureHall"/>
+         <xsd:enumeration value="LegislativeChambers"/>
+         <xsd:enumeration value="LibraryAssembly"/>
+         <xsd:enumeration value="LockerAllOthers"/>
+         <xsd:enumeration value="LockerAthleticIndustrial"/>
+         <xsd:enumeration value="LodgingAssembly"/>
+         <xsd:enumeration value="MainEntryOffice"/>
+         <xsd:enumeration value="MallAndAtria"/>
+         <xsd:enumeration value="MallCommon"/>
+         <xsd:enumeration value="MediaCenter"/>
+         <xsd:enumeration value="MiscComputerSpace"/>
+         <xsd:enumeration value="MiscWarehouse"/>
+         <xsd:enumeration value="MultiuseAssembly"/>
+         <xsd:enumeration value="MuseumAssembly"/>
+         <xsd:enumeration value="MuseumChildrenAssembly"/>
+         <xsd:enumeration value="OfficeBreakRoom"/>
+         <xsd:enumeration value="OfficeReception"/>
+         <xsd:enumeration value="OfficeSpaceVent"/>
+         <xsd:enumeration value="ParkingGarageVent"/>
+         <xsd:enumeration value="PetShop"/>
+         <xsd:enumeration value="PharmacyPrepArea"/>
+         <xsd:enumeration value="PhotoStudio"/>
+         <xsd:enumeration value="ReligiousAssemblyArea"/>
+         <xsd:enumeration value="RestaurantDining"/>
+         <xsd:enumeration value="RestroomPrivate"/>
+         <xsd:enumeration value="RestroomPublic"/>
+         <xsd:enumeration value="RetailSales"/>
+         <xsd:enumeration value="ScienceLab"/>
+         <xsd:enumeration value="ShippingReceiving"/>
+         <xsd:enumeration value="ShowerContExhaust"/>
+         <xsd:enumeration value="ShowerRoom"/>
+         <xsd:enumeration value="SoiledLaundryStorage"/>
+         <xsd:enumeration value="SportsSpectatorAreaVent"/>
+         <xsd:enumeration value="StagesStudios"/>
+         <xsd:enumeration value="StorageOccupiableDryMaterials"/>
+         <xsd:enumeration value="StorageOccupiableLiquids"/>
+         <xsd:enumeration value="Supermarket"/>
+         <xsd:enumeration value="SwimmingDeck"/>
+         <xsd:enumeration value="SwimmingPool"/>
+         <xsd:enumeration value="TelephoneRoom"/>
+         <xsd:enumeration value="RestroomPrivateContExhaust"/>
+         <xsd:enumeration value="RestroomPublicContExhaust"/>
+         <xsd:enumeration value="TransportWaiting"/>
+         <xsd:enumeration value="TrashRecyclingRoom"/>
+         <xsd:enumeration value="WeightRoom"/>
+         <xsd:enumeration value="WorkshopSortingPacking"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="VisibleAbsorptance">
