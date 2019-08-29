@@ -71,40 +71,70 @@
                         <xsd:documentation source="CalculationsAndRules">User input selected from 16 California climate zones</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A03_WholeBuildingOccupancy" maxOccurs="unbounded">
+                  <xsd:element name="A03_WholeBuildingOccupancy" type="com:WholeBuildingOccupancy" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Occupancy Types Within Project:</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input selected from occupancy types:  OfficeBuilding, RetailBuilding HighRiseResidential, HotelMotel, HospitalBuilding, RelocatableSchoolBuilding, SchoolBuilding,  Warehouse, AllOtherBuildings</xsd:documentation>
-                        <xsd:appinfo source="displayterm">
-                           <dtyp:displayterm value="AllOtherBuildings">Other (Write In)</dtyp:displayterm>
-                           <dtyp:displayterm value="HighriseResidential">High-Rise Residential (R-2/R-3)</dtyp:displayterm>
-                           <dtyp:displayterm value="HotelMotel">Hotel/ Motel Guest Rooms (R-1)</dtyp:displayterm>
-                           <dtyp:displayterm value="OfficeBuilding">Office (B)</dtyp:displayterm>
-                           <dtyp:displayterm value="RelocatableSchoolBuilding">Relocatable Class Bldg (E)</dtyp:displayterm>
-                           <dtyp:displayterm value="RetailBuilding">Retail (M)</dtyp:displayterm>
-                           <dtyp:displayterm value="SchoolBuilding">School (E)</dtyp:displayterm>
-                           <dtyp:displayterm value="Warehouse">Non-refrigerated Warehouse (S)</dtyp:displayterm>
-                           <dtyp:displayterm value="HospitalBuilding">Healthcare Facility (H)</dtyp:displayterm>
-                        </xsd:appinfo>
+                        <xsd:documentation source="CalculationsAndRules">This field aggregates all checked occupancy types</xsd:documentation>
                      </xsd:annotation>
-                     <xsd:simpleType>
-                        <xsd:restriction base="com:WholeBuildingOccupancy">
-                           <xsd:enumeration value="AllOthersBuildings"/>
-                           <xsd:enumeration value="HighRiseResidential"/>
-                           <xsd:enumeration value="HospitalBuilding"/>
-                           <xsd:enumeration value="HotelMotel"/>
-                           <xsd:enumeration value="OfficeBuilding"/>
-                           <xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
-                           <xsd:enumeration value="RetailBuilding"/>
-                           <xsd:enumeration value="SchoolBuilding"/>
-                           <xsd:enumeration value="Warehouse"/>
-                        </xsd:restriction>
-                     </xsd:simpleType>
                   </xsd:element>
-                  <xsd:element name="A03a_TypeOtherDescription" type="com:TypeOtherDescription" minOccurs="0">
+                  <xsd:element name="A03Office_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Office (B)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy +=   OfficeBuilding;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03Guest_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Hotel/ Motel Guest Rooms (R-1)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy +=  HotelMotel</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03HRR_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">High-Rise Residential (R-2/R-3)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy += HighRiseResidential;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03Retail_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Retail (M)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy += RetailBuilding;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03School_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">School (E)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy += SchoolBuilding;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03Reloc_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Relocatable Class Bldg (E)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy += RelocatableSchoolBuilding;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03Warehouse_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Non-refrigerated Warehouse (S)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy +=  Warehouse;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03Health_OccupancyApplies" type="comp:OccupancyApplies">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Healthcare Facility (H)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy += HospitalBuilding;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03Other_OccupancyApplies" type="comp:OccupancyApplies">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Other (write in)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This field is required If A03_WholeBuildingOccupancy == AllOthersBuildings.  User input should describe the type of  occupancy.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  If result == true A03_WholeBuildingOccupancy += AllOthersBuildings;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03Other1_TypeOtherDescription" type="com:TypeOtherDescription" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="CalculationsAndRules">This field is required If A03Other == true.  User input should describe the type of  occupancy.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A04_TotalConditionedFloorArea" type="com:TotalConditionedFloorArea">
@@ -3690,13 +3720,6 @@ Else result = 0.21 x J10_SpaceFloorArea If  VentilationSpaceFunction == DaycareT
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="L11ToL15Subtitle" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Duct Leakage Sealing</d:b>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
                   <xsd:element name="L10a_DuctSystems" type="comp:DuctSystems">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">The answers to the questions below apply to the following duct systems:</xsd:documentation>
@@ -3711,7 +3734,9 @@ Else result = 0.21 x J10_SpaceFloorArea If  VentilationSpaceFunction == DaycareT
                   </xsd:element>
                   <xsd:element name="TableDuctSealing">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Duct Leakage Sealing</d:b>
+                        </xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -3794,8 +3819,6 @@ User input;   If Yes result = true; Else result = false.</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">In a space directly under a roof that has a U-factor greater than the u-factor of the ceiling, or if the roof does not meet the requirements of 
                                              <d:t24ref h="140.3(a)1B"/> or if the roof has fixed vents or openings to the outside/ unconditioned spaces</xsd:documentation>
-                                          <xsd:documentation source="AdditionalRequirements">In a space directly under a roof that has a U-factor greater than the u-factor of the ceiling, or if the roof does not meet the requirements of 
-                                             <d:t24ref h="140.3(a)1B"/> or if the roof has fixed vents or openings to the outside/ unconditioned spaces</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If L14_LocationsGT25Pct  IsNotPresent Or If L14_LocationsGT25Pct  == false, field is not required; Else user input.  If checked result = true; Else result = false.</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -3815,7 +3838,6 @@ User input;   If Yes result = true; Else result = false.</xsd:documentation>
                                        <xsd:element name="L15_DuctSystemHasAsbestos" type="comp:DuctSystemHasAsbestos">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">The scope of the project includes extending an existing duct system, which is constructed, insulated or sealed with asbestos.</xsd:documentation>
-                                             <xsd:documentation source="AdditionalRequirements">The scope of the project includes extending an existing duct system, which is constructed, insulated or sealed with asbestos.</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If L11_IsBuildingHealthcare == true  result = blankGrayedOut stored in NotApplicableMessage; Else User input;   If Yes result = true; Else result = false.</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
