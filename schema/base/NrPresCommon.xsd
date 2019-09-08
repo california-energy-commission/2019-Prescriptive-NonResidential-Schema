@@ -6,7 +6,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:hvac="http://www.lmonte.com/besm/hvac"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.002">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.005">
    <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="NrPresHvac.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
    <xsd:simpleType name="AdditionTotalConditionedFloorArea">
@@ -273,11 +273,11 @@
          <xsd:enumeration value="Unconditioned"/>
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="ConstructionPhase">
+   <xsd:simpleType name="ConstructionScope">
       <xsd:annotation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
          <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Building Construction Phase</dtyp:displayterm>
+            <dtyp:displayterm>Building Construction Scope</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="Addition">Addition</dtyp:displayterm>
@@ -681,6 +681,20 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="HeatCapacityRange">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="GTE15">[d:gte/] 15</dtyp:displayterm>
+            <dtyp:displayterm value="GTE7LT15">[d:gte/] 7 [d:lt/] 15</dtyp:displayterm>
+            <dtyp:displayterm value="LT7">[d:lt/] 7</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="GTE15"/>
+         <xsd:enumeration value="GTE7LT15"/>
+         <xsd:enumeration value="LT7"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="HeatingDegreeDays">
@@ -1617,7 +1631,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="StatusFull">
+   <xsd:simpleType name="Status">
       <xsd:annotation>
          <xsd:documentation>Defines if a construction or equipment is new, existing,  modified, removed.  Standards such as efficiency standards may not apply if a construction or equipment in a project is existing.  equipment may be moved and reinstalled in the project.</xsd:documentation>
          <xsd:appinfo source="displaytermType">
