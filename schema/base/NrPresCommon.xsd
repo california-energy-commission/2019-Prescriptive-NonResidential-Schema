@@ -6,7 +6,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:hvac="http://www.lmonte.com/besm/hvac"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.005">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.006">
    <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="NrPresHvac.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
    <xsd:simpleType name="AdditionTotalConditionedFloorArea">
@@ -115,6 +115,27 @@
          <xsd:documentation>CaliforniaCounty is one of the counties in the state of California and is the base property for geograpic data as well as for  specific applications such as the climate zone county.</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="CardinalDirection">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Cardinal Direction</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="EastFacing">East Facing</dtyp:displayterm>
+            <dtyp:displayterm value="EastOrWestFacing">East/West Facing</dtyp:displayterm>
+            <dtyp:displayterm value="NorthFacing">North Facing</dtyp:displayterm>
+            <dtyp:displayterm value="SouthFacing">South Facing</dtyp:displayterm>
+            <dtyp:displayterm value="WestFacing">West Facing</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="EastFacing"/>
+         <xsd:enumeration value="EastOrWestFacing"/>
+         <xsd:enumeration value="NorthFacing"/>
+         <xsd:enumeration value="SouthFacing"/>
+         <xsd:enumeration value="WestFacing"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="CardinalOrientation">
@@ -251,10 +272,44 @@
    </xsd:simpleType>
    <xsd:simpleType name="ClimateZoneNumber">
       <xsd:annotation>
-         <xsd:documentation>Numeric representation of the climate zone used in table lookups  Units: none</xsd:documentation>
+         <xsd:documentation>Numeric representation of the climate zone used in table lookups</xsd:documentation>
          <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="1">1</dtyp:displayterm>
+            <dtyp:displayterm value="10">10</dtyp:displayterm>
+            <dtyp:displayterm value="11">11</dtyp:displayterm>
+            <dtyp:displayterm value="12">12</dtyp:displayterm>
+            <dtyp:displayterm value="13">13</dtyp:displayterm>
+            <dtyp:displayterm value="14">14</dtyp:displayterm>
+            <dtyp:displayterm value="15">15</dtyp:displayterm>
+            <dtyp:displayterm value="16">16</dtyp:displayterm>
+            <dtyp:displayterm value="2">2</dtyp:displayterm>
+            <dtyp:displayterm value="3">3</dtyp:displayterm>
+            <dtyp:displayterm value="4">4</dtyp:displayterm>
+            <dtyp:displayterm value="5">5</dtyp:displayterm>
+            <dtyp:displayterm value="6">6</dtyp:displayterm>
+            <dtyp:displayterm value="7">7</dtyp:displayterm>
+            <dtyp:displayterm value="8">8</dtyp:displayterm>
+            <dtyp:displayterm value="9">9</dtyp:displayterm>
+         </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:IntegerNonnegative">
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="1"/>
+         <xsd:enumeration value="10"/>
+         <xsd:enumeration value="11"/>
+         <xsd:enumeration value="12"/>
+         <xsd:enumeration value="13"/>
+         <xsd:enumeration value="14"/>
+         <xsd:enumeration value="15"/>
+         <xsd:enumeration value="16"/>
+         <xsd:enumeration value="2"/>
+         <xsd:enumeration value="3"/>
+         <xsd:enumeration value="4"/>
+         <xsd:enumeration value="5"/>
+         <xsd:enumeration value="6"/>
+         <xsd:enumeration value="7"/>
+         <xsd:enumeration value="8"/>
+         <xsd:enumeration value="9"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ConditioningType">
@@ -404,20 +459,15 @@
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="DoorOperation">
+   <xsd:simpleType name="Diffusing">
       <xsd:annotation>
-         <xsd:documentation>An enumeration with values of swinging and non-swinging.  Non-swinging would include sliding doors and roll-up doors.</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Door Type</dtyp:displayterm>
-         </xsd:appinfo>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="NonSwinging">Non-swinging</dtyp:displayterm>
-            <dtyp:displayterm value="Swinging">Swinging</dtyp:displayterm>
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="NonSwinging"/>
-         <xsd:enumeration value="Swinging"/>
+      <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="DwellingUnitsCount">
@@ -569,7 +619,6 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
    </xsd:simpleType>
    <xsd:simpleType name="FenestrationFramingNR">
       <xsd:annotation>
-         <xsd:documentation>The type of frame used for a fenestration product defined in the CBECC NR input data model text file.</xsd:documentation>
          <xsd:appinfo source="displaytermType">
             <dtyp:displayterm>Fenestration Framing</dtyp:displayterm>
          </xsd:appinfo>
@@ -769,7 +818,7 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="FlowAreaInfiltration"/>
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="IsAtriumGreaterThan55Feet">
+   <xsd:simpleType name="IsAtriumGT55Ft">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -1001,6 +1050,21 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="OverhangDepth">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="PartitionWindowDoorArea">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="Perimeter">
       <xsd:annotation>
          <xsd:documentation>  Units: ft</xsd:documentation>
@@ -1067,25 +1131,6 @@ receives the most illumination.  Units: ft2</xsd:documentation>
       <xsd:restriction base="xsd:string">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="RelativeSolarHeatGain">
-      <xsd:annotation>
-         <xsd:documentation>The ratio of the solar heat gain entering a space, through the subject fenestration product, (corrected for external shading) to the incident solar radiation.  Solar heat gain includes directly transmitted solar heat and absorbed solar radiation which is then re-radiated, conducted or convected into the space. referred to as RSGH.  Units: none</xsd:documentation>
-         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Relative Solar Heat Gain</dtyp:displayterm>
-         </xsd:appinfo>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
-      </xsd:restriction>
-   </xsd:simpleType>
-   <xsd:simpleType name="RelativeSolarHeatGainLimit">
-      <xsd:annotation>
-         <xsd:documentation>This is the regulatory limit for the RelativeSolarHeatGain of a building element  Units: none</xsd:documentation>
-         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
-      </xsd:restriction>
-   </xsd:simpleType>
    <xsd:simpleType name="RoomCavityRatio">
       <xsd:annotation>
          <xsd:documentation>Required if using the Tailored method, which defines the configuration of space using task lighting. Calculated using the length and width of the indoor lighting area and the vertical distance from the work plane to the centerline of the lighting fixture.  Units: none</xsd:documentation>
@@ -1120,6 +1165,25 @@ receives the most illumination.  Units: ft2</xsd:documentation>
          <xsd:enumeration value="Smooth"/>
          <xsd:enumeration value="VeryRough"/>
          <xsd:enumeration value="VerySmooth"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="RSHGC">
+      <xsd:annotation>
+         <xsd:documentation>The ratio of the solar heat gain entering a space, through the subject fenestration product, (corrected for external shading) to the incident solar radiation.  Solar heat gain includes directly transmitted solar heat and absorbed solar radiation which is then re-radiated, conducted or convected into the space. referred to as RSGH.  Units: none</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Relative Solar Heat Gain</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="RSHGC_Limit">
+      <xsd:annotation>
+         <xsd:documentation>This is the regulatory limit for the RelativeSolarHeatGain of a building element  Units: none</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="RuleAuthority">
@@ -1258,14 +1322,21 @@ receives the most illumination.  Units: ft2</xsd:documentation>
             <dtyp:displayterm>Solar Heat Gain Coefficient</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="SHGC_110Default">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SHGC_CenterOfGlass">
       <xsd:annotation>
          <xsd:documentation>The ratio of the solar heat gain entering a space, through the subject fenestration product, to the incident solar radiation.   Solar heat gain includes directly transmitted solar heat and absorbed solar radiation which is then re-radiated, conducted or convected into the space.  often referred to as SHGC.  Units: none</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SHGC_Limit">
@@ -1273,7 +1344,14 @@ receives the most illumination.  Units: ft2</xsd:documentation>
          <xsd:documentation>This is the regulatory limit for the SolarHeatGain of a building element  Units: none</xsd:documentation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="SHGC_NA6">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SiteCounty">
@@ -1287,6 +1365,14 @@ receives the most illumination.  Units: ft2</xsd:documentation>
       <xsd:restriction base="dtyp:EnumerationConstant">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="Skylight_SkylitDaylitRatio">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="SkylightVT_SkylitDaylitRatio">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="SkylitDaylightingControls">
       <xsd:annotation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
@@ -1296,6 +1382,13 @@ receives the most illumination.  Units: ft2</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="SkylitDaylitArea">
+      <xsd:annotation>
+         <xsd:documentation>The skylit area is the portion of the floor area that gets daylighting from a skylight.  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SolarAbsorptance">
@@ -1351,9 +1444,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
    <xsd:simpleType name="SpaceFloorArea">
       <xsd:annotation>
          <xsd:documentation>  Units: ft2</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Floor Area</dtyp:displayterm>
-         </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
@@ -1737,6 +1827,13 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ThermalEmittance">
+      <xsd:annotation>
+         <xsd:documentation>Thermal Emittance for a roof is the ratio of the electromagnetic radiation emitted by a surface to that of a perfect black body at the same temperature.  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ThermalEmittanceLimit">
       <xsd:annotation>
          <xsd:documentation>This is the required Thermal Emittance for a roof which is the prescribed ratio of the electromagnetic radiation emitted by a surface to that of a perfect black body at the same temperature.  Units: none</xsd:documentation>
@@ -1766,20 +1863,26 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm>Top Level Occupancy</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="AlteredOccupancy">Altered Occupancy</dtyp:displayterm>
             <dtyp:displayterm value="Healthcare">Healthcare</dtyp:displayterm>
             <dtyp:displayterm value="HighRiseResidential">High-Rise Residential</dtyp:displayterm>
             <dtyp:displayterm value="HotelMotel">Hotel/Motel</dtyp:displayterm>
             <dtyp:displayterm value="Nonresidential">Nonresidential</dtyp:displayterm>
             <dtyp:displayterm value="OtherOccupancy">Other</dtyp:displayterm>
+            <dtyp:displayterm value="RelocableSchoolBuildingAllZones">Relocable Public School Building for use in all climate zones Occupancy: E</dtyp:displayterm>
+            <dtyp:displayterm value="ResidentialNR">High-rise Res/ Hotel/ Motel</dtyp:displayterm>
             <dtyp:displayterm value="StateBuilding">State Building</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="AlteredOccupancy"/>
          <xsd:enumeration value="Healthcare"/>
          <xsd:enumeration value="HighRiseResidential"/>
          <xsd:enumeration value="HotelMotel"/>
          <xsd:enumeration value="Nonresidential"/>
          <xsd:enumeration value="OtherOccupancy"/>
+         <xsd:enumeration value="RelocableSchoolBuildingAllZones"/>
+         <xsd:enumeration value="ResidentialNR"/>
          <xsd:enumeration value="StateBuilding"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -1839,14 +1942,14 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm>UFactor</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:Decimal3PlacesNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UFactorCenterOfGlass">
       <xsd:annotation>
          <xsd:documentation>The overall coefficient of thermal transmittance through glass of a fenestration product.  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UFactorLimit">
@@ -1854,7 +1957,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:documentation>This is the regulatory limit for the UFactor of a building element  Units: Btu per h ft2 F</xsd:documentation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:Decimal3PlacesNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UFactorLimitSkylight">
@@ -2085,13 +2188,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="VisibleTransmittanceCenterOfGlass">
-      <xsd:annotation>
-         <xsd:documentation>The fraction of incident visible radiation that is transmitted by the material. Visible radiation includes only a sub-range of solar radiation and excludes infrared and ultraviolet wavelengths.  Units: none</xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
-      </xsd:restriction>
-   </xsd:simpleType>
    <xsd:simpleType name="Volume">
       <xsd:annotation>
          <xsd:documentation>The measurement of space or object calculated by multiplying the three dimensions of the space: length, width, and height.  Units: ft3</xsd:documentation>
@@ -2100,6 +2196,27 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="VT">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="VT_CenterOfGlass">
+      <xsd:annotation>
+         <xsd:documentation>The fraction of incident visible radiation that is transmitted by the material. Visible radiation includes only a sub-range of solar radiation and excludes infrared and ultraviolet wavelengths.  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="VT_Limit">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="WeatherStation">

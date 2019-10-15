@@ -7,7 +7,7 @@
    xmlns:com="http://www.lmonte.com/besm/com"
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.005">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.006">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
@@ -581,22 +581,35 @@
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="AreaWeightAvgRoofType">
+   <xsd:simpleType name="AreaWeightAvgRequiredSHGC">
       <xsd:annotation>
-         <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="Concrete">Concrete</dtyp:displayterm>
-            <dtyp:displayterm value="Framed">Framed</dtyp:displayterm>
-            <dtyp:displayterm value="MetalBuilding">Metal Building Roof</dtyp:displayterm>
-            <dtyp:displayterm value="MetalPanel">Metal Panel</dtyp:displayterm>
-            <dtyp:displayterm value="SIPS">SIPS</dtyp:displayterm>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="AreaWeightAvgRequiredUfactor">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Area Weighted Average Ufactor</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="Concrete"/>
-         <xsd:enumeration value="Framed"/>
-         <xsd:enumeration value="MetalBuilding"/>
-         <xsd:enumeration value="MetalPanel"/>
-         <xsd:enumeration value="SIPS"/>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="AreaWeightAvgRequiredVT">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="AreaWeightAvgSHGC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="AreaWeightAvgTotalArea">
@@ -607,6 +620,46 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="AreaWeightAvgType">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Concrete">Span Deck &amp; Concrete</dtyp:displayterm>
+            <dtyp:displayterm value="ConcreteSandwich">Concrete Sandwich Panel</dtyp:displayterm>
+            <dtyp:displayterm value="Framed">Framed</dtyp:displayterm>
+            <dtyp:displayterm value="ICF">ICF</dtyp:displayterm>
+            <dtyp:displayterm value="Log">Log Wall</dtyp:displayterm>
+            <dtyp:displayterm value="MassHeavy">Heavy Mass</dtyp:displayterm>
+            <dtyp:displayterm value="MassHeavyICF">ICF Heavy Mass</dtyp:displayterm>
+            <dtyp:displayterm value="MassLight">Light Mass</dtyp:displayterm>
+            <dtyp:displayterm value="MassLightICF">ICF Light Mass</dtyp:displayterm>
+            <dtyp:displayterm value="MetalBuilding">Metal Building</dtyp:displayterm>
+            <dtyp:displayterm value="MetalFramed">Metal Framed</dtyp:displayterm>
+            <dtyp:displayterm value="MetalPanel">Metal Panel</dtyp:displayterm>
+            <dtyp:displayterm value="RaisedMass">Raised Mass</dtyp:displayterm>
+            <dtyp:displayterm value="SIPS">SIPS</dtyp:displayterm>
+            <dtyp:displayterm value="Spandrel">Spandrel &amp; Curtain</dtyp:displayterm>
+            <dtyp:displayterm value="StrawBale">Straw Bale</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Concrete"/>
+         <xsd:enumeration value="ConcreteSandwich"/>
+         <xsd:enumeration value="Framed"/>
+         <xsd:enumeration value="ICF"/>
+         <xsd:enumeration value="Log"/>
+         <xsd:enumeration value="MassHeavy"/>
+         <xsd:enumeration value="MassHeavyICF"/>
+         <xsd:enumeration value="MassLight"/>
+         <xsd:enumeration value="MassLightICF"/>
+         <xsd:enumeration value="MetalBuilding"/>
+         <xsd:enumeration value="MetalFramed"/>
+         <xsd:enumeration value="MetalPanel"/>
+         <xsd:enumeration value="RaisedMass"/>
+         <xsd:enumeration value="SIPS"/>
+         <xsd:enumeration value="Spandrel"/>
+         <xsd:enumeration value="StrawBale"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="AreaWeightAvgUfactor">
@@ -629,7 +682,7 @@
       <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="AreaWeightAvgUfactorRequired">
+   <xsd:simpleType name="AreaWeightAvgUfactorRequiredAll">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
          <xsd:appinfo source="displaytermType">
@@ -639,12 +692,9 @@
       <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="AreaWeightAvgUfactorRequiredAll">
+   <xsd:simpleType name="AreaWeightAvgVT">
       <xsd:annotation>
-         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Area Weighted Average Ufactor</dtyp:displayterm>
-         </xsd:appinfo>
+         <xsd:documentation>  Units: none</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
@@ -679,7 +729,7 @@
             <dtyp:displayterm>Area Weighted Average Ufactor</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="AreControlledReceptaclesPermanentlyMarked">
@@ -1267,6 +1317,7 @@
             <dtyp:displayterm value="NRCCLTSE">NRCC-LTS-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCCMCHE">NRCC-MCH-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCCPLBE">NRCCPLBE</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCPRCE">NRCCPRCE</dtyp:displayterm>
             <dtyp:displayterm value="NRCCSRAE">NRCC-SRA-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04cH">NRCVMCH04cH</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04dH">NRCVMCH04dH</dtyp:displayterm>
@@ -1286,6 +1337,7 @@
          <xsd:enumeration value="NRCCLTSE"/>
          <xsd:enumeration value="NRCCMCHE"/>
          <xsd:enumeration value="NRCCPLBE"/>
+         <xsd:enumeration value="NRCCPRCE"/>
          <xsd:enumeration value="NRCCSRAE"/>
          <xsd:enumeration value="NRCVMCH04cH"/>
          <xsd:enumeration value="NRCVMCH04dH"/>
@@ -1393,6 +1445,24 @@
          <xsd:enumeration value="PrescriptiveAdditions"/>
          <xsd:enumeration value="PrescriptiveAlterations"/>
          <xsd:enumeration value="PrescriptiveNewConstruction"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ComplianceMethodSHGC_VT">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Equation140_3B">Equation 140.3-B</dtyp:displayterm>
+            <dtyp:displayterm value="NA_SkylitOverlap">NA: Skylit &amp; Sidelit Daylit zones overlap</dtyp:displayterm>
+            <dtyp:displayterm value="NoOverHang">1st flr display perimeter- no overhang</dtyp:displayterm>
+            <dtyp:displayterm value="Table140_3BCD">Table 140.3-B/C/D</dtyp:displayterm>
+            <dtyp:displayterm value="Table141_0A">Table141.0-A</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Equation140_3B"/>
+         <xsd:enumeration value="NA_SkylitOverlap"/>
+         <xsd:enumeration value="NoOverHang"/>
+         <xsd:enumeration value="Table140_3BCD"/>
+         <xsd:enumeration value="Table141_0A"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="CompliancePath">
@@ -1783,6 +1853,34 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="DaylitZonesMethod">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="DaylitAreasProvided">Provided Min Daylit Areas per [d:t24ref/]140.3(c)</dtyp:displayterm>
+            <dtyp:displayterm value="NA_Auditorium">NA: Auditorium</dtyp:displayterm>
+            <dtyp:displayterm value="NA_CeilingLT15Ft">NA: Future ceiling to be [d:lt/]15 ft</dtyp:displayterm>
+            <dtyp:displayterm value="NA_Church">NA: Church</dtyp:displayterm>
+            <dtyp:displayterm value="NA_LightLT0_5WperFt2">NA: All space types w/lighting [d:lt/]0.5 w/ft[d:sup]2[/d:sup]</dtyp:displayterm>
+            <dtyp:displayterm value="NA_MovieTheater">NA: Movie Theater</dtyp:displayterm>
+            <dtyp:displayterm value="NA_Museum">NA: Museum</dtyp:displayterm>
+            <dtyp:displayterm value="NA_NoSolarAccess">NA: Documented no solar access</dtyp:displayterm>
+            <dtyp:displayterm value="NA_RefrigeratedWarehouse">NA: Refrigerated Warehouse</dtyp:displayterm>
+            <dtyp:displayterm value="NA_SpaceLT5000Ft2">NA: Future space to be [d:lt/]5,000 ft[d:sup]2[/d:sup]</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="DaylitAreasProvided"/>
+         <xsd:enumeration value="NA_Auditorium"/>
+         <xsd:enumeration value="NA_CeilingLT15Ft"/>
+         <xsd:enumeration value="NA_Church"/>
+         <xsd:enumeration value="NA_LightLT0_5WperFt2"/>
+         <xsd:enumeration value="NA_MovieTheater"/>
+         <xsd:enumeration value="NA_Museum"/>
+         <xsd:enumeration value="NA_NoSolarAccess"/>
+         <xsd:enumeration value="NA_RefrigeratedWarehouse"/>
+         <xsd:enumeration value="NA_SpaceLT5000Ft2"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="DemandControlVent">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -1986,22 +2084,26 @@
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="NRCC-CXR-E">NRCC-CXR-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-ELC-E">NRCC-ELC-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCC-ENV-E">NRCC-ENV-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-LTI-E">NRCC-LTI-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-LTO-E">NRCC-LTO-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-LTS-E">NRCC-LTS-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-MCH-E">NRCC-MCH-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-PLB-E">NRCC-PLB-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCC-PRC-E">NRCC-PRC-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-SRA-E">NRCC-SRA-E</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstantPermissive">
          <xsd:enumeration value="NRCC-CXR-E"/>
          <xsd:enumeration value="NRCC-ELC-E"/>
+         <xsd:enumeration value="NRCC-ENV-E"/>
          <xsd:enumeration value="NRCC-LTI-E"/>
          <xsd:enumeration value="NRCC-LTO-E"/>
          <xsd:enumeration value="NRCC-LTS-E"/>
          <xsd:enumeration value="NRCC-MCH-E"/>
          <xsd:enumeration value="NRCC-PLB-E"/>
+         <xsd:enumeration value="NRCC-PRC-E"/>
          <xsd:enumeration value="NRCC-SRA-E"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -2149,7 +2251,27 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="DoesAreaWeightAvgUfactorComply">
+   <xsd:simpleType name="DoesAreaWeightAvgComplySHGC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
+            <dtyp:displayterm value="false">DOES NOT COMPLY</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DoesAreaWeightAvgComplyUfactor">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
+            <dtyp:displayterm value="false">DOES NOT COMPLY</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DoesAreaWeightAvgComplyVT">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
@@ -2280,6 +2402,16 @@
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
             <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DoesNA6AreaComply">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
+            <dtyp:displayterm value="false">DOES NOT COMPLY</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean">
@@ -2752,8 +2884,8 @@
             <dtyp:displayterm>NRCC-ENC-E Exceptional Condition Message</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="AdditionalDocumentationForThermalPerformance">Additional documentation for any assembly complying using "Approved Software" or "Other per JA4.1.2.1" to calculate design thermal performance may be requested by the plans examiner.</dtyp:displayterm>
-            <dtyp:displayterm value="FloorAreaWeightedAveInH">Table F indicates an area weighted average is being used for one or more floor assemblies to demonstrate compliance.  Area-weighted average tables are included at the bottom of Table I.</dtyp:displayterm>
+            <dtyp:displayterm value="AdditionalDocJA4OtherSoftware">Additional documentation for any assembly complying using "Approved Software" or "Other per JA4.1.2.1" to calculate design thermal performance may be requested by the plans examiner.</dtyp:displayterm>
+            <dtyp:displayterm value="FloorAreaWeightedAveInI">Table I indicates an area weighted average is being used for one or more floor assemblies to demonstrate compliance.  Area-weighted average tables are included at the bottom of Table I.</dtyp:displayterm>
             <dtyp:displayterm value="RoofAlterationExceptionInF">Table F indicates the roof alteration scope meets an exception listed in [d:t24ref/]141.0(b)2Biii and therefore does not trigger roof assembly insulation requirements.</dtyp:displayterm>
             <dtyp:displayterm value="RoofAreaWeightedAveInF">Table F indicates an area weighted average is being used for one or more roof assemblies to demonstrate compliance.  Area-weighted average tables are included at the bottom of Table F.</dtyp:displayterm>
             <dtyp:displayterm value="SiteBuiltGlazedDoortInK">Table K indicates more than 200ft[d:sup]2[/d:sup] of site built glazed door area is using the NA6 default to demonstrate compliance.  Please review Table K to reduce the area of site built glazed door using NA6 to 200ft[d:sup]2[/d:sup] or less.</dtyp:displayterm>
@@ -2762,12 +2894,12 @@
             <dtyp:displayterm value="UserChangedSelectionInM">Selections made in Table M have been changed by the permit applicant.  See Table E. Additional Remarks for permit applicant's explanation.</dtyp:displayterm>
             <dtyp:displayterm value="UserChangedSelectionInN">Selections made in Table N have been changed by the permit applicant.  See Table E. Additional Remarks for permit applicant's explanation.</dtyp:displayterm>
             <dtyp:displayterm value="VerticalFenestrationOverhangsInK">Table K indicates that overhangs are being used to adjust vertical fenestrationSHGC to RSHGC.  Overhang details are included in Table K for the fenestration assembly being adjusted.</dtyp:displayterm>
-            <dtyp:displayterm value="WallAreaWeightedAveInH">Table F indicates an area weighted average is being used for one or more wall assemblies to demonstrate compliance.  Area-weighted average tables are included at the bottom of Table H.</dtyp:displayterm>
+            <dtyp:displayterm value="WallAreaWeightedAveInH">Table H indicates an area weighted average is being used for one or more wall assemblies to demonstrate compliance.  Area-weighted average tables are included at the bottom of Table H.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="AdditionalDocumentationForThermalPerformance"/>
-         <xsd:enumeration value="FloorAreaWeightedAveInH"/>
+         <xsd:enumeration value="AdditionalDocJA4OtherSoftware"/>
+         <xsd:enumeration value="FloorAreaWeightedAveInI"/>
          <xsd:enumeration value="RoofAlterationExceptionInF"/>
          <xsd:enumeration value="RoofAreaWeightedAveInF"/>
          <xsd:enumeration value="SiteBuiltGlazedDoortInK"/>
@@ -2987,6 +3119,20 @@
          <xsd:enumeration value="System100PercentOSA"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="FenestrationComplianceCalc">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NA6DefaultCOG">NA6 Default (COG)</dtyp:displayterm>
+            <dtyp:displayterm value="NFRC_Certified">NFRC Certified</dtyp:displayterm>
+            <dtyp:displayterm value="Table110_6Defaults">[d:t24ref/]110.6 Defaults</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NA6DefaultCOG"/>
+         <xsd:enumeration value="NFRC_Certified"/>
+         <xsd:enumeration value="Table110_6Defaults"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="FenestrationGoalsOPR">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -2994,6 +3140,23 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:token">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="FenestrationTypeApplies">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="FloorTypeTotalArea">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="PersonFullName">
@@ -4572,6 +4735,13 @@
          <xsd:enumeration value="ReqYes"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="NA6FenestrationArea">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="NaturalVentComplies">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -4864,6 +5034,16 @@
          <xsd:enumeration value="ReqNA"/>
          <xsd:enumeration value="ReqNo"/>
          <xsd:enumeration value="ReqYes"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="OverhangForRSHGC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="OwnerRepAttending">
@@ -7011,7 +7191,7 @@
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="PotentialSolarZoneMethod">Potential Solar Zone</dtyp:displayterm>
-            <dtyp:displayterm value="RoofNewAddedAreaMethod">Total New of Added Roof area</dtyp:displayterm>
+            <dtyp:displayterm value="RoofNewAddedAreaMethod">Total New or Added Roof area</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -7150,7 +7330,7 @@
          <xsd:enumeration value="PublicHighwayRestAreas"/>
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="SpaceGT5000Ft2UnderRoofCeilingGTE15Ft">
+   <xsd:simpleType name="SpaceGT5000Ft2CeilingGTE15Ft">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -7345,7 +7525,7 @@
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="10Ft7InTo14Ft">10'7" to 14'</dtyp:displayterm>
-            <dtyp:displayterm value="GT14FtTo18Ft">[d:gt/] 14' to 18"</dtyp:displayterm>
+            <dtyp:displayterm value="GT14FtTo18Ft">[d:gt/] 14' to 18'</dtyp:displayterm>
             <dtyp:displayterm value="GTE18Ft">[d:gt/] 18'</dtyp:displayterm>
             <dtyp:displayterm value="LT10Ft7In">[d:lt/] 10'-7"</dtyp:displayterm>
          </xsd:appinfo>
@@ -7699,217 +7879,406 @@
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA421_24OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA422_16OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA422_24OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA423Double">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA423Ijoist">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA423OSB">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA423Single">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA423Steel">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA424_16OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA424_24OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA425_16OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA425_24OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA426FireProof">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA426NoFireProof">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA427Blocks">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA427Screw">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA427SeamDouble">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA427SeamSingle">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA429">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA431_16OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA431_24OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4310">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4311">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4312">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4313EPS">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4313Other">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4314Metal">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4314Other">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4314Wood">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA431a_16OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA431a_24OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA432Double">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA432Ijoist">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA432OSB">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA432Single">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA433_16OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA433_24OC">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA435">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA436">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA437">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA438Curtain">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA438Spandrel">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA439">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA441_16OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA441_24OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA442_16OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA442_24OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA443Crawl">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA443NoCrawl">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA444_16OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA444_24OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA445_16OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA445_24OC">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA446">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA451">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorJA4Other">
       <xsd:annotation>
          <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorMandatory">
+      <xsd:annotation>
+         <xsd:documentation>  Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UfactorSpecSource">
@@ -7994,7 +8363,27 @@
          <xsd:enumeration value="U4"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="UseInAreaWeightedAveSHGC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="UseInAreaWeightedAveUfactor">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UseInAreaWeightedAveVT">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -8239,6 +8628,13 @@
       <xsd:restriction base="xsd:token">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="WallNetArea">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="WallsFloorsGoalsOPR">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -8256,6 +8652,13 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="WallTypeTotalArea">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="WaterHeatingAutomationControlsGoalsOPR">

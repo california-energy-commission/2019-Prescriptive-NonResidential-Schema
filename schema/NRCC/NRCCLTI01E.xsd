@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.004">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.006">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -860,13 +860,13 @@ user selects calculation method from dropdown list,</xsd:documentation>
                      <xsd:element name="C09Row02_DoesLightingPowerUnconditionedComply" type="comp:DoesLightingPowerUnconditionedComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If C08Row2_LightingPowerInstalledTotalUnonditionedAdjusted IsNull  result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C08Row2_LightingPowerInstalledTotalUnconditionedAdjusted IsNull  result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C09Row02_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If BTotals05_LightingProjectTotalUnconditionedFloorArea NotPresent, result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If C08Row2_LightingPowerInstalledTotalUnconditionedAdjusted IsNull, result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else  If C05Row02_LightingPowerAllowanceTotalUnconditioned GTE C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted  result = true  display term COMPLIES, Else result = false display term DOES NOT COMPLY.</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -2056,6 +2056,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                                                          <xsd:enumeration value="ParkingGarageBuildingParkingArea"/>
                                                          <xsd:enumeration value="PharmacyArea"/>
                                                          <xsd:enumeration value="ReligiousWorshipArea"/>
+                                                         <xsd:enumeration value="Restroom"/>
                                                          <xsd:enumeration value="RetailFittingRoom"/>
                                                          <xsd:enumeration value="RetailMallConcourse"/>
                                                          <xsd:enumeration value="RetailSalesArea"/>
@@ -2217,6 +2218,17 @@ user selects calculation method from dropdown list,</xsd:documentation>
                                                                         <xsd:documentation source="FieldText">Allowed Density (W/ft[d:sup]2[/d:sup] or W/lf or W/unit)</xsd:documentation>
                                                                         <xsd:documentation source="CalculationsAndRules">Calculated field:  Assigned results are W/unit stored in  AdditionalAllowedPowerPerUnit; Switch (Jc03_ AreaCategoryAdditionalAllowanceType) case MirrorLightingExternal: result = 40;  case MirrorLightingInternal: result = 120;</xsd:documentation>
                                                                      </xsd:annotation>
+                                                                  </xsd:element>
+                                                                  <xsd:element name="Jc04_NotApplicableMessage" >
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText">Allowed Density (W/ft[d:sup]2[/d:sup] or W/lf or W/unit)</xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">Calculated field:  If Jc03_ AreaCategoryAdditionalAllowanceType == ParkingGarageATM result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                     <xsd:simpleType>
+                                                                        <xsd:restriction base="comp:NotApplicableMessage">
+                                                                           <xsd:enumeration value="BlankGrayedOut"/>
+                                                                        </xsd:restriction>
+                                                                     </xsd:simpleType>
                                                                   </xsd:element>
                                                                </xsd:choice>
                                                                <xsd:choice maxOccurs="1">
@@ -2401,6 +2413,17 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                                                                         <xsd:documentation source="FieldText">Allowed Density (W/ft[d:sup]2[/d:sup] or W/lf or W/unit)</xsd:documentation>
                                                                         <xsd:documentation source="CalculationsAndRules">Calculated field:  Assigned results are W/unit stored in  AdditionalAllowedPowerPerUnit; Switch (Ju03_ AreaCategoryAdditionalAllowanceType) case MirrorLightingExternal: result = 40;  case MirrorLightingInternal: result = 120;</xsd:documentation>
                                                                      </xsd:annotation>
+                                                                  </xsd:element>
+                                                                  <xsd:element name="Ju04_NotApplicableMessage" >
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText">Allowed Density (W/ft[d:sup]2[/d:sup] or W/lf or W/unit)</xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">Calculated field:  If Ju03_ AreaCategoryAdditionalAllowanceType == ParkingGarageATM result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                     <xsd:simpleType>
+                                                                        <xsd:restriction base="comp:NotApplicableMessage">
+                                                                           <xsd:enumeration value="BlankGrayedOut"/>
+                                                                        </xsd:restriction>
+                                                                     </xsd:simpleType>
                                                                   </xsd:element>
                                                                </xsd:choice>
                                                                <xsd:choice maxOccurs="1">
@@ -5000,13 +5023,13 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                                                       <xsd:element name="R06_LuminaireName" type="lit:LuminaireName" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Luminaire Name or Item Tag</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input: Dropdown list auto-filled from values for Fc01_LuminaireName</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input: Dropdown list auto-filled from values for Fc01_LuminaireName  and Fu01_LuminaireName</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
                                                       <xsd:element name="R07_LuminairePower" type="lit:LuminairePower" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">autofilled result = Fc04_LuminairePower for luminaire selected in R06__LuminaireName</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">autofilled result = Fc05_LuminairePower Or F05_LuminairePower for luminaire selected in R06_LuminaireName</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
                                                       <xsd:element name="R08_LuminaireCountByType" type="lit:LuminaireCountByType" >
