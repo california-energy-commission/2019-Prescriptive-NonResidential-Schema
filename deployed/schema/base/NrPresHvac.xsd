@@ -689,6 +689,30 @@
          <xsd:enumeration value="WaterCooledWithEconUpCRAC"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="CondenserEfficiency">
+      <xsd:annotation>
+         <xsd:documentation>Units: Btu per h W</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="CondenserLocation">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Indoor">Indoor</dtyp:displayterm>
+            <dtyp:displayterm value="Outdoor">Outdoor</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Indoor"/>
+         <xsd:enumeration value="Outdoor"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="CondenserMinEfficiency">
+      <xsd:annotation>
+         <xsd:documentation>Units: Btu per h W</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="CondenserNominalCoolingCapacity">
       <xsd:annotation>
          <xsd:documentation>Units: cooling ton (12,000 Btu per h)</xsd:documentation>
@@ -720,6 +744,21 @@
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="MultiSpeed"/>
          <xsd:enumeration value="SingleSpeed"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="CondenserType">
+      <xsd:annotation>
+         <xsd:documentation>Defines the type condenser used for a chiller, or DX and heat pump coils</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Adiabatic">Adiabatic</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooled">Air Cooled</dtyp:displayterm>
+            <dtyp:displayterm value="Evaporative">Evaporative Cooled</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Adiabatic"/>
+         <xsd:enumeration value="AirCooled"/>
+         <xsd:enumeration value="Evaporative"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ContinuousAirflowRateInstalled">
@@ -1015,7 +1054,7 @@
    </xsd:simpleType>
    <xsd:simpleType name="CoolingRatedCapacity">
       <xsd:annotation>
-         <xsd:documentation>This is the cooling  capacity of HVAC equipment at prescribed design conditions.  Units: Btu per h</xsd:documentation>
+         <xsd:documentation>This is the cooling  capacity of HVAC equipment at prescribed design conditions.  Units: kBtu per h</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -1039,13 +1078,13 @@
    </xsd:simpleType>
    <xsd:simpleType name="CoolingSensibleDesignCapacity">
       <xsd:annotation>
-         <xsd:documentation>Units: Btu per h</xsd:documentation>
+         <xsd:documentation>Units: kBtu per h</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="CoolingSensibleTotalLoad">
       <xsd:annotation>
-         <xsd:documentation>Units: Btu per h</xsd:documentation>
+         <xsd:documentation>Units: kBtu per h</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -1771,6 +1810,12 @@
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ElevatorFanPower">
+      <xsd:annotation>
+         <xsd:documentation>Units: W</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="EnergyFactor">
       <xsd:annotation>
          <xsd:documentation>The ratio of the energy delivered by the water heater divided by the energy used, in the same units.This property is used for Energy Factor values and the new Uniform Energy Factor  values which has a more sophisticated approach to establishing efficiency as Energy Factor.  Units: none</xsd:documentation>
@@ -1788,6 +1833,42 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EvapFanCompressor">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="ConstantOperRequiredNA">NA: Products stored require constant operation at 100% of the design airflow certified by licensed engineer.</dtyp:displayterm>
+            <dtyp:displayterm value="ExistEvapNoControlNA">NA: Not altering/ replacing all of the evaporators in an existing refrigerated space that do not have fan speed-controls.</dtyp:displayterm>
+            <dtyp:displayterm value="MultipleCompressors">Suction group with multiple compressors</dtyp:displayterm>
+            <dtyp:displayterm value="QuickChillOnlyNA">NA: Areas designed solely for quick chilling/freezing of products.</dtyp:displayterm>
+            <dtyp:displayterm value="SingleCompressor">Single compressor without variable capacity</dtyp:displayterm>
+            <dtyp:displayterm value="SingleCompressorVarCapacity">Single compressor with variable capacity capability</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="ConstantOperRequiredNA"/>
+         <xsd:enumeration value="ExistEvapNoControlNA"/>
+         <xsd:enumeration value="MultipleCompressors"/>
+         <xsd:enumeration value="QuickChillOnlyNA"/>
+         <xsd:enumeration value="SingleCompressor"/>
+         <xsd:enumeration value="SingleCompressorVarCapacity"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="EvapFanControl">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="ReduceAirflow">Reduce airflow 
+               <d:gte/> 40% for 
+               <d:gte/> 75% of time when compressor is not running.</dtyp:displayterm>
+            <dtyp:displayterm value="VariableSpeedHumidity">Variable Speed based on Humidity</dtyp:displayterm>
+            <dtyp:displayterm value="VariableSpeedTemp">Variable Speed based on Temp</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="ReduceAirflow"/>
+         <xsd:enumeration value="VariableSpeedHumidity"/>
+         <xsd:enumeration value="VariableSpeedTemp"/>
+      </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="EvaporativeCondenserRatingCondition">
       <xsd:annotation>
@@ -2003,6 +2084,15 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="FanEfficacyRequired">
+      <xsd:annotation>
+         <xsd:documentation>Units: W per ft3 per min</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Fan Efficacy Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="FanFlowCapacity">
       <xsd:annotation>
          <xsd:documentation>Defines the volumetric capacity of the fan measured in cubic ft per minute (cfm).  The fan's peak airflow is what it is rated at when running at full capacity.  Units: ft3 per min</xsd:documentation>
@@ -2043,6 +2133,33 @@
          <xsd:enumeration value="Supply"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="FanMotorEfficiency">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="EfficiencyECM">ECM</dtyp:displayterm>
+            <dtyp:displayterm value="EfficiencyGTE70Pct">
+               <d:gte/> 70% Efficiency</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="EfficiencyECM"/>
+         <xsd:enumeration value="EfficiencyGTE70Pct"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="FanMotorHP">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="GTE1HP">
+               <d:gte/>1 HP</dtyp:displayterm>
+            <dtyp:displayterm value="LT1HP">
+               <d:lt/>1 HP</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="GTE1HP"/>
+         <xsd:enumeration value="LT1HP"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="FanName">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -2050,6 +2167,19 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:ObjectNamePermissive"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="FanPhase">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="SinglePhase">Single Phase 
+               <d:lt/> 460V</dtyp:displayterm>
+            <dtyp:displayterm value="ThreePhase">Three Phase</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="SinglePhase"/>
+         <xsd:enumeration value="ThreePhase"/>
+      </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="FanPower">
       <xsd:annotation>
@@ -2063,6 +2193,12 @@
    <xsd:simpleType name="FanPowerIndex">
       <xsd:annotation>
          <xsd:documentation>Units: W per ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="FanPowerPerCooling">
+      <xsd:annotation>
+         <xsd:documentation>Units: W</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -2112,6 +2248,12 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="FanSystemMaxAllowedPower">
+      <xsd:annotation>
+         <xsd:documentation>Units: W</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="FanSystemName">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -2119,6 +2261,12 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:ObjectNamePermissive"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="FanSystemSensibleCooling">
+      <xsd:annotation>
+         <xsd:documentation>Units: kBtu per h</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="FanSystemTotalHP">
       <xsd:annotation>
@@ -2710,7 +2858,7 @@
    </xsd:simpleType>
    <xsd:simpleType name="HeatingDesignCapacity">
       <xsd:annotation>
-         <xsd:documentation>Units: Btu per h</xsd:documentation>
+         <xsd:documentation>Units: kBtu per h</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -2725,7 +2873,7 @@
    </xsd:simpleType>
    <xsd:simpleType name="HeatingRatedCapacity">
       <xsd:annotation>
-         <xsd:documentation>This is the  heating capacity of HVAC equipment at prescribed design conditions.  Units: Btu per h</xsd:documentation>
+         <xsd:documentation>This is the  heating capacity of HVAC equipment at prescribed design conditions.  Units: kBtu per h</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -2749,7 +2897,7 @@
    </xsd:simpleType>
    <xsd:simpleType name="HeatingSupplementalCapacity">
       <xsd:annotation>
-         <xsd:documentation>Units: Btu per h</xsd:documentation>
+         <xsd:documentation>Units: kBtu per h</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -2791,7 +2939,7 @@
    </xsd:simpleType>
    <xsd:simpleType name="HeatingTotalLoad">
       <xsd:annotation>
-         <xsd:documentation>Units: Btu per h</xsd:documentation>
+         <xsd:documentation>Units: kBtu per h</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -3026,7 +3174,7 @@
             <dtyp:displayterm>Maximum Cooling W per CFM</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+      <xsd:restriction base="dtyp:Decimal4Places"/>
    </xsd:simpleType>
    <xsd:simpleType name="MinimumRequiredUEF">
       <xsd:annotation>
@@ -3423,6 +3571,28 @@
          <xsd:documentation>Units: ft3 per min</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProcessBoilerInputRange">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="GTE10MMBtuh">
+               <d:gte/>10 MMBtuh per boiler</dtyp:displayterm>
+            <dtyp:displayterm value="GTE2_5ToLT5MMBtuh">
+               <d:gte/>2.5 to 
+               <d:lt/> 5 MMBtuh per boiler</dtyp:displayterm>
+            <dtyp:displayterm value="GTE5ToLT10MMBtuh">
+               <d:gte/>5 to 
+               <d:lt/> 10 MMBtuh per boiler</dtyp:displayterm>
+            <dtyp:displayterm value="LT2_5MMBtuh">
+               <d:lt/>2.5 MMBtuh per boiler</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="GTE10MMBtuh"/>
+         <xsd:enumeration value="GTE2_5ToLT5MMBtuh"/>
+         <xsd:enumeration value="GTE5ToLT10MMBtuh"/>
+         <xsd:enumeration value="LT2_5MMBtuh"/>
+      </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="PumpControlVF">
       <xsd:annotation>

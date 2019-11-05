@@ -6,7 +6,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:hvac="http://www.lmonte.com/besm/hvac"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.006">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.007">
    <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="NrPresHvac.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
    <xsd:simpleType name="AdditionTotalConditionedFloorArea">
@@ -516,6 +516,13 @@
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ExhaustMaxFlowPerHoodLF">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ExhaustNumberFixtures">
       <xsd:annotation>
          <xsd:documentation>  Units: none</xsd:documentation>
@@ -852,6 +859,70 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustHoodDuty">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR include</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="ExtraHeavyDuty">Extra Heavy Duty</dtyp:displayterm>
+            <dtyp:displayterm value="HeavyDuty">Heavy Duty</dtyp:displayterm>
+            <dtyp:displayterm value="LightDuty">Light Duty</dtyp:displayterm>
+            <dtyp:displayterm value="MediumDuty">Medium Duty</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="ExtraHeavyDuty"/>
+         <xsd:enumeration value="HeavyDuty"/>
+         <xsd:enumeration value="LightDuty"/>
+         <xsd:enumeration value="MediumDuty"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustHoodFlow">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustHoodLength">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustHoodStyle">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR include</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="BackshelfPassover">Backshelf / Passover</dtyp:displayterm>
+            <dtyp:displayterm value="DoubleIsland">Double Island</dtyp:displayterm>
+            <dtyp:displayterm value="Eyebrow">Eyebrow</dtyp:displayterm>
+            <dtyp:displayterm value="SingleIsland">Single Island</dtyp:displayterm>
+            <dtyp:displayterm value="WallMountedCanopy">Wall-mounted Canopy</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="BackshelfPassover"/>
+         <xsd:enumeration value="DoubleIsland"/>
+         <xsd:enumeration value="Eyebrow"/>
+         <xsd:enumeration value="SingleIsland"/>
+         <xsd:enumeration value="WallMountedCanopy"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenHoodType">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Type1">Type I</dtyp:displayterm>
+            <dtyp:displayterm value="Type2HeatSteam">Type II</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Type1"/>
+         <xsd:enumeration value="Type2HeatSteam"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="LatentHeatRatePerOccupant">
       <xsd:annotation>
          <xsd:documentation>The rate of latent heat released per person which is a function of activity  Units: Btu per h person</xsd:documentation>
@@ -1029,6 +1100,16 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="OccupancySensorControl">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Occupancy sensors provided</dtyp:displayterm>
+            <dtyp:displayterm value="false"></dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="OccupantCount">
       <xsd:annotation>
          <xsd:documentation>The maximum number of people who can occupy a space  or building  Units: person</xsd:documentation>
@@ -1054,6 +1135,13 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:annotation>
          <xsd:documentation>  Units: ft</xsd:documentation>
          <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ParkingGarageArea">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft2</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
