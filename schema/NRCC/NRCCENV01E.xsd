@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.006">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.008">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -3363,17 +3363,6 @@ SprayPolyurethaneFoam display term Spray polyurethane foam, ClayRoofTiles displa
                                                       <xsd:documentation source="CalculationsAndRules">If Hframed05_UfactorSpecSource == JA4Tables, this row is grayed out; Else If Hframed05_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters text</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
-                                                <xsd:element name="Hframed08_NotApplicableMessage" >
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Hframed08 are grayed out;</xsd:documentation>
-                                                   </xsd:annotation>
-                                                   <xsd:simpleType>
-                                                      <xsd:restriction base="comp:NotApplicableMessage">
-                                                         <xsd:enumeration value="BlankGrayedOut"/>
-                                                      </xsd:restriction>
-                                                   </xsd:simpleType>
-                                                </xsd:element>
                                              </xsd:choice>
                                              <xsd:choice maxOccurs="1">
                                                 <xsd:element name="Hframed09_ContinuousInsulationNR" >
@@ -3402,6 +3391,17 @@ SprayPolyurethaneFoam display term Spray polyurethane foam, ClayRoofTiles displa
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hframed05_UfactorSpecSource == JA4Tables, this row is grayed out; Else If Hframed05_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters text</xsd:documentation>
                                                    </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Hframed09_NotApplicableMessage" >
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Hframed08 are grayed out;</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
                                                 </xsd:element>
                                              </xsd:choice>
                                              <xsd:element name="Hframed10_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod" >
@@ -5896,11 +5896,16 @@ SprayPolyurethaneFoam display term Spray polyurethane foam, ClayRoofTiles displa
                                                       <xsd:documentation source="CalculationsAndRules">Calculated field: If HCalc2UF01_AreaWeightAvgType == MassLight Or MassHeavy  If Hmass05_MasonryType == CMULightWeight, CMUMediumWeight Or CMUNormalWeight Then If Hmass06_ MasonryGrout != NoGrout And Hmass07_MassThickness == 6mass,  8mass, 10mass  Or 12mass  result = 0.440; Else If Hmass06_ MasonryGrout == NoGrout And Hmass07_MassThickness == 6mass, 7mass, 8mass, 9mass, 10mass, 11mass, Or 12mass  result = 0.440;</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
-                                                <xsd:element name="HCalc2UF04_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                                <xsd:element name="HCalc2UF04_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Mandatory U-factor Required</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">Calculated field: If HCalc2UF01_AreaWeightAvgType == MassLight  Or MassHeavy Then  If Hmass05_MasonryType != CMULightWeight, CMUMediumWeight Or CMUNormalWeight result = NotApplicable display term N/A stored in NotApplicableMessage; Else If Hmass06_ MasonryGrout == NoGrout And Hmass07_MassThickness == 3mass, 4mass or 5mass result = NotApplicable display term N/A stored in NotApplicableMessage; Else  If HCalc2UF01_AreaWeightAvgType == Log, MassLightICF, MassHeavyICF Or ConcreteSandwich  result = NotApplicable display term N/A stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="NotApplicable"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
                                                 </xsd:element>
                                              </xsd:choice>
                                              <xsd:element name="HCalc2UF05to06Label" minOccurs="0">

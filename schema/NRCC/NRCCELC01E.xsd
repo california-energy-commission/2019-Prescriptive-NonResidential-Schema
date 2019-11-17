@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.006">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.008">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -63,7 +63,7 @@
                   <xsd:element name="A_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This document is used to demonstrate compliance with mandatory requirements in [d:t24ref/]130.5, for electrical systems in newly constructed nonresidential, high-rise residential and hotel/motel [d:t24table/]120.6-A occupancies.  Additions and alterations to electrical service systems in these occupancies will also use this document to demonstrate compliance per [d:t24ref/]141.0(a) or  [d:t24ref/]141.0(b)2P for alterations..[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This document is used to demonstrate compliance with mandatory requirements in [d:t24ref/]130.5, for electrical systems in newly constructed nonresidential, high-rise residential and hotel/motel occupancies.  Additions and alterations to electrical service systems in these occupancies will also use this document to demonstrate compliance per [d:t24ref/]141.0(a) or  [d:t24ref/]141.0(b)2P for alterations..[/d:i]</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">This note should be placed after the header and before section A</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -324,10 +324,10 @@
                         </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
-                  <xsd:element name="C05_DoesElectricalServiceProjectComplyWithAllRequirements" type="comp:DoesElectricalServiceProjectComplyWithAllRequirements" >
+                  <xsd:element name="C05_DoesFormComplyNRCC" type="comp:DoesFormComplyNRCC" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">[d:b]Compliance Results[/d:b]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value:  If C01_DoesElectricalServiceMeteringComply == false Or C02_DoesLoadSeparationMonitoringComply == false Or C03_DoesVoltageDropComply == false Or C04_DoControlledReceptaclesComply == false, then result = false display term DOES NOT COMPLY Else result = true display text COMPLIES</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value:  If B02_ElectricalServiceProjectScope == NewReplacementServiceMeterOnly And B04_ UtilityProvidedMeterException130_5a Or B05_ DoesElectricalCodeExceptionApply == true result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions;  Else   for all fields that are present If C01_DoesElectricalServiceMeteringComply == false Or C02_DoesLoadSeparationMonitoringComply == false Or C03_DoesVoltageDropComply == false Or C04_DoControlledReceptaclesComply == false, then result = DoesNotComply display term DOES NOT COMPLY Else  If D03_ExceptionalConditionMessageNRCCELCE NotPresent result = Complies display term COMPLIES Else if D03_ExceptionalConditionMessageNRCCELCE IsPresent result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>

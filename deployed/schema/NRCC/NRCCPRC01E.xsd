@@ -531,7 +531,7 @@
                         <xsd:documentation source="FieldText">
                            <d:b>Compliance Results</d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated field: For all fields that are present  If C01_CompliantSectionF, C02_CompliantSectionG, C03_CompliantSectionH, C04_CompliantSectionI, C05_CompliantSectionJ, C06_CompliantSectionK, C07_CompliantSectionL, C08_CompliantSectionM, C09_CompliantSectionN AND C10_CompliantSectionO == true result = true; Else result = false display term DOES NOT COMPLY;  If result == true continue: If D03_ExceptionalConditionMessageNRCCPRCE NotPresent result = true display term COMPLIES; Else if D03_ExceptionalConditionMessageNRCCPRCE IsPresent result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated field: For all fields that are present  If C01_CompliantSectionF, C02_CompliantSectionG, C03_CompliantSectionH, C04_CompliantSectionI, C05_CompliantSectionJ, C06_CompliantSectionK, C07_CompliantSectionL, C08_CompliantSectionM, C09_CompliantSectionN Or C10_CompliantSectionO ==false result = DoesNotComply display term DOES NOT COMPLY;  Else If D03_ExceptionalConditionMessageNRCCPRCE NotPresent result = Complies display term COMPLIES; Else if D03_ExceptionalConditionMessageNRCCPRCE IsPresent result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -802,95 +802,114 @@
                         <xsd:sequence>
                            <xsd:element name="Ffan03To04Label" minOccurs="0">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Fan Motor Efficiency [t24ref/]120.6(a)3A</xsd:documentation>
+                                 <xsd:documentation source="FieldText">Fan Motor Efficiency 
+                                    <d:t24ref h="120.6(a)3A"/>
+                                 </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Ffan05To06Label" minOccurs="0">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Fan Controls [t24ref/]120.6(a)3B &amp;amp; [t24ref/]120.6(a)3C</xsd:documentation>
+                                 <xsd:documentation source="FieldText">Fan Controls [t24ref/]120.6(a)3B &amp;amp; 
+                                    <d:t24ref h="120.6(a)3C"/>
+                                 </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
-                           <xsd:element name="Ffan01_FanName" type="hvac:FanName">
+                           <xsd:element name="TableFfan">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                 <xsd:documentation source="FieldText"/>
                               </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="Ffan01_FanName" type="hvac:FanName">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="Ffan02_FanMotorHP" type="hvac:FanMotorHP">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">HP</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects from list: LT1HP display term 
+                                                      <d:lt/>1 HP, GTE1HP display term 
+                                                      <d:gte/>1 HP</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Ffan03_FanPhase" type="hvac:FanPhase">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Phase</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list; SinglePhase display term Single Phase 
+                                                         <d:lt/> 460V, ThreePhase display term Three Phase</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Ffan03_NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Phase</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Ffan04_FanMotorEfficiency" type="hvac:FanMotorEfficiency">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Type of Efficiency</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP Or Ffan03_FanPhase == ThreePhase result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list: EfficiencyECM display term ECM, EfficiencyGTE70Pct display term 
+                                                         <d:gte/> 70% Efficiency</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Ffan04_NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Type of Efficiency</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP Or Ffan03_FanPhase == ThreePhase result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:element name="Ffan05_EvapFanCompressor" type="hvac:EvapFanCompressor">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Evaporator Fans Served By</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects from list: MultipleCompressors display term Suction group with multiple compressors, SingleCompressorVarCapacity display term Single compressor with variable capacity capability, SingleCompressor display term Single compressor without variable capacity, ExistEvapNoControlNA display term NA: Not altering/ replacing all of the evaporators in an existing refrigerated space that do not have fan speed-controls., ConstantOperRequiredNA display term NA: Products stored require constant operation at 100% of the design airflow certified by licensed engineer., QuickChillOnlyNA display term NA: Areas designed solely for quick chilling/freezing of products.</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Ffan06_EvapFanControl" type="hvac:EvapFanControl">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Ffan05_EvapFanCompressor == ExistEvapNoControlNA Or ConstantOperRequiredNA Or QuickChillOnlyNA result = BlankGrayedOut stored in NotApplicableMessage; Else User selects from customized list as follows: If Ffan05_EvapFanCompressor == MultipleCompressors Or SingleCompressorVarCapacity list: VariableSpeedTemp display term Variable Speed based on Temp, VariableSpeedHumidity display term Variable Speed based on Humidity; Else If Ffan05_EvapFanCompressor == SingleCompressor list; ReduceAirflow display term Reduce airflow 
+                                                         <d:gte/> 40% for 
+                                                         <d:gte/> 75% of time when compressor is not running.</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Ffan06_NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Ffan05_EvapFanCompressor == ExistEvapNoControlNA Or ConstantOperRequiredNA Or QuickChillOnlyNA result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
                            </xsd:element>
-                           <xsd:element name="Ffan02_FanMotorHP" type="hvac:FanMotorHP">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">HP</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User selects from list: LT1HP display term 
-                                    <d:lt/>1 HP, GTE1HP display term 
-                                    <d:gte/>1 HP</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:choice maxOccurs="1">
-                              <xsd:element name="Ffan03_FanPhase" type="hvac:FanPhase">
-                                 <xsd:annotation>
-                                    <xsd:documentation source="FieldText">Phase</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list; SinglePhase display term Single Phase 
-                                       <d:lt/> 460V, ThreePhase display term Three Phase</xsd:documentation>
-                                 </xsd:annotation>
-                              </xsd:element>
-                              <xsd:element name="Ffan03_NotApplicableMessage">
-                                 <xsd:annotation>
-                                    <xsd:documentation source="FieldText">Phase</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
-                                 </xsd:annotation>
-                                 <xsd:simpleType>
-                                    <xsd:restriction base="comp:NotApplicableMessage">
-                                       <xsd:enumeration value="BlankGrayedOut"/>
-                                    </xsd:restriction>
-                                 </xsd:simpleType>
-                              </xsd:element>
-                           </xsd:choice>
-                           <xsd:choice maxOccurs="1">
-                              <xsd:element name="Ffan04_FanMotorEfficiency" type="hvac:FanMotorEfficiency">
-                                 <xsd:annotation>
-                                    <xsd:documentation source="FieldText">Type of Efficiency</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP Or Ffan03_FanPhase == ThreePhase result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list: EfficiencyECM display term ECM, EfficiencyGTE70Pct display term 
-                                       <d:gte/> 70% Efficiency</xsd:documentation>
-                                 </xsd:annotation>
-                              </xsd:element>
-                              <xsd:element name="Ffan04_NotApplicableMessage">
-                                 <xsd:annotation>
-                                    <xsd:documentation source="FieldText">Type of Efficiency</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP Or Ffan03_FanPhase == ThreePhase result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
-                                 </xsd:annotation>
-                                 <xsd:simpleType>
-                                    <xsd:restriction base="comp:NotApplicableMessage">
-                                       <xsd:enumeration value="BlankGrayedOut"/>
-                                    </xsd:restriction>
-                                 </xsd:simpleType>
-                              </xsd:element>
-                           </xsd:choice>
-                           <xsd:element name="Ffan05_EvapFanCompressor" type="hvac:EvapFanCompressor">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Evaporator Fans Served By</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User selects from list: MultipleCompressors display term Suction group with multiple compressors, SingleCompressorVarCapacity display term Single compressor with variable capacity capability, SingleCompressor display term Single compressor without variable capacity, ExistEvapNoControlNA display term NA: Not altering/ replacing all of the evaporators in an existing refrigerated space that do not have fan speed-controls., ConstantOperRequiredNA display term NA: Products stored require constant operation at 100% of the design airflow certified by licensed engineer., QuickChillOnlyNA display term NA: Areas designed solely for quick chilling/freezing of products.</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:choice maxOccurs="1">
-                              <xsd:element name="Ffan06_EvapFanControl" type="hvac:EvapFanControl">
-                                 <xsd:annotation>
-                                    <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Ffan05_EvapFanCompressor == ExistEvapNoControlNA Or ConstantOperRequiredNA Or QuickChillOnlyNA result = BlankGrayedOut stored in NotApplicableMessage; Else User selects from customized list as follows: If Ffan05_EvapFanCompressor == MultipleCompressors Or SingleCompressorVarCapacity list: VariableSpeedTemp display term Variable Speed based on Temp, VariableSpeedHumidity display term Variable Speed based on Humidity; Else If Ffan05_EvapFanCompressor == SingleCompressor list; ReduceAirflow display term Reduce airflow 
-                                       <d:gte/> 40% for 
-                                       <d:gte/> 75% of time when compressor is not running.</xsd:documentation>
-                                 </xsd:annotation>
-                              </xsd:element>
-                              <xsd:element name="Ffan06_NotApplicableMessage">
-                                 <xsd:annotation>
-                                    <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Ffan05_EvapFanCompressor == ExistEvapNoControlNA Or ConstantOperRequiredNA Or QuickChillOnlyNA result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
-                                 </xsd:annotation>
-                                 <xsd:simpleType>
-                                    <xsd:restriction base="comp:NotApplicableMessage">
-                                       <xsd:enumeration value="BlankGrayedOut"/>
-                                    </xsd:restriction>
-                                 </xsd:simpleType>
-                              </xsd:element>
-                           </xsd:choice>
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
@@ -937,6 +956,14 @@
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Altered/ replacement or existing condensers only</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="FconEndNote1" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="AdditionalRequirements">
+                                    <d:i><d:sup>1</d:sup>FOOTNOTE: Altered/replacement or existing condensers do not have Title 24, Part 6 requirements.</d:i>
+                                 </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="TableFconair" minOccurs="0">
@@ -1242,9 +1269,11 @@
                                  </xsd:sequence>
                               </xsd:complexType>
                            </xsd:element>
-                           <xsd:element name="TableFconadia">
+                           <xsd:element name="TableFconadia" minOccurs="0">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Adiabatic Condensers</d:b>
+                                 </xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">This table is required If Fcon01Adiabatic_CondenserTypeApplies == true</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
@@ -1736,7 +1765,9 @@
                   </xsd:element>
                   <xsd:element name="Gcom" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Compressors and Condensing Units Serving Refrigeration System</d:b>
+                        </xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">This subsection is required If G01Compressor_ComponentApplies == true</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
