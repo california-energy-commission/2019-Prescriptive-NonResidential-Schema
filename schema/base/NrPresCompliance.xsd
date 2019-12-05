@@ -7,7 +7,7 @@
    xmlns:com="http://www.lmonte.com/besm/com"
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.008">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.009">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
@@ -5800,14 +5800,14 @@
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="FactoryInstalledPiping">Factory installed piping within certified equip.</dtyp:displayterm>
             <dtyp:displayterm value="FluidTempRange">Fluid design operating temp 60-105[d:deg/]F</dtyp:displayterm>
-            <dtyp:displayterm value="NoException">No exception taken</dtyp:displayterm>
+            <dtyp:displayterm value="NoException_3Pipe"></dtyp:displayterm>
             <dtyp:displayterm value="NoIncreaseEnergyUse">Lack of insulation will not increase energy use</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="FactoryInstalledPiping"/>
          <xsd:enumeration value="FluidTempRange"/>
-         <xsd:enumeration value="NoException"/>
+         <xsd:enumeration value="NoException_3Pipe"/>
          <xsd:enumeration value="NoIncreaseEnergyUse"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -9742,9 +9742,6 @@
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ComplianceDocumentsRequiredNonResidential">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">CBECC NR Collapse = Yes</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="requireNRCAEnv02F" type="comp:RequireNRCAEnv02F" ></xsd:element>
          <xsd:element name="requireNRCAEnv03F" type="comp:RequireNRCAEnv03F" ></xsd:element>
@@ -9795,11 +9792,8 @@
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ContactInformation">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="email" type="comp:Email" ></xsd:element>
+         <xsd:element name="email" type="comp:Email" minOccurs="0" ></xsd:element>
          <xsd:element name="phoneNumber" type="comp:PhoneNumber" ></xsd:element>
       </xsd:sequence>
    </xsd:complexType>
@@ -9807,7 +9801,6 @@
       <xsd:annotation>
          <xsd:documentation>The documentation author is a person who prepares a Title 24 Part 6 compliance document that must subsequently be reviewed and signed by a responsible person in order to certify compliance with Part 6.  The documentation author and the responsible person may be the same person.  Standards: 2013 T24: Section 10-103  Permit, Certificate, Informational, And Enforcement Requirements For Designers, Installers,
 Builders, Manufacturers, And Suppliers</xsd:documentation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="documentAuthor01Name" type="comp:PersonFullName" minOccurs="0" ></xsd:element>
@@ -9820,14 +9813,11 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:element name="documentAuthor08State" type="comp:State" minOccurs="0" ></xsd:element>
          <xsd:element name="documentAuthor09Zipcode" type="comp:Zipcode" minOccurs="0" ></xsd:element>
          <xsd:element name="documentAuthor10Phone" type="comp:PhoneNumber" minOccurs="0" ></xsd:element>
-         <xsd:element name="ContactInformation" type="comp:ContactInformation" ></xsd:element>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="DocumentAuthorNRCC">
       <xsd:annotation>
-         <xsd:documentation>The documentation author is a person who prepares a Title 24 Part 6 compliance document that must subsequently be reviewed and signed by a responsible person in order to certify compliance with Part 6.  The documentation author and the responsible person may be the same person.  Standards: 2013 T24: Section 10-103  Permit, Certificate, Informational, And Enforcement Requirements For Designers, Installers,
-Builders, Manufacturers, And Suppliers</xsd:documentation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
+         <xsd:documentation>The documentation author is a person who prepares a Title 24 Part 6 compliance document that must subsequently be reviewed and signed by a responsible person in order to certify compliance with Part 6.  The documentation author and the responsible person may be the same person.  Standards: DocumentationAuthorNRCC may have fields not used for other types of compliance documents</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="documentAuthor01Name" type="comp:PersonFullName" minOccurs="0" ></xsd:element>
@@ -9843,9 +9833,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ComplianceDocumentDataSchema">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="DocumentAuthor" type="comp:DocumentAuthor" ></xsd:element>
          <xsd:element name="DocumentAuthorNRCC" type="comp:DocumentAuthorNRCC" ></xsd:element>
@@ -9863,9 +9850,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="FieldTechnicianNRCA">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="documentAuthor01Name" type="comp:PersonFullName" minOccurs="0" ></xsd:element>
          <xsd:element name="documentAuthor02ElectronicSignature" type="comp:ElectronicSignature" minOccurs="0" ></xsd:element>
@@ -9880,9 +9864,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="Footer">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="footer01_RegistrationNumber" type="comp:RegistrationNumber" minOccurs="0" ></xsd:element>
          <xsd:element name="footer02_RegistrationDateTime" type="comp:RegistrationDateTime" minOccurs="0" ></xsd:element>
@@ -9891,17 +9872,11 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="FooterNRCC">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="footer01_RevisionDateNRCC" type="comp:Revision" ></xsd:element>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="HeaderNRCA">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="header01_ProjectName" type="comp:ProjectName" ></xsd:element>
          <xsd:element name="header02_EnforcementAgency" type="comp:EnforcementAgency" ></xsd:element>
@@ -9912,10 +9887,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="HeaderNRCC">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude
-</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="header00_T24P6Coverage" type="comp:ComplianceDocumentT24P6Coverage" ></xsd:element>
          <xsd:element name="header01_ProjectName" type="comp:ProjectName" ></xsd:element>
@@ -9926,9 +9897,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="HeaderNRCI">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="header01_ProjectName" type="comp:ProjectName" ></xsd:element>
          <xsd:element name="header02_EnforcementAgency" type="comp:EnforcementAgency" ></xsd:element>
@@ -9939,9 +9907,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="HeaderNRCV">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="header01_ProjectName" type="comp:ProjectName" ></xsd:element>
          <xsd:element name="header02_EnforcementAgency" type="comp:EnforcementAgency" ></xsd:element>
@@ -9950,9 +9915,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="Payload">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
       </xsd:sequence>
       <xsd:attribute name="complianceDocumentGUID" type="comp:ComplianceDocumentGUID" use="required"></xsd:attribute>
@@ -9966,9 +9928,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:attribute name="validates" type="comp:Validates" use="required"></xsd:attribute>
    </xsd:complexType>
    <xsd:complexType name="ResponsiblePersonNRCA">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="responsibleAcceptancePerson01_NameNRCA" type="comp:PersonFullName" minOccurs="0" ></xsd:element>
          <xsd:element name="responsibleAcceptancePerson02_SignatureNRCA" type="comp:ElectronicSignature" minOccurs="0" ></xsd:element>
@@ -9984,9 +9943,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ResponsiblePersonNRCC">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="responsibleDesigner01_NameNRCC" type="comp:PersonFullName" minOccurs="0" ></xsd:element>
          <xsd:element name="responsibleDesigner02_SignatureNRCC" type="comp:ElectronicSignature" minOccurs="0" ></xsd:element>
@@ -10001,9 +9957,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ResponsiblePersonNRCV">
-      <xsd:annotation>
-         <xsd:documentation source="objectrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
       <xsd:sequence>
       </xsd:sequence>
    </xsd:complexType>
