@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.007">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.010">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -36,8 +36,8 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCC" />
                      <xsd:element ref="nRCCLTI01E" />
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" />
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" maxOccurs="unbounded" />
                      <xsd:element name="Footer" type="comp:FooterNRCC" />
                   </xsd:sequence>
                </xsd:complexType>
@@ -961,10 +961,11 @@ user selects calculation method from dropdown list,</xsd:documentation>
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
-         <xsd:element name="Section_E" minOccurs="1">
+         <xsd:element name="Section_E" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation source="FieldText">[d:b]E. ADDITIONAL REMARKS[/d:b]</xsd:documentation>
-               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
@@ -2149,7 +2150,7 @@ user selects calculation method from dropdown list,</xsd:documentation>
                   <xsd:element name="J_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]All areas indicated in Table I as using an additional allowance using the Area Category Method have been included in this table to calculate the additional allowance per Table 140.6-C.[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]All areas indicated in Table I as using an additional allowance using the Area Category Method have been included in this table to calculate the additional allowance per [d:t24table]Table 140.6-C[/d:t24table].[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Jc_Conditioned" minOccurs="0">
@@ -4427,7 +4428,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                   <xsd:element name="PEndNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup] FOOTNOTES:  PAFs outlined in Table 140.6-A include 1) Daylight dimming plus OFF; 2A) Occupant sensors in offices [dlte/] 125 ft[d:sup]2[/d:sup];  2B) Occupant sensors in offices 126 - 250 ft[d:sup]2[/d:sup]; 2C) Occupant sensors in offices 251 - 500 ft[d:sup]2[/d:sup]; 3A) Institutional tuning, non-daylit areas and 3B) Institutional tuning, daylit areas; 4) Demand response; 5) Clerestory fenestration; 6) Horizontal slats; 7) Light shelves. [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup] FOOTNOTES:  PAFs outlined in [d:t24table]Table 140.6-A[/d:t24table] include 1) Daylight dimming plus OFF; 2A) Occupant sensors in offices [dlte/] 125 ft[d:sup]2[/d:sup];  2B) Occupant sensors in offices 126 - 250 ft[d:sup]2[/d:sup]; 2C) Occupant sensors in offices 251 - 500 ft[d:sup]2[/d:sup]; 3A) Institutional tuning, non-daylit areas and 3B) Institutional tuning, daylit areas; 4) Demand response; 5) Clerestory fenestration; 6) Horizontal slats; 7) Light shelves. [/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="PEndNote2" minOccurs="0">
@@ -5166,7 +5167,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                            <xsd:element name="S08_HorizontalSlatsProjection" type="comp:HorizontalSlatsProjection" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Requirement</xsd:documentation>
-                                 <xsd:documentation source="AdditionalRequirements">Slats have a Projection Factor per Table 140.3-D Daylighting Devices and extend beyond each side of the window jamb by a distance [d:gte/] their horizontal projection.  Slats do not need to extend beyond the jamb if they are located entirely within the fenestration rough opening or a fin is located at the jamb and extends vertically the entire height of the jamb and horizontally the entire depth of the projection.</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Slats have a Projection Factor per [d:t24table]Table 140.3-D[/d:t24table] Daylighting Devices and extend beyond each side of the window jamb by a distance [d:gte/] their horizontal projection.  Slats do not need to extend beyond the jamb if they are located entirely within the fenestration rough opening or a fin is located at the jamb and extends vertically the entire height of the jamb and horizontally the entire depth of the projection.</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -5224,7 +5225,7 @@ PRODUCT (Jc04_AdditionalAllowedLPD, Jc05_SpaceFloorArea); Else If Jc04_Additiona
                            <xsd:element name="S15_LightShelvesProjection" type="comp:LightShelvesProjection" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Requirement</xsd:documentation>
-                                 <xsd:documentation source="AdditionalRequirements">Shelves have a Projection Factor per Table 140.3-D Daylighting Devices and extend beyond each side of the window jamb by a distance [d:gte/] their horizontal projection.</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Shelves have a Projection Factor per [d:t24table]Table 140.3-D[/d:t24table] Daylighting Devices and extend beyond each side of the window jamb by a distance [d:gte/] their horizontal projection.</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>

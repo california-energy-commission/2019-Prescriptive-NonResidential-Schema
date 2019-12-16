@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.008">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.010">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -36,8 +36,8 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCC" />
                      <xsd:element ref="nRCCELCE" />
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" />
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" maxOccurs="unbounded" />
                      <xsd:element name="Footer" type="comp:FooterNRCC" />
                   </xsd:sequence>
                </xsd:complexType>
@@ -327,7 +327,7 @@
                   <xsd:element name="C05_DoesFormComplyNRCC" type="comp:DoesFormComplyNRCC" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">[d:b]Compliance Results[/d:b]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value:  If B02_ElectricalServiceProjectScope == NewReplacementServiceMeterOnly And B04_ UtilityProvidedMeterException130_5a Or B05_ DoesElectricalCodeExceptionApply == true result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions;  Else   for all fields that are present If C01_DoesElectricalServiceMeteringComply == false Or C02_DoesLoadSeparationMonitoringComply == false Or C03_DoesVoltageDropComply == false Or C04_DoControlledReceptaclesComply == false, then result = DoesNotComply display term DOES NOT COMPLY Else  If D03_ExceptionalConditionMessageNRCCELCE NotPresent result = Complies display term COMPLIES Else if D03_ExceptionalConditionMessageNRCCELCE IsPresent result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value:  If B02_ElectricalServiceProjectScope == NewReplacementServiceMeterOnly And B04_ UtilityProvidedMeterException130_5a Or B05_ DoesElectricalCodeExceptionApply == true result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions;  Else  for all fields that are present  If C01_DoesElectricalServiceMeteringComply == false Or C02_DoesLoadSeparationMonitoringComply == false Or C03_DoesVoltageDropComply == false Or C04_DoControlledReceptaclesComply == false, then result = DoesNotComply display term DOES NOT COMPLY Else  If D03_ExceptionalConditionMessageNRCCELCE NotPresent result = Complies display term COMPLIES Else if D03_ExceptionalConditionMessageNRCCELCE IsPresent result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -383,10 +383,11 @@
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
-         <xsd:element name="Section_E" minOccurs="1">
+         <xsd:element name="Section_E" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation source="FieldText">[d:b]E. ADDITIONAL REMARKS[/d:b]</xsd:documentation>
-               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
@@ -443,7 +444,7 @@
                                     <xsd:element name="F03_Header" minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText"></xsd:documentation>
-                                          <xsd:documentation source="AdditionalRequirements">Required Metering Capabilities per Table 130.5-A</xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Required Metering Capabilities per [d:t24table]Table 130.5-A [/d:t24table]</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="F03a_MeteringDemandRequired" type="comp:MeteringDemandRequired" >
@@ -538,13 +539,13 @@
                                           <xsd:sequence>
                                              <xsd:element name="G01_ElectricalLoadType" type="com:ElectricalLoadType" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Load Type per Table 130.5-B[d:sup]1[/d:sup]</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">Load Type per  [d:t24table]Table 130.5-B [/d:t24table][d:sup]1[/d:sup]</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">ser selects from dropdown list: LightingLoad display term Lighting including exit, egress and exterior, HVAC_Load display term HVAC systems and components, WaterSystemsLoad display term Domestic and service water systems, PlugLoadsLT25kVA display term Plug Loads and appliances less than 25kVA, ElevatorEscalatorMovingWalkwayLoad display term Elevators, escalators, moving walkways, PlugLoadsGTE25kVA display term Other non-HVAC loads and appliances greater than or equal to 25kVA, IndustrialCommercialLoadCentersGTE25kVA display term Industrial/Commercial Load Centers greater than or equal to 25kVA, RenewablePowerSources display term Renewable power sources (net or total), RenewablePowerSourcesAssociatedLoad display term Loads associated with renewable power sources, ElectricalVehicleChargingStationLoad display term Charging stations for electrical vehicle</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="G02_ElectricalLoadSeparationRequirement" type="comp:ElectricalLoadSeparationRequirement" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Minimum Required Separation of Load per Table 130.5-B</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">Minimum Required Separation of Load per  [d:t24table]Table 130.5-B [/d:t24table]</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">Calculated value:  If  B03_ElectricalServiceRating LTE 50 And G01_ElectricalLoadType != ElectricalVehicleChargingStationLoad Or RenewablePowerSources result = NoRequirementForLoadType;   Else If G01_ElectricalLoadType == ElectricalVehicleChargingStationLoad  Or ElevatorEscalatorMovingWalkwayLoad Or IndustrialCommercialLoadCentersGTE25kVA Or PlugLoadsGTE25kVA Or RenewablePowerSourcesAssociatedLoad Or WaterSystemsLoad  result = AllLoadsAggregated;  Else If G01_ElectricalLoadType == RenewablePowerSources result = EachGroup; Else If B03_ElectricalServiceRating in InclusiveRange (GT50, 250) And G01_ElectricalLoadType == HVAC_Load result = HVAC_LoadsAggregated; Else If B03_ElectricalServiceRating GT 250  And G01_ElectricalLoadType == HVAC_Load result = HVAC_LoadsAggregatedEachRatedGTE50kVA; Else If B03_ElectricalServiceRating in InclusiveRange (GT50, 250) And G01_ElectricalLoadType == LightingLoad result = LightingLoadsAggregated; Else If B03_ElectricalServiceRating GT 250 And G01_ElectricalLoadType == LightingLoad result = LightingLoadsDisaggregated; Else If B03_ElectricalServiceRating in InclusiveRange (GT50, 250) And G01_ElectricalLoadType == PlugLoadsLT25kVA result = PlugLoadsAggregated; Else If B03_ElectricalServiceRating GT 250 And G01_ElectricalLoadType ==  PlugLoadsLT25kVA result = PlugLoadsDisaggregated;</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>

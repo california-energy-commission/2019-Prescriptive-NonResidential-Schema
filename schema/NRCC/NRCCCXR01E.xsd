@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.006">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.010">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -36,8 +36,8 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCC" />
                      <xsd:element ref="nRCCCXR01E" />
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" />
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" maxOccurs="unbounded" />
                      <xsd:element name="Footer" type="comp:FooterNRCC" />
                   </xsd:sequence>
                </xsd:complexType>
@@ -75,7 +75,12 @@
                   <xsd:element name="A02_CommissioningOccupancy" type="comp:CommissioningOccupancy" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Occupancy Type</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input selected from occupancy types in dropdown: Nonresidential, HighRiseResidential, HotelMotel, MixedUse, Healthcare, AllOthers.  If result == Healthcare A02StopMessage is displayed; Else If result ==  AllOthers A0203StopMessage is displayed.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input selected from occupancy types in dropdown: Nonresidential, HighRiseResidential, HotelMotel, MixedUse, Healthcare, AllOthers.  If result == Healthcare A02StopMessage is displayed; Else If result ==  AllOthers Or  HighRiseResidential,  A0203StopMessage is displayed.</xsd:documentation>
+                        <xsd:appinfo source="displayterm">
+                           <dtyp:displayterm value="HighRiseResidential">High-rise Residential (R occ only)</dtyp:displayterm>
+                           <dtyp:displayterm value="HotelMotel">Hotel/ Motel (w Nonres occ)</dtyp:displayterm>
+                        </xsd:appinfo>
+                        
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A03_CommissioningProjectScope" type="comp:CommissioningProjectScope" >
@@ -105,13 +110,13 @@
                   <xsd:element name="A0203StopMessage" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP! Occupancy types that are not nonresidential, high-rise residential ([d:gte/]4 stories), hotel/motel or mixed-use and project types which are additions or alterations, are not required to comply with commissioning requirements in [d:t24ref/]120.8 and do not need to complete this compliance document.[/d:i][/d:b]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP! Occupancy types that are not nonresidential, hotel/motel with nonresidential occupancies, or mixed-use, and project types which are additions or alterations, are not required to comply with commissioning requirements in [d:t24ref/]120.8 and do not need to complete this compliance document.[/d:i][/d:b]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A02StopMessage" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP! Healthcare facilities are not required to comply with the Commissioning requirements in Part 6, but must comply with the applicable requirements in Chapter 7 of Title 24 Part 1 (OSHPD)..[/d:i][/d:b]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP! Healthcare facilities are not required to comply with the Commissioning requirements in Part 6, but must comply with the applicable requirements in Chapter 7 of Title 24 Part 1 (OSHPD).[/d:i][/d:b]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -562,10 +567,11 @@
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
-         <xsd:element name="Section_E" minOccurs="1">
+         <xsd:element name="Section_E" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation source="FieldText">[d:b]E. ADDITIONAL REMARKS[/d:b]</xsd:documentation>
-               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
