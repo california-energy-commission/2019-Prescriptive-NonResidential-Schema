@@ -209,7 +209,7 @@
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Table I: Design Review</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">The design reviewer(s) reviews the construction documents for clarity, completeness, and adherence to the owner's goals.  Commissioning measures must be included in the construction documents to facilitate the design review and commissioning process.  For projects with 
-                           <d:gte/> 10,000 ft<d:sup>2</d:sup> of nonresidential conditioned floor area, or with complex mechanical systems, the design review is for adherence with the Owner's Project Requirements (OPR) and Basis of Design (BOD).  This should be conducted during design.</xsd:documentation>
+                           <d:gte/> 10,000 ft<d:sup>2</d:sup> of nonresidential conditioned floor area the design review is for adherence with the Owner's Project Requirements (OPR) and Basis of Design (BOD).  This should be conducted during design.</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">This  applies to all projects and AdditionalRequirements text is displayed and the row is never grayed out.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1406,23 +1406,30 @@
                                  <xsd:documentation source="CalculationsAndRules">User input text</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
-                           <xsd:element name="G_AddSystem" minOccurs="0" maxOccurs="unbounded">
+                           <xsd:element name="TableGAddSystem" minOccurs="0" maxOccurs="unbounded">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This is required if user selects to add one or more additional systems and their goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is required if user selects to add one or more additional systems and their goals. Table Title is assigned G_AddSystemTitle_SystemDescription</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="G_AddSystems01_SystemDescription" type="comp:SystemDescription">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText"/>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="G_AddSystems02_AdditionalSystemGoalsOPR" type="comp:AdditionalSystemGoalsOPR">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText"/>
-                                          <xsd:documentation source="CalculationsAndRules">User can add one or more goals to this added system</xsd:documentation>
-                                       </xsd:annotation>
+                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="G_AddSystemTitle_SystemDescription" type="comp:SystemDescription" minOccurs="0">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">NOTE:  This is required only once for the title of the current instance of TableGAddSystem and not as a field in the table row</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="G_AddSystem01_AdditionalSystemGoalsOPR" type="comp:AdditionalSystemGoalsOPR">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Added System Goal</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User can add one or more rows, one for each added  goal for this added system</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
                                     </xsd:element>
                                  </xsd:sequence>
                               </xsd:complexType>
@@ -1854,23 +1861,30 @@
                                  <xsd:documentation source="CalculationsAndRules">User input describing how the water heating system  design meets OPR</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
-                           <xsd:element name="H_AddSystem" minOccurs="0" maxOccurs="unbounded">
+                           <xsd:element name="TableHAddSystem" minOccurs="0" maxOccurs="unbounded">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This is required if user selects to add one or more additional systems and their goals</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is required if user selects to add one or more additional systems and their BOD details. Table Title is assigned H_AddSystemTitle_SystemDescription</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="H_AddSystems01_SystemDescription" type="comp:SystemDescription">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText"/>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="H_AddSystems02_AdditionalSystemDetailsBOD" type="comp:AdditionalSystemDetailsBOD">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText"/>
-                                          <xsd:documentation source="CalculationsAndRules">User can add one or more details to this added system</xsd:documentation>
-                                       </xsd:annotation>
+                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="H_AddSystemTitle_SystemDescription" type="comp:SystemDescription" minOccurs="0">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">NOTE: This is required only once for the title of the current instance of TableHAddSystem and not as a field in the table row</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="H_AddSystem01_AdditionalSystemDetailsBOD" type="comp:AdditionalSystemDetailsBOD">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Added System BOD</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User can add one or more rows of BOD details for this added system</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
                                     </xsd:element>
                                  </xsd:sequence>
                               </xsd:complexType>
@@ -1897,7 +1911,7 @@
                            <d:i> This table is only completed if a design review document is not attached to permit application to demonstrate compliance with 
                               <d:t24ref h="120.8(b)"/> and 
                               <d:t24ref h="120.8(e)"/>.  For buildings with 
-                              <d:gte/> 10,000 ft<d:sup>2</d:sup> conditioned floor area, the design review will ensure the construction documents meet tthe Owner's Project Requirements (Table G.) and the Basis of Design Documents (Table H.). For buildings with 
+                              <d:gte/> 10,000 ft<d:sup>2</d:sup> conditioned floor area, the design review will ensure the construction documents meet the Owner's Project Requirements (Table G.) and the Basis of Design Documents (Table H.). For buildings with 
                               <d:lt/> 10,000 ft<d:sup>2</d:sup> conditioned floor area, the design review will ensure the construction documents meet the goals documented in Table F. during the Design Review Kickoff.  </d:i>
                         </xsd:documentation>
                      </xsd:annotation>
@@ -2126,7 +2140,7 @@
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">
-                           <d:i>The table below is compmleted to demonstrate compliance with functional performance testing requirements per 
+                           <d:i>The table below is completed to demonstrate compliance with functional performance testing requirements per 
                               <d:t24ref h="120.8(g)"/>.</d:i>
                         </xsd:documentation>
                      </xsd:annotation>
