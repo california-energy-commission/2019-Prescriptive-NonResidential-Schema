@@ -648,7 +648,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                        <xsd:element name="F12_ThermalEfficiencyMinimum" type="hvac:ThermalEfficiencyMinimum" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Minimum Efficiency Required (%)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">Calculated value: If F08_WaterHeaterType == StorageCommercial Or  InstantaneousCommercial Or BoilerWaterHeater, Or BoilerCommercialGT300kBtu result = ,80  display term result x 100 %;</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">Calculated value: If F08_WaterHeaterType == StorageCommercial Or  InstantaneousCommercial Or BoilerWaterHeater, Or BoilerCommercialGT300kBtu result = .80  display term result x 100 %;</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F12_EfficiencyMinimumValueAFUE" type="hvac:EfficiencyMinimumValueAFUE" >
@@ -660,28 +660,39 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                        <xsd:element name="F12_NotApplicableMessage" type="comp:NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Minimum Efficiency Required (%)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F08_WaterHeaterType == StorageCommercialElectric result NA stored in NotApplicableMessage</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F08_WaterHeaterType == StorageCommercialElectric result BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                     </xsd:choice>
-                                    <xsd:element name="F13_EfficiencyType" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Efficiency Unit</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If F08_WaterHeaterType == BoilerResDutyCommercial result = AFUE; Else result = ThermalEfficiency</xsd:documentation>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="hvac:EfficiencyType">
-                                             <xsd:enumeration value="AFUE"/>
-                                             <xsd:enumeration value="CombustionEfficiency"/>
-                                             <xsd:enumeration value="ThermalEfficiency"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="F13_EfficiencyType" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Efficiency Unit</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F08_WaterHeaterType == StorageCommercialElectric  result = BlankGrayedOut stored in NotApplicablemesage; Else If F08_WaterHeaterType == BoilerResDutyCommercial result = AFUE; Else result = ThermalEfficiency display term Et;</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="ThermalEfficiency"> Et</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="hvac:EfficiencyType">
+                                                <xsd:enumeration value="AFUE"/>
+                                                <xsd:enumeration value="ThermalEfficiency"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                       <xsd:element name="F13_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Efficiency Unit</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F08_WaterHeaterType == StorageCommercialElectric  result = BlankGrayedOut stored in NotApplicablemesage; Else If F08_WaterHeaterType == BoilerResDutyCommercial result = AFUE; Else result = ThermalEfficiency display term Et;</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="F14_StandbyLoss" type="hvac:StandbyLoss" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Designed Standby Loss[d:sup]1[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F08_WaterheaterType ==  StorageCommercial Or If F08_WaterheaterType ==  InstantaneousCommercial  Or  BoilerWaterHeater  And And F09_WaterHeaterTankVolume GT 10  user input Btu/hr value</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F08_WaterheaterType ==  StorageCommercial Or If F08_WaterheaterType ==  InstantaneousCommercial  Or  BoilerWaterHeater And F09_WaterHeaterTankVolume GT 10  user input Btu/hr value</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F14_WaterHeaterStandbyLossFraction" type="hvac:WaterHeaterStandbyLossFraction" >
@@ -693,7 +704,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                        <xsd:element name="F14_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Designed Standby Loss[d:sup]1[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If If F08_WaterHeaterType == BoilerResDutyCommercial Or BoilerCommercialGT300kBtu  Or If F08_WaterheaterType ==  InstantaneousCommercial Or  BoilerWaterHeater  And F09_WaterHeaterTankVolume LT 10 result = BlankGrayedOut</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If If F08_WaterHeaterType == BoilerResDutyCommercial Or BoilerCommercialGT300kBtu  Or If F08_WaterheaterType ==  InstantaneousCommercial Or  BoilerWaterHeater  And F09_WaterHeaterTankVolume LT 10 result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
