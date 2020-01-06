@@ -1092,61 +1092,65 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="G08ToG10Heading" minOccurs="0">
+                  <xsd:element name="DistributionIndivUnits" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="AdditionalRequirements">
+                        <xsd:documentation source="FieldText">
                            <d:b>Distribution in Individual Dwelling Units</d:b>
                         </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required If B02New_WaterHeatingSystem == IndividualDwellingUnits Or B02Altered_WaterHeatingSystem == IndividualDwellingUnits</xsd:documentation>
                      </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="G08_UfactorDistRequirement" type="comp:UfactorDistRequirement">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="AdditionalRequirements">The dwelling unit is designed to have fenestration products with a weighted average U-factor 
-                           <d:lte/>0.24 plus one of the following options per 
-                           <d:t24ref h="150.1(c)8Aii"/>: (New Construction Only)  
-                           <d:l t="*">
-                              <d:list> Compact hot water distribution system field verified by a HERS Rater per 
-                                 <d:t24table>Reference Appendix RA4.4.16</d:t24table>
-                              </d:list>
-                              <d:list> A drain water heat recovery system that is field verified by a HERS rater per Reference Appendix RA3.6.9 </d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F16_DwellingUnitWaterHeater does not include StorageConsumerLTE55Gal result = ReqUfactorNA and row is grayed out; Else user input.  If  Yes radio button is selected then If first subrow checkbox is checked result = ReqUfactorCompact; Else if second subrow checkbox is checked result = ReqUfactorDWHR; Else If No radio button is selected result = ReqUfactorNo</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="G09_HeatPumpDistRequirement" type="comp:HeatPumpDistRequirement">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="AdditionalRequirements">One of the following options is included in the design per 
-                           <d:t24ref h="150.1(c)8Aiv"/>: (New Construction only) 
-                           <d:l t="*">
-                              <d:list> Compact hot water distribution system field verified by HERS rater per 
-                                 <d:t24table>Reference Appendix RA4.4.6</d:t24table>  and a drain water heat recovery system that is field verified by a HERS rater per 
-                                 <d:t24table>Reference Appendix RA3.6.9</d:t24table>
-                              </d:list>
-                              <d:list> A photovoltaic system capacity of 0.3kWdc (for climate zones 2-15) or 1.1kWcd (for climate zones 1 &amp;amp; 16) larger than the requirement specified in 
-                                 <d:t24ref h="150.1(c)14"/>. </d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditioned result = ReqHeatPumpNA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditioned And Not HeatPumpConditionedNEEA, user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqHeatPumpCompactDWHR; Else if  second subrow checkbox is checked result = ReqHeatPumpPV; Else If No radio button is selected result = ReqHeatPumpNo;</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="G10_NEEA_DistRequirement" type="comp:NEEA_DistRequirement">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="AdditionalRequirements">One of the following options is included in the design per 
-                           <d:t24ref h="150.1(c)8Av"/>: (New Construction only) 
-                           <d:l t="*">
-                              <d:list> Compact hot water distribution system per 
-                                 <d:t24table>Reference Appendix RA4.4.6</d:t24table>  for projects in climates zones 1 and 16. </d:list>
-                              <d:list> A photovoltaic system capacity of 0.3kWdc (form climate zones 1 and 16) larger than the requirement specified in 
-                                 <d:t24ref h="150.1(c)14"/>.</d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditionedNEEA result = ReqNEEA_NA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditionedNEEA user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqNEEA_Compact; Else if  second subrow checkbox is checked result = ReqNEEA_PV; Else If No radio button is selected result = ReqNEEA_No;</xsd:documentation>
-                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="G08_UfactorDistRequirement" type="comp:UfactorDistRequirement">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="AdditionalRequirements">The dwelling unit is designed to have fenestration products with a weighted average U-factor 
+                                    <d:lte/>0.24 plus one of the following options per 
+                                    <d:t24ref h="150.1(c)8Aii"/>: (New Construction Only)  
+                                    <d:l t="*">
+                                       <d:list> Compact hot water distribution system field verified by a HERS Rater per 
+                                          <d:t24table>Reference Appendix RA4.4.16</d:t24table>
+                                       </d:list>
+                                       <d:list> A drain water heat recovery system that is field verified by a HERS rater per Reference Appendix RA3.6.9 </d:list>
+                                    </d:l>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If F16_DwellingUnitWaterHeater does not include StorageConsumerLTE55Gal result = ReqUfactorNA and row is grayed out; Else user input.  If  Yes radio button is selected then If first subrow checkbox is checked result = ReqUfactorCompact; Else if second subrow checkbox is checked result = ReqUfactorDWHR; Else If No radio button is selected result = ReqUfactorNo</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G09_HeatPumpDistRequirement" type="comp:HeatPumpDistRequirement">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="AdditionalRequirements">One of the following options is included in the design per 
+                                    <d:t24ref h="150.1(c)8Aiv"/>: (New Construction only) 
+                                    <d:l t="*">
+                                       <d:list> Compact hot water distribution system field verified by HERS rater per 
+                                          <d:t24table>Reference Appendix RA4.4.6</d:t24table>  and a drain water heat recovery system that is field verified by a HERS rater per 
+                                          <d:t24table>Reference Appendix RA3.6.9</d:t24table>
+                                       </d:list>
+                                       <d:list> A photovoltaic system capacity of 0.3kWdc (for climate zones 2-15) or 1.1kWcd (for climate zones 1 &amp;amp; 16) larger than the requirement specified in 
+                                          <d:t24ref h="150.1(c)14"/>. </d:list>
+                                    </d:l>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditioned result = ReqHeatPumpNA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditioned And Not HeatPumpConditionedNEEA, user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqHeatPumpCompactDWHR; Else if  second subrow checkbox is checked result = ReqHeatPumpPV; Else If No radio button is selected result = ReqHeatPumpNo;</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="G10_NEEA_DistRequirement" type="comp:NEEA_DistRequirement">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="AdditionalRequirements">One of the following options is included in the design per 
+                                    <d:t24ref h="150.1(c)8Av"/>: (New Construction only) 
+                                    <d:l t="*">
+                                       <d:list> Compact hot water distribution system per 
+                                          <d:t24table>Reference Appendix RA4.4.6</d:t24table>  for projects in climates zones 1 and 16. </d:list>
+                                       <d:list> A photovoltaic system capacity of 0.3kWdc (form climate zones 1 and 16) larger than the requirement specified in 
+                                          <d:t24ref h="150.1(c)14"/>.</d:list>
+                                    </d:l>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditionedNEEA result = ReqNEEA_NA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditionedNEEA user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqNEEA_Compact; Else if  second subrow checkbox is checked result = ReqNEEA_PV; Else If No radio button is selected result = ReqNEEA_No;</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
                   </xsd:element>
                   <xsd:element name="G11ToG13Heading" minOccurs="0">
                      <xsd:annotation>

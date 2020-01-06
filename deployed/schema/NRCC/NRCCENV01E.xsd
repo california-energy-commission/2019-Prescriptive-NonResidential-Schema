@@ -6160,7 +6160,8 @@ SprayPolyurethaneFoam display term Spray polyurethane foam, ClayRoofTiles displa
                         <xsd:sequence>
                            <xsd:element name="TableHCalc2UF">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">NOT REPORTED IN PDF, but data is required to aggregate the different mass wall types into light and heavy totals for reporting</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -6448,60 +6449,45 @@ _AreaWeightAvgUfactorAll  result = true display term COMPLIES; Else result = fal
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
-                           <xsd:element name="TableHCalc4UF">
+                           <xsd:element name="HCalc4UF01_AreaWeightAvgType">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="FieldText">Wall Type</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated field: result = MetalBuilding display term Metal Building</xsd:documentation>
                               </xsd:annotation>
-                              <xsd:complexType>
-                                 <xsd:sequence>
-                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
-                                       <xsd:complexType>
-                                          <xsd:sequence>
-                                             <xsd:element name="HCalc4UF01_AreaWeightAvgType">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Wall Type</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated field: result = MetalBuilding display term Metal Building</xsd:documentation>
-                                                </xsd:annotation>
-                                                <xsd:simpleType>
-                                                   <xsd:restriction base="comp:AreaWeightAvgType">
-                                                      <xsd:enumeration value="MetalBuilding"/>
-                                                   </xsd:restriction>
-                                                </xsd:simpleType>
-                                             </xsd:element>
-                                             <xsd:element name="HCalc4UF02_WallTypeTotalArea" type="comp:WallTypeTotalArea">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Total Area of Wall Type (ft<d:sup>2</d:sup>)</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated field: result = SUM ALL (Hmetalb11_WallNetArea);</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="HCalc4UF03to04Label" minOccurs="0">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Area-weighted U-factor for Wall Type</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="HCalc4UF03_AreaWeightAvgRequiredUfactor" type="comp:AreaWeightAvgRequiredUfactor">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Required</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated field: result = (SUM ALL (Hmetalb11_WallNetArea x Hmetalb09_InsulationUFactorLimit)) / HCalc4UF02_WallTypeTotalArea;</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="HCalc4UF04_AreaWeightAvgUfactor" type="comp:AreaWeightAvgUfactor">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Designed</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated field:SUM ALL (Hmetalb11_WallNetArea x Ufactor) ) / HCalc4UF02_WallTypeTotalArea.  Ufactor for row is the property that IsPresent: Hmetalb10_UfactorJA4Other Or  Hmetalb10_UfactorJA439</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="HCalc4UF05_DoesAreaWeightAvgComplyUfactor" type="comp:DoesAreaWeightAvgComplyUfactor">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Compliance Results Using Area-Weighted Calculation Option</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated field: If HCalc4UF03_AreaWeightAvgUfactorRequired GTE HCalc4UF04_AreaWeightAvgUfactor result = true display term COMPLIES; Else result = false display term DOES NOT COMPLY</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                          </xsd:sequence>
-                                       </xsd:complexType>
-                                    </xsd:element>
-                                 </xsd:sequence>
-                              </xsd:complexType>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="comp:AreaWeightAvgType">
+                                    <xsd:enumeration value="MetalBuilding"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="HCalc4UF02_WallTypeTotalArea" type="comp:WallTypeTotalArea">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Total Area of Wall Type (ft<d:sup>2</d:sup>)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated field: result = SUM ALL (Hmetalb11_WallNetArea);</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="HCalc4UF03to04Label" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Area-weighted U-factor for Wall Type</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="HCalc4UF03_AreaWeightAvgRequiredUfactor" type="comp:AreaWeightAvgRequiredUfactor">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Required</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated field: result = (SUM ALL (Hmetalb11_WallNetArea x Hmetalb09_InsulationUFactorLimit)) / HCalc4UF02_WallTypeTotalArea;</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="HCalc4UF04_AreaWeightAvgUfactor" type="comp:AreaWeightAvgUfactor">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Designed</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated field:SUM ALL (Hmetalb11_WallNetArea x Ufactor) ) / HCalc4UF02_WallTypeTotalArea.  Ufactor for row is the property that IsPresent: Hmetalb10_UfactorJA4Other Or  Hmetalb10_UfactorJA439</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="HCalc4UF05_DoesAreaWeightAvgComplyUfactor" type="comp:DoesAreaWeightAvgComplyUfactor">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Compliance Results Using Area-Weighted Calculation Option</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated field: If HCalc4UF03_AreaWeightAvgUfactorRequired GTE HCalc4UF04_AreaWeightAvgUfactor result = true display term COMPLIES; Else result = false display term DOES NOT COMPLY</xsd:documentation>
+                              </xsd:annotation>
                            </xsd:element>
                         </xsd:sequence>
                      </xsd:complexType>
@@ -6535,25 +6521,25 @@ _AreaWeightAvgUfactorAll  result = true display term COMPLIES; Else result = fal
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="I01Framed_RoofTypeApplies" type="comp:RoofTypeApplies">
+                  <xsd:element name="I01Framed_FloorTypeApplies" type="comp:FloorTypeApplies">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Framed</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="I01SIPS_RoofTypeApplies" type="comp:RoofTypeApplies">
+                  <xsd:element name="I01SIPS_FloorTypeApplies" type="comp:FloorTypeApplies">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">SIPS (new only)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="I01Mass_RoofTypeApplies" type="comp:RoofTypeApplies">
+                  <xsd:element name="I01Mass_FloorTypeApplies" type="comp:FloorTypeApplies">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Raised Mass</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="I01Heated_RoofTypeApplies" type="comp:RoofTypeApplies">
+                  <xsd:element name="I01Heated_FloorTypeApplies" type="comp:FloorTypeApplies">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Heated Slab-on-grade (new only)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false</xsd:documentation>
@@ -7854,7 +7840,7 @@ Else If ISIPS06_SplineType == I_Joist  If ISIPS07_PanelThickness == 6_5In  If IS
          <xsd:element name="Section_K" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation source="FieldText">
-                  <d:b>FENESTRATION AND GLAZED DOOR  SCHEDULE</d:b>
+                  <d:b>K. FENESTRATION AND GLAZED DOOR  SCHEDULE</d:b>
                </xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">This section is required If B02NewFen_ComponentApplies, B02AddFen_ComponentApplies Or B02AltFen_ComponentApplies == true</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
