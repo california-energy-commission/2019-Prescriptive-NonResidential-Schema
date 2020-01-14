@@ -6,7 +6,7 @@
    xmlns:com="http://www.lmonte.com/besm/com"
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.011">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.013">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
    <xsd:simpleType name="AirCoolingControl">
@@ -263,12 +263,12 @@
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="Electric">Electric Boiler</dtyp:displayterm>
-            <dtyp:displayterm value="NaturalGas_2Boiler"></dtyp:displayterm>
+            <dtyp:displayterm value="NaturalGas">Natural Gas Boiler</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Electric"/>
-         <xsd:enumeration value="NaturalGas_2Boiler"/>
+         <xsd:enumeration value="NaturalGas"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="BoilerIsolationValve">
@@ -569,12 +569,12 @@
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="Electric">Electric</dtyp:displayterm>
-            <dtyp:displayterm value="NaturalGas_4CoilCooling"></dtyp:displayterm>
+            <dtyp:displayterm value="NaturalGas">Natural Gas</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Electric"/>
-         <xsd:enumeration value="NaturalGas_4CoilCooling"/>
+         <xsd:enumeration value="NaturalGas"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="CoilCoolingName">
@@ -957,7 +957,14 @@
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="CoolEfficiencyMinFurnaceAC">
+   <xsd:simpleType name="CoolEfficiencyMinFurnaceAC_EERIEER">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="CoolEfficiencyMinFurnaceAC_EERSEER">
       <xsd:annotation>
          <xsd:documentation>  Units: none</xsd:documentation>
       </xsd:annotation>
@@ -2593,14 +2600,16 @@
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="AirCooledSinglePkgAC_CentralFurnace">AC, air cooled, single pkg + warm-air central furnace, gas-fired</dtyp:displayterm>
-            <dtyp:displayterm value="AirCooledSinglePkgAC_CentralFurnaceWeatherized1Phase">AC, air cooled, single pkg + weatherized gas central furnace, 1 phase supply</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSinglePkgAC_CentralFurnaceWeatherized1Phase">AC, air cooled, single pkg + weatherized gas central furnace with single phase supply</dtyp:displayterm>
             <dtyp:displayterm value="AirCooledSplitAC_CentralFurnace">AC, air cooled, split + warm-air central furnace, gas-fired</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSplitAC_CentralFurnaceWeatherized1Phase">AC, air cooled, split + weatherized gas central furnace with single phase supply</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="AirCooledSinglePkgAC_CentralFurnace"/>
          <xsd:enumeration value="AirCooledSinglePkgAC_CentralFurnaceWeatherized1Phase"/>
          <xsd:enumeration value="AirCooledSplitAC_CentralFurnace"/>
+         <xsd:enumeration value="AirCooledSplitAC_CentralFurnaceWeatherized1Phase"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="FurnaceAfueRating">
@@ -4205,10 +4214,16 @@
             <dtyp:displayterm value="GTE135000CoolLT225000Heat">[d:gte/]135kBtuh cooling/ [d:lt/]225kBtuh heating</dtyp:displayterm>
             <dtyp:displayterm value="GTE240000CoolGTE225000Heat">[d:gte/]240kBtuh cooling/ [d:gte/]225kBtuh heating</dtyp:displayterm>
             <dtyp:displayterm value="GTE240000CoolLT225000Heat">[d:gte/]240kBtuh cooling/ [d:lt/]225kBtuh heating</dtyp:displayterm>
+            <dtyp:displayterm value="GTE45000CoolGTE225000Heat">[d:gte/]45kBtuh cooling/ [d:gte/]225kBtuh heating</dtyp:displayterm>
+            <dtyp:displayterm value="GTE45000CoolLT225000Heat">[d:gte/]45kBtuh cooling/ [d:lt/]225kBtuh heating</dtyp:displayterm>
             <dtyp:displayterm value="GTE65000CoolGTE225000Heat">[d:gte/]65kBtuh cooling/ [d:gte/]225kBtuh heating</dtyp:displayterm>
             <dtyp:displayterm value="GTE65000CoolLT225000Heat">[d:gte/]65kBtuh cooling/ [d:lt/]225kBtuh heating</dtyp:displayterm>
             <dtyp:displayterm value="GTE760000CoolGTE225000Heat">[d:gte/]760kBtuh cooling/ [d:gte/]225kBtuh heating</dtyp:displayterm>
             <dtyp:displayterm value="GTE760000CoolLT225000Heat">[d:gte/]760kBtuh cooling/ [d:lt/]225kBtuh heating</dtyp:displayterm>
+            <dtyp:displayterm value="LT45000CoolGTE225000Heat">[d:lt/]45kBtuh cooling/ [d:gte/]225kBtuh heating</dtyp:displayterm>
+            <dtyp:displayterm value="LT45000CoolLT225000Heat">[d:lt/]45kBtuh cooling/ [d:lt/]225kBtuh heating</dtyp:displayterm>
+            <dtyp:displayterm value="LT65000CoolGTE225000Heat">[d:lt/]65kBtuh cooling/ [d:gte/]225kBtuh heating</dtyp:displayterm>
+            <dtyp:displayterm value="LT65000CoolLT225000Heat">[d:lt/]65kBtuh cooling/ [d:lt/]225kBtuh heating</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -4216,10 +4231,16 @@
          <xsd:enumeration value="GTE135000CoolLT225000Heat"/>
          <xsd:enumeration value="GTE240000CoolGTE225000Heat"/>
          <xsd:enumeration value="GTE240000CoolLT225000Heat"/>
+         <xsd:enumeration value="GTE45000CoolGTE225000Heat"/>
+         <xsd:enumeration value="GTE45000CoolLT225000Heat"/>
          <xsd:enumeration value="GTE65000CoolGTE225000Heat"/>
          <xsd:enumeration value="GTE65000CoolLT225000Heat"/>
          <xsd:enumeration value="GTE760000CoolGTE225000Heat"/>
          <xsd:enumeration value="GTE760000CoolLT225000Heat"/>
+         <xsd:enumeration value="LT45000CoolGTE225000Heat"/>
+         <xsd:enumeration value="LT45000CoolLT225000Heat"/>
+         <xsd:enumeration value="LT65000CoolGTE225000Heat"/>
+         <xsd:enumeration value="LT65000CoolLT225000Heat"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SizeRangeFurnaceUnitHeater">

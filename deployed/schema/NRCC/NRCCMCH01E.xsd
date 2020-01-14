@@ -23,8 +23,7 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCMCH01E"/>
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded"/>
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -227,9 +226,9 @@
                         <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="B02c_ProjectHasHydronicPiping" type="comp:ProjectHasHydronicPiping">
+                  <xsd:element name="B02c_ProjectHasSystemPiping" type="comp:ProjectHasSystemPiping">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Hydronic System Piping</xsd:documentation>
+                        <xsd:documentation source="FieldText">System Piping</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -573,13 +572,13 @@
                      <xsd:element name="C07_CompliantSectionL" type="comp:CompliantSectionL">
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"/>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If B02c_ProjectHasHydronicPiping == true Or B03d_ProjectHasDuctwork == true Then  for every row  If L01_ PipeInsulationProtectionComplies == true And Either L08_PipeInsulationMinimum LTE L09_PipeInsulationThickness Or L10_PipeInsulationException == NoException And If L11-L17 != BlankGrayedOut have data result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If B02c_ProjectHasSystemPiping == true  Then  for every row  If L01_ PipeInsulationProtectionComplies == true And Either L07_PipeInsulationMinByDiameter LTE L09_PipeInsulationThickness Or L08_PipeInsulationMinimum LTE L09_PipeInsulationThickness Or L10_PipeInsulationException != NoException result = true; Else result = false;  If  B03d_ProjectHasDuctwork == true then If L11-L17 != BlankGrayedOut and have data result = true display term Yes; Else result = false display term No.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C07_NotApplicableMessage">
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"/>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: If  If B02c_ProjectHasHydronicPiping == false And B03d_ProjectHasDuctwork == false  result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: If  If B02c_ProjectHasSystemPiping == false And B03d_ProjectHasDuctwork == false  result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -1105,8 +1104,8 @@
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Size Category 
                                                 <d:line1/>(Btu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">For value in Fa01_HvacSystemName: If F02_HvacSystemType == FurnaceAC, user selects from size ranges  in SizeRangeFurnaceUnitHeater choice based on the following:  Switch ( F03_FurnaceAC) case AirCooledSplitAC_CentralFurnace: list GTE65000CoolLT225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolLT225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolLT225000Heat, GTE240000CoolGTE225000Heat, GTE760000CoolLT225000Heat, GTE760000CoolGTE225000Heat;  case AirCooledSinglePkgAC_CentralFurnace and AirCooledSinglePkgAC_CentralFurnace1Phase:  list 
-GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat, GTE760000CoolLT225000Heat</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For value in Fa01_HvacSystemName: If F02_HvacSystemType == FurnaceAC, user selects from size ranges  in SizeRangeFurnaceAC choice based on the following:  Switch ( F03_FurnaceAC) case AirCooledSplitAC_CentralFurnace and AirCooledSplitAC_CentralFurnaceWeatherized1Phase: list LT45000CoolLT225000Heat, LT45000CoolGTE225000Heat, GTE45000CoolLT225000Heat, GTE45000CoolGTE225000Heat, GTE65000CoolLT225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolLT225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolLT225000Heat, GTE240000CoolGTE225000Heat, GTE760000CoolLT225000Heat, GTE760000CoolGTE225000Heat;  case AirCooledSinglePkgAC_CentralFurnace and AirCooledSinglePkgAC_CentralFurnace1Phase:  list LT65000CoolLT225000Heat, LT65000CoolGTE225000Heat, 
+GTE65000CoolLT225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolLT225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolLT225000Heat, GTE240000CoolGTE225000Heat, GTE760000CoolLT225000Heat, GTE760000CoolGTE225000Heat;</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Fa02_SizeRangeRoomACHP" type="hvac:SizeRangeRoomACHP">
@@ -1196,7 +1195,7 @@ GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat, 
                                        <xsd:element name="Fa04_EfficiencyType">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Efficiency Unit</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  use this choice.  Efficiency units for Heating mode are listed as follows for value in Fa01_HvacSystemName: Switch (F02_HvacSystemType) case  FurnaceUnitHeater: If F03_FurnaceUnitHeater == FurnaceCentral user selects from list AFUE, ThermalEfficiency; Else If F03_FurnaceUnitHeater == FurnaceDuct Or UnitHeater result = CombustionEfficiency; Else result = AFUE;  case UnitaryHeatPumps: If F03_UnitaryHeatPumps == AirCooledGasEngineHP Or If Fa02_SizeRangeUnitaryHeatPumps != LT65000 result = COP; Else result = HSPF;  case HeatPumpAC: result = HSPF;  case PTAC_PTHP: result = COP; case  VariableRefrigerantFlow If F03_VariableRefrigerantFlow  == AirCooledHP_VRF result HSPF; Else result = COP;  case  SPV_ACHP: list COP; case FurnaceAC: If Fa02_SizeRangeFurnaceAC == GTE65000CoolGTE225000Heat Or GTE135000CoolGTE225000Heat Or GTE240000CoolGTE225000Heat Or GTE760000CoolGTE225000Heat result =ThermalEfficiency; Else result = AFUE; case UnitaryCondensersAC: If  F03_UnitaryCondensersAC == AirCooledSplit3PhaseAC Or AirCooledPkg3PhaseAC result = HSPF</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  use this choice.  Efficiency units for Heating mode are listed as follows for value in Fa01_HvacSystemName: Switch (F02_HvacSystemType) case  FurnaceUnitHeater: If F03_FurnaceUnitHeater == FurnaceCentral user selects from list AFUE, ThermalEfficiency; Else If F03_FurnaceUnitHeater == FurnaceDuct Or UnitHeater result = CombustionEfficiency; Else result = AFUE;  case UnitaryHeatPumps: If F03_UnitaryHeatPumps == AirCooledGasEngineHP Or If Fa02_SizeRangeUnitaryHeatPumps != LT65000 result = COP; Else result = HSPF;  case HeatPumpAC: result = HSPF;  case PTAC_PTHP: result = COP; case  VariableRefrigerantFlow If F03_VariableRefrigerantFlow  == AirCooledHP_VRF result HSPF; Else result = COP;  case  SPV_ACHP: list COP; case FurnaceAC: If Fa02_SizeRangeFurnaceAC == LT45000CoolGTE225000Heat, GTE45000CoolGTE225000Heat, LT65000CoolGTE225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolGTE225000Heat,  GTE240000CoolGTE225000Heat Or GTE760000CoolGTE225000Heat result =ThermalEfficiency; Else result = AFUE;</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="CombustionEfficiency">Ec</dtyp:displayterm>
                                                 <dtyp:displayterm value="ThermalEfficiency">Et</dtyp:displayterm>
@@ -1258,7 +1257,7 @@ GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat, 
                                                 <d:t24table>110.2</d:t24table> / 
                                                 <d:t24table>Title 20</d:t24table>
                                              </xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  And If F02_HvacSystemType == FurnaceAC for Fa01 use this choice. Calculated Field: If Fa02_SizeRange FurnaceAC  == GTE135000CoolGTE225000Heat, GTE240000CoolGTE225000Heat, GTE65000CoolGTE225000Heat Or GTE760000CoolGTE225000Heat result = .80 display term result x 100 % (Thermal Efficiency); Else If F03_FurnaceAC == AirCooledSinglePkgAC_CentralFurnaceWeatherized1Phase result = .81 (AFUE) display term result x 100 %; Else result = .80 (AFUE) display term result x 100 %.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  And If F02_HvacSystemType == FurnaceAC for Fa01 use this choice. Calculated Field: Switch (F03_FurnaceAC) case AirCooledSplitAC_CentralFurnace: If Fa02_SizeRangeFurnaceAC == LT45000CoolLT225000Heat, GTE45000CoolLT225000Heat  result = .80  AFUE; Else If Fa02_SizeRangeFurnaceAC == GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat Or GTE760000CoolLT225000Heat  result = .81  AFUE; Else If Fa02_SizeRangeFurnaceAC == LT45000CoolGTE225000Heat, GTE45000CoolGTE225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolGTE225000Heat, Or GTE760000CoolGTE225000Heat  result = .80  Et;  case AirCooledSplitAC_CentralFurnaceWeatherized1Phase: If Fa02_SizeRangeFurnaceAC == LT45000CoolLT225000Heat, GTE45000CoolLT225000Heat, GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat Or GTE760000CoolLT225000Heat  result = .81  AFUE; Else If Fa02_SizeRangeFurnaceAC == LT45000CoolGTE225000Heat, GTE45000CoolGTE225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolGTE225000Heat, Or GTE760000CoolGTE225000Heat  result = .80  Et;  case AirCooledSinglePkgAC_CentralFurnaceWeatherized1Phase: If Fa02_SizeRangeFurnaceAC ==  LT65000CoolLT225000Heat, GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat Or GTE760000CoolLT225000Heat  result = .81  AFUE; Else If Fa02_SizeRangeFurnaceAC ==  LT65000CoolGTE225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolGTE225000Heat, Or GTE760000CoolGTE225000Heat  result = .80  Et;  case AirCooledSinglePkgAC_CentralFurnace: If Fa02_SizeRangeFurnaceAC ==  LT65000CoolLT225000Heat, GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat Or GTE760000CoolLT225000Heat  result = .80  AFUE; Else If Fa02_SizeRangeFurnaceAC ==  LT65000CoolGTE225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolGTE225000Heat, Or GTE760000CoolGTE225000Heat  result = .80  Et;</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Fa05_HeatEfficiencyMinHeatPumpAC" type="hvac:HeatEfficiencyMinHeatPumpAC">
@@ -1268,15 +1267,6 @@ GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat, 
                                                 <d:t24table>Title 20</d:t24table>
                                              </xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  And If F02_HvacSystemType == HeatPumpAC for Fa01 result = 7.7 (HSPF)</xsd:documentation>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                       <xsd:element name="Fa05_HeatEfficiencyMinUnitAC" type="hvac:HeatEfficiencyMinUnitAC">
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  
-                                                <d:t24table>110.2</d:t24table> / 
-                                                <d:t24table>Title 20</d:t24table>
-                                             </xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  And If F02_HvacSystemType == UnitaryCondensersAC for Fa01 use this choice.  If  F03_UnitaryCondensersAC == AirCooledSplit3PhaseAC Or AirCooledPkg3PhaseAC result = 7.7 (HSPF)</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Fa05_HeatEfficiencyMinSPVHP" type="hvac:HeatEfficiencyMinSPVHP">
@@ -1483,7 +1473,7 @@ AirCooledSplitConstrainedHP, AirCooledPkgConstrainedHP Or AirCooledSmallDuctHigh
                                                       <xsd:element name="Fa07_EfficiencyType" minOccurs="2" maxOccurs="2">
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Efficiency Unit</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Two types are assigned for this choice as follows: If F02_HvacSystemType == FurnaceAC  result1 = EER and result2 = IEER: Else If F02_HvacSystemType == UnitaryCondensersAC: If SizeRangeUnitaryCondensersAC == LT45000  Or GTE45000LT65000 result 1 = SEER and result 2 = EER;  Else If SizeRangeUnitaryCondensersAC  == LT65000 And F03_ UnitaryCondensersAC  == AirCooledPkg1PhaseAC result 1 = SEER and result 2 = EER;  Else If SizeRangeUnitaryCondensersAC  != LT65000  result 1 =IEER and result 2 = IEER;  Else If F02_HvacSystemType == UnitaryHeatPumps then If F03_ UnitaryHeatPumps  == AirCooledSplit1PhaseHP, AirCooledSplit3PhaseHP, AirCooledPkg1PhaseHP, AirCooledPkg3PhaseHP, AirCooledSplitConstrainedHP Or AirCooledPkgConstrainedHP result1 = EER and result2 = IEER: Else If F02_HvacSystemType == VariableRefrigerantFlow If F03_ VariableRefrigerantFlow != GroundWaterSourceVRF Or GroundSourceVRF Or If F03_ VariableRefrigerantFlow == AirConditionerVRF Or AirCooledHP_VRF And  Fa02_SizeRangeVariableRefrigerantFlow != LT65000  result1 = EER and result2 = IEER:</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">Two types are assigned for this choice as follows: If F02_HvacSystemType == FurnaceAC If Fa02_SizeRangeFurnaceAC == LT45000CoolLT225000Heat, LT45000CoolGTE225000Heat, GTE45000CoolLT225000Heat, GTE45000CoolGTE225000Heat, LT65000CoolLT225000Heat Or LT65000CoolGTE225000Heat result 1 = EER and result 2 = SEER; Else  result1 = EER and result2 = IEER: Else If F02_HvacSystemType == UnitaryCondensersAC: If SizeRangeUnitaryCondensersAC == LT45000  Or GTE45000LT65000 result 1 = SEER and result 2 = EER;  Else If SizeRangeUnitaryCondensersAC  == LT65000 And F03_ UnitaryCondensersAC  == AirCooledPkg1PhaseAC result 1 = SEER and result 2 = EER;  Else If SizeRangeUnitaryCondensersAC  != LT65000  result 1 =IEER and result 2 = IEER;  Else If F02_HvacSystemType == UnitaryHeatPumps then If F03_ UnitaryHeatPumps  == AirCooledSplit1PhaseHP, AirCooledSplit3PhaseHP, AirCooledPkg1PhaseHP, AirCooledPkg3PhaseHP, AirCooledSplitConstrainedHP Or AirCooledPkgConstrainedHP result1 = EER and result2 = IEER: Else If F02_HvacSystemType == VariableRefrigerantFlow If F03_ VariableRefrigerantFlow != GroundWaterSourceVRF Or GroundSourceVRF Or If F03_ VariableRefrigerantFlow == AirConditionerVRF Or AirCooledHP_VRF And  Fa02_SizeRangeVariableRefrigerantFlow != LT65000  result1 = EER and result2 = IEER:</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="hvac:EfficiencyType">
@@ -1494,14 +1484,23 @@ AirCooledSplitConstrainedHP, AirCooledPkgConstrainedHP Or AirCooledSmallDuctHigh
                                                          </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Fa08_CoolEfficiencyMinFurnaceAC" type="hvac:CoolEfficiencyMinFurnaceAC" minOccurs="2" maxOccurs="2">
+                                                         <xsd:element name="Fa08_CoolEfficiencyMinFurnaceAC_EERIEER" type="hvac:CoolEfficiencyMinFurnaceAC_EERIEER" minOccurs="2" maxOccurs="2">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  
                                                                   <d:t24table>110.2</d:t24table> / 
                                                                   <d:t24table>Title 20</d:t24table>
                                                                </xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC use this choice.  For the following evaluations result1 is the EER value and result2 is the IEER:  Switch (Fa02_SizeRangeFurnaceAC) case GTE65000CoolGTE225000Heat Or 
-GTE65000CoolLT225000Heat: 11.2 EER And 12.9 IEER;  case GTE135000CoolGTE225000Heat Or GTE135000CoolLT225000Heat: result1 = 11.0 And  result2 = 12.4;  case GTE240000CoolGTE225000Heat Or GTE240000CoolLT225000Heat:  result1 = 10.0 And result2 = 11.6; case GTE760000CoolGTE225000Heat Or GTE760000CoolLT225000Heat: 9.7 And 11.2;</xsd:documentation>
+GTE65000CoolLT225000Heat: result1 = 11.2 And result2 = 12.9;  case GTE135000CoolGTE225000Heat Or GTE135000CoolLT225000Heat: result1 = 11.0 And  result2 = 12.4;  case GTE240000CoolGTE225000Heat Or GTE240000CoolLT225000Heat:  result1 = 10.0 And result2 = 11.6; case GTE760000CoolGTE225000Heat Or GTE760000CoolLT225000Heat: result1 = 9.7 And result2 = 11.2;</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Fa08_CoolEfficiencyMinFurnaceAC_EERSEER" type="hvac:CoolEfficiencyMinFurnaceAC_EERSEER" minOccurs="2" maxOccurs="2">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  
+                                                                  <d:t24table>110.2</d:t24table> / 
+                                                                  <d:t24table>Title 20</d:t24table>
+                                                               </xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC use this choice.  For the following evaluations result1 is the EER value and result2 is the SEER:  Switch (Fa02_SizeRangeFurnaceAC) case LT45000CoolLT225000Heat Or  LT45000CoolGTE225000Heat: result1 = 12.2   And result2 = 14.0;  case GTE45000CoolLT225000Heat Or GTE45000CoolGTE225000Heat: result1 = 11.7 And  result2 = 14;  case LT65000CoolLT225000Heat Or LT65000CoolGTE225000Heat  result1 = 11.0 And result2 = 14.0;</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                          <xsd:element name="Fa08_CoolEfficiencyMinUnitHP_EERIEER" type="hvac:CoolEfficiencyMinUnitHP_EERIEER" minOccurs="2" maxOccurs="2">
@@ -3761,11 +3760,12 @@ Else result = 0.21 x J10_SpaceFloorArea If  VentilationSpaceFunction == DaycareT
                         <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="TablePipeInsulation">
+                  <xsd:element name="TablePipeInsulation" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">
                            <d:b>Mandatory Pipe Insulation</d:b>
                         </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required If B02c_ProjectHasSystemPiping == true</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -3866,29 +3866,30 @@ Else result = 0.21 x J10_SpaceFloorArea If  VentilationSpaceFunction == DaycareT
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="L10a_DuctSystems" type="comp:DuctSystems">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">The answers to the questions below apply to the following duct systems:</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="L10b_DuctLeakageTestRequired" type="comp:DuctLeakageTestRequired">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Duct leakage testing triggered for these systems?</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value: If L12_SingleZoneConstantVol  And L13_ServesLT5000Ft2  And L14_LocationsGT25Pct  == true And L11_IsBuildingHealthcare  And L15_DuctSystemHasAsbestos And L16_DuctSystemExistingSealed  == false result = true; Else result = false.</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="TableDuctSealing">
+                  <xsd:element name="TableDuctSealing" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">
                            <d:b>Duct Leakage Sealing</d:b>
                         </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required If B03d_ProjectHasDuctwork == true;</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
                            <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                               <xsd:complexType>
                                  <xsd:sequence>
+                                    <xsd:element name="L10a_DuctSystems" type="comp:DuctSystems">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">The answers to the questions below apply to the following duct systems:</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="L10b_DuctLeakageTestRequired" type="comp:DuctLeakageTestRequired">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Duct leakage testing triggered for these systems?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: If L12_SingleZoneConstantVol  And L13_ServesLT5000Ft2  And L14_LocationsGT25Pct  == true And L11_IsBuildingHealthcare  And L15_DuctSystemHasAsbestos And L16_DuctSystemExistingSealed  == false result = true; Else result = false.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
                                     <xsd:element name="L11_IsBuildingHeathcare" type="com:IsBuildingHeathcare">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">The scope of the project includes onlly duct systems serving healthcare facilities</xsd:documentation>

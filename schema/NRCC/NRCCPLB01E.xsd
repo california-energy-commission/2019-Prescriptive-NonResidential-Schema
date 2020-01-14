@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.011">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.013">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -36,8 +36,7 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCC" />
                      <xsd:element ref="nRCCPLBE" />
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded" />
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" maxOccurs="unbounded" />
+                     <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded" />
                      <xsd:element name="Footer" type="comp:FooterNRCC" />
                   </xsd:sequence>
                </xsd:complexType>
@@ -968,21 +967,21 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"></xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">The dwelling unit is designed to have fenestration products with a weighted average U-factor [d:lte/]0.24 plus one of the following options per [d:t24ref/]150.1(c)8Aii: (New Construction Only)  [d:l t="*"][d:list] Compact hot water distribution system field verified by a HERS Rater per [d:t24table]Reference Appendix RA4.4.16[/d:t24table] [/d:list][d:list] A drain water heat recovery system that is field verified by a HERS rater per Reference Appendix RA3.6.9 [/d:list][/d:l]</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If F16_DwellingUnitWaterHeater does not include StorageConsumerLTE55Gal result = ReqUfactorNA and row is grayed out; Else user input.  If  Yes radio button is selected then If first subrow checkbox is checked result = ReqUfactorCompact; Else if second subrow checkbox is checked result = ReqUfactorDWHR; Else If No radio button is selected result = ReqUfactorNo</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If B02Altered_WaterHeatingSystem == IndividualDwellingUnits result = ReqUfactorNA. and row is grayed out;  Else If F16_DwellingUnitWaterHeater does not include StorageConsumerLTE55Gal result = ReqUfactorNA and row is grayed out; Else user input.  If  Yes radio button is selected then If first subrow checkbox is checked result = ReqUfactorCompact; Else if second subrow checkbox is checked result = ReqUfactorDWHR; Else If No radio button is selected result = ReqUfactorNo</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="G09_HeatPumpDistRequirement" type="comp:HeatPumpDistRequirement" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"></xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">One of the following options is included in the design per [d:t24ref/]150.1(c)8Aiv: (New Construction only) [d:l t="*"][d:list] Compact hot water distribution system field verified by HERS rater per [d:t24table]Reference Appendix RA4.4.6[/d:t24table]  and a drain water heat recovery system that is field verified by a HERS rater per [d:t24table]Reference Appendix RA3.6.9[/d:t24table]  [/d:list][d:list] A photovoltaic system capacity of 0.3kWdc (for climate zones 2-15) or 1.1kWcd (for climate zones 1 &amp; 16) larger than the requirement specified in [d:t24ref/]150.1(c)14. [/d:list][/d:l]</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditioned result = ReqHeatPumpNA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditioned And Not HeatPumpConditionedNEEA, user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqHeatPumpCompactDWHR; Else if  second subrow checkbox is checked result = ReqHeatPumpPV; Else If No radio button is selected result = ReqHeatPumpNo;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If B02Altered_WaterHeatingSystem == IndividualDwellingUnits result = ReqHeatPumpNA. and row is grayed out;  Else If  F16_DwellingUnitWaterHeater does not include HeatPumpConditioned result = ReqHeatPumpNA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditioned And Not HeatPumpConditionedNEEA, user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqHeatPumpCompactDWHR; Else if  second subrow checkbox is checked result = ReqHeatPumpPV; Else If No radio button is selected result = ReqHeatPumpNo;</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="G10_NEEA_DistRequirement" type="comp:NEEA_DistRequirement" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"></xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">One of the following options is included in the design per [d:t24ref/]150.1(c)8Av: (New Construction only) [d:l t="*"][d:list] Compact hot water distribution system per [d:t24table]Reference Appendix RA4.4.6[/d:t24table]  for projects in climates zones 1 and 16. [/d:list][d:list] A photovoltaic system capacity of 0.3kWdc (form climate zones 1 and 16) larger than the requirement specified in [d:t24ref/]150.1(c)14.[/d:list][/d:l]</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditionedNEEA result = ReqNEEA_NA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditionedNEEA user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqNEEA_Compact; Else if  second subrow checkbox is checked result = ReqNEEA_PV; Else If No radio button is selected result = ReqNEEA_No;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If B02Altered_WaterHeatingSystem == IndividualDwellingUnits result = ReqNEEA_NA. and row is grayed out; Else If  F16_DwellingUnitWaterHeater does not include HeatPumpConditionedNEEA result = ReqNEEA_NA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditionedNEEA user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqNEEA_Compact; Else if  second subrow checkbox is checked result = ReqNEEA_PV; Else If No radio button is selected result = ReqNEEA_No;</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                         </xsd:sequence>
@@ -1005,7 +1004,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                      <xsd:element name="G11_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralDwellingUnits Or IndividualDwellingUnits result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralDwellingUnits Or IndividualDwellingUnits this field should be minimized.  result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -1025,7 +1024,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                      <xsd:element name="G12_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralNonresSpaces Or IndividualNonresSpaces result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralNonresSpaces Or IndividualNonresSpaces this field should be minimized.  result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">

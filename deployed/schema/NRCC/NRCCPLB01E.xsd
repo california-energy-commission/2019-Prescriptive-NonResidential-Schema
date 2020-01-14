@@ -23,8 +23,7 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCPLBE"/>
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded"/>
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -1114,7 +1113,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                        <d:list> A drain water heat recovery system that is field verified by a HERS rater per Reference Appendix RA3.6.9 </d:list>
                                     </d:l>
                                  </xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If F16_DwellingUnitWaterHeater does not include StorageConsumerLTE55Gal result = ReqUfactorNA and row is grayed out; Else user input.  If  Yes radio button is selected then If first subrow checkbox is checked result = ReqUfactorCompact; Else if second subrow checkbox is checked result = ReqUfactorDWHR; Else If No radio button is selected result = ReqUfactorNo</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If B02Altered_WaterHeatingSystem == IndividualDwellingUnits result = ReqUfactorNA. and row is grayed out;  Else If F16_DwellingUnitWaterHeater does not include StorageConsumerLTE55Gal result = ReqUfactorNA and row is grayed out; Else user input.  If  Yes radio button is selected then If first subrow checkbox is checked result = ReqUfactorCompact; Else if second subrow checkbox is checked result = ReqUfactorDWHR; Else If No radio button is selected result = ReqUfactorNo</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="G09_HeatPumpDistRequirement" type="comp:HeatPumpDistRequirement">
@@ -1131,7 +1130,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                           <d:t24ref h="150.1(c)14"/>. </d:list>
                                     </d:l>
                                  </xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditioned result = ReqHeatPumpNA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditioned And Not HeatPumpConditionedNEEA, user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqHeatPumpCompactDWHR; Else if  second subrow checkbox is checked result = ReqHeatPumpPV; Else If No radio button is selected result = ReqHeatPumpNo;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If B02Altered_WaterHeatingSystem == IndividualDwellingUnits result = ReqHeatPumpNA. and row is grayed out;  Else If  F16_DwellingUnitWaterHeater does not include HeatPumpConditioned result = ReqHeatPumpNA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditioned And Not HeatPumpConditionedNEEA, user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqHeatPumpCompactDWHR; Else if  second subrow checkbox is checked result = ReqHeatPumpPV; Else If No radio button is selected result = ReqHeatPumpNo;</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="G10_NEEA_DistRequirement" type="comp:NEEA_DistRequirement">
@@ -1146,7 +1145,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                           <d:t24ref h="150.1(c)14"/>.</d:list>
                                     </d:l>
                                  </xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">If  F16_DwellingUnitWaterHeater does not include HeatPumpConditionedNEEA result = ReqNEEA_NA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditionedNEEA user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqNEEA_Compact; Else if  second subrow checkbox is checked result = ReqNEEA_PV; Else If No radio button is selected result = ReqNEEA_No;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If B02Altered_WaterHeatingSystem == IndividualDwellingUnits result = ReqNEEA_NA. and row is grayed out; Else If  F16_DwellingUnitWaterHeater does not include HeatPumpConditionedNEEA result = ReqNEEA_NA and row is grayed out; Else If F16_DwellingUnitWaterHeater includes HeatPumpConditionedNEEA user input.  If Yes radio button is selected then If first subrow checkbox is checked result = ReqNEEA_Compact; Else if  second subrow checkbox is checked result = ReqNEEA_PV; Else If No radio button is selected result = ReqNEEA_No;</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                         </xsd:sequence>
@@ -1185,7 +1184,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                      <xsd:element name="G11_NotApplicableMessage">
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"/>
-                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralDwellingUnits Or IndividualDwellingUnits result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralDwellingUnits Or IndividualDwellingUnits this field should be minimized.  result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -1213,7 +1212,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                      <xsd:element name="G12_NotApplicableMessage">
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"/>
-                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralNonresSpaces Or IndividualNonresSpaces result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If no row in section B has B02New_WaterHeatingSystem Or  B02Altered_WaterHeatingSystem == CentralNonresSpaces Or IndividualNonresSpaces this field should be minimized.  result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
