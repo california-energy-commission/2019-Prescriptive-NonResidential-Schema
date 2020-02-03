@@ -546,7 +546,21 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Volume (gal)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">User selects from list loaded as follows: Switch (F02_WaterHeaterType)  case InstantaneousConsumer: case InstantaneousConsumerElectric: case InstantaneousResDutyCommercial:  list LTE2Gal display term 
-                                                <d:lte/>2;  case StorageConsumer: case  StorageConsumerElectric:  list 30Gal display term 30, 40Gal display term 40, 50Gal display term 50, 55Gal display term 55, 60Gal display term 60, 75Gal display term 75, 80Gal display term 80;  case StorageResDutyCommercial: list 50Gal display term 50, 60Gal display term 60, 75Gal display term 75, 80Gal display term 80;  case TableTopElectric:  list 30Gal display term 30, 40Gal display term 40;  case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                <d:lte/>2;  
+
+case StorageConsumer: case  StorageConsumerElectric:  list LTE30Gal Display term  
+                                                <d:lte/>30, 31To40Gal Display term  31-40, 41To50Gal Display term  41-50, 51To55Gal Display term  51-55, 56To60Gal Display term  56-60, 61To75Gal Display term  61-75 and GT75Gal Display term  
+                                                <d:gt/>75;
+
+case StorageResDutyCommercial: list LTE50Gal Display term  
+                                                <d:lte/>50, 51To60Gal Display term  51-60, 61To75Gal Display term  61-75 and GT75Gal Display term  
+                                                <d:gt/>75; 
+
+case TableTopElectric:  list LTE30Gal Display term  
+                                                <d:lte/>30, GT30Gal Display term  
+                                                <d:gt/>30; 
+
+case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F03_NotApplicableMessage">
@@ -833,7 +847,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                            <d:b>Water Heating Equipment in Individual Dwelling Units<d:sup>1</d:sup>
                            </d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If any row in section B has B02New_WaterHeatingSystem Or B02Altered_WaterHeatingSystem == IndividualDwellingUnits, this table is required;</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If any row in section B has B02New_WaterHeatingSystem Or B02Altered_WaterHeatingSystem == IndividualDwellingUnits, this table is required; Else fields are not displayed</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -845,7 +859,7 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                            <xsd:element name="F16_DwellingUnitWaterHeater" type="hvac:DwellingUnitWaterHeater" maxOccurs="unbounded">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">Calculated Field:  If user checks any of the types: F16a, F16b,F16c, F16d, F16e the value for that type is added to F16_DwellingUnitWaterHeater</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Calculated Field:  If user checks any of the types: F16a, F16b,F16c, F16d, F16e the value for that type is added to F16_DwellingUnitWaterHeater;  this list is used in other rows and other sections like section G for evaluations based on equipment types in the project</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="F16a_EquipmentTypeApplies" type="comp:EquipmentTypeApplies">
@@ -1110,7 +1124,9 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                        <d:list> Compact hot water distribution system field verified by a HERS Rater per 
                                           <d:t24table>Reference Appendix RA4.4.16</d:t24table>
                                        </d:list>
-                                       <d:list> A drain water heat recovery system that is field verified by a HERS rater per Reference Appendix RA3.6.9 </d:list>
+                                       <d:list> A drain water heat recovery system that is field verified by a HERS rater per 
+                                          <d:t24table>Reference Appendix RA3.6.9 </d:t24table>
+                                       </d:list>
                                     </d:l>
                                  </xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">If B02Altered_WaterHeatingSystem == IndividualDwellingUnits result = ReqUfactorNA. and row is grayed out;  Else If F16_DwellingUnitWaterHeater does not include StorageConsumerLTE55Gal result = ReqUfactorNA and row is grayed out; Else user input.  If  Yes radio button is selected then If first subrow checkbox is checked result = ReqUfactorCompact; Else if second subrow checkbox is checked result = ReqUfactorDWHR; Else If No radio button is selected result = ReqUfactorNo</xsd:documentation>
