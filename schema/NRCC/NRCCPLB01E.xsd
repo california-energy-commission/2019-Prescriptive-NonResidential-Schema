@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.014">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.015">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -1047,6 +1047,120 @@ case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage
                         <xsd:documentation source="AdditionalRequirements">Insulation shall be protected from damage, including that due to sunlight, moisture, equipment maintenance, and wind.  Insulation exposed to weather shall be installed with a cover suitable for outdoor service per [d:t24ref/]120.3(b) and [d:t24ref/]150.0(j)3</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false.</xsd:documentation>
                      </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Gpit" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]TABLE 120.3-A PIPE INSULATION THICKNESS[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is displayed only If G12_NonresPipeInsulationComplies == true; no data is required in the XML file as all fields have only one value allowed for display purposes</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Gpit01_PipeFluidTempRange"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Fluid Temperature Range ([d:deg/]F)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restricted value display term 105-140</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeFluidTempRange">
+                                    <xsd:enumeration value="105To140"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="Gpit02_PipeThermalConductivity"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Conductivity Range (Btu-in per hour per ft[d:sup]2[/d:sup] per [d:deg/]F)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restricted value display term 0.22 - 0.28</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeThermalConductivity">
+                                    <xsd:enumeration value="0_22To0_28"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="Gpit03_PipeInsMeanRatingTemp" type="hvac:PipeInsMeanRatingTemp"  fixed="100" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Insulation Mean Rating Temp  ([d:deg/]F)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the fixed value of 100</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Gpit04aTo06aLabel" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Nominal Pipe Diameter (in)</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Gpit04bTo06bLabel" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Minimum Insulation Required</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Gpit04a_PipeNominalDiameter"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Nominal Pipe Diameter (in)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restricted value display term [d:lt/]1</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeNominalDiameter">
+                                    <xsd:enumeration value="LT1_0"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="Gpit04b_PipeInsInchRvalueMin"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Minimum Insulation Required</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restricted value display term 1.0 in or R-7.7</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeInsInchRvalueMin">
+                                    <xsd:enumeration value="1_0InRvalue7_7"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="Gpit05a_PipeNominalDiameter"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Nominal Pipe Diameter (in)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restricted value display term 1 to [d:lt/]1.5</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeNominalDiameter">
+                                    <xsd:enumeration value="1_0ToLT1_5"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="Gpit05b_PipeInsInchRvalueMin"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Minimum Insulation Required</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restricted value display term 1.5 in or R-12.5</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeInsInchRvalueMin">
+                                    <xsd:enumeration value="1_5InRvalue12_5"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="Gpit06a_PipeNominalDiameter"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Nominal Pipe Diameter (in)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restrictred value display term 1.5 to [d:lt/]4</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeNominalDiameter">
+                                    <xsd:enumeration value="1_5ToLT4_0"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                           <xsd:element name="Gpit06b_PipeInsInchRvalueMin"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Minimum Insulation Required</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This is a static field not required in the XML data but if displayed should always display the restricted value display term 1.5 in or R-11</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:simpleType>
+                                 <xsd:restriction base="hvac:PipeInsInchRvalueMin">
+                                    <xsd:enumeration value="1_5InRvalue11_0"/>
+                                 </xsd:restriction>
+                              </xsd:simpleType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
                   </xsd:element>
                   <xsd:element name="GErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage"  minOccurs="0">
                      <xsd:annotation>
