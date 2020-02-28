@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.014">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.016">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -2517,7 +2517,25 @@ End If</xsd:documentation>
                                        <xsd:element name="Fb03_EfficiencyMinimumValueCOP" type="hvac:EfficiencyMinimumValueCOP" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Minimum COP Required per [d:t24table]Table 110.2-E[/d:t24table]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F10_HeatingTotalLoad has a value for Fb01 then result  stored in EfficiencyMinimumValueCOP  Calculated field: If  F03_PTAC_PTHP ==NewSpacePTHP result = 3.7 -  PRODUCT(0.052, Fb02_HeatingRatedCapacity/1000) COP Else If F03_PTAC_PTHP == ReplacementsPTHP  result = 2.9  -  PRODUCT(0.026, Fb02_HeatingRatedCapacity/1000) COP</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F10_HeatingTotalLoad has a value for Fb01 then result  stored in EfficiencyMinimumValueCOP  Calculated field: 
+If  F03_PTAC_PTHP == NewSpacePTHP Then
+If Fb02_HeatingRatedCapacity LT 7 
+result = 3.3;
+Else If Fb02_HeatingRatedCapacity GTE 7 And LTE 15
+result = 3.7 -  PRODUCT(0.052, Fb02_HeatingRatedCapacity) COP 
+Else If Fb02_HeatingRatedCapacity GT 15
+result = 2.9
+End If
+ 
+Else If F03_PTAC_PTHP == ReplacementsPTHP Then 
+If Fb02_HeatingRatedCapacity LT 7 
+result = 2.7;
+Else If Fb02_HeatingRatedCapacity GTE 7 And LTE 15
+result = 2.9  -  PRODUCT(0.026, Fb02_HeatingRatedCapacity) COP
+Else If Fb02_HeatingRatedCapacity GT 15
+result = 2.5
+End If
+End if</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Fb03_NotApplicableMessage" >
@@ -2587,13 +2605,32 @@ End If</xsd:documentation>
  
 Switch ( F03_PTAC_PTHP for Fb01) 
 case  NewSpacePTAC Or NewSpacePTHP: 
-result = 14.0 - PRODUCT(0.300, Fb05_CoolingRatedCapacity/1000)  EER; 
+If Fb05_CoolingRatedCapacity LT 7
+result = 11.9
+Else If Fb05_CoolingRatedCapacity GTE 7 And LTE 15
+result = 14.0 - PRODUCT(0.300, Fb05_CoolingRatedCapacity)  EER; 
+Else If Fb05_CoolingRatedCapacity GT 15
+result = 9.5;
+End if
  
-case ReplacementsPTAC: result = 10.9 - PRODUCT(0.213, Fb05_CoolingRatedCapacity/1000)  EER;  
+case ReplacementsPTAC: 
+If Fb05_CoolingRatedCapacity LT 7
+result = 9.4;
+Else If  Fb05_CoolingRatedCapacity GTE 7 And LTE 15
+result = 10.9 - PRODUCT(0.213, Fb05_CoolingRatedCapacity)  EER;  
+Else If Fb05_CoolingRatedCapacity GT 15
+result = 7.7;
+End if
  
-case ReplacementsPTHP: result = 10.8 - PRODUCT(0.213, Fb05_CoolingRatedCapacity/1000)  EER 
-End Switch
-End if</xsd:documentation>
+case ReplacementsPTHP: 
+If Fb05_CoolingRatedCapacity LT 7
+result = 9.3;
+Else If  Fb05_CoolingRatedCapacity GTE 7 And LTE 15
+result = 10.8 - PRODUCT(0.213, Fb05_CoolingRatedCapacity)  EER 
+Else If Fb05_CoolingRatedCapacity GT 15
+result = 7.6;
+End if
+End Switch</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Fb06_NotApplicableMessage" >
@@ -3299,21 +3336,21 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Equipment Type[d:sup]1[/d:sup]</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: 
-OpenTowerAxialFan display term Air Propeller/ axial fan open-circuit cooling tower, 
+OpenTowerAxialFan display term Propeller/ axial fan open-circuit cooling tower, 
  
-OpenTowerAxialGTE900gpm display term Propeller/ axial fan open-circuit cooling tower, CW loop in CHW plant [d:gte/] 900 gpm, 
+OpenTowerAxialGTE900gpm display term Axial fan open-circuit cooling tower, CW loop in CHW plant [d:gte/] 900 gpm, 
  
-OpenTowerReplacementAxialGTE900gpm display term Propeller/ axial fan open-circuit cooling tower, CW loop in CHW plant [d:gte/] 900 gpm,  
+OpenTowerReplacementAxialGTE900gpm display term Replacement axial fan open-circuit cooling tower, CW loop in CHW plant [d:gte/] 900 gpm,  
  
-ClosedTowerAxialFan display term Air Propeller/ axial fan closed-circuit cooling tower, 
+ClosedTowerAxialFan display term Propeller/ axial fan closed-circuit cooling tower, 
  
-OpenTowerCentrifugalFan display term Air Centrifugal fan open-circuit cooling tower, 
+OpenTowerCentrifugalFan display term Centrifugal fan open-circuit cooling tower, 
  
-ClosedTowerCentrifugalFan display term Air Centrifugal fan closed-circuit cooling tower, 
+ClosedTowerCentrifugalFan display term Centrifugal fan closed-circuit cooling tower, 
  
-EvaporativeCondenserAxialFan display term Air Propeller/ axial fan evaporative condensers,
+EvaporativeCondenserAxialFan display term Propeller/ axial fan evaporative condensers,
  
-EvaporativeCondenserCentrifugalFan display term Air Centrifugal fan evaporative condensers, 
+EvaporativeCondenserCentrifugalFan display term Centrifugal fan evaporative condensers, 
  
 AirCooledCondenser display term Air cooled condensers, 
  
@@ -3465,7 +3502,9 @@ End If</xsd:documentation>
                                        <xsd:element name="Fe09_TowerFlowTurnDown" type="hvac:TowerFlowTurnDown" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Tower Flow Turndown [d:t24ref/]140.4(h)3</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Fe02_HeatRejectionType == OpenTowerAxialFan Or OpenTowerCentrifugalFan user selects from list: 
+                                             <xsd:documentation source="CalculationsAndRules">If Fe02_HeatRejectionType == OpenTowerAxialFan, OpenTowerCentrifugalFan, OpenTowerAxialGTE900gpm Or OpenTowerReplacementAxialGTE900gpm
+ 
+ user selects from list: 
 HasTowerFlowTurnDown display term Yes, 
 SingleCondenserPump display term NA: Single condenser water pump, 
 NotOpenTower display term NA: Not open-circuit tower
@@ -3477,7 +3516,8 @@ End If</xsd:documentation>
                                        <xsd:element name="Fe09_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Tower Flow Turndown [d:t24ref/]140.4(h)3</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Fe02_HeatRejectionType != OpenTowerAxialFan Or OpenTowerCentrifugalFan result = BlankGrayedOut  stored in the NotApplicableMessage and cell is grayed out
+                                             <xsd:documentation source="CalculationsAndRules">If Fe02_HeatRejectionType != OpenTowerAxialFan, OpenTowerCentrifugalFan, OpenTowerAxialGTE900gpm or OpenTowerReplacementAxialGTE900gpm
+ result = BlankGrayedOut  stored in the NotApplicableMessage and cell is grayed out
 End If</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -5935,9 +5975,9 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCV-MCH-24 Enclosure Air Leakaage Worksheet  [d:i] NOTE: Must be completed by a HERS Rater [/d:i]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated field: Boolean value Default reulst = false.
+                        <xsd:documentation source="CalculationsAndRules">Calculated field: Boolean value Default result = false.
  
-  If A03_WholeBuildingOccupancy includes HighRiseResidential And B03e_ProjectHasVentilation == true result = true display term selected Yes radio button
+  If A03All_WholeBuildingOccupancy includes HighRiseResidential And B03e_ProjectHasVentilation == true result = true display term selected Yes radio button
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
