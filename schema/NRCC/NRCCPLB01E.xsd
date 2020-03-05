@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.015">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.017">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -148,7 +148,7 @@
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">System Type [d:sup]1,2[/d:sup]</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">In current row If B01a_PlumbingProjectScope == NewSystem, this field is required. 
-User selects from list: CentralNonresSpaces display term Central System (serving nonresidential spaces), IndividualNonresSpaces display term Individual System (serving nonresidential spaces), CentralDwellingUnits display term Central System (serving dwelling units), IndividualDwellingUnits display term Individual Dwelling Units System(s),  SolarThermalSystem display term Solar Thermal System, CombinedHydronic display term Combined Hydronic System.</xsd:documentation>
+ User selects from list: CentralNonresSpaces display term Central System (serving nonresidential spaces), IndividualNonresSpaces display term Individual System (serving nonresidential spaces), CentralDwellingUnits display term Central System (serving dwelling units), IndividualDwellingUnits display term Individual Dwelling Units System(s),  SolarThermalSystem display term Solar Thermal System, CombinedHydronic display term Combined Hydronic System.</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="B03aNew_ProjectHasEquipment" type="comp:ProjectHasEquipment"  minOccurs="0">
@@ -287,13 +287,53 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                      <xsd:element name="C01_DoesWaterHeatingEquipmentComply" type="comp:DoesWaterHeatingEquipmentComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If Section_F NotPresent result = BlankGrayedOut stored in NotApplicableMessage; Else In section F If TableIndividualSystems IsPresent then If in all rows F05_UniformEnergyFactor  GTE F06_MinimumRequiredUEF; AND  If TableCentralSystems IsPresent then in all rows where F12_NotApplicableMessage NotPresent   If  F11_ThermalEfficiency GT F12_ThermalEfficiencyMinimum Or F11_EfficiencyAFUE GT F12_EfficiencyMinimumValueAFUE  AND in rows where  F14_NotApplicableMessage And F15_NotApplicableMessage NotPresent, If F14_StandbyLoss LTE F15_StandbyLossMaxAllowed Or F14_WaterHeaterStandbyLossFraction LTE F15_StandbyLossMaxAllowedFraction; AND  If DwellingUnitEquipment IsPresent then If F17_NewDwellingUnitGasWaterHeater == ReqYes or ReqNA; And If F18_StorageTankInsulation  F19_StateBuildingWaterHeatingEnergy And F20_InstantaneousIsolationValves == ReqYes or ReqNA Then result = true display term Yes; Else result = false display term No</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If Section_F NotPresent 
+result = BlankGrayedOut stored in NotApplicableMessage; 
+ 
+ 
+In section F 
+Else If TableIndividualSystems IsPresent then in all rows
+If  F05_UniformEnergyFactor  GTE F06_MinimumRequiredUEF; 
+result = true display term Yes; 
+Else result = false display term No
+End If
+ 
+Continue evaluation If result == true,
+ 
+Else If TableCentralSystems IsPresent then in all rows where F12_NotApplicableMessage NotPresent   
+If  F11_ThermalEfficiency GT F12_ThermalEfficiencyMinimum 
+Or F11_EfficiencyAFUE GT F12_EfficiencyMinimumValueAFUE  
+result = true display term Yes; 
+Else result = false display term No
+End If
+ 
+Continue evaluation If result == true,
+ 
+in rows where  F14_NotApplicableMessage And F15_NotApplicableMessage NotPresent, 
+If F14_StandbyLoss LTE F15_StandbyLossMaxAllowed 
+Or F14_WaterHeaterStandbyLossFraction LTE F15_StandbyLossMaxAllowedFraction; 
+result = true display term Yes; 
+Else result = false display term No
+End If
+ 
+Continue evaluation If result == true,
+ 
+Else  If DwellingUnitEquipment IsPresent then 
+If F17_NewDwellingUnitGasWaterHeater == ReqYes or ReqNA; 
+And If F18_StorageTankInsulation  F19_StateBuildingWaterHeatingEnergy And F20_InstantaneousIsolationValves == ReqYes or ReqNA Then 
+result = true display term Yes; 
+Else result = false display term No
+End If
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C01_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If in section B no row has B03aNew_ProjectHasEquipment == true Or B03aAltered_ProjectHasEquipment == true result = BlankGrayedOut</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If in section B no row has B03aNew_ProjectHasEquipment == true 
+Or B03aAltered_ProjectHasEquipment == true 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -316,13 +356,28 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                      <xsd:element name="C02_DoesWaterHeatingDistributionComply" type="comp:DoesWaterHeatingDistributionComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">In section G If RecircLoops IsPresent then If G01_AirReleaseValve, G02_ BackflowCheckValve,  G03_HoseBibb,  G04_ IsolationValves,  G05_ TankDrainPort,  G06_ ColdWaterCheckValve And G07_ RecircLoopCount  !=ReqNo; And If G08_UfactorDistRequirement != ReqUfactorNo And If G09_HeatPumpDistRequirement != ReqHeatPumpNo  And if G10_NEEA_DistRequirement != ReqNEEA_No;  And If G11_DwellingUnitsPipeInsulationComplies == true And If G12_NonresPipeInsulationComplies == true And If G13_PipeInsulationProtectionComplies == true then result = true; Else result = false</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">In section G 
+If RecircLoops IsPresent then 
+If G01_AirReleaseValve, G02_ BackflowCheckValve,  G03_HoseBibb,  G04_ IsolationValves,  G05_ TankDrainPort,  G06_ ColdWaterCheckValve And G07_ RecircLoopCount  !=ReqNo; 
+ 
+And If G08_UfactorDistRequirement != ReqUfactorNo 
+And If G09_HeatPumpDistRequirement != ReqHeatPumpNo  
+And if G10_NEEA_DistRequirement != ReqNEEA_No;  
+And If G11_DwellingUnitsPipeInsulationComplies == true 
+And If G12_NonresPipeInsulationComplies == true 
+And If G13_PipeInsulationProtectionComplies == true then 
+result = true; 
+Else result = false
+End If
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C02_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If in section B no row has B03bNew_ProjectHasDistribution == true Or B03bAltered_ProjectHasDistribution == true result = BlankGrayedOut</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If in section B no row has B03bNew_ProjectHasDistribution == true Or B03bAltered_ProjectHasDistribution == true 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -345,13 +400,19 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                      <xsd:element name="C03_DoWaterHeatingControlsComply" type="comp:DoWaterHeatingControlsComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If in section H If H01_TempControlsCertification,  H02_OutletTempControls,  H03_CirculatingPumpControls, H04_MultipleUnitsPumpControls, H05_SingleUnitOnOffControls And H06_DemandResponseControlRequirement != ReqNo result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">In section H 
+If H01_TempControlsCertification,  H02_OutletTempControls,  H03_CirculatingPumpControls, H04_MultipleUnitsPumpControls, H05_SingleUnitOnOffControls And H06_DemandResponseControlRequirement != ReqNo 
+result = true display term Yes; 
+Else result = false display term No.
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C03_NotApplicableMessage" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"></xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If in section B no row has B03cNew_ProjectHasControls == true Or B03cAltered_ProjectHasControls == true result = BlankGrayedOut</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If in section B no row has B03cNew_ProjectHasControls == true Or B03cAltered_ProjectHasControls == true 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -363,7 +424,13 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                   <xsd:element name="C04_DHW_Compliance" type="comp:DHW_Compliance" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">[d:b]Compliance Results[/d:b]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If C01_ DoesWaterHeatingEquipmentComply Or C02_DoesWaterHeatingDistributionComply Or C03_DoWaterHeatingControlsComply == false result = DoesNotComply display term DOES NOT COMPLY; Else If D03_ExceptionalConditionMessageNRCCPLBE NotPresent result = Complies display term COMPLIES; Else result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If C01_ DoesWaterHeatingEquipmentComply Or C02_DoesWaterHeatingDistributionComply Or C03_DoWaterHeatingControlsComply == false 
+result = DoesNotComply display term DOES NOT COMPLY; 
+ 
+Else If D03_ExceptionalConditionMessageNRCCPLBE NotPresent 
+result = Complies display term COMPLIES; 
+Else result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -495,14 +562,14 @@ User selects from list: CentralNonresSpaces display term Central System (serving
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Volume (gal)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">User selects from list loaded as follows: Switch (F02_WaterHeaterType)  case InstantaneousConsumer: case InstantaneousConsumerElectric: case InstantaneousResDutyCommercial:  list LTE2Gal display term [d:lte/]2;  
-
-case StorageConsumer: case  StorageConsumerElectric:  list LTE30Gal Display term  [d:lte/]30, 31To40Gal Display term  31-40, 41To50Gal Display term  41-50, 51To55Gal Display term  51-55, 56To60Gal Display term  56-60, 61To75Gal Display term  61-75 and GT75Gal Display term  [d:gt/]75;
-
-case StorageResDutyCommercial: list LTE50Gal Display term  [d:lte/]50, 51To60Gal Display term  51-60, 61To75Gal Display term  61-75 and GT75Gal Display term  [d:gt/]75; 
-
-case TableTopElectric:  list LTE30Gal Display term  [d:lte/]30, GT30Gal Display term  [d:gt/]30; 
-
-case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+ 
+ case StorageConsumer: case  StorageConsumerElectric:  list LTE30Gal Display term  [d:lte/]30, 31To40Gal Display term  31-40, 41To50Gal Display term  41-50, 51To55Gal Display term  51-55, 56To60Gal Display term  56-60, 61To75Gal Display term  61-75 and GT75Gal Display term  [d:gt/]75;
+ 
+ case StorageResDutyCommercial: list LTE50Gal Display term  [d:lte/]50, 51To60Gal Display term  51-60, 61To75Gal Display term  61-75 and GT75Gal Display term  [d:gt/]75; 
+ 
+ case TableTopElectric:  list LTE30Gal Display term  [d:lte/]30, GT30Gal Display term  [d:gt/]30; 
+ 
+ case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F03_NotApplicableMessage" >
@@ -787,7 +854,7 @@ case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage
                                  <xsd:documentation source="FieldText"></xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">Gas/propane storage type water heater with input rating [d:lte/] 75,000 BTUH (New Construction only)</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">If B01a_PlumbingProjectScope == NewSystem  user input: Else  result = false and main row and subrows are grayed out; 
- If checked result = true; Else result = false.  If result == true then user must check either F16b1 Or F16b2</xsd:documentation>
+  If checked result = true; Else result = false.  If result == true then user must check either F16b1 Or F16b2</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="F16b1_EquipmentTypeApplies" type="comp:EquipmentTypeApplies" >
@@ -809,7 +876,7 @@ case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage
                                  <xsd:documentation source="FieldText"></xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">A single heat pump water heater with storage tank located in the garage or conditioned space. (New Construction Only)</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">If B01a_PlumbingProjectScope == NewSystem  user input; Else result = false and row and subrow are grayed out; 
- If checked  result = true; else result = false.  If result == true And F16c1EquipmentTypeApplies == false result = F16_DwellingUnitWaterHeater += HeatPumpConditioned</xsd:documentation>
+  If checked  result = true; else result = false.  If result == true And F16c1EquipmentTypeApplies == false result = F16_DwellingUnitWaterHeater += HeatPumpConditioned</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="F16c1_EquipmentTypeApplies" type="comp:EquipmentTypeApplies" >
@@ -824,7 +891,7 @@ case HeatPumpWaterHeater: result = BlankGrayedOut stored in NotApplicableMessage
                                  <xsd:documentation source="FieldText"></xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">A single heat pump water heater with storage tank located in the garage or conditioned space and be placed on an incompressible, rigid insulated surface with minimum R-10. (Alterations in climate zones 1-15 Only)</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">If B01b_PlumbingProjectScope == AlteredSystem  user input; Else result = false and row and subrow are grayed out;  If checked  result = true; else result = false.  If result == true And F16d1EquipmentTypeApplies == false
- F16_DwellingUnitWaterHeater += HeatPumpConditionedInsulated</xsd:documentation>
+  F16_DwellingUnitWaterHeater += HeatPumpConditionedInsulated</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="F16d1_EquipmentTypeApplies" type="comp:EquipmentTypeApplies" >

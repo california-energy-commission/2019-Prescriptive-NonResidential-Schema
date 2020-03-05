@@ -155,13 +155,21 @@
                                        <xsd:element name="B03_ElectricalServiceRating" type="comp:ElectricalServiceRating">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and cell is blank and grayed out; Else user input</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly 
+result = BlankGrayedOut stored in NotApplicableMessage and cell is blank and grayed out; 
+ 
+Else user input
+End If</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="B03_NotApplicableMessage">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and cell is blank and grayed out; Else user input</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly 
+result = BlankGrayedOut stored in NotApplicableMessage and cell is blank and grayed out; 
+ 
+Else user input
+End If</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
@@ -247,7 +255,17 @@
                            <xsd:documentation source="FieldText">Service Electrical Metering 
                               <d:t24ref h="130.5(a)"/>
                               <d:line1/> (See Table F)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: 
+For all rows in section B 
+If B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter 
+Or If B04_UtilityProvidedMeterException130_5a == true  
+Or If B05_DoesElectricalCodeExceptionApply == true 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  
+ 
+Else If all instances of  F04_BuildingPlanReference NotNull 
+result = true display term Yes; 
+Else result = false display term No.
+End if</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C01_NotApplicableMessage">
@@ -255,7 +273,13 @@
                            <xsd:documentation source="FieldText">Service Electrical Metering 
                               <d:t24ref h="130.5(a)"/>
                               <d:line1/> (See Table F)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If for all rows in section B B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter Or If B04_UtilityProvidedMeterException130_5a == true  Or If B05_DoesElectricalCodeExceptionApply == true result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  Else If all instances of  F04_BuildingPlanReference NotNull result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: 
+For all rows in section B 
+If B02_ElectricalServiceProjectScope == AlterationsFeedersBranchCircuitsOnly  Or ReplacementElectricalServiceNotMeter 
+Or If B04_UtilityProvidedMeterException130_5a == true  
+Or If B05_DoesElectricalCodeExceptionApply == true 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  
+ End if</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -276,7 +300,25 @@
                            <xsd:documentation source="FieldText">Separation for Monitoring 
                               <d:t24ref h="130.5(b)"/>
                               <d:line1/> (See Table G)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope != NewElectricalService And != ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else  If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value:  
+For all rows in section B 
+If B02_ElectricalServiceProjectScope != NewElectricalService And != ReplacementElectricalService 
+ Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; 
+ 
+Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType 
+result = true display term Yes;   
+Else  If all instances of G05_BuildingPlanName IsNull then 
+result = false display term No; 
+Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod  
+If G_Exception02_SectionExceptionalConditionNote IsNull
+result = false display term No; 
+Else 
+result = true display term Yes 
+ 
+Else 
+result = true display term Yes; 
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C02_NotApplicableMessage">
@@ -284,7 +326,12 @@
                            <xsd:documentation source="FieldText">Separation for Monitoring 
                               <d:t24ref h="130.5(b)"/>
                               <d:line1/> (See Table G)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value:  If for all rows in section B B02_ElectricalServiceProjectScope != NewElectricalService And != ReplacementElectricalService  Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If all instances of G02_ElectricalLoadSeparationRequirement  == NoRequirementForLoadType result = true display term Yes;   Else If  any instance of  G03_ElectricalLoadComplianceMethod == OtherComplianceMethod And G_Exception02_SectionExceptionalConditionNote IsNull then result = false display term No;  Else  If all instances of G05_BuildingPlanName NotNull then result = true display term Yes; Else result = false display term No.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value:  
+For all rows in section B 
+If B02_ElectricalServiceProjectScope != NewElectricalService And != ReplacementElectricalService 
+ Or If B05_DoesElectricalCodeExceptionApply == true then section G is not required 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; 
+End If</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -305,7 +352,19 @@
                            <xsd:documentation source="FieldText">Voltage Drop 
                               <d:t24ref h="130.5(c)"/>
                               <d:line1/> (See Table H)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; 
+ 
+Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull 
+result = false display term No; 
+ 
+Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  
+ 
+Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull 
+Or If H03_CircuitVoltageDropCalculations IsNull 
+result = false display term No;  
+Else result = true display term Yes.
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C03_NotApplicableMessage">
@@ -313,7 +372,9 @@
                            <xsd:documentation source="FieldText">Voltage Drop 
                               <d:t24ref h="130.5(c)"/>
                               <d:line1/> (See Table H)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required and result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;  Else in any Row If H02b_CircuitVoltageDropCompliance == VoltageDropException And H_Exception02_ExceptionalConditionNote IsNull result = false display term No; Else  in any Row If  H03_CircuitVoltageDropCalculations == CalculationsInDocs And H04_BuildingPlanName IsNull then result = false display term No;  Else  in any Row If both H02a_CircuitVoltageDropCompliance  And H02b_CircuitVoltageDropCompliance IsNull Or If H03_CircuitVoltageDropCalculations IsNull result = false display term No;  Else result = true display term Yes.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If B02_ElectricalServiceProjectScope ==  NewReplacementServiceMeterOnly then section H is not required 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;
+End If</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -334,7 +395,31 @@
                            <xsd:documentation source="FieldText">Controlled Receptacles 
                               <d:t24ref h="130.5(d)"/>
                               <d:line1/> (See Table I)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuildingOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated value: 
+If A02_WholeBuildingOccupancy includes HospitalBuilding 
+result = true display term Yes, 
+ 
+Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; 
+ 
+Else If in any row  I02_ControlledReceptacleComplianceType IsNull  
+result = false display term No;  
+Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  
+result = true display term Yes;  
+ 
+Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  
+If I03_ControlledReceptacleShutOffControl Or I04_AreControlledReceptaclesPermanentlyMarked Or I05_BuildingPlanName IsNull  
+result = false display term No;  
+Else 
+If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then 
+If I_Exception02_ExceptionalConditionNote IsNull 
+result = false display term No;  
+Else 
+result = true display term Yes; 
+End If
+Else 
+result = true display term Yes; 
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C04_NotApplicableMessage">
@@ -342,7 +427,9 @@
                            <xsd:documentation source="FieldText">Controlled Receptacles 
                               <d:t24ref h="130.5(d)"/>
                               <d:line1/> (See Table I)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated value: If A02_WholeBuildingOccupancy includes HospitalBuilding result = true display term Yes, Else If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; Else If any I03_ControlledReceptacleShutOffControl == OtherShutOffControl then If any I_Exception02_ExceptionalConditionNote IsNull result = false display term No;  Else If in any row  I02_ControlledReceptacleComplianceType IsNull  result = false display term No;  Else If in all rows  I02_ControlledReceptacleComplianceType == ControlledReceptacleNotApplicable  result = true display term Yes;  Else If in all rows  where I02_ControlledReceptacleComplianceType != ControlledReceptacleNotApplicable  If I03_ControlledReceptacleShutOffControl And I04_AreControlledReceptaclesPermanentlyMarked And I05_BuildingPlanName NotNull  result = true display term Yes; Else result = false display term No</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If  B02_ElectricalServiceProjectScope == AddAltFeedersBranchCircuitsOnly Or NewReplacementServiceMeterOnly 
+result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out; 
+End If</xsd:documentation>
                         </xsd:annotation>
                         <xsd:simpleType>
                            <xsd:restriction base="comp:NotApplicableMessage">
@@ -356,7 +443,23 @@
                         <xsd:documentation source="FieldText">
                            <d:b>Compliance Results</d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated value:  If B02_ElectricalServiceProjectScope == NewReplacementServiceMeterOnly And B04_ UtilityProvidedMeterException130_5a Or B05_ DoesElectricalCodeExceptionApply == true result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions;  Else  for all fields that are present  If C01_DoesElectricalServiceMeteringComply == false Or C02_DoesLoadSeparationMonitoringComply == false Or C03_DoesVoltageDropComply == false Or C04_DoControlledReceptaclesComply == false, then result = DoesNotComply display term DOES NOT COMPLY Else  If D03_ExceptionalConditionMessageNRCCELCE NotPresent result = Complies display term COMPLIES Else if D03_ExceptionalConditionMessageNRCCELCE IsPresent result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated value:  
+If B02_ElectricalServiceProjectScope == NewReplacementServiceMeterOnly 
+And B04_ UtilityProvidedMeterException130_5a Or B05_ DoesElectricalCodeExceptionApply == true 
+result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions;  
+ 
+Else  for all fields that are present 
+ If C01_DoesElectricalServiceMeteringComply == false 
+Or C02_DoesLoadSeparationMonitoringComply == false 
+Or C03_DoesVoltageDropComply == false 
+Or C04_DoControlledReceptaclesComply == false, then 
+result = DoesNotComply display term DOES NOT COMPLY 
+ 
+Else  If D03_ExceptionalConditionMessageNRCCELCE NotPresent 
+result = Complies display term COMPLIES 
+Else if D03_ExceptionalConditionMessageNRCCELCE IsPresent 
+result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
