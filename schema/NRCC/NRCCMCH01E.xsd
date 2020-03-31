@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.017">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.018">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -318,14 +318,14 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">[d:b] [d:i]ALERT! Healthcare facilities must be ventilated in accordance with Chapter 4 of the CMC as amended by OSHPD and do not need to show compliance with Title 24, Part 6 ventilation requirements in Table J.[/d:i][/d:b]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Display this alert If A03_WholeBuildingOccupancy includes HospitalBuilding</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Display this alert If A03_WholeBuildingOccupancy includes HospitalBuilding And B03e_ProjectHasVentilation == true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B_Alert2" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">[d:b] [d:i]ALERT! Healthcare facilities are not required to comply with space-conditioning zone controls from [d:t24ref/]140.4(d) and do not need to show compliance with the  requirements in Table K.[/d:i][/d:b]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Display this alert If A03_WholeBuildingOccupancy includes HospitalBuilding</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Display this alert If A03_WholeBuildingOccupancy includes HospitalBuilding And B03f_ProjectHasZonalSystems == true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -957,7 +957,7 @@ StandbyEquipment display term  NA: Standby Equipment</xsd:documentation>
                                     </xsd:element>
                                     <xsd:element name="F05toF11ColumnHeading" minOccurs="0">
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Equipment Sizing per Mechanical Schedule (Btu/h) [d:line1/][d:t24ref/]140.4(a&amp;b)</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Equipment Sizing per Mechanical Schedule (kBtu/h) [d:line1/][d:t24ref/]140.4(a&amp;b)</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="F05ToF07Subheading" minOccurs="0">
@@ -1274,7 +1274,7 @@ Switch ( F03_FurnaceAC)
 case AirCooledSplitAC_CentralFurnace and AirCooledSplitAC_CentralFurnaceWeatherized1Phase: 
 list LT45000CoolLT225000Heat, LT45000CoolGTE225000Heat, GTE45000CoolLT225000Heat, GTE45000CoolGTE225000Heat, GTE65000CoolLT225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolLT225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolLT225000Heat, GTE240000CoolGTE225000Heat, GTE760000CoolLT225000Heat, GTE760000CoolGTE225000Heat;  
  
-case AirCooledSinglePkgAC_CentralFurnace and AirCooledSinglePkgAC_CentralFurnace1Phase: 
+case AirCooledSinglePkgAC_CentralFurnace and AirCooledSinglePkgAC_CentralFurnaceWeatherized1Phase: 
  list LT65000CoolLT225000Heat, LT65000CoolGTE225000Heat, 
  GTE65000CoolLT225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolLT225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolLT225000Heat, GTE240000CoolGTE225000Heat, GTE760000CoolLT225000Heat, GTE760000CoolGTE225000Heat;
 End Switch
@@ -2704,9 +2704,9 @@ End If</xsd:documentation>
                                     </xsd:element>
                                     <xsd:element name="Fc04_BoilerRatedInputRange" type="hvac:BoilerRatedInputRange" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Rated Output Capacity (Btu/h)[d:sup]2,3[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Rated Input Capacity (Btu/h)[d:sup]2,3[/d:sup]</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list loaded as follows: 
-If Fc02_BoilerType == SteamGasNotNaturalDraft list GTE300000ToLTE2500000, GT2500000 ; 
+If Fc02_BoilerType == SteamGasNotNaturalDraft list LT300000, GTE300000ToLTE2500000, GT2500000 ; 
  
 Else list: LT300000, GTE300000ToLTE2500000, GT2500000;
 End if</xsd:documentation>
@@ -2751,7 +2751,8 @@ If BoilerRatedInputRange == LT300000
 Switch (Fc02_BoilerType) 
 case: HotWaterGas result = .82 display term 82% AFUE; 
 case: HotWaterOil result = .84 display term 84% AFUE  
-case: SteamGas result = .80 display term 80% AFUE  
+case: SteamGas result = .80 display term 80% AFUE 
+case: SteamGasNotNaturalDraft = .result = .80 display term 80% AFUE 
 case: SteamOil result = .82 display term 82% AFUE
 End Switch
 End If</xsd:documentation>
@@ -2769,7 +2770,7 @@ case: HotWaterOil
 If BoilerRatedInputRange == GTE300000ToLTE2500000 result = .82 display term 82% Et; 
 End If
 case SteamGas:   
-If BoilerRatedInputRange == GTE300000ToLTE2500000 Or GT2500000 result = .77 display term 77% Et  
+If BoilerRatedInputRange == GTE300000ToLTE2500000 Or GT2500000 result = .79 display term 79% Et  
 End If
 case SteamGasNotNaturalDraft:  
 If BoilerRatedInputRange == GTE300000ToLTE2500000 Or GT2500000 result = .79 display term 79% Et; 
@@ -5912,7 +5913,8 @@ End If</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-MCH-20  Multi-Family Ventilation</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated field:Boolean values with default result = false; 
  
- If B03e_ProjectHasVentilation == true result = true display term selected Yes radio button
+If B03e_ProjectHasVentilation == true AND A03HHR_OccupancyApplies == true 
+result = true display term selected Yes radio button
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
