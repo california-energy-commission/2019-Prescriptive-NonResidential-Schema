@@ -982,7 +982,19 @@ End If</xsd:documentation>
                            <xsd:documentation source="FieldText">
                               <d:b>Rated Power Reduction Compliance (See Table Q for Details)</d:b>
                            </xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If Q01, And Q03-Q19 have been completed or are not required And QPercentReduction_LightingPowerReductionPercent GTE .40 result = true display term COMPLIES Else result = false display term DOES NOT COMPLY</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction
+Or  If  Q01_RatedPowerReductionScopeApplies == false
+result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; 
+ 
+Else If  Q01_RatedPowerReductionScopeApplies == true AND Q02b_RatedPowerReductionException6AppliesToAll == true  
+result = true display term COMPLIES; 
+ 
+Else If Q01, And Q03-Q19 have been completed or are not required AND 
+QPercentReduction_LightingPowerReductionPercent GTE .40 
+result = true display term COMPLIES 
+ 
+Else result = false display term DOES NOT COMPLY
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C11_NotApplicableMessage" type="comp:NotApplicableMessage">
@@ -990,7 +1002,10 @@ End If</xsd:documentation>
                            <xsd:documentation source="FieldText">
                               <d:b>Rated Power Reduction Compliance (See Table Q for Details)</d:b>
                            </xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction  result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; Else If  Q01 RatedPowerReductionScopeApplies == true If Q02_RatedPowerReductionException6AppliesToAll == true  result = NotApplicable stored in C12_NotApplicableMessage display term NOT APPLICABLE;</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR != RatedPowerReduction
+Or  If  Q01_RatedPowerReductionScopeApplies == false
+result = NotApplicable stored in C11_NotApplicableMessage display term NOT APPLICABLE; 
+End if</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                   </xsd:choice>
@@ -5697,7 +5712,16 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-LTI-02-A - Must be submitted for occupancy sensors and automatic time switch controls.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.  If H02_ShutOffControlsBuilding == AreaLevelControls  result = false; Else If Q18_ ShutOffControlsBuilding == WholeBuildingAutoTimeSwitch, WholeBuildingEMCS Or WholeBuildingOccupancySensors Or Q18_ ShutOffControlsArea == AutomaticTimerSwitch, EMCS Or OccupancySensor  result = true represented as a selected Yes radio button.   If user changes this value to false, an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = false represented as a selected No radio button.  
+ 
+If H02_ShutOffControlsBuilding ==WholeBuildingAutoTimeSwitch 
+Or H08_ShutOffControlsArea == AutomaticTimerSwitch Or OccupancySensor 
+Or If Q18_ ShutOffControlsBuilding == WholeBuildingAutoTimeSwitch Or WholeBuildingOccupancySensors 
+Or Q18_ ShutOffControlsArea == AutomaticTimerSwitch Or OccupancySensor  
+result = true represented as a selected Yes radio button.  
+End If
+ 
+ If user changes this value to false, an explanation is required in Section E Additional Remarks.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="U01a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
