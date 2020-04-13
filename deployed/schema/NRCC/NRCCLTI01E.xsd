@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.lmonte.com/besm/NRCCLTI01E" version="2019.0.001" xmlns="http://www.lmonte.com/besm/NRCCLTI01E" xmlns:altova="http://www.altova.com/xml-schema-extensions" xmlns:bld="http://www.lmonte.com/besm/bld" xmlns:com="http://www.lmonte.com/besm/com" xmlns:comp="http://www.lmonte.com/besm/comp" xmlns:d="http://www.lmonte.com/besm/d" xmlns:dtyp="http://www.lmonte.com/besm/dtyp" xmlns:env="http://www.lmonte.com/besm/env" xmlns:hvac="http://www.lmonte.com/besm/hvac" xmlns:lit="http://www.lmonte.com/besm/lit" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.lmonte.com/besm/NRCCLTI01E" version="2019.1.003" xmlns="http://www.lmonte.com/besm/NRCCLTI01E" xmlns:altova="http://www.altova.com/xml-schema-extensions" xmlns:bld="http://www.lmonte.com/besm/bld" xmlns:com="http://www.lmonte.com/besm/com" xmlns:comp="http://www.lmonte.com/besm/comp" xmlns:d="http://www.lmonte.com/besm/d" xmlns:dtyp="http://www.lmonte.com/besm/dtyp" xmlns:env="http://www.lmonte.com/besm/env" xmlns:hvac="http://www.lmonte.com/besm/hvac" xmlns:lit="http://www.lmonte.com/besm/lit" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
@@ -1601,7 +1601,7 @@ End if</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">
-                           <d:i><d:sup>1</d:sup>FOOTNOTE: For power-over-Ethernet lighting systems, power provided to installed non-lighting devices may be subtracted from the total power rating of the power-over-Ethernet system..</d:i>
+                           <d:i><d:sup>1</d:sup>FOOTNOTE: For power-over-Ethernet lighting systems, power provided to installed non-lighting devices may be subtracted from the total power rating of the power-over-Ethernet system.</d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1618,7 +1618,7 @@ End if</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>H. INDOOR LIGHTING CONTROLS (Not including PAFs)</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section applies If Bnew01_LightingProjectScope Or Bpark01_LightingProjectScope != NotApplicableLightingScope Or at least one instance of Baltered02_LightingPrescriptiveMethodNR Or Baltered04_LightingPrescriptiveMethodNR != RatedPowerReduction</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section applies If Bnew01_LightingProjectScopeNR Or Bpark01_LightingProjectScopeNR != NotApplicableLightingScope Or at least one instance of Baltered02_LightingPrescriptiveMethodNR Or Baltered04_LightingPrescriptiveMethodNR != RatedPowerReduction Or != NotApplicableLightingMethod</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -1701,29 +1701,106 @@ End if</xsd:documentation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="com:WholeBuildingOccupancy">
                                                 <xsd:enumeration value="AllOthersBuildings"/>
-                                                <xsd:enumeration value="AuditoriumBuilding"/>
-                                                <xsd:enumeration value="ClassroomBuilding"/>
-                                                <xsd:enumeration value="CommercialIndustrialBuilding"/>
-                                                <xsd:enumeration value="CommercialIndustrialStorageBuilding"/>
-                                                <xsd:enumeration value="ConventionCenterBuilding"/>
+                                                <xsd:enumeration value="AssemblyBuilding"/>
                                                 <xsd:enumeration value="FinancialInstitutionBuilding"/>
                                                 <xsd:enumeration value="GroceryStoreBuilding"/>
+                                                <xsd:enumeration value="GymnasiumBuilding"/>
+                                                <xsd:enumeration value="HospitalBuilding"/>
                                                 <xsd:enumeration value="LibraryBuilding"/>
-                                                <xsd:enumeration value="MedicalClinicBuilding"/>
+                                                <xsd:enumeration value="ManufacturingFacilityBuilding"/>
+                                                <xsd:enumeration value="MotionPictureBuilding"/>
                                                 <xsd:enumeration value="OfficeBuilding"/>
                                                 <xsd:enumeration value="ParkingGarageBuilding"/>
+                                                <xsd:enumeration value="PerformingArtsTheaterBuilding"/>
                                                 <xsd:enumeration value="ReligiousFacilityBuilding"/>
                                                 <xsd:enumeration value="RestaurantBuilding"/>
+                                                <xsd:enumeration value="RetailBuilding"/>
                                                 <xsd:enumeration value="SchoolBuilding"/>
-                                                <xsd:enumeration value="TheaterBuilding"/>
+                                                <xsd:enumeration value="SportsArenaBuilding"/>
                                              </xsd:restriction>
                                           </xsd:simpleType>
                                        </xsd:element>
-                                       <xsd:element name="H05_SpaceFunction" type="com:SpaceFunction">
+                                       <xsd:element name="H05_SpaceFunction">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Complete Building or Area Category Primary Function Area</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">User selects from dropdown list which is loaded as follows:  If  a project has Bnew02_LightingPrescriptiveMethodNR Or Bpark02_LightingPrescriptiveMethodNR Or Baltered02_LightingPrescriptiveMethodNR ==  CompleteBuilding Then  WholeBuildingOccupancy values are loaded;  If  a project has Bnew02_LightingPrescriptiveMethodNR Or  Baltered02_LightingPrescriptiveMethodNR ==  AreaCategory Or  AreaCategoryTailored Then  SpaceFunction values are loaded.  If both conditions are true, then both  WholeBuildingOccupancy values and SpaceFunction values are loaded.</xsd:documentation>
                                           </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="com:SpaceFunction">
+                                                <xsd:enumeration value="AllOthersSpace"/>
+                                                <xsd:enumeration value="AudienceSeatingArea"/>
+                                                <xsd:enumeration value="AuditoriumArea"/>
+                                                <xsd:enumeration value="AutoRepairArea"/>
+                                                <xsd:enumeration value="BarLoungeFineDiningArea"/>
+                                                <xsd:enumeration value="BeautySalonArea"/>
+                                                <xsd:enumeration value="CivicMeetingPlaceArea"/>
+                                                <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
+                                                <xsd:enumeration value="CommercialIndustrialStorageArea"/>
+                                                <xsd:enumeration value="CommercialIndustrialWarehouse"/>
+                                                <xsd:enumeration value="ConventionConferenceMultipurposeMeetingCenterArea"/>
+                                                <xsd:enumeration value="CopyRoom"/>
+                                                <xsd:enumeration value="CorridorArea"/>
+                                                <xsd:enumeration value="ElectricalMechancialTelephoneRoom"/>
+                                                <xsd:enumeration value="ExerciseCenterGymnasiumArea"/>
+                                                <xsd:enumeration value="ExhibitMuseumArea"/>
+                                                <xsd:enumeration value="FamilyDiningArea"/>
+                                                <xsd:enumeration value="FastfoodDining"/>
+                                                <xsd:enumeration value="FinancialTransactionsArea"/>
+                                                <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaHighBay"/>
+                                                <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaLowBay"/>
+                                                <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaPrecision"/>
+                                                <xsd:enumeration value="GrocerySalesArea"/>
+                                                <xsd:enumeration value="HospitalExamTreatment"/>
+                                                <xsd:enumeration value="HospitalImaging"/>
+                                                <xsd:enumeration value="HospitalMedicalSupply"/>
+                                                <xsd:enumeration value="HospitalNursery"/>
+                                                <xsd:enumeration value="HospitalNurseStation"/>
+                                                <xsd:enumeration value="HospitalOperatingRoom"/>
+                                                <xsd:enumeration value="HospitalPatientRoom"/>
+                                                <xsd:enumeration value="HospitalPhysicalTherapy"/>
+                                                <xsd:enumeration value="HospitalRecovery"/>
+                                                <xsd:enumeration value="HotelFunctionArea"/>
+                                                <xsd:enumeration value="KitchenCommercialFoodPreparation"/>
+                                                <xsd:enumeration value="LaboratoryScientific"/>
+                                                <xsd:enumeration value="Laundry"/>
+                                                <xsd:enumeration value="LibraryReadingArea"/>
+                                                <xsd:enumeration value="LibraryStacks"/>
+                                                <xsd:enumeration value="LobbyMainEntry"/>
+                                                <xsd:enumeration value="LockerDressingRoom"/>
+                                                <xsd:enumeration value="LoungeBreakRoom"/>
+                                                <xsd:enumeration value="LowVisionCorridorArea"/>
+                                                <xsd:enumeration value="LowVisionDiningArea"/>
+                                                <xsd:enumeration value="LowVisionLobbyMainEntry"/>
+                                                <xsd:enumeration value="LowVisionMultipurposeRoom"/>
+                                                <xsd:enumeration value="LowVisionReligiousWorshipArea"/>
+                                                <xsd:enumeration value="LowVisionRestroom"/>
+                                                <xsd:enumeration value="LowVisionStairwell"/>
+                                                <xsd:enumeration value="LowVisionWaitingArea"/>
+                                                <xsd:enumeration value="MuseumRestoration"/>
+                                                <xsd:enumeration value="Office250FtOrLess"/>
+                                                <xsd:enumeration value="OfficeGreaterThan250Ft"/>
+                                                <xsd:enumeration value="OfficeOpenPlan"/>
+                                                <xsd:enumeration value="ParkingGarageAreaDaylightAdaptationZone"/>
+                                                <xsd:enumeration value="ParkingGarageAreaDedicatedRamp"/>
+                                                <xsd:enumeration value="ParkingGarageBuildingParkingArea"/>
+                                                <xsd:enumeration value="PharmacyArea"/>
+                                                <xsd:enumeration value="ReligiousWorshipArea"/>
+                                                <xsd:enumeration value="Restroom"/>
+                                                <xsd:enumeration value="RetailFittingRoom"/>
+                                                <xsd:enumeration value="RetailMallConcourse"/>
+                                                <xsd:enumeration value="RetailSalesArea"/>
+                                                <xsd:enumeration value="SportsArenaSeatsGTE5000ClassI"/>
+                                                <xsd:enumeration value="SportsArenaSeatsLimitedClassIV"/>
+                                                <xsd:enumeration value="SportsArenaSeatsLT2000ClassIII"/>
+                                                <xsd:enumeration value="SportsArenaSeatsLT5000ClassII"/>
+                                                <xsd:enumeration value="Stairwell"/>
+                                                <xsd:enumeration value="TheaterMotionPicture"/>
+                                                <xsd:enumeration value="TheaterPerformance"/>
+                                                <xsd:enumeration value="TransportationFunctionConcourseBaggage"/>
+                                                <xsd:enumeration value="TransportationFunctionTicketing"/>
+                                                <xsd:enumeration value="VideoConferencingStudio"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
                                        </xsd:element>
                                        <xsd:element name="H05_NotApplicableMessage" type="comp:NotApplicableMessage">
                                           <xsd:annotation>
@@ -1983,7 +2060,7 @@ End if</xsd:documentation>
                                                          <xsd:enumeration value="BeautySalonArea"/>
                                                          <xsd:enumeration value="CivicMeetingPlaceArea"/>
                                                          <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
-                                                         <xsd:enumeration value="CommercialIndustrialStorageShipping"/>
+                                                         <xsd:enumeration value="CommercialIndustrialStorageArea"/>
                                                          <xsd:enumeration value="CommercialIndustrialWarehouse"/>
                                                          <xsd:enumeration value="ConventionConferenceMultipurposeMeetingCenterArea"/>
                                                          <xsd:enumeration value="CopyRoom"/>
@@ -2186,7 +2263,7 @@ End if</xsd:documentation>
                                                          <xsd:enumeration value="BeautySalonArea"/>
                                                          <xsd:enumeration value="CivicMeetingPlaceArea"/>
                                                          <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
-                                                         <xsd:enumeration value="CommercialIndustrialStorageShipping"/>
+                                                         <xsd:enumeration value="CommercialIndustrialStorageArea"/>
                                                          <xsd:enumeration value="CommercialIndustrialWarehouse"/>
                                                          <xsd:enumeration value="ConventionConferenceMultipurposeMeetingCenterArea"/>
                                                          <xsd:enumeration value="CopyRoom"/>
@@ -4366,7 +4443,8 @@ End if</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">PAF per 
                            <d:t24ref h="140.6(a)2"/><d:sup>1</d:sup>
-                           <d:line1/> (*Can be used in conjunction with other PAF's)</xsd:documentation>
+                           <d:line1/>
+                        </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="P_ColumnSubheading02aTo02d" minOccurs="0">
@@ -4725,14 +4803,6 @@ End if</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i><d:sup>1</d:sup> FOOTNOTES:  PAFs outlined in 
                               <d:t24table>Table 140.6-A</d:t24table> include 1) Daylight dimming plus OFF; 2A) Occupant sensors in offices [dlte/] 125 ft<d:sup>2</d:sup>;  2B) Occupant sensors in offices 126 - 250 ft<d:sup>2</d:sup>; 2C) Occupant sensors in offices 251 - 500 ft<d:sup>2</d:sup>; 3A) Institutional tuning, non-daylit areas and 3B) Institutional tuning, daylit areas; 4) Demand response; 5) Clerestory fenestration; 6) Horizontal slats; 7) Light shelves. </d:i>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="PEndNote2" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:i><d:sup>2</d:sup> Luminaires that qualify for PAF 5, 6 or 7 can be used in conjunction with PAF 1. </d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -5174,7 +5244,8 @@ End if</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>R. 80% LIGHTING POWER FOR ALLALTERATIONS - CONTROLS EXCEPTIONS</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required if H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_PrimarySkylitDaylightControlsIncluded Or H10_ SecondaryDaylightControlsIncluded == NA_LTE80PctAllowedLP</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If Bnew01__LightingProjectScopeNR == NewLightingSystem AND Baltered01_LightingProjectScopeNR == AlteredlightingSystem  
+And If H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_PrimarySkylitDaylightControlsIncluded Or H10_ SecondaryDaylightControlsIncluded == NA_LTE80PctAllowedLP</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -5451,7 +5522,7 @@ End if</xsd:documentation>
                         <xsd:documentation source="FieldText">
                            <d:b>Clerestory Fenestration</d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is required if S01_PAFCreditType includes Clerestories</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required if S01_PAFCreditType includes Clerestories Or Light Shelves</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -5571,7 +5642,7 @@ End if</xsd:documentation>
                            <xsd:element name="S14_LightShelvesMounting" type="comp:LightShelvesMounting">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Requirement</xsd:documentation>
-                                 <xsd:documentation source="AdditionalRequirements">Exterior shelves level or sloped downward from fenestration.  Interior shelves level or sloped upward from fenestration.</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Exterior shelves are sloped downward from fenestration.  Interior shelves are sloped upward from fenestration.</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -5587,7 +5658,7 @@ End if</xsd:documentation>
                            <xsd:element name="S16_LightShelvesDistanceFactor" type="comp:LightShelvesDistanceFactor">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Requirement</xsd:documentation>
-                                 <xsd:documentation source="AdditionalRequirements">Shelves  have a minimum Distance Factor of 0.3 calculated per [t24ref/]140.3(d)</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Shelves  have a minimum Distance Factor of 0.3 calculated per Section 140.3(d)</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
