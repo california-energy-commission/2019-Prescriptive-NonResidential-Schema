@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.018">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.019">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -2705,11 +2705,8 @@ End If</xsd:documentation>
                                     <xsd:element name="Fc04_BoilerRatedInputRange" type="hvac:BoilerRatedInputRange" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Rated Input Capacity (Btu/h)[d:sup]2,3[/d:sup]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from list loaded as follows: 
-If Fc02_BoilerType == SteamGasNotNaturalDraft list LT300000, GTE300000ToLTE2500000, GT2500000 ; 
- 
-Else list: LT300000, GTE300000ToLTE2500000, GT2500000;
-End if</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from list: 
+ LT300000, 300000To500000, GT500000To2500000, GT2500000;</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
@@ -2727,7 +2724,7 @@ End If</xsd:documentation>
                                              <xsd:documentation source="FieldText">Rated Efficiency</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">User input efficiency of the type appropriate for the size of their boiler as follows:
  
-If BoilerRatedInputRange == GTE300000ToLTE2500000 Or 
+If BoilerRatedInputRange == 300000To500000 Or GT500000To2500000 Or 
 If BoilerRatedInputRange == GT2500000 And Fc02_BoilerType == SteamGas Or SteamGasNotNaturalDraft Or SteamOil user enters rated Thermal Efficiency for the boiler
 End If</xsd:documentation>
                                           </xsd:annotation>
@@ -2764,19 +2761,19 @@ End If</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">Calculated Field: 
 Switch (Fc02_BoilerType) 
 case: HotWaterGas 
-If BoilerRatedInputRange == GTE300000ToLTE2500000 result = .80 display term 80% Et;  
+If BoilerRatedInputRange == 300000To500000 Or GT500000To2500000  result = .80 display term 80% Et;  
 End If
 case: HotWaterOil 
-If BoilerRatedInputRange == GTE300000ToLTE2500000 result = .82 display term 82% Et; 
+If BoilerRatedInputRange == 300000To500000 Or GT500000To2500000  result = .82 display term 82% Et; 
 End If
 case SteamGas:   
-If BoilerRatedInputRange == GTE300000ToLTE2500000 Or GT2500000 result = .79 display term 79% Et  
+If BoilerRatedInputRange == 300000To500000 Or GT500000To2500000 Or GT2500000 result = .79 display term 79% Et  
 End If
 case SteamGasNotNaturalDraft:  
-If BoilerRatedInputRange == GTE300000ToLTE2500000 Or GT2500000 result = .79 display term 79% Et; 
+If BoilerRatedInputRange == 300000To500000 Or GT500000To2500000 Or GT2500000 result = .79 display term 79% Et; 
 End If
 case: SteamOil 
-If BoilerRatedInputRange == GTE300000ToLTE2500000 Or GT2500000 result = .81 display term 81% Et;
+If BoilerRatedInputRange == 300000To500000 Or GT500000To2500000 Or GT2500000 result = .81 display term 81% Et;
 End If
 End Switch</xsd:documentation>
                                           </xsd:annotation>
@@ -2803,7 +2800,7 @@ End Switch</xsd:documentation>
 Switch (BoilerRatedInputRange) 
 case LT300000: result = AFUE; 
  
-case GTE300000ToLTE2500000: result = ThermalEfficiency; 
+case 300000To500000 Or GT500000To2500000: result = ThermalEfficiency; 
  
 case GT2500000: 
 If Fc02_BoilerType == HotWaterGas Or HotWaterOil result = CombustionEfficiency 
