@@ -1507,7 +1507,7 @@ End if</xsd:documentation>
          <xsd:element name="Section_H" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation source="FieldText">[d:b]H. INDOOR LIGHTING CONTROLS (Not including PAFs)[/d:b]</xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section applies If Bnew01_LightingProjectScopeNR Or Bpark01_LightingProjectScopeNR != NotApplicableLightingScope Or at least one instance of Baltered02_LightingPrescriptiveMethodNR Or Baltered04_LightingPrescriptiveMethodNR != RatedPowerReduction Or != NotApplicableLightingMethod</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section applies If Bnew01_LightingProjectScopeNR Or Bpark01_LightingProjectScopeNR != NotApplicableLightingScope Or at least one instance of Baltered02_LightingPrescriptiveMethodNR Or Baltered04_LightingPrescriptiveMethodNR != RatedPowerReduction And != NotApplicableLightingMethod</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -1990,7 +1990,41 @@ End if</xsd:documentation>
                                              <xsd:element name="Ic03_AllowedLPD" type="comp:AllowedLPD" >
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Allowed Density (W/ft[d:sup]2[/d:sup])</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Auto-filled with allowed LPD for  building or space type value in Ic02. If Ic02_WholeBuilding NotNull  Switch ( Ic02_WholeBuildingOccupancy)   case AssemblyBuilding:  case LibraryBuilding: case ReligiousFacilityBuilding: case RestaurantBuilding: case MotionPictureBuilding:  result = 0.70; case FinancialInstitutionBuilding: case GymnasiumBuilding: case OfficeBuilding: case SchoolBuilding: result = 0.65;  case  ManufacturingFacilityBuilding: result = 0.60; case GroceryStoreBuilding: result =0.95; case ParkingGarageBuilding: result = 0.13; case HospitalBuilding: case RetailBuilding: result = 0.90; case SportsArenaBuilding: result =0.75; case PerformingArtsTheaterBuilding: result = 0.8; case AllOthersBuildings: result = 0.4;  Else If Ic02_SpaceFunction NotNull Switch (Ic02_SpaceFunction) case AuditoriumArea: case ClassroomLectureTrainingVocationalArea:  case Office250FtOrLess:  result = 0.70; case AutoRepairArea: case BarLoungeFineDiningArea: case HospitalMedicalSupply:  case HospitalPatientRoom:  result = 0.55;  case AudienceSeatingArea: case CommercialIndustrialStorageShipping: case CorridorArea: case ExhibitMuseumArea: case  GeneralCommercialIndustrialWorkAreaLowBay:  case OfficeOpenPlan: case RetailFittingRoom: case TheaterMotionPicture:  result = 0.6;  case case BeautySalonArea: case FinancialTransactionsArea: case LibraryReadingArea: case LowVisionStairwell: case LowVisionCorridorArea: case LowVisionDiningArea: case LowVisionRestroom:  result = 0.80;  case CivicMeetingPlaceArea:  case RetailSalesArea: case TheaterPerformance: case LaboratoryScientific: case HospitalImaging: case LowVisionReligiousWorshipArea:   result = 1.0;  case CommercialIndustrialWarehouse: case LockerDressingRoom: case Laundry: case TransportationFunctionTicketing:    result = 0.45;  case ConventionConferenceMultipurposeMeetingCenterArea:  case  HotelFunctionArea: case GeneralCommercialIndustrialWorkAreaPrecision: case LobbyMainEntry:  case HospitalPhysicalTherapy: case LowVisionLobbyMainEntry:  result = 0.85;   case CopyRoom: case FamilyDiningArea: case ExerciseCenterGymnasiumArea:  case ParkingGarageAreaDaylightAdaptationZone: case Stairwell: result = 0.50;   case FastfoodDining:  case ElectricalMechancialTelephoneRoom:  case TransportationFunctionConcourseBaggage:  case AllOthersSpace:  result = 0.40;     case MuseumRestoration:  case HospitalNurseStation:  case SportsArenaSeatsLimitedClassIV:  case LowVisionWaitingArea:  result = 0.75;    case GeneralCommercialIndustrialWorkAreaHighBay:  case LoungeBreakRoom:  case OfficeGreaterThan250Ft:  case Restroom:  result = 0.65;  case LibraryStacks:  case PharmacyArea:  case SportsArenaSeatsLT2000ClassIII:  result =1.10;  case SportsArenaSeatsLT5000ClassII:  result = 1.45;  case SportsArenaSeatsGTE5000ClassI:  result = 2.25;  case HospitalExamTreatment:  result = 1.15;  case HospitalOperatingRoom:  result = 1.90;   case RetailMallConcourse:  case HospitalRecovery: case  VideoConferencingStudio:  result = 0.90;  case KitchenCommercialFoodPreparation:  case HospitalNursery:  case ReligiousWorshipArea:  case LowVisionMultipurposeRoom: result = 0.95;   case GrocerySalesArea:   result = 1.05;    case ParkingGarageAreaDedicatedRamp: result = 0.25;   ParkingGarageBuildingParkingArea: result = 0.10;</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">Auto-filled with allowed LPD for  building or space type value in Ic02. 
+If Ic02_WholeBuilding NotNull  Switch ( Ic02_WholeBuildingOccupancy)   
+case AssemblyBuilding:  case LibraryBuilding: case ReligiousFacilityBuilding: case RestaurantBuilding: case MotionPictureBuilding:  result = 0.70; 
+case FinancialInstitutionBuilding: case GymnasiumBuilding: case OfficeBuilding: case SchoolBuilding: result = 0.65;  
+case  ManufacturingFacilityBuilding: result = 0.60; 
+case GroceryStoreBuilding: result =0.95; 
+case ParkingGarageBuilding: result = 0.13; 
+case HospitalBuilding: case RetailBuilding: result = 0.90; 
+case SportsArenaBuilding: result =0.75; 
+case PerformingArtsTheaterBuilding: result = 0.8; 
+case AllOthersBuildings: result = 0.4;  
+End Switch
+ 
+Else If Ic02_SpaceFunction NotNull Switch (Ic02_SpaceFunction) 
+case AuditoriumArea: case ClassroomLectureTrainingVocationalArea:  case Office250FtOrLess:  result = 0.70; 
+case AutoRepairArea: case BarLoungeFineDiningArea: case HospitalMedicalSupply:  case HospitalPatientRoom:  result = 0.55; 
+ case AudienceSeatingArea: case CommercialIndustrialStorageArea: case CorridorArea: case ExhibitMuseumArea: case  GeneralCommercialIndustrialWorkAreaLowBay:  case OfficeOpenPlan: case RetailFittingRoom: case TheaterMotionPicture:  result = 0.60;  
+case case BeautySalonArea: case FinancialTransactionsArea: case LibraryReadingArea: case LowVisionStairwell: case LowVisionCorridorArea: case LowVisionDiningArea: case LowVisionRestroom:  result = 0.80;  
+case CivicMeetingPlaceArea:  case RetailSalesArea: case TheaterPerformance: case LaboratoryScientific: case HospitalImaging: case LowVisionReligiousWorshipArea:   result = 1.0;  
+case CommercialIndustrialWarehouse: case LockerDressingRoom: case Laundry: case TransportationFunctionTicketing:    result = 0.45;  
+case ConventionConferenceMultipurposeMeetingCenterArea:  case  HotelFunctionArea: case GeneralCommercialIndustrialWorkAreaPrecision: case LobbyMainEntry:  case HospitalPhysicalTherapy: case LowVisionLobbyMainEntry:  result = 0.85;   
+case CopyRoom: case FamilyDiningArea: case ExerciseCenterGymnasiumArea:  case ParkingGarageAreaDaylightAdaptationZone: case Stairwell: result = 0.50;   
+case FastfoodDining:  case ElectricalMechancialTelephoneRoom:  case TransportationFunctionConcourseBaggage:  case AllOthersSpace:  result = 0.40;     
+case MuseumRestoration:  case HospitalNurseStation:  case SportsArenaSeatsLimitedClassIV:  case LowVisionWaitingArea:  result = 0.75;    
+case GeneralCommercialIndustrialWorkAreaHighBay:  case LoungeBreakRoom:  case OfficeGreaterThan250Ft:  case Restroom:  result = 0.65;  
+case LibraryStacks:  case PharmacyArea:  case SportsArenaSeatsLT2000ClassIII:  result =1.10;  
+case SportsArenaSeatsLT5000ClassII:  result = 1.45;  
+case SportsArenaSeatsGTE5000ClassI:  result = 2.25;  
+case HospitalExamTreatment:  result = 1.15;  
+case HospitalOperatingRoom:  result = 1.90;   
+case RetailMallConcourse:  case HospitalRecovery: case  VideoConferencingStudio:  result = 0.90;  
+case KitchenCommercialFoodPreparation:  case HospitalNursery:  case ReligiousWorshipArea:  case LowVisionMultipurposeRoom: result = 0.95;   
+case GrocerySalesArea:   result = 1.05;    case ParkingGarageAreaDedicatedRamp: result = 0.25;   ParkingGarageBuildingParkingArea: result = 0.10;
+End Switch
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Ic04_SpaceFloorArea" type="com:SpaceFloorArea" >
@@ -2189,7 +2223,43 @@ End if</xsd:documentation>
                                              <xsd:element name="Iu03_AllowedLPD" type="comp:AllowedLPD" >
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Allowed Density (W/ft[d:sup]2[/d:sup])</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Auto-filled with allowed LPD for  building or space type value in Iu02. If Iu02_WholeBuilding NotNull  Switch ( Iu02_WholeBuildingOccupancy)   case AssemblyBuilding:  case LibraryBuilding: case ReligiousFacilityBuilding: case RestaurantBuilding: case MotionPictureBuilding:  result = 0.70; case FinancialInstitutionBuilding: case GymnasiumBuilding: case OfficeBuilding: case SchoolBuilding: result = 0.65;  case  ManufacturingFacilityBuilding: result = 0.60; case GroceryStoreBuilding: result =0.95; case ParkingGarageBuilding: result = 0.13; case HospitalBuilding: case RetailBuilding: result = 0.90; case SportsArenaBuilding: result =0.75; case PerformingArtsTheaterBuilding: result = 0.8; case AllOthersBuildings: result = 0.4;  Else If Iu02_SpaceFunction NotNull Switch (Iu02_SpaceFunction) case AuditoriumArea: case ClassroomLectureTrainingVocationalArea:  case Office250FtOrLess:  result = 0.70; case AutoRepairArea: case BarLoungeFineDiningArea: case HospitalMedicalSupply:  case HospitalPatientRoom:  result = 0.55;  case AudienceSeatingArea: case CommercialIndustrialStorageShipping: case CorridorArea: case ExhibitMuseumArea: case  GeneralCommercialIndustrialWorkAreaLowBay:  case OfficeOpenPlan: case RetailFittingRoom: case TheaterMotionPicture:  result = 0.6;  case case BeautySalonArea: case FinancialTransactionsArea: case LibraryReadingArea: case LowVisionStairwell: case LowVisionCorridorArea: case LowVisionDiningArea: case LowVisionRestroom:  result = 0.80;  case CivicMeetingPlaceArea:  case RetailSalesArea: case TheaterPerformance: case LaboratoryScientific: case HospitalImaging: case LowVisionReligiousWorshipArea:   result = 1.0;  case CommercialIndustrialWarehouse: case LockerDressingRoom: case Laundry: case TransportationFunctionTicketing:    result = 0.45;  case ConventionConferenceMultipurposeMeetingCenterArea:  case  HotelFunctionArea: case GeneralCommercialIndustrialWorkAreaPrecision: case LobbyMainEntry:  case HospitalPhysicalTherapy: case LowVisionLobbyMainEntry:  result = 0.85;   case CopyRoom: case FamilyDiningArea: case ExerciseCenterGymnasiumArea:  case ParkingGarageAreaDaylightAdaptationZone: case Stairwell: result = 0.50;   case FastfoodDining:  case ElectricalMechancialTelephoneRoom:  case TransportationFunctionConcourseBaggage:  case AllOthersSpace:  result = 0.40;     case MuseumRestoration:  case HospitalNurseStation:  case SportsArenaSeatsLimitedClassIV:  case LowVisionWaitingArea:  result = 0.75;    case GeneralCommercialIndustrialWorkAreaHighBay:  case LoungeBreakRoom:  case OfficeGreaterThan250Ft:  case Restroom:  result = 0.65;  case LibraryStacks:  case PharmacyArea:  case SportsArenaSeatsLT2000ClassIII:  result =1.10;  case SportsArenaSeatsLT5000ClassII:  result = 1.45;  case SportsArenaSeatsGTE5000ClassI:  result = 2.25;  case HospitalExamTreatment:  result = 1.15;  case HospitalOperatingRoom:  result = 1.90;   case RetailMallConcourse:  case HospitalRecovery: case  VideoConferencingStudio:    result = 0.90;  case KitchenCommercialFoodPreparation:  case HospitalNursery:  case ReligiousWorshipArea:  case LowVisionMultipurposeRoom: result = 0.95;   case GrocerySalesArea:   result = 1.05;    case ParkingGarageAreaDedicatedRamp: result = 0.25;   ParkingGarageBuildingParkingArea: result = 0.10;</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">Auto-filled with allowed LPD for  building or space type value in Iu02. 
+If Iu02_WholeBuilding NotNull  Switch ( Iu02_WholeBuildingOccupancy)   
+case AssemblyBuilding:  case LibraryBuilding: case ReligiousFacilityBuilding: case RestaurantBuilding: case MotionPictureBuilding:  result = 0.70; 
+case FinancialInstitutionBuilding: case GymnasiumBuilding: case OfficeBuilding: case SchoolBuilding: result = 0.65;  
+case  ManufacturingFacilityBuilding: result = 0.60; 
+case GroceryStoreBuilding: result =0.95; 
+case ParkingGarageBuilding: result = 0.13; 
+case HospitalBuilding: case RetailBuilding: result = 0.90; 
+case SportsArenaBuilding: result =0.75; 
+case PerformingArtsTheaterBuilding: result = 0.8; 
+case AllOthersBuildings: result = 0.4;  
+End Switch
+ 
+Else If Iu02_SpaceFunction NotNull Switch (Iu02_SpaceFunction) 
+case AuditoriumArea: case ClassroomLectureTrainingVocationalArea:  case Office250FtOrLess:  result = 0.70; 
+case AutoRepairArea: case BarLoungeFineDiningArea: case HospitalMedicalSupply:  case HospitalPatientRoom:  result = 0.55;  
+case AudienceSeatingArea: case CommercialIndustrialStorageArea: case CorridorArea: case ExhibitMuseumArea: case  GeneralCommercialIndustrialWorkAreaLowBay:  case OfficeOpenPlan: case RetailFittingRoom: case TheaterMotionPicture:  result = 0.60;  
+case case BeautySalonArea: case FinancialTransactionsArea: case LibraryReadingArea: case LowVisionStairwell: case LowVisionCorridorArea: case LowVisionDiningArea: case LowVisionRestroom:  result = 0.80;  
+case CivicMeetingPlaceArea:  case RetailSalesArea: case TheaterPerformance: case LaboratoryScientific: case HospitalImaging: case LowVisionReligiousWorshipArea:   result = 1.0;  
+case CommercialIndustrialWarehouse: case LockerDressingRoom: case Laundry: case TransportationFunctionTicketing: result = 0.45;  
+case ConventionConferenceMultipurposeMeetingCenterArea:  case  HotelFunctionArea: case GeneralCommercialIndustrialWorkAreaPrecision: case LobbyMainEntry:  case HospitalPhysicalTherapy: case LowVisionLobbyMainEntry:  result = 0.85;   
+case CopyRoom: case FamilyDiningArea: case ExerciseCenterGymnasiumArea:  case ParkingGarageAreaDaylightAdaptationZone: case Stairwell: result = 0.50;   
+case FastfoodDining:  case ElectricalMechancialTelephoneRoom:  case TransportationFunctionConcourseBaggage:  case AllOthersSpace:  result = 0.40;     
+case MuseumRestoration:  case HospitalNurseStation:  case SportsArenaSeatsLimitedClassIV:  case LowVisionWaitingArea:  result = 0.75;
+case GeneralCommercialIndustrialWorkAreaHighBay:  case LoungeBreakRoom:  case OfficeGreaterThan250Ft:  case Restroom:  result = 0.65;  
+case LibraryStacks:  case PharmacyArea:  case SportsArenaSeatsLT2000ClassIII:  result =1.10;  
+case SportsArenaSeatsLT5000ClassII:  result = 1.45;  
+case SportsArenaSeatsGTE5000ClassI:  result = 2.25;  
+case HospitalExamTreatment:  result = 1.15;  
+case HospitalOperatingRoom:  result = 1.90;   
+case RetailMallConcourse:  case HospitalRecovery: case  VideoConferencingStudio:    result = 0.90;  
+case KitchenCommercialFoodPreparation:  case HospitalNursery:  case ReligiousWorshipArea:  case LowVisionMultipurposeRoom: result = 0.95;   
+case GrocerySalesArea:   result = 1.05;    
+case ParkingGarageAreaDedicatedRamp: result = 0.25;   
+ParkingGarageBuildingParkingArea: result = 0.10;
+End Switch
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Iu04_SpaceFloorArea" type="com:SpaceFloorArea" >
@@ -4184,7 +4254,7 @@ End if</xsd:documentation>
          </xsd:element>
          <xsd:element name="Section_P" minOccurs="0">
             <xsd:annotation>
-               <xsd:documentation source="FieldText">[d:b]P.POWER ADJUSTMENT: LIGHTING CONTROL CREDIT  (POWER ADJUSTMENT FACTOR (PAF))[/d:b]</xsd:documentation>
+               <xsd:documentation source="FieldText">[d:b]P. POWER ADJUSTMENT: LIGHTING CONTROL CREDIT  (POWER ADJUSTMENT FACTOR (PAF))[/d:b]</xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">This section applies if section I is required and in section I at least one value in Ic06b_AdditionalAllowanceForPAF Or Iu06b_AdditionalAllowanceForPAF == true Or if section K is required and at least one value in Kc09_AdditionalAllowanceForPAF or Ku09_AdditionalAllowanceForPAF == true</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
@@ -4215,7 +4285,7 @@ End if</xsd:documentation>
                   </xsd:element>
                   <xsd:element name="P_ColumnSubheading02hTo02j" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Pick up to one [d:sup]2[/d:sup]</xsd:documentation>
+                        <xsd:documentation source="FieldText">Pick up to one</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User can select one PAF credit type from this group 5, 6, 7</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -4277,37 +4347,37 @@ End if</xsd:documentation>
                                              </xsd:element>
                                              <xsd:element name="Pc02e_ApplyInstitutionalTuningNonDaylit" type="comp:ApplyInstitutionalTuningNonDaylit" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">3A*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">3A</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.10 to PAF value used in calculation for Pc07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pc02f_ApplyInstitutionalTuningDaylit" type="comp:ApplyInstitutionalTuningDaylit" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">3B*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">3B</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.05 to PAF value used in calculation for Pc07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pc02g_ApplyDemandResponsiveControl" type="comp:ApplyDemandResponsiveControl" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">4*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">4</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.05 to PAF value used in calculation for Pc07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pc02h_ApplyClerestoryFenestrationPAF" type="comp:ApplyClerestoryFenestrationPAF" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">5*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">5</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.05 to PAF value used in calculation for Pc07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pc02i_ApplyHorizontalSlatsPAF" type="comp:ApplyHorizontalSlatsPAF" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">6*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">6</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.05 to PAF value used in calculation for Pc07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pc02j_ApplyLightShelvesPAF" type="comp:ApplyLightShelvesPAF" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">7*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">7</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.10 to PAF value used in calculation for Pc07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
@@ -4433,37 +4503,37 @@ End if</xsd:documentation>
                                              </xsd:element>
                                              <xsd:element name="Pu02e_ApplyInstitutionalTuningNonDaylit" type="comp:ApplyInstitutionalTuningNonDaylit"  minOccurs="0">
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">3A*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">3A</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input; If checked add 0.10 to PAF value used in calculation for Pu07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pu02f_ApplyInstitutionalTuningDaylit" type="comp:ApplyInstitutionalTuningDaylit"  minOccurs="0">
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">3B*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">3B</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input; If checked add 0.05 to PAF value used in calculation for Pu07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pu02g_ApplyDemandResponsiveControl" type="comp:ApplyDemandResponsiveControl"  minOccurs="0">
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">4*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">4</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input; If checked add 0.05 to PAF value used in calculation for Pu07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pu02h_ApplyClerestoryFenestrationPAF" type="comp:ApplyClerestoryFenestrationPAF" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">5*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">5</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.05 to PAF value used in calculation for Pu07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pu02i_ApplyHorizontalSlatsPAF" type="comp:ApplyHorizontalSlatsPAF" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">6*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">6</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.05 to PAF value used in calculation for Pu07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Pu02j_ApplyLightShelvesPAF" type="comp:ApplyLightShelvesPAF" >
                                                 <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">7*</xsd:documentation>
+                                                   <xsd:documentation source="FieldText">7</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User input: checked result = true, unchecked result = false.  If result == true add 0.10 to PAF value used in calculation for Pu07_PAF_AllowedInArea</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
@@ -4556,7 +4626,7 @@ End if</xsd:documentation>
                   <xsd:element name="Q_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]Indoor lighting alterations complying prescriptively with [d:t24ref/]141.0(b)2I(iii) are documented in this table. Any control option having a * will include a note in the Notes section of this table detailing how compliance is achieved, otherwise the compliance status in Table C will say "DOES NOT COMPLY". [/d:i].</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]Indoor lighting alterations complying prescriptively with [d:t24ref/]141.0(b)2I(iii) are documented in this table. Any control option having a * will include a note in the Notes section of this table detailing how compliance is achieved, otherwise the compliance status in Table C will say "DOES NOT COMPLY". [/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q_ColumnHeading03To14" minOccurs="0">
@@ -4802,7 +4872,7 @@ End if</xsd:documentation>
                                                                <xsd:enumeration value="BeautySalonArea"/>
                                                                <xsd:enumeration value="CivicMeetingPlaceArea"/>
                                                                <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
-                                                               <xsd:enumeration value="CommercialIndustrialStorageShipping"/>
+                                                               <xsd:enumeration value="CommercialIndustrialStorageArea"/>
                                                                <xsd:enumeration value="CommercialIndustrialWarehouse"/>
                                                                <xsd:enumeration value="ConventionConferenceMultipurposeMeetingCenterArea"/>
                                                                <xsd:enumeration value="CopyRoom"/>
@@ -4949,7 +5019,7 @@ End if</xsd:documentation>
          </xsd:element>
          <xsd:element name="Section_R" minOccurs="0">
             <xsd:annotation>
-               <xsd:documentation source="FieldText">[d:b]R. 80% LIGHTING POWER FOR ALLALTERATIONS - CONTROLS EXCEPTIONS[/d:b]</xsd:documentation>
+               <xsd:documentation source="FieldText">[d:b]R. 80% LIGHTING POWER FOR ALL ALTERATIONS - CONTROLS EXCEPTIONS[/d:b]</xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">This section is required If Bnew01__LightingProjectScopeNR == NewLightingSystem AND Baltered01_LightingProjectScopeNR == AlteredlightingSystem  
 And If H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_PrimarySkylitDaylightControlsIncluded Or H10_ SecondaryDaylightControlsIncluded == NA_LTE80PctAllowedLP</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
@@ -5032,7 +5102,7 @@ And If H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_Pr
                                                 <xsd:enumeration value="BeautySalonArea"/>
                                                 <xsd:enumeration value="CivicMeetingPlaceArea"/>
                                                 <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
-                                                <xsd:enumeration value="CommercialIndustrialStorageShipping"/>
+                                                <xsd:enumeration value="CommercialIndustrialStorageArea"/>
                                                 <xsd:enumeration value="CommercialIndustrialWarehouse"/>
                                                 <xsd:enumeration value="ConventionConferenceMultipurposeMeetingCenterArea"/>
                                                 <xsd:enumeration value="CopyRoom"/>
@@ -5324,7 +5394,7 @@ And If H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_Pr
                            <xsd:element name="S14_LightShelvesMounting" type="comp:LightShelvesMounting" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Requirement</xsd:documentation>
-                                 <xsd:documentation source="AdditionalRequirements">Exterior shelves are sloped downward from fenestration.  Interior shelves are sloped upward from fenestration.</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Exterior light shelves are sloped downward from fenestration.  Interior light shelves are sloped upward from fenestration.</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -5338,7 +5408,7 @@ And If H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_Pr
                            <xsd:element name="S16_LightShelvesDistanceFactor" type="comp:LightShelvesDistanceFactor" >
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Requirement</xsd:documentation>
-                                 <xsd:documentation source="AdditionalRequirements">Shelves  have a minimum Distance Factor of 0.3 calculated per Section 140.3(d)</xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Shelves have a minimum Distance Factor of 0.3 calculated per Section 140.3(d)</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If Yes checked result = true Else if Yes is unchecked result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
