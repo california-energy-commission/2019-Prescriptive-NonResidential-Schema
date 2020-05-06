@@ -139,7 +139,7 @@ End If</xsd:documentation>
                   </xsd:element>
                   <xsd:element name="A03Health_OccupancyApplies" type="comp:OccupancyApplies">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Healthcare Facility (H)</xsd:documentation>
+                        <xsd:documentation source="FieldText">Healthcare Facility (I)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  
 If result == true A03_WholeBuildingOccupancy += HospitalBuilding;
 End If</xsd:documentation>
@@ -1582,6 +1582,7 @@ End if</xsd:documentation>
                                              <xsd:documentation source="FieldText">Efficiency Unit</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  
 use this choice.  Efficiency units for Heating mode result or list is as follows for value in Fa01_HvacSystemName: 
+ 
 Switch (F02_HvacSystemType) 
 case  FurnaceUnitHeater: 
 If F03_FurnaceUnitHeater == FurnaceCentral 
@@ -1594,9 +1595,14 @@ End If
 case UnitaryHeatPumps: 
 If F03_UnitaryHeatPumps == AirCooledGasEngineHP Or If Fa02_SizeRangeUnitaryHeatPumps != LT65000 
 result = COP; 
-Else result = HSPF;  case HeatPumpAC: result = HSPF;  case PTAC_PTHP: 
-result = COP; 
+Else result = HSPF;  
 End If
+ 
+case HeatPumpAC: 
+result = HSPF;  
+ 
+case PTAC_PTHP: 
+result = COP; 
  
 case  VariableRefrigerantFlow 
 If F03_VariableRefrigerantFlow  == AirCooledHP_VRF 
@@ -1604,11 +1610,14 @@ result = HSPF;
 Else result = COP;  
 End If
  
-case  SPV_ACHP: list COP; case FurnaceAC: 
+case  SPV_ACHP: list COP; 
+ 
+case FurnaceAC: 
 If Fa02_SizeRangeFurnaceAC == LT45000CoolGTE225000Heat, GTE45000CoolGTE225000Heat, LT65000CoolGTE225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolGTE225000Heat,  GTE240000CoolGTE225000Heat Or GTE760000CoolGTE225000Heat 
 result =ThermalEfficiency; 
 Else result = AFUE;
 End If
+ 
 End Switch
 End If</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
@@ -1732,12 +1741,17 @@ Else Switch (Fa02_ SizeRangeUnitaryHeatPumps)
 case LT65000:  
 If F03_UnitaryHeatPumps == AirCooledPkg1PhaseHP 
 result = 8.0;  
-Else If F03_UnitaryHeatPumps == AirCooledSplit3PhaseHP  Or AirCooledPkg3PhaseHP  
-result = 7.7;  
+Else If F03_UnitaryHeatPumps == AirCooledSplit3PhaseHP  
+result = 8.2;  
+Else If F03_UnitaryHeatPumps ==  AirCooledPkg3PhaseHP  
+result = 8.0;  
 Else If F03_UnitaryHeatPumps == AirCooledSplitConstrainedHP Or AirCooledPkgConstrainedHP 
 result = 7.4;  
 Else If F03_UnitaryHeatPumps == AirCooledSplit1PhaseHP 
 result = 8.2;  
+Else If F03_UnitaryHeatPumps == AirCooledSmallDuctHighVelocityHP 
+result = 7.2;  
+ 
 End If
  
 case GTE65000AndLT135000: 
@@ -1821,7 +1835,7 @@ case AirCooledSplitAC_CentralFurnace:
 If Fa02_SizeRangeFurnaceAC == LT45000CoolLT225000Heat Or GTE45000CoolLT225000Heat 
  result = .80  AFUE; 
 Else If Fa02_SizeRangeFurnaceAC == GTE65000CoolLT225000Heat, GTE135000CoolLT225000Heat, GTE240000CoolLT225000Heat Or GTE760000CoolLT225000Heat  
-result = .81  AFUE; 
+result = .80  AFUE; 
 Else If Fa02_SizeRangeFurnaceAC == LT45000CoolGTE225000Heat, GTE45000CoolGTE225000Heat, GTE65000CoolGTE225000Heat, GTE135000CoolGTE225000Heat, GTE240000CoolGTE225000Heat, Or GTE760000CoolGTE225000Heat  
 result = .80  Et;  
 End If
@@ -1857,7 +1871,10 @@ End If</xsd:documentation>
                                                 <d:t24table>Title 20</d:t24table>
                                              </xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  And If F02_HvacSystemType == HeatPumpAC for Fa01 
-result = 7.7 (HSPF)
+If F03_HeatPumpAC == AirCooledUnitaryACHP_Split
+result = 8.2 (HSPF)
+Else If F03_HeatPumpAC == AirCooledUnitaryACHP_Pkg
+result = 8.0 (HSPF)
 End If</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -2017,7 +2034,7 @@ End Switch</xsd:documentation>
                                                                   <d:t24table>Title 20</d:t24table>
                                                                </xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == HeatPumpAC use this choice:  
-result1 = 13.0 (SEER) in the top displayed cell and the bottom cell is blank.
+result1 = 14.0 (SEER) in the top displayed cell and the bottom cell is blank.
 End if</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
@@ -2133,8 +2150,11 @@ Switch (F03_ UnitaryHeatPumps)
 case AirCooledSplit1PhaseHP Or AirCooledPkg1PhaseHP: 
 result1 = 14.0 (SEER); 
  
-cade AirCooledSplit3PhaseHP Or AirCooledPkg3PhaseHP Or AirCooledSmallDuctHighVelocityHP: 
-result1 = 13.0 (SEER);  
+cade AirCooledSplit3PhaseHP Or AirCooledPkg3PhaseHP 
+result1 = 14.0 (SEER);  
+ 
+cade AirCooledSmallDuctHighVelocityHP: 
+result1 = 12.0 (SEER); 
  
 case AirCooledSplitConstrainedHP Or AirCooledPkgConstrainedHP: 
 result1 = 12.0 (SEER); 
@@ -4214,68 +4234,85 @@ End If</xsd:documentation>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="TableFan">
+                                    <xsd:element name="TableFanChoice">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText"/>
                                        </xsd:annotation>
                                        <xsd:complexType>
-                                          <xsd:sequence>
-                                             <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                          <xsd:choice>
+                                             <xsd:element name="TableFan_NotApplicableMessage" type="comp:NotApplicableMessage" fixed="BlankGrayedOut">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA 
+TableFan (fields  H01-H08b) are blank and grayed out
+End If</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="TableFan">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls != HealthcareFacilityNA
+TableFan is required and displayed
+End if</xsd:documentation>
+                                                </xsd:annotation>
                                                 <xsd:complexType>
                                                    <xsd:sequence>
-                                                      <xsd:element name="H01_FanName" type="hvac:FanName">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Fan Name or Item Tag</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="H02_FanFunction" type="hvac:FanFunction">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Fan Function</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: Supply, Return, Exhaust, OtherFanFunction display term Other (Transfer, VAV box)</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="H03_FanCount" type="hvac:FanCount">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Qty</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User enters number of fans of this description</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="H04_MaximumAirflowRate" type="comp:MaximumAirflowRate">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Maximum Design Supply Airflow (CFM)</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="H05_HorsePowerUnit" type="hvac:HorsePowerUnit">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">HP Unit<d:sup>2</d:sup>
-                                                            </xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: BHP, NameplateHP display term Nameplate HP</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="H06_DesignHP" type="hvac:DesignHP">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Design HP</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="TablePowerAdjustment" minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Fan Power Pressure Drop Adjustment - 
-                                                               <d:t24table>Table 140.4-B</d:t24table>
-                                                            </xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">This table is required If H05_HorsePowerUnit == BHP; else fields are grayed out</xsd:documentation>
-                                                         </xsd:annotation>
+                                                      <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                                                          <xsd:complexType>
                                                             <xsd:sequence>
-                                                               <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                                               <xsd:element name="H01_FanName" type="hvac:FanName">
+                                                                  <xsd:annotation>
+                                                                     <xsd:documentation source="FieldText">Fan Name or Item Tag</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                                  </xsd:annotation>
+                                                               </xsd:element>
+                                                               <xsd:element name="H02_FanFunction" type="hvac:FanFunction">
+                                                                  <xsd:annotation>
+                                                                     <xsd:documentation source="FieldText">Fan Function</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User selects from list: Supply, Return, Exhaust, OtherFanFunction display term Other (Transfer, VAV box)</xsd:documentation>
+                                                                  </xsd:annotation>
+                                                               </xsd:element>
+                                                               <xsd:element name="H03_FanCount" type="hvac:FanCount">
+                                                                  <xsd:annotation>
+                                                                     <xsd:documentation source="FieldText">Qty</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User enters number of fans of this description</xsd:documentation>
+                                                                  </xsd:annotation>
+                                                               </xsd:element>
+                                                               <xsd:element name="H04_MaximumAirflowRate" type="comp:MaximumAirflowRate">
+                                                                  <xsd:annotation>
+                                                                     <xsd:documentation source="FieldText">Maximum Design Supply Airflow (CFM)</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                                  </xsd:annotation>
+                                                               </xsd:element>
+                                                               <xsd:element name="H05_HorsePowerUnit" type="hvac:HorsePowerUnit">
+                                                                  <xsd:annotation>
+                                                                     <xsd:documentation source="FieldText">HP Unit<d:sup>2</d:sup>
+                                                                     </xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User selects from list: BHP, NameplateHP display term Nameplate HP</xsd:documentation>
+                                                                  </xsd:annotation>
+                                                               </xsd:element>
+                                                               <xsd:element name="H06_DesignHP" type="hvac:DesignHP">
+                                                                  <xsd:annotation>
+                                                                     <xsd:documentation source="FieldText">Design HP</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                                  </xsd:annotation>
+                                                               </xsd:element>
+                                                               <xsd:element name="TablePowerAdjustment" minOccurs="0">
+                                                                  <xsd:annotation>
+                                                                     <xsd:documentation source="FieldText">Fan Power Pressure Drop Adjustment - 
+                                                                        <d:t24table>Table 140.4-B</d:t24table>
+                                                                     </xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">This table is required If H05_HorsePowerUnit == BHP; else fields are grayed out</xsd:documentation>
+                                                                  </xsd:annotation>
                                                                   <xsd:complexType>
                                                                      <xsd:sequence>
-                                                                        <xsd:element name="H07_PressureDropAdjustmentDevice" type="comp:PressureDropAdjustmentDevice">
-                                                                           <xsd:annotation>
-                                                                              <xsd:documentation source="FieldText">Device</xsd:documentation>
-                                                                              <xsd:documentation source="CalculationsAndRules">User selects from list: 
+                                                                        <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                                                           <xsd:complexType>
+                                                                              <xsd:sequence>
+                                                                                 <xsd:element name="H07_PressureDropAdjustmentDevice" type="comp:PressureDropAdjustmentDevice">
+                                                                                    <xsd:annotation>
+                                                                                       <xsd:documentation source="FieldText">Device</xsd:documentation>
+                                                                                       <xsd:documentation source="CalculationsAndRules">User selects from list: 
 NoDevice display term None used, 
 FullyDucted display term Fully ducted return/ exhaust, 
 PressureMaintained display term Systems maintaining pressure differentials between rooms, 
@@ -4289,55 +4326,58 @@ CoilRunaroundLoop display term Coil runaround loop,
 ServesFumeHoods display term Exhaust system serves fume hoods, 
 MERV9_12 display term MERV 9-12 (Alterations only), 
 MERV13_15 display term MERV 13-15 (Alterations only)</xsd:documentation>
-                                                                           </xsd:annotation>
-                                                                        </xsd:element>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="H08a_FanDeviceFlow" type="hvac:FanDeviceFlow">
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Design Airflow through Device (CFM)</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out; 
+                                                                                    </xsd:annotation>
+                                                                                 </xsd:element>
+                                                                                 <xsd:choice maxOccurs="1">
+                                                                                    <xsd:element name="H08a_FanDeviceFlow" type="hvac:FanDeviceFlow">
+                                                                                       <xsd:annotation>
+                                                                                          <xsd:documentation source="FieldText">Design Airflow through Device (CFM)</xsd:documentation>
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out; 
 Else user enters value
 End if</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="H08a_NotApplicableMessage">
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Design Airflow through Device (CFM)</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out
+                                                                                       </xsd:annotation>
+                                                                                    </xsd:element>
+                                                                                    <xsd:element name="H08a_NotApplicableMessage">
+                                                                                       <xsd:annotation>
+                                                                                          <xsd:documentation source="FieldText">Design Airflow through Device (CFM)</xsd:documentation>
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="H08b_FanDevicePressureDrop" type="hvac:FanDevicePressureDrop">
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Calculated  Adjustment (in H<d:sub>2</d:sub>O)</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
+                                                                                       </xsd:annotation>
+                                                                                       <xsd:simpleType>
+                                                                                          <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                             <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                          </xsd:restriction>
+                                                                                       </xsd:simpleType>
+                                                                                    </xsd:element>
+                                                                                 </xsd:choice>
+                                                                                 <xsd:choice maxOccurs="1">
+                                                                                    <xsd:element name="H08b_FanDevicePressureDrop" type="hvac:FanDevicePressureDrop">
+                                                                                       <xsd:annotation>
+                                                                                          <xsd:documentation source="FieldText">Calculated  Adjustment (in H<d:sub>2</d:sub>O)</xsd:documentation>
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
 result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out; 
  
 Else user enters value
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="H08b_NotApplicableMessage">
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Calculated  Adjustment (in H<d:sub>2</d:sub>O)</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
+                                                                                       </xsd:annotation>
+                                                                                    </xsd:element>
+                                                                                    <xsd:element name="H08b_NotApplicableMessage">
+                                                                                       <xsd:annotation>
+                                                                                          <xsd:documentation source="FieldText">Calculated  Adjustment (in H<d:sub>2</d:sub>O)</xsd:documentation>
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
 result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
+                                                                                       </xsd:annotation>
+                                                                                       <xsd:simpleType>
+                                                                                          <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                             <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                          </xsd:restriction>
+                                                                                       </xsd:simpleType>
+                                                                                    </xsd:element>
+                                                                                 </xsd:choice>
+                                                                              </xsd:sequence>
+                                                                           </xsd:complexType>
+                                                                        </xsd:element>
                                                                      </xsd:sequence>
                                                                   </xsd:complexType>
                                                                </xsd:element>
@@ -4347,7 +4387,7 @@ End If</xsd:documentation>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
-                                          </xsd:sequence>
+                                          </xsd:choice>
                                        </xsd:complexType>
                                     </xsd:element>
                                     <xsd:element name="H04Total_FanSystemFlowCapacity" type="hvac:FanSystemFlowCapacity">
@@ -4658,7 +4698,7 @@ HighriseResNA display term NA: HHR dwelling unit</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>J. VENTILATION AND INDOOR AIR QUALITY</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required If B03e_ProjectHasVentilation == true</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If B03e_ProjectHasVentilation == true,but only J01, J02a, J02b and J03 are displayed initially</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -4678,223 +4718,320 @@ HighriseResNA display term NA: HHR dwelling unit</xsd:documentation>
                         <xsd:documentation source="FieldText">Check the box if the project is showing ventilation calculations on the plans, or attaching the calculations instead of completing this table.</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
  
-If result = true All tables and controls are grayed out  in section J And D03_ExceptionalConditionMessageNRCCMCHE += CalculationsAttachedInJ
+If result = true J02a, J02b and J03 are grayed out and all following  tables are minimized in section J and D03_ExceptionalConditionMessageNRCCMCHE += CalculationsAttachedInJ
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="J_VentCalculations" minOccurs="0">
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="J02a_NonResHotelMotelIncluded" type="comp:NonResHotelMotelIncluded">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Check this box if the project included Nonresidential or Hotel/Motel spaces</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
+If result == true TableSystemVent is required
+End If</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="J02a_NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Check this box if the project included Nonresidential or Hotel/Motel spaces</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == true
+result = BlankGrayedOut
+End If</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="J02b_HiRiseDwellingUnitsIncluded" type="comp:HiRiseDwellingUnitsIncluded">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Check this box if the project included new or altered high-rise residential dwelling units.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
+If result == true TableHiRiseResVent is required
+End If</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="J02b_NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Check this box if the project included new or altered high-rise residential dwelling units.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == true
+result = BlankGrayedOut
+End If</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="J03_NaturalVentComplies" type="comp:NaturalVentComplies">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Check the box if the project is using natural ventilation in any nonresidential or hotel/motel spaces to meet required ventilation rates per 
+                              <d:t24ref h="120.1(c)2"/>.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
+If result = true  D03_ExceptionalConditionMessageNRCCMCHE += NaturalVentilationInJ</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="J03_NotApplicableMessage" type="comp:NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Check the box if the project is using natural ventilation in any nonresidential or hotel/motel spaces to meet required ventilation rates per 
+                              <d:t24ref h="120.1(c)2"/>.</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == true
+result = BlankGrayedOut
+End If</xsd:documentation>
+                        </xsd:annotation>
+                     </xsd:element>
+                  </xsd:choice>
+                  <xsd:element name="TableSystemVent" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is required If J01_VentCalculationsAttached  == false; Else all fields in J02 - J18 are grayed out and blank.</xsd:documentation>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Nonresidential and Hotel/ Motel Ventilation Systems</d:b>
+                        </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == false And  If J02a_NonResHotelMotelIncluded == true
+this table is required and displayed
+Else this table is minimized
+End If</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
-                           <xsd:element name="J02_HiRiseDwellingUnitsIncluded" type="comp:HiRiseDwellingUnitsIncluded">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Check this box if the project included new or altered high-rise residential dwelling units.</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
-If result == true TableHiRiseResVent is required
-End If</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="J03_NaturalVentComplies" type="comp:NaturalVentComplies">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Check the box if the project is using natural ventilation in any nonresidential or hotel/motel spaces to meet required ventilation rates per 
-                                    <d:t24ref h="120.1(c)2"/>.</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
-If result = true  D03_ExceptionalConditionMessageNRCCMCHE += NaturalVentilationInJ
-End If</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="TableSystemVent">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:b>Nonresidential and Hotel/ Motel Ventilation Systems</d:b>
-                                 </xsd:documentation>
-                              </xsd:annotation>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
-                                       <xsd:complexType>
-                                          <xsd:sequence>
-                                             <xsd:element name="J04_VentilationSystemName" type="hvac:VentilationSystemName">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">System Name</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="J05_VentSystemOA" type="hvac:VentSystemOA">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">System Design OA CFM Airflow<d:sup>1</d:sup>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="J06_VentSystemTransferAir" type="hvac:VentSystemTransferAir">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">System Design Transfer Air CFM</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User input;  
+                                    <xsd:element name="J04_VentilationSystemName" type="hvac:VentilationSystemName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">System Name</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="J05_VentSystemOA" type="hvac:VentSystemOA">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">System Design OA CFM Airflow<d:sup>1</d:sup>
+                                          </xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="J06_VentSystemTransferAir" type="hvac:VentSystemTransferAir">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">System Design Transfer Air CFM</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input;  
  
 If result GT 0 D03_ExceptionalConditionMessageNRCCMCHE += TransferAirUsedInJ
 End If</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="J07_AirFiltrationRequirements">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Air Filtration per 
-                                                      <d:t24ref h="120.1(c)"/> and 
-                                                      <d:t24ref h="141.0(b)2"/><d:sup>2</d:sup>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from list: 
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="J07_AirFiltrationRequirements">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Air Filtration per 
+                                             <d:t24ref h="120.1(c)"/> and 
+                                             <d:t24ref h="141.0(b)2"/><d:sup>2</d:sup>
+                                          </xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from list: 
 ProvidedNR display term Provided per 
-                                                      <d:t24ref h="120.1(c)"/> (NR and Hotel/Motel), 
+                                             <d:t24ref h="120.1(c)"/> (NR and Hotel/Motel), 
 ProvidedAlteration display term Provided per 
-                                                      <d:t24ref h="141.0(b)2c"/> (alteration), 
+                                             <d:t24ref h="141.0(b)2c"/> (alteration), 
 ProvidedNA display term NA: Not system type specified in Table J footnote 2</xsd:documentation>
-                                                </xsd:annotation>
-                                                <xsd:simpleType>
-                                                   <xsd:restriction base="comp:AirFiltrationRequirements">
-                                                      <xsd:enumeration value="ProvidedAlteration"/>
-                                                      <xsd:enumeration value="ProvidedNA"/>
-                                                      <xsd:enumeration value="ProvidedNR"/>
-                                                   </xsd:restriction>
-                                                </xsd:simpleType>
-                                             </xsd:element>
-                                             <xsd:element name="TableSpaceVent">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText"/>
-                                                </xsd:annotation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:AirFiltrationRequirements">
+                                             <xsd:enumeration value="ProvidedAlteration"/>
+                                             <xsd:enumeration value="ProvidedNA"/>
+                                             <xsd:enumeration value="ProvidedNR"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="TableSpaceVent">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                       </xsd:annotation>
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                                                 <xsd:complexType>
                                                    <xsd:sequence>
-                                                      <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
-                                                         <xsd:complexType>
-                                                            <xsd:sequence>
-                                                               <xsd:element name="J08_SpaceName" type="com:SpaceName">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">Space Name ot item Tag</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:element name="J09To13ColumnHeading" minOccurs="0">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">Mechanical Ventilation Required per 
-                                                                        <d:t24ref h="120.1(c)3"/><d:sup>3</d:sup>
-                                                                     </xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:element name="J09_VentilationSpaceFunction" type="com:VentilationSpaceFunction">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">Occupancy Type<d:sup>4</d:sup>
-                                                                     </xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User selects from list  (see VentilationSpaceFunction in base schema NrPresCommon for list  of values and display terms)</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:element name="J10_SpaceFloorArea" type="com:SpaceFloorArea">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">Conditioned Floor Area (ft<d:sup>2</d:sup>)</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:choice maxOccurs="1">
-                                                                  <xsd:element name="J11_ExhaustNumberFixtures" type="com:ExhaustNumberFixtures">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText"># of Shower heads/ toilets</xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction == RestroomPrivate, RestroomPrivateContExhaust, RestroomPublic, RestroomPublicContExhaust, ShowerRoom Or ShowerContExhaust, 
+                                                      <xsd:element name="J08_SpaceName" type="com:SpaceName">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Space Name ot item Tag</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="J09To13ColumnHeading" minOccurs="0">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Mechanical Ventilation Required per 
+                                                               <d:t24ref h="120.1(c)3"/><d:sup>3</d:sup>
+                                                            </xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="J09_VentilationSpaceFunction" type="com:VentilationSpaceFunction">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Occupancy Type<d:sup>4</d:sup>
+                                                            </xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects from list  (see VentilationSpaceFunction in base schema NrPresCommon for list  of values and display terms)</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="J10_SpaceFloorArea" type="com:SpaceFloorArea">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Conditioned Floor Area (ft<d:sup>2</d:sup>)</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="J11_ExhaustNumberFixtures" type="com:ExhaustNumberFixtures">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText"># of Shower heads/ toilets</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction == RestroomPrivate, RestroomPrivateContExhaust, RestroomPublic, RestroomPublicContExhaust, ShowerRoom Or ShowerContExhaust, 
 user input; 
 Else  result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                  </xsd:element>
-                                                                  <xsd:element name="J11_NotApplicableMessage">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText"># of Shower heads/ toilets</xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction != RestroomPrivate, RestroomPrivateContExhaust, RestroomPublic, RestroomPublicContExhaust, ShowerRoom Or ShowerContExhaust,  
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="J11_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText"># of Shower heads/ toilets</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction != RestroomPrivate, RestroomPrivateContExhaust, RestroomPublic, RestroomPublicContExhaust, ShowerRoom Or ShowerContExhaust,  
 result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                     <xsd:simpleType>
-                                                                        <xsd:restriction base="comp:NotApplicableMessage">
-                                                                           <xsd:enumeration value="BlankGrayedOut"/>
-                                                                        </xsd:restriction>
-                                                                     </xsd:simpleType>
-                                                                  </xsd:element>
-                                                               </xsd:choice>
-                                                               <xsd:choice maxOccurs="1">
-                                                                  <xsd:element name="J12_OccupantCount" type="com:OccupantCount">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText"># of people<d:sup>5</d:sup>
-                                                                        </xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction == LectureHall user input; 
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="J12_OccupantCount" type="com:OccupantCount">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText"># of people<d:sup>5</d:sup>
+                                                               </xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction == LectureHall user input; 
 Else  result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                  </xsd:element>
-                                                                  <xsd:element name="J12_NotApplicableMessage">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText"># of people<d:sup>5</d:sup>
-                                                                        </xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction != LectureHall  result = BlankGrayedOut stored in NotApplicableMessage
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="J12_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText"># of people<d:sup>5</d:sup>
+                                                               </xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction != LectureHall  result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                     <xsd:simpleType>
-                                                                        <xsd:restriction base="comp:NotApplicableMessage">
-                                                                           <xsd:enumeration value="BlankGrayedOut"/>
-                                                                        </xsd:restriction>
-                                                                     </xsd:simpleType>
-                                                                  </xsd:element>
-                                                               </xsd:choice>
-                                                               <xsd:element name="J13_OA_SpaceRequiredMin" type="com:OA_SpaceRequiredMin">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">Required Min OA CFM</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction == AllOthersVent, ClassroomArt, AutoRepairVent, BankLobby, BankVault , BarracksSleepingArea, BedroomLivingRoom,  CellWithToiletVent, MiscComputerSpace, ClassroomComputer, CopyPrintRoom, CorridorsResidential, DarkRoom, DaycareSickRoom, WeightRoom, AerobicsRoom,  JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LaundryRoom, DwellingUnitLaundryRoom, LibraryAssembly, LockerAllOthers, LockerAthleticIndustrial, MediaCenter,  StorageOccupiableDryMaterials, StorageOccupiableLiquids,  OfficeSpaceVent, ParkingGarageVent, PharmacyPrepArea, PhotoStudio, OfficeReception,  ScienceLab, ShippingReceiving, ShowerRoom, ShowerContExhaust, WorkshopSortingPacking, SwimmingPool, TelephoneRoom, DataEntryTelephoneSpace, RestroomPrivateContExhaust, RestroomPublicContExhaust,  RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab MiscWarehouse Or WoodMetalShop; 
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="J13_OA_SpaceRequiredMin" type="com:OA_SpaceRequiredMin">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Required Min OA CFM</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If  J09_VentilationSpaceFunction == AllOthersVent, ClassroomArt, AutoRepairVent, BankLobby, BankVault , BarracksSleepingArea, BedroomLivingRoom,  CellWithToiletVent, MiscComputerSpace, ClassroomComputer, CopyPrintRoom, CorridorsResidential, DarkRoom, DaycareSickRoom, WeightRoom, AerobicsRoom,  JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LaundryRoom, DwellingUnitLaundryRoom, LibraryAssembly, LockerAllOthers, LockerAthleticIndustrial, MediaCenter,  StorageOccupiableDryMaterials, StorageOccupiableLiquids,  OfficeSpaceVent, ParkingGarageVent, PharmacyPrepArea, PhotoStudio, OfficeReception,  ScienceLab, ShippingReceiving, ShowerRoom, ShowerContExhaust, WorkshopSortingPacking, SwimmingPool, TelephoneRoom, DataEntryTelephoneSpace, RestroomPrivateContExhaust, RestroomPublicContExhaust,  RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab MiscWarehouse Or WoodMetalShop; 
 result = 0.15 x J10_SpaceFloorArea;
  
- Else If  VentilationSpaceFunction == Courtroom Or LegislativeChambers
+Else If  VentilationSpaceFunction == Courtroom Or LegislativeChambers
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
 result = 0.19 x J10_SpaceFloorArea;
+End If
  
- Else  If  VentilationSpaceFunction == DaycareToAge4
+Else  If  VentilationSpaceFunction == DaycareToAge4
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
 result = 0.21 x J10_SpaceFloorArea; 
+End If
  
 Else  If  VentilationSpaceFunction == LaundryCoinOperated
 result = 0.30 x J10_SpaceFloorArea; 
  
-Else  If  VentilationSpaceFunction == MallCommon, MuseumChildrenAssembly, MuseumAssembly, PetShop, RetailSales Or Supermarket
+Else  If  VentilationSpaceFunction == MallCommon, MuseumChildrenAssembly, MuseumAssembly, Or PetShop
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
 result = 0.25 x J10_SpaceFloorArea;  
+End If
+ 
+Else  If  VentilationSpaceFunction == RetailSales Or Supermarket
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.20 x J10_SpaceFloorArea;
+Else
+result = 0.25 x J10_SpaceFloorArea;  
+End If
  
 Else If  VentilationSpaceFunction == ClassroomAge5_18, ClassroomPostsecondary
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
 result = 0.38 x J10_SpaceFloorArea; 
+End If
  
 Else If  VentilationSpaceFunction == BarberShop Or BeautyNailSalon
 result = 0.40 x J10_SpaceFloorArea;  
  
-Else If  VentilationSpaceFunction == BarCocktailLounge, OfficeBreakRoom, FastfoodCafeteriaVent, GeneralCoffeeStation, ConferenceMeetingVent, ArenasVent, AssemblyLobby, MainEntryOffice, LodgingAssembly, MultiuseAssembly, RestaurantDining,  SportsSpectatorAreaVent, StagesStudios, SwimmingDeck Or TransportWaiting
+Else If  VentilationSpaceFunction == BarCocktailLounge
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.20 x J10_SpaceFloorArea;
+Else
 result = 0.50 x J10_SpaceFloorArea;  
+End If
+ 
+Else If  VentilationSpaceFunction == OfficeBreakRoom, FastfoodCafeteriaVent, GeneralCoffeeStation, ConferenceMeetingVent, ArenasVent, AssemblyLobby, MainEntryOffice, LodgingAssembly, MultiuseAssembly, RestaurantDining,  SportsSpectatorAreaVent, StagesStudios, SwimmingDeck Or TransportWaiting
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
+result = 0.50 x J10_SpaceFloorArea;  
+End If
  
 Else  If  VentilationSpaceFunction == GamblingArea Or GameArcadesVent
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
 result = 0.68 x J10_SpaceFloorArea; 
+End If
  
 Else If  VentilationSpaceFunction == DanceFloor 
- result = 1.50 x J10_SpaceFloorArea;  
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
+result = 1.50 x J10_SpaceFloorArea;  
+End If
  
 Else  If  VentilationSpaceFunction == AudienceSeatingArea, BowlingAlleySeatingVent, ClassroomPerformance Or ReligiousAssemblyArea
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
 result = 1.07 x J10_SpaceFloorArea; 
+End If
  
 Else  If VentilationSpaceFunction == LectureHall
-result = 15 x J12_OccupantCount</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:element name="J14To15ColumnHeading" minOccurs="0">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">Exh. Vent per 
-                                                                        <d:t24ref h="120.1(c)4"/>
-                                                                     </xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:choice maxOccurs="1">
-                                                                  <xsd:element name="J14_ExhaustSpaceRequiredMin" type="com:ExhaustSpaceRequiredMin">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText">Required Min CFM</xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">Calculated Field: 
+If J16a_DemandContolVent == ProvidedOccSensors 
+result = 0.15 x J10_SpaceFloorArea;
+Else
+result = 15 x J12_OccupantCount 
+End If
+ 
+End If</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="J14To15ColumnHeading" minOccurs="0">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Exh. Vent per 
+                                                               <d:t24ref h="120.1(c)4"/>
+                                                            </xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="J14_ExhaustSpaceRequiredMin" type="com:ExhaustSpaceRequiredMin">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Required Min CFM</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated Field: 
 Switch (VentilationSpaceFunction) 
 case ClassroomArt, FoodServiceKitchen: 
 result = 0.7 x J10_SpaceFloorArea; 
@@ -4933,113 +5070,110 @@ result = 25 x J11_ExhaustNumberFixtures;
 case   RestroomPublic: 
 result = 70 x J11_ExhaustNumberFixtures;
 End Switch</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                  </xsd:element>
-                                                                  <xsd:element name="J14_NotApplicableMessage">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText">Required Min CFM</xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="J14_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Required Min CFM</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                     <xsd:simpleType>
-                                                                        <xsd:restriction base="comp:NotApplicableMessage">
-                                                                           <xsd:enumeration value="BlankGrayedOut"/>
-                                                                        </xsd:restriction>
-                                                                     </xsd:simpleType>
-                                                                  </xsd:element>
-                                                               </xsd:choice>
-                                                               <xsd:choice maxOccurs="1">
-                                                                  <xsd:element name="J15_ExhaustPerSpace" type="com:ExhaustPerSpace">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText">Provided per Design CFM</xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                  </xsd:element>
-                                                                  <xsd:element name="J15_NotApplicableMessage">
-                                                                     <xsd:annotation>
-                                                                        <xsd:documentation source="FieldText">Provided per Design CFM</xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="J15_ExhaustPerSpace" type="com:ExhaustPerSpace">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Provided per Design CFM</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="J15_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Provided per Design CFM</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
-                                                                     </xsd:annotation>
-                                                                     <xsd:simpleType>
-                                                                        <xsd:restriction base="comp:NotApplicableMessage">
-                                                                           <xsd:enumeration value="BlankGrayedOut"/>
-                                                                        </xsd:restriction>
-                                                                     </xsd:simpleType>
-                                                                  </xsd:element>
-                                                               </xsd:choice>
-                                                               <xsd:element name="J16ColumnHeading" minOccurs="0">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">DCV or Sensor Controls per 
-                                                                        <d:t24ref h="120.1(d)3"/>, 
-                                                                        <d:t24ref h="120.1(d)5"/>, and 
-                                                                        <d:t24ref h="120.1(e)3"/><d:sup>6</d:sup>
-                                                                     </xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:element name="J16a_DemandControlVent" type="comp:DemandControlVent">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">DCV</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User selects from list: 
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="J16ColumnHeading" minOccurs="0">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">DCV or Sensor Controls per 
+                                                               <d:t24ref h="120.1(d)3"/>, 
+                                                               <d:t24ref h="120.1(d)5"/>, and 
+                                                               <d:t24ref h="120.1(e)3"/><d:sup>6</d:sup>
+                                                            </xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="J16a_DemandControlVent" type="comp:DemandControlVent">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">DCV</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: 
 ProvidedDCV display term Provided per 120.1(d)4, 
 NotRequiredDCV display term NA: Not required per 120.1(d)3, 
 SpaceExhaustNA display term NA: Space exhaust is greater than design ventilation rate exception, 
 AreaOccupancyNA display term NA: Area less than 150ft2 or design occupancy less than 10 people, 
 NoLocalExhaustNA display term NA: Processes that generate dust, fumes, etc. and no local exhaust</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                               <xsd:element name="J16b_OccupantSensorVent" type="comp:OccupantSensorVent">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">Occ Sensor</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User selects from list: 
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="J16b_OccupantSensorVent" type="comp:OccupantSensorVent">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Occ Sensor</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: 
 ProvidedOccSensors display term Provided per 120.1(d)5, 
 ContinuousOperationNA display term NA: 
 Continuously operated per 120.2(e)3 exception, 
 LowPowerNA display term NA: System less than 2kW demand + manual shutoff per 120.2(e)3 exception, 
 HotelMotelNA display term NA: Hotel/ Motel + manual shutoff per 120.2(e)3 exception, 
 SpaceTypeNA display term NA: Not required space type</xsd:documentation>
-                                                                     <xsd:appinfo source="displayterm">
-                                                                        <dtyp:displayterm value="ContinuousOperationNA">NA: Continuously operated per 
-                                                                           <d:t24ref h="120.2(e)3"/> exception<d:sup>5</d:sup>
-                                                                        </dtyp:displayterm>
-                                                                        <dtyp:displayterm value="LowPowerNA">NA: System 
-                                                                           <d:lt/> 2kW demand + manual shutoff per 
-                                                                           <d:t24ref h="120.2(e)3"/> exception<d:sup>5</d:sup>
-                                                                        </dtyp:displayterm>
-                                                                        <dtyp:displayterm value="HotelMotelNA">NA: Hotel/ Motel + manual shutoff per 
-                                                                           <d:t24ref h="120.2(e)3"/> exception<d:sup>3</d:sup>
-                                                                        </dtyp:displayterm>
-                                                                     </xsd:appinfo>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
-                                                            </xsd:sequence>
-                                                         </xsd:complexType>
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="ContinuousOperationNA">NA: Continuously operated per 
+                                                                  <d:t24ref h="120.2(e)3"/> exception<d:sup>5</d:sup>
+                                                               </dtyp:displayterm>
+                                                               <dtyp:displayterm value="LowPowerNA">NA: System 
+                                                                  <d:lt/> 2kW demand + manual shutoff per 
+                                                                  <d:t24ref h="120.2(e)3"/> exception<d:sup>5</d:sup>
+                                                               </dtyp:displayterm>
+                                                               <dtyp:displayterm value="HotelMotelNA">NA: Hotel/ Motel + manual shutoff per 
+                                                                  <d:t24ref h="120.2(e)3"/> exception<d:sup>3</d:sup>
+                                                               </dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
                                                       </xsd:element>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
-                                             <xsd:element name="J17_OA_SystemRequiredMin" type="com:OA_SystemRequiredMin">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Total System Required Min OA CFM</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated value: SUM All (J13_OA_SpaceRequiredMin)</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="J18_DoesSystemVentilationComply" type="comp:DoesSystemVentilationComply">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Ventilation for this System Complies?</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated value: 
+                                          </xsd:sequence>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                    <xsd:element name="J17_OA_SystemRequiredMin" type="com:OA_SystemRequiredMin">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Total System Required Min OA CFM</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: SUM All (J13_OA_SpaceRequiredMin)</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="J18_DoesSystemVentilationComply" type="comp:DoesSystemVentilationComply">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Ventilation for this System Complies?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated value: 
 If  (J05_VentSystemOutsideAir + J06_VentSystemTransferAir) GTE J17_OA_SystemRequiredMin AND 
 If J15_ExhaustPerSpace IsPresent And J15_ExhaustPerSpace GTE J14_ExhaustSpaceRequiredMin 
 result = true display term Yes;
  
 Else result = false display term No
 End If</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                          </xsd:sequence>
-                                       </xsd:complexType>
+                                       </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
                               </xsd:complexType>
@@ -5105,7 +5239,10 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">
                            <d:b>High-rise Residential Dwelling Unit Ventilation Systems</d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This table is required If J02_HiRiseDwellingUnitsIncluded == true</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == false And  If J02b_HiRiseDwellingUnitsIncluded == true
+this table is required and displayed
+Else this table is minimized
+End If</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -5487,7 +5624,7 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>L. DISTRIBUTION (DUCTWORK and PIPING)</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required if B02c_ProjectHasHydronicPiping == true Or B03d_ProjectHasDuctwork == true</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if B02c_ProjectHasSystemPiping == true Or B03d_ProjectHasDuctwork == true</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -5502,11 +5639,12 @@ End If</xsd:documentation>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="L01_PipeInsulationProtectionComplies" type="comp:PipeInsulationProtectionComplies">
+                  <xsd:element name="L01_PipeInsulationProtectionComplies" type="comp:PipeInsulationProtectionComplies" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">Insulation shall be protected from damage, including that due to sunlight, moisture, equipment maintenance, and wind. Insulation exposed to weather shall be installed with a cover suitable for outdoor service.  Insulation covering chilled water piping and refrigerant suction piping located outside the conditioned space shall have a Class I or Class II vapor retarder.  All penetrations and joints of which shall be sealed.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This field applies to the Mandatory Pipe Insulation table and is only required  If B02c_ProjectHasSystemPiping == true
+User input; If checked result = true; Else result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="TablePipeInsulation" minOccurs="0">
