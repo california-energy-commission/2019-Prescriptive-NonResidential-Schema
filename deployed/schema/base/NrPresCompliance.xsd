@@ -1242,6 +1242,7 @@
          <xsd:element name="HeaderNRCC" type="comp:HeaderNRCC"/>
          <xsd:element name="HeaderNRCI" type="comp:HeaderNRCI"/>
          <xsd:element name="HeaderNRCV" type="comp:HeaderNRCV"/>
+         <xsd:element name="MandatoryMeasureBlockNRCC" type="comp:MandatoryMeasureBlockNRCC"/>
          <xsd:element name="Payload" type="comp:Payload"/>
          <xsd:element name="ResponsiblePersonNRCA" type="comp:ResponsiblePersonNRCA"/>
          <xsd:element name="ResponsiblePersonNRCV" type="comp:ResponsiblePersonNRCV"/>
@@ -3187,6 +3188,16 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="SpeedControlled"/>
          <xsd:enumeration value="SpeedControlledNA"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExceptionApplies">
+      <xsd:annotation>
+         <xsd:documentation>If true Mandatory Measure Exception applies to the project</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCCCXRE">
       <xsd:annotation>
@@ -5137,6 +5148,18 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="LuminaireSpecSourceOther">
       <xsd:restriction base="xsd:token"/>
    </xsd:simpleType>
+   <xsd:simpleType name="MM_Note">
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="MM_Standards">
+      <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="MM_Statement">
+      <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="MM_Title">
+      <xsd:restriction base="dtyp:EnumerationConstant"/>
+   </xsd:simpleType>
    <xsd:simpleType name="MandatoryLightingDemandResponseNR">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -5159,6 +5182,14 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="RequiredGT10000SF"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:complexType name="MandatoryMeasure">
+      <xsd:sequence/>
+   </xsd:complexType>
+   <xsd:complexType name="MandatoryMeasureBlockNRCC">
+      <xsd:sequence>
+         <xsd:element name="MandatoryMeasure" type="comp:MandatoryMeasure" minOccurs="1" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
    <xsd:simpleType name="MandatoryMeasuresComply">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -5173,6 +5204,16 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:documentation>Units: ft3 per min</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="MeasureApplies">
+      <xsd:annotation>
+         <xsd:documentation>If true Mandatory Measure applies to the project</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="MeetingDate">
       <xsd:annotation>
