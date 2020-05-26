@@ -7,7 +7,7 @@
    xmlns:com="http://www.lmonte.com/besm/com"
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.020">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.023">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
@@ -3462,6 +3462,17 @@
       <xsd:restriction base="xsd:token">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ExceptionApplies">
+      <xsd:annotation>
+         <xsd:documentation>If true Mandatory Measure Exception applies to the project</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ExistingConditionsTotalAllowance">
       <xsd:annotation>
          <xsd:documentation>  Units: W</xsd:documentation>
@@ -5244,6 +5255,17 @@
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="MeasureApplies">
+      <xsd:annotation>
+         <xsd:documentation>If true Mandatory Measure applies to the project</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="MeetingDate">
       <xsd:annotation>
          <xsd:documentation>  Units: none</xsd:documentation>
@@ -5293,6 +5315,22 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="MM_Note">
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="MM_Standards">
+      <xsd:restriction base="xsd:token">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="MM_Statement">
+      <xsd:restriction base="xsd:token">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="MM_Title">
+      <xsd:restriction base="dtyp:EnumerationConstant">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MonitoringCO">
@@ -9886,6 +9924,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:element name="HeaderNRCC" type="comp:HeaderNRCC" ></xsd:element>
          <xsd:element name="HeaderNRCI" type="comp:HeaderNRCI" ></xsd:element>
          <xsd:element name="HeaderNRCV" type="comp:HeaderNRCV" ></xsd:element>
+         <xsd:element name="MandatoryMeasureBlockNRCC" type="comp:MandatoryMeasureBlockNRCC" ></xsd:element>
          <xsd:element name="Payload" type="comp:Payload" ></xsd:element>
          <xsd:element name="ResponsiblePersonNRCA" type="comp:ResponsiblePersonNRCA" ></xsd:element>
          <xsd:element name="ResponsiblePersonNRCV" type="comp:ResponsiblePersonNRCV" ></xsd:element>
@@ -9954,6 +9993,15 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:element name="header02_EnforcementAgency" type="comp:EnforcementAgency" ></xsd:element>
          <xsd:element name="header03_PermitNumber" type="comp:PermitNumber" ></xsd:element>
          <xsd:element name="header04_ProjectAddress" type="comp:StreetAddress" ></xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="MandatoryMeasure">
+      <xsd:sequence>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="MandatoryMeasureBlockNRCC">
+      <xsd:sequence>
+         <xsd:element name="MandatoryMeasure" type="comp:MandatoryMeasure" minOccurs="1" maxOccurs="unbounded" ></xsd:element>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="Payload">

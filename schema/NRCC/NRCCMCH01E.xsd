@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.020">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.023">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -62,7 +62,7 @@
                   <xsd:element name="A_BeforeNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This document is used to demonstrate compliance for mechanical systems that are within the scope of the permit application and are demonstrating compliance using the prescriptive path outlined in [d:t24ref/]140.4, or  [d:t24ref/]141.0(b)2 for alterations .[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This document is used to demonstrate compliance for mechanical systems that are within the scope of the permit application and are demonstrating compliance using the prescriptive path outlined in [d:t24ref/]140.4, or  [d:t24ref/]141.0(b)2 for alterations.[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
@@ -122,7 +122,7 @@ End If</xsd:documentation>
                   </xsd:element>
                   <xsd:element name="A03School_OccupancyApplies" type="comp:OccupancyApplies" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">School (E)</xsd:documentation>
+                        <xsd:documentation source="FieldText">School (F)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false. 
  If result == true A03_WholeBuildingOccupancy += SchoolBuilding;
 End If</xsd:documentation>
@@ -479,6 +479,7 @@ any field in range H001-H06 != BlankGrayedOut has data
 And 
 If TablePowerAdjustment IsPresent And for every row 
 any field in range H08a-H08b != BlankGrayedOut has data And
+If H08c_FanSystemMaxAllowedHP != BlankGrayedOut has data And 
 for each fan system H06Total_FanSystemTotalHP LTE H08c_FanSystemMaxAllowedHP 
 Then result = true display term Yes; 
 Else result = false display term No.</xsd:documentation>
@@ -576,7 +577,7 @@ If J01_CalculationsAttached == true result = true display term Yes;
 Else for every row 
 any field in range J04-J16 != BlankGrayedOut has data And 
 for every system J18_DoesSystemVentialtionComply == true And 
-J02_HiRiseDwellingUnitsincluded == false 
+J02b_HiRiseDwellingUnitsincluded == false 
  
 Or
  
@@ -1461,8 +1462,13 @@ use this choice.  Efficiency units for Heating mode result or list is as follows
  
 Switch (F02_HvacSystemType) 
 case  FurnaceUnitHeater: 
-If F03_FurnaceUnitHeater == FurnaceCentral 
+If F03_FurnaceUnitHeater == FurnaceCentral Then
+If Fa02_SizeRangeFurnaceUnitHeater == GTE22500
+result = ThermalEfficiency
+Else
 user selects from list AFUE, ThermalEfficiency; 
+End If
+ 
 Else If F03_FurnaceUnitHeater == FurnaceDuct Or UnitHeater 
 result = CombustionEfficiency; 
 Else result = AFUE;  
@@ -1597,7 +1603,7 @@ Else If SizeRangeUnitaryHeatPumps == GTE135000AndLT240000
 result = 2.9; 
 End If
  
-Else If F03_UnitaryHeatPumps == GroundSourceBrineWaterToWaterHP 
+Else If F03_UnitaryHeatPumps == GroundSourceBrineToWaterHP 
 result = 2.5; 
 Else If F03_UnitaryHeatPumps == GroundSourceHP 
 result = 3.2;
@@ -1857,7 +1863,7 @@ result1 = SEER;
 End If
  
 case UnitaryHeatPumps: 
-If F03_UnitaryHeatPumps == GroundSourceHP, GroundWaterSourceHP, GroundWaterSourceWaterToWaterHP, WaterSourceHP, WaterToWaterHP or GroundSourceBrineWaterToWaterHP 
+If F03_UnitaryHeatPumps == GroundSourceHP, GroundWaterSourceHP, GroundWaterSourceWaterToWaterHP, WaterSourceHP, WaterToWaterHP or GroundSourceBrineToWaterHP 
 result1 = EER; 
 Else If F03_UnitaryHeatPumps == AirCooledGasEngineHP 
 result1 = COP; 
@@ -3822,7 +3828,7 @@ End If</xsd:documentation>
                   <xsd:element name="H_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is used to demonstrate compliance with prescriptive requirements found in [d:t24ref/]140.4(c), [d:t24ref/]140.4(e) and [d:t24ref/]140.4(m) for fan systems. Fan systems serving healthcare facilities, or those serving only process loads, are exempt from these requirements and do not need to be included in Table H.[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is used to demonstrate compliance with prescriptive requirements found in [d:t24ref/]140.4(c), [d:t24ref/]140.4(e) and [d:t24ref/]140.4(m) for fan systems. Fan systems serving only process loads are exempt from these requirements and do not need to be included in Table H.[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="TableFanSystems" >
@@ -4007,7 +4013,7 @@ MERV13_15 display term MERV 13-15 (Alterations only)</xsd:documentation>
                                                                                     <xsd:element name="H08a_FanDeviceFlow" type="hvac:FanDeviceFlow" >
                                                                                        <xsd:annotation>
                                                                                           <xsd:documentation source="FieldText">Design Airflow through Device (CFM)</xsd:documentation>
-                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out; 
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA Or If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out; 
 Else user enters value
 End if</xsd:documentation>
                                                                                        </xsd:annotation>
@@ -4015,7 +4021,7 @@ End if</xsd:documentation>
                                                                                     <xsd:element name="H08a_NotApplicableMessage" >
                                                                                        <xsd:annotation>
                                                                                           <xsd:documentation source="FieldText">Design Airflow through Device (CFM)</xsd:documentation>
-                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA Or If H07_PressureDropAdjustmentDevice == NoDevice result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out
 End If</xsd:documentation>
                                                                                        </xsd:annotation>
                                                                                        <xsd:simpleType>
@@ -4029,7 +4035,7 @@ End If</xsd:documentation>
                                                                                     <xsd:element name="H08b_FanDevicePressureDrop" type="hvac:FanDevicePressureDrop" >
                                                                                        <xsd:annotation>
                                                                                           <xsd:documentation source="FieldText">Calculated  Adjustment (in H[d:sub]2[/d:sub]O)</xsd:documentation>
-                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA Or If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
 result = BlankGrayedOut stored in NotApplicableMessage and cell is grayed out; 
  
 Else user enters value
@@ -4039,7 +4045,7 @@ End If</xsd:documentation>
                                                                                     <xsd:element name="H08b_NotApplicableMessage" >
                                                                                        <xsd:annotation>
                                                                                           <xsd:documentation source="FieldText">Calculated  Adjustment (in H[d:sub]2[/d:sub]O)</xsd:documentation>
-                                                                                          <xsd:documentation source="CalculationsAndRules">If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
+                                                                                          <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA Or If H07_PressureDropAdjustmentDevice == NoDevice Or != FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
 result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
                                                                                        </xsd:annotation>
@@ -4065,23 +4071,55 @@ End If</xsd:documentation>
                                           </xsd:choice>
                                        </xsd:complexType>
                                     </xsd:element>
-                                    <xsd:element name="H04Total_FanSystemFlowCapacity" type="hvac:FanSystemFlowCapacity" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Total System Design Supply Airflow (CFM):</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = SUM ALL (H03_FanCount x H04_MaximumAirflowRate)</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="H06Total_FanSystemTotalHP" type="hvac:FanSystemTotalHP" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Total System Design (B)HP:</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated value: result = SUM ALL (H03_FanCount x H06_DesignHP)</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="H08c_FanSystemMaxAllowedHP" type="hvac:FanSystemMaxAllowedHP" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">[d:b]Maximum System Fan Power (B)HP:[/d:b]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated value: 
-If H06Total_FanSystemTotalHP LTE 5 result = BlankGrayedOut stored in NotApplicableMessage; 
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H04Total_FanSystemFlowCapacity" type="hvac:FanSystemFlowCapacity" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total System Design Supply Airflow (CFM):</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">Calculated value: result = SUM ALL (H03_FanCount x H04_MaximumAirflowRate)</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H04Total_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total System Design Supply Airflow (CFM):</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H06Total_FanSystemTotalHP" type="hvac:FanSystemTotalHP" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total System Design (B)HP:</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">Calculated value: result = SUM ALL (H03_FanCount x H06_DesignHP)</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H06Total_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total System Design (B)HP:</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="H08c_FanSystemMaxAllowedHP" type="hvac:FanSystemMaxAllowedHP" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">[d:b]Maximum System Fan Power (B)HP:[/d:b]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">Calculated value:
+ If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA Or If H06Total_FanSystemTotalHP LTE 5 
+result = BlankGrayedOut stored in NotApplicableMessage; 
  
 Else If H05_HorsePowerUnit ==NameplateHP Then 
 If H00d_FanFlowType == FixedFlow 
@@ -4099,13 +4137,12 @@ End If
 End If
  
 Calculation for A = sum (PD  x H08a_FanDeviceFlow/4131).  
- 
 Assignment for PD (Pressure Drop): 
 If H07_ PressureDropAdjustmentDevice == FiltersScrubbers, MERV16OrGreater, GasPhaseAirCleaner, BiosafetyCabinet, Or EnergyRecovery 
-PD =  H08b_ FanDevicePressureDrop; 
+PD = H08b_ FanDevicePressureDrop; 
  
 Else If H07_ PressureDropAdjustmentDevice == FullyDucted, PressureMaintained, AirflowControl, Or MERV9_12, 
-PD = 0.5; 
+PD =  0.5; 
  
 Else If H07_ PressureDropAdjustmentDevice == CoilRunaroundLoop, 
 PD = 0.6; 
@@ -4116,8 +4153,21 @@ PD = 0.35;
 Else If H07_ PressureDropAdjustmentDevice == MERV13_15, 
 PD = 0.9;
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="H08c_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">[d:b]Maximum System Fan Power (B)HP:[/d:b]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If H00c_EconomizerMeetsRequiredControls == HealthcareFacilityNA Or If H06Total_FanSystemTotalHP LTE 5 
+result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
                                  </xsd:sequence>
                               </xsd:complexType>
                            </xsd:element>
@@ -4133,7 +4183,7 @@ End If</xsd:documentation>
                   <xsd:element name="HFootnote2" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup] If total filter pressure drop (SPa) is greater than 1 in WC, or 245 Pascal then enter it and total fan pressure drop across the fan (SPf) for system.[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup] The unit used for HP must be consistent for all fans within a system.[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -4544,18 +4594,18 @@ End If</xsd:documentation>
                                                       <xsd:element name="J13_OA_SpaceRequiredMin" type="com:OA_SpaceRequiredMin" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Required Min OA CFM</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If  J09_VentilationSpaceFunction == AllOthersVent, ClassroomArt, AutoRepairVent, BankLobby, BankVault , BarracksSleepingArea, BedroomLivingRoom,  CellWithToiletVent, MiscComputerSpace, ClassroomComputer, CopyPrintRoom, CorridorsResidential, DarkRoom, DaycareSickRoom, WeightRoom, AerobicsRoom,  JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LaundryRoom, DwellingUnitLaundryRoom, LibraryAssembly, LockerAllOthers, LockerAthleticIndustrial, MediaCenter,  StorageOccupiableDryMaterials, StorageOccupiableLiquids,  OfficeSpaceVent, ParkingGarageVent, PharmacyPrepArea, PhotoStudio, OfficeReception,  ScienceLab, ShippingReceiving, ShowerRoom, ShowerContExhaust, WorkshopSortingPacking, SwimmingPool, TelephoneRoom, DataEntryTelephoneSpace, RestroomPrivateContExhaust, RestroomPublicContExhaust,  RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab MiscWarehouse Or WoodMetalShop; 
+                                                            <xsd:documentation source="CalculationsAndRules">If  J09_VentilationSpaceFunction == AllOthersVent, ClassroomArt, AutoRepairVent, BankLobby, BankVault , BarracksSleepingArea, BedroomLivingRoom,  CellWithToiletVent, MiscComputerSpace, ClassroomComputer, CopyPrintRoom, CorridorsResidential, DarkRoom, DaycareSickRoom, WeightRoom, AerobicsRoom,  JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LaundryRoom, DwellingUnitLaundryRoom, LibraryAssembly, LockerAllOthers, LockerAthleticIndustrial, MediaCenter,  StorageOccupiableDryMaterials, StorageOccupiableLiquids,  GeneralManufacturingLightIndustrial, OfficeSpaceVent, ParkingGarageVent, PharmacyPrepArea, PhotoStudio, OfficeReception,  ScienceLab, ShippingReceiving, ShowerRoom, ShowerContExhaust, WorkshopSortingPacking, SwimmingPool, TelephoneRoom, DataEntryTelephoneSpace, RestroomPrivateContExhaust, RestroomPublicContExhaust,  RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab MiscWarehouse Or WoodMetalShop; 
 result = 0.15 x J10_SpaceFloorArea;
  
 Else If  VentilationSpaceFunction == Courtroom Or LegislativeChambers
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV 
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.19 x J10_SpaceFloorArea;
 End If
  
 Else  If  VentilationSpaceFunction == DaycareToAge4
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV 
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.21 x J10_SpaceFloorArea; 
@@ -4565,21 +4615,21 @@ Else  If  VentilationSpaceFunction == LaundryCoinOperated
 result = 0.30 x J10_SpaceFloorArea; 
  
 Else  If  VentilationSpaceFunction == MallCommon, MuseumChildrenAssembly, MuseumAssembly, Or PetShop
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.25 x J10_SpaceFloorArea;  
 End If
  
 Else  If  VentilationSpaceFunction == RetailSales Or Supermarket
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV 
 result = 0.20 x J10_SpaceFloorArea;
 Else
 result = 0.25 x J10_SpaceFloorArea;  
 End If
  
 Else If  VentilationSpaceFunction == ClassroomAge5_18, ClassroomPostsecondary
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.38 x J10_SpaceFloorArea; 
@@ -4589,42 +4639,42 @@ Else If  VentilationSpaceFunction == BarberShop Or BeautyNailSalon
 result = 0.40 x J10_SpaceFloorArea;  
  
 Else If  VentilationSpaceFunction == BarCocktailLounge
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV  
 result = 0.20 x J10_SpaceFloorArea;
 Else
 result = 0.50 x J10_SpaceFloorArea;  
 End If
  
 Else If  VentilationSpaceFunction == OfficeBreakRoom, FastfoodCafeteriaVent, GeneralCoffeeStation, ConferenceMeetingVent, ArenasVent, AssemblyLobby, MainEntryOffice, LodgingAssembly, MultiuseAssembly, RestaurantDining,  SportsSpectatorAreaVent, StagesStudios, SwimmingDeck Or TransportWaiting
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.50 x J10_SpaceFloorArea;  
 End If
  
 Else  If  VentilationSpaceFunction == GamblingArea Or GameArcadesVent
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.68 x J10_SpaceFloorArea; 
 End If
  
 Else If  VentilationSpaceFunction == DanceFloor 
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 1.50 x J10_SpaceFloorArea;  
 End If
  
 Else  If  VentilationSpaceFunction == AudienceSeatingArea, BowlingAlleySeatingVent, ClassroomPerformance Or ReligiousAssemblyArea
-If J16a_DemandContolVent == ProvidedOccSensors 
+If J16a_DemandContolVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 1.07 x J10_SpaceFloorArea; 
 End If
  
 Else  If VentilationSpaceFunction == LectureHall
-If J16a_DemandContolVent == ProvidedOccSensors 
+IIf J16a_DemandContolVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 15 x J12_OccupantCount 
@@ -4649,7 +4699,7 @@ result = 0.7 x J10_SpaceFloorArea;
  
 case AutoRepairVent, StorageOccupiableLiquids: 
 result = 1.5; 
-case BarberShop, CopyPrintRoom, ArenasVent,  LockerAthleticIndustrial,  WoodMetalShop: 
+case BarberShop, CopyPrintRoom, ArenasVent,  LockerAthleticIndustrial,  SportsSpectatorAreaVent, WoodMetalShop: 
 result = 0.5 x J10_SpaceFloorArea; 
  
 case BeautyNailSalon: 
@@ -4686,7 +4736,7 @@ End Switch</xsd:documentation>
                                                          <xsd:element name="J14_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Required Min CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
+                                                               <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, SportsSpectatorAreaVent, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -5256,10 +5306,11 @@ case GT350: list 0_32To0_34 display term 0.32 - 0.34, OtherConductivity display 
 End Switch</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="L06_PipeFluidMeanTemp" type="hvac:PipeFluidMeanTemp" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Insulation Mean Rating Temp.[d:line1/] ([d:deg/]F)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated value: 
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="L06_PipeFluidMeanTemp" type="hvac:PipeFluidMeanTemp" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Insulation Mean Rating Temp.[d:line1/] ([d:deg/]F)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">Calculated value: 
 Switch ( L04_PipeFluidTempRange) 
 case LT40: result = 50; 
  
@@ -5276,12 +5327,26 @@ case 251To350: result = 200;
 case GT350: result = 250
  
 End Switch</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="L07_PipeInsulationMinByDiameter" type="hvac:PipeInsulationMinByDiameter" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Min. Insulation Thickness Required per [d:t24table]Table 120.3-A[/d:t24table]  [d:line1/] (in)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated value: 
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="L06_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Insulation Mean Rating Temp.[d:line1/] ([d:deg/]F)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If L05_PipeThermalConductivity  == OtherConductivity result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="L07_PipeInsulationMinByDiameter" type="hvac:PipeInsulationMinByDiameter" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Min. Insulation Thickness Required per [d:t24table]Table 120.3-A[/d:t24table]  [d:line1/] (in)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">Calculated value: 
 Switch ( L04_PipeFluidTempRange) 
  
 case LT40: 
@@ -5315,8 +5380,21 @@ If L03_PipeNominalDiameter == LT1_0 result = 4.5;
 Else result = 5.0;
 End If
 End Switch</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="L07_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Min. Insulation Thickness Required per [d:t24table]Table 120.3-A[/d:t24table]  [d:line1/] (in)</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If L05_PipeThermalConductivity  == OtherConductivity result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="L08_PipeInsulationMinimum" type="hvac:PipeInsulationMinimum" >
                                           <xsd:annotation>
@@ -6090,7 +6168,7 @@ End If</xsd:documentation>
                   <xsd:element name="P_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i] Selections have been made based on information provided in previous tables of this document.  If any selection needs to be changed, please explain why in Table E Additional Remarks.  These documents must be completed by a HERS Rater and provided to the building inspector during construction.  The finsl documents must be creted by a HERS Providrs registry, but drafts can be found online at https://www.energy.ca.gov/title24/2019standards/2019_compliance_documents/Nonresidential_Documents/NRCV/  [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i] Selections have been made based on information provided in previous tables of this document.  If any selection needs to be changed, please explain why in Table E Additional Remarks.  These documents must be completed by a HERS Rater and provided to the building inspector during construction.  The final documents must be created by a HERS Provider's registry, but drafts can be found online at https://www.energy.ca.gov/title24/2019standards/2019_compliance_documents/Nonresidential_Documents/NRCV/  [/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="P01_RequireNRCVMch04H" type="comp:RequireNRCVMch04H" >
