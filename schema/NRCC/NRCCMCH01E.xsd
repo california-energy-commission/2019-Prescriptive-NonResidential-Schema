@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.023">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.024">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -228,7 +228,7 @@ End If</xsd:documentation>
                   </xsd:element>
                   <xsd:element name="B01c_ProjectHasControls" type="comp:ProjectHasControls" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Mechanical Controls</xsd:documentation>
+                        <xsd:documentation source="FieldText">Mechanical Controls (existing to remain, altered or new)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -298,7 +298,7 @@ End If</xsd:documentation>
                   </xsd:element>
                   <xsd:element name="B03d_ProjectHasDuctwork" type="comp:ProjectHasDuctwork" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Ductwork</xsd:documentation>
+                        <xsd:documentation source="FieldText">Ductwork (existing to remain, altered or new)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1078,8 +1078,15 @@ End If</xsd:documentation>
                                        <xsd:element name="F08_CoolingSensibleDesignCapacity" type="hvac:CoolingSensibleDesignCapacity" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Sensible Per Design (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryHeatPumps, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
+Else If F02_HvacSystemType == UnitaryHeatPumps Then
+ 
+If F03_UnitaryHeatPumps != WaterSourceHP
+user input in this field is required;
+Else If Fa02_SizeRangeUnitaryHeatPumps != GTE135000AndLT240000
+user input in this field is required
+End If
  
 Else result = BlankGrayedOut stored in the NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
@@ -1088,8 +1095,15 @@ End If</xsd:documentation>
                                        <xsd:element name="F08_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Sensible Per Design (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryHeatPumps, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
+Else If If F02_HvacSystemType == UnitaryHeatPumps Then
+ 
+If F03_UnitaryHeatPumps != WaterSourceHP
+user input in this field is required;
+Else If Fa02_SizeRangeUnitaryHeatPumps != GTE135000AndLT240000
+user input in this field is required
+End If
  
 Else result = BlankGrayedOut stored in the NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
@@ -1136,7 +1150,7 @@ End If</xsd:documentation>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="F10_HeatingTotalLoad" type="hvac:HeatingTotalLoad" >
                                           <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Total Heating Load</xsd:documentation>
+                                             <xsd:documentation source="FieldText">Total Heating Load (kBtu/h)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType != cooling only equipment (e.g. ComputerRoomAC)
 User input 
 End If</xsd:documentation>
@@ -1144,7 +1158,7 @@ End If</xsd:documentation>
                                        </xsd:element>
                                        <xsd:element name="F10_NotApplicableMessage" >
                                           <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Total Heating Load</xsd:documentation>
+                                             <xsd:documentation source="FieldText">Total Heating Load (kBtu/h)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == cooling only equipment (e.g. ComputerRoomAC)
   result = BlankGrayedOut stored in NotApplicableMessage
 End if</xsd:documentation>
@@ -1159,7 +1173,7 @@ End if</xsd:documentation>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="F11_CoolingSensibleTotalLoad" type="hvac:CoolingSensibleTotalLoad" >
                                           <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Total Sensible Cooling Load</xsd:documentation>
+                                             <xsd:documentation source="FieldText">Total Sensible Cooling Load (kBtu/h)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType != heating only equipment (e.g. FurnaceUnitHeater)
 User input  
 End If</xsd:documentation>
@@ -1167,7 +1181,7 @@ End If</xsd:documentation>
                                        </xsd:element>
                                        <xsd:element name="F11_NotApplicableMessage" >
                                           <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Total Sensible Cooling Load</xsd:documentation>
+                                             <xsd:documentation source="FieldText">Total Sensible Cooling Load (kBtu/h)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == heating only equipment (e.g. FurnaceUnitHeater) result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
                                           </xsd:annotation>
@@ -4245,7 +4259,7 @@ EnergyManagementSystem display term EMCS,
 SetbackPlusDR display term Setback + DR Tstat per 110.12, 
 EquipmentException display term NA: Eq. type per 110.2(c) exception[d:sup]1[/d:sup]</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
-                                             <dtyp:displayterm value="EnergyManagementSystem display"> EMCS</dtyp:displayterm>
+                                             <dtyp:displayterm value="EnergyManagementSystem"> EMCS</dtyp:displayterm>
                                              <dtyp:displayterm value="EquipmentException"> NA: Eq. type per 110.2(c) exception[d:sup]1[/d:sup]
 </dtyp:displayterm>
                                           </xsd:appinfo>
@@ -4273,7 +4287,7 @@ OtherControl display term Other*,
 24x7OperationNA display term NA: 7 day per 120.2(e)1, 
 AlteredNA display term NA: Altered per 141.0(b)2E, 
 HealthcareNA display term NA: Healthcare only, 
-HighriseResNA display term NA: HHR dwelling unit</xsd:documentation>
+HighriseResNA display term NA: HRR dwelling unit</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                           </xsd:appinfo>
                                           
@@ -4296,7 +4310,7 @@ LT25000ft2NA display term NA: Serves [d:lt/] 25k ft[d:sup]2[/d:sup]</xsd:documen
                                     </xsd:element>
                                     <xsd:element name="I07_ControlSystemDR" type="hvac:ControlSystemDR" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Demand Response [d:line1/] [d:t24ref/]120.2(b)</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Demand Response [d:line1/] [d:t24ref/]110.12 and [d:t24ref/]120.2(b)</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list: 
 EMCS display term EMCS, 
 ThermostatDR display term DR Tstat per 110.12,
@@ -4326,7 +4340,7 @@ NoTstatControlNA display term NA: No thermostatic control,
 AlteredNA display term NA: Alteration Project, 
 NoOperableWindowNA display term NA: No operable windows, 
 HealthcareNA display term NA: Healthcare only, 
-HighriseResNA display term NA: HHR dwelling unit</xsd:documentation>
+HighriseResNA display term NA: HRR dwelling unit</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
@@ -4598,14 +4612,14 @@ End If</xsd:documentation>
 result = 0.15 x J10_SpaceFloorArea;
  
 Else If  VentilationSpaceFunction == Courtroom Or LegislativeChambers
-If J16a_DemandContolVent == ProvidedDCV 
+If J16a_DemandControlVent == ProvidedDCV 
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.19 x J10_SpaceFloorArea;
 End If
  
 Else  If  VentilationSpaceFunction == DaycareToAge4
-If J16a_DemandContolVent == ProvidedDCV 
+If J16a_DemandControlVent == ProvidedDCV 
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.21 x J10_SpaceFloorArea; 
@@ -4615,21 +4629,21 @@ Else  If  VentilationSpaceFunction == LaundryCoinOperated
 result = 0.30 x J10_SpaceFloorArea; 
  
 Else  If  VentilationSpaceFunction == MallCommon, MuseumChildrenAssembly, MuseumAssembly, Or PetShop
-If J16a_DemandContolVent == ProvidedDCV  
+If J16a_DemandControlVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.25 x J10_SpaceFloorArea;  
 End If
  
 Else  If  VentilationSpaceFunction == RetailSales Or Supermarket
-If J16a_DemandContolVent == ProvidedDCV 
+If J16a_DemandControlVent == ProvidedDCV 
 result = 0.20 x J10_SpaceFloorArea;
 Else
 result = 0.25 x J10_SpaceFloorArea;  
 End If
  
 Else If  VentilationSpaceFunction == ClassroomAge5_18, ClassroomPostsecondary
-If J16a_DemandContolVent == ProvidedDCV  
+If J16a_DemandControlVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.38 x J10_SpaceFloorArea; 
@@ -4639,42 +4653,42 @@ Else If  VentilationSpaceFunction == BarberShop Or BeautyNailSalon
 result = 0.40 x J10_SpaceFloorArea;  
  
 Else If  VentilationSpaceFunction == BarCocktailLounge
-If J16a_DemandContolVent == ProvidedDCV  
+If J16a_DemandControlVent == ProvidedDCV  
 result = 0.20 x J10_SpaceFloorArea;
 Else
 result = 0.50 x J10_SpaceFloorArea;  
 End If
  
 Else If  VentilationSpaceFunction == OfficeBreakRoom, FastfoodCafeteriaVent, GeneralCoffeeStation, ConferenceMeetingVent, ArenasVent, AssemblyLobby, MainEntryOffice, LodgingAssembly, MultiuseAssembly, RestaurantDining,  SportsSpectatorAreaVent, StagesStudios, SwimmingDeck Or TransportWaiting
-If J16a_DemandContolVent == ProvidedDCV  
+If J16a_DemandControlVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.50 x J10_SpaceFloorArea;  
 End If
  
 Else  If  VentilationSpaceFunction == GamblingArea Or GameArcadesVent
-If J16a_DemandContolVent == ProvidedDCV  
+If J16a_DemandControlVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 0.68 x J10_SpaceFloorArea; 
 End If
  
 Else If  VentilationSpaceFunction == DanceFloor 
-If J16a_DemandContolVent == ProvidedDCV  
+If J16a_DemandControlVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 1.50 x J10_SpaceFloorArea;  
 End If
  
 Else  If  VentilationSpaceFunction == AudienceSeatingArea, BowlingAlleySeatingVent, ClassroomPerformance Or ReligiousAssemblyArea
-If J16a_DemandContolVent == ProvidedDCV  
+If J16a_DemandControlVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 1.07 x J10_SpaceFloorArea; 
 End If
  
 Else  If VentilationSpaceFunction == LectureHall
-IIf J16a_DemandContolVent == ProvidedDCV  
+IIf J16a_DemandControlVent == ProvidedDCV  
 result = 0.15 x J10_SpaceFloorArea;
 Else
 result = 15 x J12_OccupantCount 
@@ -4698,7 +4712,8 @@ case ClassroomArt, FoodServiceKitchen:
 result = 0.7 x J10_SpaceFloorArea; 
  
 case AutoRepairVent, StorageOccupiableLiquids: 
-result = 1.5; 
+result = 1.5 x J10_SpaceFloorArea; 
+ 
 case BarberShop, CopyPrintRoom, ArenasVent,  LockerAthleticIndustrial,  SportsSpectatorAreaVent, WoodMetalShop: 
 result = 0.5 x J10_SpaceFloorArea; 
  
@@ -4757,7 +4772,7 @@ End If</xsd:documentation>
                                                          <xsd:element name="J15_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Provided per Design CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
+                                                               <xsd:documentation source="CalculationsAndRules">If  VentilationSpaceFunction != ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, SportsSpectatorAreaVent,  StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab Or WoodMetalShop
 result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -5104,14 +5119,30 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="K04_PrimaryAirInDeadband" type="hvac:PrimaryAirInDeadband"  minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Primary Air in Deadband [d:line1/] CFM</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVwithDDC User input;  
-Else this field is not required
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="K04_PrimaryAirInDeadband" type="hvac:PrimaryAirInDeadband" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Primary Air in Deadband [d:line1/] CFM</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
+Else If ZonalControlStrategy == VAVwithDDC User input;  
 End If</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="K04_NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Primary Air in Deadband [d:line1/] CFM</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                       <xsd:element name="K05_ReheatRecoolMixAirFlow" type="hvac:ReheatRecoolMixAirFlow" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Reheated Recooled Mixed Airflow [d:line1/] CFM</xsd:documentation>
@@ -5153,31 +5184,80 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="AdditionalRequirements">Reheated, Recooled, Mixed Air Compliance</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="K09_ReheatRecoolMixPercentPeakPrimary" type="hvac:ReheatRecoolMixPercentPeakPrimary"  minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">50% of Peak Primary Airflow</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy != VAVwithDDC  this field is not required; 
- 
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="K09_ReheatRecoolMixPercentPeakPrimary" type="hvac:ReheatRecoolMixPercentPeakPrimary" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">50% of Peak Primary Airflow</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
 Else calculated value: result = 0.50 x K03_PrimaryAirFlowMaximum;
 End If</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="K10_Stage1ModulatesLTE95F" type="comp:Stage1ModulatesLTE95F"  minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">1[d:sup]st[/d:sup] Stage Modulates [d:lte/]95[d:deg/]F and Maintains DB Rate?</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy != VAVwithDDC this field is not required; 
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="K09_NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">50% of Peak Primary Airflow</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="K10_Stage1ModulatesLTE95F" type="comp:Stage1ModulatesLTE95F" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">1[d:sup]st[/d:sup] Stage Modulates [d:lte/]95[d:deg/]F and Maintains DB Rate?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
+ 
 Else User selects Yes result = true; Else result = false
 End If</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="K11_Stage2ModulatesDBtoHeatFlow" type="comp:Stage2ModulatesDBtoHeatFlow"  minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">2[d:sup]nd[/d:sup] Stage Modulates from DB Flow to Heating Max Flow?</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy != VAVwithDDC this field is not required; 
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="K10_NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">1[d:sup]st[/d:sup] Stage Modulates [d:lte/]95[d:deg/]F and Maintains DB Rate?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="K11_Stage2ModulatesDBtoHeatFlow" type="comp:Stage2ModulatesDBtoHeatFlow" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">2[d:sup]nd[/d:sup] Stage Modulates from DB Flow to Heating Max Flow?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
+ 
 Else User selects Yes result = true; Else result = false
 End If</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="K11_NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">2[d:sup]nd[/d:sup] Stage Modulates from DB Flow to Heating Max Flow?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If ZonalControlStrategy == VAVNoDDC 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -5466,7 +5546,7 @@ End If</xsd:documentation>
                                     </xsd:element>
                                     <xsd:element name="L11_IsBuildingHeathcare" type="com:IsBuildingHeathcare" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">The scope of the project includes onlly duct systems serving healthcare facilities</xsd:documentation>
+                                          <xsd:documentation source="FieldText">The scope of the project includes only duct systems serving healthcare facilities</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User input;  
 If Yes result = true and field is grayed out; 
 Else result = false.
@@ -5502,7 +5582,7 @@ End If</xsd:documentation>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="L13_ServesLT5000Ft2" type="comp:ServesLT5000Ft2" >
                                           <xsd:annotation>
-                                             <xsd:documentation source="FieldText">The space conditioning system serves less than 5,000 ft[d:sup]2[/d:sup].of conditioned floor area.</xsd:documentation>
+                                             <xsd:documentation source="FieldText">The space conditioning system serves less than 5,000 ft[d:sup]2[/d:sup] of conditioned floor area.</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If L11_IsBuildingHealthcare == true  
 result = blankGrayedOut stored in NotApplicableMessage; 
 Else User input;  
@@ -6248,7 +6328,7 @@ End If</xsd:documentation>
                   </xsd:element>
                   <xsd:element name="Q01_UsingMandMeasNoteBlock" type="comp:UsingMandMeasNoteBlock" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Compliance with Mandatory Measures documented through MCH Mandatory Measures Note Block[d:sup]1[/d:sup]</xsd:documentation>
+                        <xsd:documentation source="FieldText">Compliance with Mandatory Measures documented through MCH Mandatory Measures Note Block</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input: If Yes, result = true, Else result = false</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
