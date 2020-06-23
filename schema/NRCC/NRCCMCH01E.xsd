@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.024">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.025">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -884,7 +884,7 @@ B01aProjectHasHeatingAirSystem,  B01b_ProjectHasCoolingAirSystem,  B02a_ProjectH
                                     <xsd:element name="F02_HvacSystemType" type="hvac:HvacSystemType" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Equipment Category per [d:t24table]Tables 110.2[/d:t24table]</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from main equipment categories: ComputerRoomAC, FurnaceAC, FurnaceUnitHeater, HeatPumpAC, PTAC_PTHP, RoomAC_HP, SPV_ACHP, UnitaryCondensersAC, UnitaryHeatPumps, VariableRefrigerantFlow</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from main equipment categories: ComputerRoomAC, FurnaceAC, FurnaceUnitHeater, HeatPumpAC, PTAC_PTHP, RoomAC_HP, SPV_ACHP, UnitaryCondensersAC, UnitaryHeatPumps, UnitaryCondensersAC_NoElectR, UnitaryHeatPumpsNoElectR, VariableRefrigerantFlow</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
@@ -933,13 +933,13 @@ B01aProjectHasHeatingAirSystem,  B01b_ProjectHasCoolingAirSystem,  B02a_ProjectH
                                        <xsd:element name="F03_UnitaryCondensersAC" type="hvac:UnitaryCondensersAC" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Equipment Type per Tables [d:t24table]110.2[/d:t24table] &amp; [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC, user selects from equipment values in UnitaryCondensersAC choice</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC Or UnitaryCondensersAC_NoElectR, user selects from equipment values in UnitaryCondensersAC choice</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F03_UnitaryHeatPumps" type="hvac:UnitaryHeatPumps" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Equipment Type per Tables [d:t24table]110.2[/d:t24table] &amp; [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryHeatPumps, user selects from equipment values in UnitaryHeatPumps choice</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR, user selects from equipment values in UnitaryHeatPumps choice</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F03_VariableRefrigerantFlow" type="hvac:VariableRefrigerantFlow" >
@@ -974,7 +974,7 @@ StandbyEquipment display term  NA: Standby Equipment</xsd:documentation>
                                        <xsd:element name="F05_HeatingDesignCapacity" type="hvac:HeatingDesignCapacity" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Per Design (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, Or UnitaryHeatPumps 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC,  UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR
  
 Or If F03_PTAC_PTHP == NewSpacePTHP Or ReplacementsPTHP Or If F03_SPV_ACHP == NonweatherizedSPVHP or SPVHP 
  
@@ -988,7 +988,7 @@ End If</xsd:documentation>
                                        <xsd:element name="F05_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Per Design (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, Or UnitaryHeatPumps 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC,  UnitaryHeatPumps Or Or UnitaryHeatPumpsNoElectR
  
 Or If F03_PTAC_PTHP == NewSpacePTHP Or ReplacementsPTHP Or If F03_SPV_ACHP == NonweatherizedSPVHP or SPVHP 
  
@@ -1009,7 +1009,7 @@ End If</xsd:documentation>
                                        <xsd:element name="F06_HeatingRatedCapacity" type="hvac:HeatingRatedCapacity" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rated (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, Or UnitaryHeatPumps  
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR  
  
 Or If F03_PTAC_PTHP == NewSpacePTHP Or ReplacementsPTHP Or If F03_SPV_ACHP == NonweatherizedSPVHP or SPVHP 
  
@@ -1023,7 +1023,7 @@ End If</xsd:documentation>
                                        <xsd:element name="F06_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rated (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, Or UnitaryHeatPumps  
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC,  UnitaryHeatPumps  Or UnitaryHeatPumpsNoElectR 
  
 Or If F03_PTAC_PTHP == NewSpacePTHP Or ReplacementsPTHP Or If F03_SPV_ACHP == NonweatherizedSPVHP or SPVHP 
  
@@ -1044,7 +1044,7 @@ End If</xsd:documentation>
                                        <xsd:element name="F07_HeatingSupplementalCapacity" type="hvac:HeatingSupplementalCapacity" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Supp. Heating Output (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, Or UnitaryHeatPumps  
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR   
  
 Or If F03_PTAC_PTHP == NewSpacePTHP Or ReplacementsPTHP Or If F03_SPV_ACHP == NonweatherizedSPVHP or SPVHP 
  
@@ -1057,7 +1057,7 @@ End If</xsd:documentation>
                                        <xsd:element name="F07_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Supp. Heating Output k(Btu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC, Or UnitaryHeatPumps  
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == FurnaceAC, FurnaceUnitHeater, HeatPumpAC,  UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR  
  
 Or If F03_PTAC_PTHP == NewSpacePTHP Or ReplacementsPTHP Or If F03_SPV_ACHP == NonweatherizedSPVHP or SPVHP 
  
@@ -1082,9 +1082,10 @@ End If</xsd:documentation>
                                        <xsd:element name="F08_CoolingSensibleDesignCapacity" type="hvac:CoolingSensibleDesignCapacity" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Sensible Per Design (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, UnitaryCondensersAC_NoElectR, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
-Else If F02_HvacSystemType == UnitaryHeatPumps Then
+ 
+Else If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR Then
  
 If F03_UnitaryHeatPumps != WaterSourceHP
 user input in this field is required;
@@ -1100,9 +1101,10 @@ End If</xsd:documentation>
                                        <xsd:element name="F08_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Sensible Per Design (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, UnitaryCondensersAC_NoElectR, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
-Else If If F02_HvacSystemType == UnitaryHeatPumps Then
+ 
+Else If If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR  Then
  
 If F03_UnitaryHeatPumps != WaterSourceHP
 user input in this field is required;
@@ -1125,9 +1127,9 @@ End If</xsd:documentation>
                                        <xsd:element name="F09_CoolingRatedCapacity" type="hvac:CoolingRatedCapacity" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rated (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, UnitaryCondensersAC_NoElectR, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
-Else If F02_HvacSystemType == UnitaryHeatPumps Then
+Else If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR  Then
  
 If F03_UnitaryHeatPumps != WaterSourceHP
 user input in this field is required;
@@ -1143,9 +1145,9 @@ End If</xsd:documentation>
                                        <xsd:element name="F09_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rated (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, UnitaryCondensersAC_NoElectR, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
-Else If F02_HvacSystemType == UnitaryHeatPumps Then
+Else If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR Then
  
 If F03_UnitaryHeatPumps != WaterSourceHP
 user input in this field is required;
@@ -1153,7 +1155,6 @@ Else If Fa02_SizeRangeUnitaryHeatPumps != GTE135000AndLT240000
 user input in this field is required
 Else result = BlankGrayedOut stored in the NotApplicableMessage and field is blank and grayed out
 End If
- 
  
 Else result = BlankGrayedOut stored in the NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
@@ -1197,9 +1198,9 @@ End if</xsd:documentation>
                                        <xsd:element name="F11_CoolingSensibleTotalLoad" type="hvac:CoolingSensibleTotalLoad" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Total Sensible Cooling Load (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, UnitaryCondensersAC_NoElectR, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
-Else If F02_HvacSystemType == UnitaryHeatPumps Then
+Else If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR Then
  
 If F03_UnitaryHeatPumps != WaterSourceHP
 user input in this field is required;
@@ -1208,7 +1209,6 @@ user input in this field is required
 Else result = BlankGrayedOut stored in the NotApplicableMessage and field is blank and grayed out
 End If
  
- 
 Else result = BlankGrayedOut stored in the NotApplicableMessage and field is blank and grayed out
 End If</xsd:documentation>
                                           </xsd:annotation>
@@ -1216,9 +1216,9 @@ End If</xsd:documentation>
                                        <xsd:element name="F11_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Total Sensible Cooling Load (kBtu/h)</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
+                                             <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == ComputerRoomAC, RoomAC_HP, FurnaceAC, HeatPumpAC, UnitaryCondensersAC, UnitaryCondensersAC_NoElectR, PTAC_PTHP, SPV_ACHP Or VariableRefrigerantFlow 
 user input in this field is required; 
-Else If F02_HvacSystemType == UnitaryHeatPumps Then
+Else If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR Then
  
 If F03_UnitaryHeatPumps != WaterSourceHP
 user input in this field is required;
@@ -1391,9 +1391,9 @@ End If</xsd:documentation>
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Size Category [d:line1/](Btu/h)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">For value in Fa01_HvacSystemName: 
-If F02_HvacSystemType == UnitaryCondensersAC, user selects from size ranges  in SizeRangeUnitaryCondensersAC choice based on the following
+If F02_HvacSystemType == UnitaryCondensersAC Or UnitaryCondensersAC_NoElectR, user selects from size ranges  in SizeRangeUnitaryCondensersAC choice based on the following
  
-Switch (F03_UnitaryCondensersAC) 
+Switch (F03_UnitaryCondensersAC Or F03_UnitaryCondensersAC_NoElectR) 
 case WaterCooledAC and  EvaporativeCooledAC: 
 list GTE65000AndLT135000, GTE135000AndLT240000, GTE240000AndLT760000, GTE760000;  
  
@@ -1414,7 +1414,7 @@ End if</xsd:documentation>
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Size Category [d:line1/](Btu/h)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">For value in Fa01_HvacSystemName: 
-If F02_HvacSystemType == UnitaryHeatPumps, 
+If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR
 If F03_UnitaryHeatPumps == AirCooledGasEngineHP:  result = NotRequired and field is greyed out
  
 Else user selects from size ranges  in SizeRangeUnitaryHeatPumps choice based on the following
@@ -1455,7 +1455,8 @@ End If</xsd:documentation>
 Or  
 If F02_HvacSystemType  == FurnaceUnitHeater And F03_FurnaceUnitHeater == UnitHeater Or FurnaceDuct  
 Or  
-If F02_HvacSystemType  == UnitaryHeatPumps And F03_UnitaryHeatPumps == AirCooledGasEngineHP
+If F02_HvacSystemType  == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR 
+And F03_UnitaryHeatPumps == AirCooledGasEngineHP
  
 result = BlankGrayedOut and cell is grayed out;
 End If</xsd:documentation>
@@ -1478,7 +1479,8 @@ End If</xsd:documentation>
                                              <xsd:documentation source="FieldText">Rating Condition [d:line1/]([d:deg/]F)</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">For value in Fa01_HvacSystemName:  
 If F05_HeatingDesignCapacity GTE 1 Then
-If F02_HvacSystemType == UnitaryHeatPumps And F03_UnitaryHeatPumps == AirCoole.  dSplit1PhaseAC ,AirCooledSplit3PhaseAC , AirCooledSplitConstrainedAC, AirCooledPkg1PhaseAC, AirCooledPkg3PhaseAC Or AirCooledPkgConstrainedAC 
+If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR  
+And F03_UnitaryHeatPumps == AirCooledSplit1PhaseAC ,AirCooledSplit3PhaseAC , AirCooledSplitConstrainedAC, AirCooledPkg1PhaseAC, AirCooledPkg3PhaseAC Or AirCooledPkgConstrainedAC 
 And  Fa02_SizeRangeUnitaryHeatPumps != LT65000, 
 user selects from list; 
  
@@ -1495,7 +1497,8 @@ Else result = BlankGrayedOut stored in Fa03_NotApplicableMessage and this field 
 If F05_HeatingDesignCapacity has no value 
 result = BlankGrayedOut stored in Fa03_NotApplicableMessage and this field is greyed out;  
  
-Else If F02_HvacSystemType == UnitaryHeatPumps And F03_UnitaryHeatPumps == AirCooledSplit1PhaseAC ,AirCooledSplit3PhaseAC , AirCooledSplitConstrainedAC, AirCooledPkg1PhaseAC, AirCooledPkg3PhaseAC Or AirCooledPkgConstrainedAC 
+Else If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR 
+And F03_UnitaryHeatPumps == AirCooledSplit1PhaseAC ,AirCooledSplit3PhaseAC , AirCooledSplitConstrainedAC, AirCooledPkg1PhaseAC, AirCooledPkg3PhaseAC Or AirCooledPkgConstrainedAC 
 And  Fa02_SizeRangeUnitaryHeatPumps != LT65000, 
 user selects from list; 
  
@@ -1533,7 +1536,7 @@ result = CombustionEfficiency;
 Else result = AFUE;  
 End If
  
-case UnitaryHeatPumps: 
+case UnitaryHeatPumps: case UnitaryHeatPumpsNoElectR:
 If F03_UnitaryHeatPumps == AirCooledGasEngineHP Or If Fa02_SizeRangeUnitaryHeatPumps != LT65000 
 result = COP; 
 Else result = HSPF;  
@@ -1652,7 +1655,7 @@ End If</xsd:documentation>
                                        <xsd:element name="Fa05_HeatEfficiencyMinUnitHP" type="hvac:HeatEfficiencyMinUnitHP" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  [d:t24table]110.2[/d:t24table] / [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  And If F02_HvacSystemType ==  UnitaryHeatPumps for Fa01 
+                                             <xsd:documentation source="CalculationsAndRules">If F05_HeatingDesignCapacity GTE 1  And If F02_HvacSystemType ==  UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR for Fa01 
 use this choice based on the following
 : 
 If F03_UnitaryHeatPumps == WaterSourceHP Then 
@@ -1916,12 +1919,12 @@ result1 = EER;
 case SPV_ACHP: 
 result1 = EER; 
  
-case  UnitaryCondensersAC: 
+case  UnitaryCondensersAC: case UnitaryCondensersAC_NoElectR
 If SizeRangeUnitaryCondensersAC == LT65000  And F03_ UnitaryCondensersAC  != AirCooledPkg1PhaseAC 
 result1 = SEER;  
 End If
  
-case UnitaryHeatPumps: 
+case UnitaryHeatPumps: case UnitaryHeatPumpsNoElectR: 
 If F03_UnitaryHeatPumps == GroundSourceHP, GroundWaterSourceHP, GroundWaterSourceWaterToWaterHP, WaterSourceHP, WaterToWaterHP or GroundSourceBrineToWaterHP 
 result1 = EER; 
 Else If F03_UnitaryHeatPumps == AirCooledGasEngineHP 
@@ -2048,7 +2051,7 @@ End If</xsd:documentation>
                                                          <xsd:element name="Fa08_CoolEfficiencyMinUnitHP" type="hvac:CoolEfficiencyMinUnitHP" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  [d:t24table]110.2[/d:t24table] / [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryHeatPumps use this choice. 
+                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR use this choice. 
 The value is stored in result1, the top displayed cell and the bottom cell is blank. 
  
  If F03_ UnitaryHeatPumps == AirCooledGasEngineHP 
@@ -2069,27 +2072,54 @@ case AirCooledSplitConstrainedHP Or AirCooledPkgConstrainedHP:
 result1 = 12.0 (SEER); 
 End Switch
  
- Else If Fa02_SizeRangeUnitaryHeatPumps == LT135000 
+Else If Fa02_SizeRangeUnitaryHeatPumps == LT135000 
+ 
 Switch (F03_ UnitaryHeatPumps) 
 case GroundWaterSourceHP: 
+If F02_HvacSystemType == UnitaryHeatPumps
 result1 = 18.0 (EER); 
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1 = 17.8 (EER);
+End If
  
 case GroundSourceHP: 
+If F02_HvacSystemType == UnitaryHeatPumps
 result1= 14.1 (EER); 
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1= 13.9 (EER);
+End If
  
 case WaterToWaterHP: 
+If F02_HvacSystemType == UnitaryHeatPumps
 result1= 10.6 (EER); 
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1= 10.4 (EER);
+End If
  
-case GroundWaterSourceWaterToWaterHP: 
-result1= 16.3 (EER); 
+ 
+case GroundWaterSourceWaterToWaterHP:
+If F02_HvacSystemType == UnitaryHeatPumps 
+result1= 16.3 (EER);
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1= 16.1 (EER);
+End If 
  
 case GroundSourceBrineToWaterHP: 
+If F02_HvacSystemType == UnitaryHeatPumps
 result1= 12.1 (EER); 
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1= 11.9 (EER);
+End If 
+ 
 End Switch
  
-Else If F03_ UnitaryHeatPumps) == WaterSourceHP:
+Else If F03_ UnitaryHeatPumps == WaterSourceHP:
 If Fa02_SizeRangeUnitaryHeatPumps == GTE65000AndLT135000  
+If F02_HvacSystemType == UnitaryHeatPumps
 result1 =13.0 (EER);  
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1= 12.8 (EER);
+End If 
 End If 
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -2204,7 +2234,7 @@ End If</xsd:documentation>
                                                          <xsd:element name="Fa08_CoolEfficiencyMinUnitAC" type="hvac:CoolEfficiencyMinUnitAC" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  [d:t24table]110.2[/d:t24table] / [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC use this choice. 
+                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC Or UnitaryCondensersAC_NoElectR use this choice. 
 The value is stored in result1, the top displayed cell and the bottom cell is blank. 
  
 If F03_ UnitaryCondensersAC != AirCooledPkg1PhaseAC And Fa02_SizeRangeUnitaryCondensersAC == LT65000  
@@ -2276,7 +2306,7 @@ Else  result1 = EER and result2 = IEER:
 End If
  
  
-Else If F02_HvacSystemType == UnitaryCondensersAC: 
+Else If F02_HvacSystemType == UnitaryCondensersAC Or UnitaryCondensersAC_NoElectR : 
 If SizeRangeUnitaryCondensersAC == LT45000  Or GTE45000LT65000 
 result 1 = SEER and result 2 = EER;  
  
@@ -2287,7 +2317,7 @@ result 1 =EER and result 2 = IEER;
 End If
  
  
-Else If F02_HvacSystemType == UnitaryHeatPumps then 
+Else If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR  then 
 If F03_ UnitaryHeatPumps  == AirCooledSplit1PhaseHP, AirCooledSplit3PhaseHP, AirCooledPkg1PhaseHP, AirCooledPkg3PhaseHP, AirCooledSplitConstrainedHP Or AirCooledPkgConstrainedHP And SizeRangeUnitaryHeatPumps != LT65000 
 result1 = EER and result2 = IEER: 
 End If
@@ -2348,19 +2378,33 @@ result1 = 11.0 And result2 = 14.0;
                                                          <xsd:element name="Fa08_CoolEfficiencyMinUnitHP_EERIEER" type="hvac:CoolEfficiencyMinUnitHP_EERIEER"  minOccurs="2" maxOccurs="2">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  [d:t24table]110.2[/d:t24table] / [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryHeatPumps use this choice. For the following evaluations result1 is the EER value and result2 is the IEER:  
+                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryHeatPumps Or UnitaryHeatPumpsNoElectR use this choice. For the following evaluations result1 is the EER value and result2 is the IEER:  
  
 If F03_ UnitaryHeatPumps  == AirCooledSplit1PhaseHP, AirCooledSplit3PhaseHP, AirCooledPkg1PhaseHP, AirCooledPkg3PhaseHP, AirCooledSplitConstrainedHP Or AirCooledPkgConstrainedHP  
  
 Switch (Fa02_SizeRangeUnitaryHeatPumps) 
 case GTE65000AndLT135000: 
+If F02_HvacSystemType == UnitaryHeatPumps
 result1 = 11.0 (EER) and result2 = 12.2 (IEER); 
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1 = 10.8 (EER) and result2 = 12.0 (IEER); 
+End If
  
 case GTE135000AndLT240000: 
+If F02_HvacSystemType == UnitaryHeatPumps
 result1 = 10.6 (EER) and result2 = 11.6 (IEER); 
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1 = 10.4 (EER) and result2 = 11.4 (IEER); 
+End If
+ 
  
 case GTE240000: 
+If F02_HvacSystemType == UnitaryHeatPumps
 result1 = 9.5 (EER) and result2 = 10.6 (IEER);
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1 = 9.3 (EER) and result2 = 10.4 (IEER); 
+End If
+ 
 End Switch
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -2411,37 +2455,72 @@ End If</xsd:documentation>
                                                          <xsd:element name="Fa08_CoolEfficiencyMinUnitAC_EERIEER" type="hvac:CoolEfficiencyMinUnitAC_EERIEER"  minOccurs="2" maxOccurs="2">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  [d:t24table]110.2[/d:t24table] / [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC use this choice.  For the following evaluations result1 is the EER value and result2 is the IEER:  
+                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC Or UnitaryCondensersAC _NoElectR use this choice.  For the following evaluations result1 is the EER value and result2 is the IEER:  
  
 If Fa02_SizeRangeUnitaryCondensersAC != LT45000  GTE45000AndLT65000 Or LT65000  
 If F03_ UnitaryCondensersAC == WaterCooledAC 
 Switch (Fa02_SizeRangeUnitaryCondensersAC) 
 case GTE65000AndLT135000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 12.1 (EER) and result2 = 13.9 (IEER); 
+Else If F02_HvacSystemType == UnitaryCondensersAC _NoElectR
+result1 = 11.9 (EER) and result2 = 13.7 (IEER); 
+End If
  
 case GTE135000AndLT240000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 12.5 (EER) and result2 = 13.9 (IEER); 
+Else If F02_HvacSystemType == UnitaryCondensersAC _NoElectR
+result1 = 12.3 (EER) and result2 = 13.7 (IEER); 
+End If
  
 case GTE240000AndLT760000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 12.4 (EER) and result2 = 13.6 (IEER);  
+Else If F02_HvacSystemType == UnitaryCondensersAC _NoElectR
+result1 = 12.2 (EER) and result2 = 13.4 (IEER); 
+End If
  
 case GTE760000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 12.2 (EER) and result2 = 13.5 (IEER);   
+Else If F02_HvacSystemType == UnitaryCondensersAC _NoElectR
+result1 = 12.0 (EER) and result2 = 13.3 (IEER); 
+End If
+ 
 End Switch
  
 Else If F03_ UnitaryCondensersAC == EvaporativeCooledAC  
 Switch (Fa02_SizeRangeUnitaryCondensersAC) 
 case GTE65000AndLT135000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 12.1 (EER) and result2 = 12.3 (IEER); 
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 11.9 (EER) and result2 = 12.1 (IEER); 
+End If
  
 case GTE135000AndLT240000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 12.0 (EER) and result2 = 12.2 (IEER); 
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 11.8 (EER) and result2 = 12.0 (IEER); 
+End If
  
 case GTE240000AndLT760000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 11.9 (EER) and result2 = 12.1 (IEER);  
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 11.7 (EER) and result2 = 11.9 (IEER); 
+End If
+ 
  
 case GTE760000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 11.7 (EER) and result2 = 11.9 (IEER);  
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 11.5 (EER) and result2 = 11.7 (IEER); 
+End If
+ 
 End Switch
  
 Else If F03_ UnitaryCondensersAC == AirCooledCondensingUnit  
@@ -2457,16 +2536,34 @@ End If
 Else If F03_ UnitaryCondensersAC == AirCooledSplit1PhaseAC, AirCooledSplit3PhaseAC, AirCooledPkg1PhaseAC, AirCooledPkg3PhaseAC, AirCooledSplitConstrainedAC Or AirCooledPkgConstrainedAC  
 Switch (Fa02_SizeRangeUnitaryCondensersAC) 
 case GTE65000AndLT135000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 11.2 (EER) and result2 = 12.9 (IEER); 
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 11.0 (EER) and result2 = 12.7 (IEER); 
+End If
  
 case GTE135000AndLT240000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 11.0 (EER) and result2 = 12.4 (IEER); 
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 10.8 (EER) and result2 = 12.2 (IEER); 
+End If
+ 
  
 case GTE240000AndLT760000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 10.0 (EER) and result2 = 11.6 (IEER);  
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 9.8 (EER) and result2 = 11.4 (IEER); 
+End If
  
 case GTE760000: 
+If F02_HvacSystemType == UnitaryCondensersAC
 result1 = 9.7 (EER) and result2 = 11.2 (IEER);
+Else If F02_HvacSystemType == UnitaryCondensersAC_NoElectR
+result1 = 9.5 (EER) and result2 = 11.0 (IEER); 
+End If
+ 
 End Switch
 End If
 End if</xsd:documentation>
@@ -2475,7 +2572,7 @@ End if</xsd:documentation>
                                                          <xsd:element name="Fa08_CoolEfficiencyMinUnitAC_EERSEER" type="hvac:CoolEfficiencyMinUnitAC_EERSEER"  minOccurs="2" maxOccurs="2">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Minimum Efficiency Required per Tables  [d:t24table]110.2[/d:t24table] / [d:t24table]Title 20[/d:t24table]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC use this choice. For the following evaluations result1 is the SEER value and result2 is the EER:  
+                                                               <xsd:documentation source="CalculationsAndRules">If F02_HvacSystemType == UnitaryCondensersAC Or UnitaryCondensersAC_NoElectR use this choice. For the following evaluations result1 is the SEER value and result2 is the EER:  
  
 If SizeRangeUnitaryCondensersAC == LT65000  And F03_ UnitaryCondensersAC  == AirCooledPkg1PhaseAC 
 result 1 = 14.0 (SEER) and result 2 = 11.0 (EER); 
