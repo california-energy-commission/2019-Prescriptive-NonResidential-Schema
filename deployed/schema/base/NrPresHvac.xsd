@@ -68,6 +68,42 @@
          <xsd:enumeration value="Supply"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="AirSystemCoolingSizingRatio">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="AirSystemDesignAirFlowMinimumRatio">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="AirSystemDesignPrecoolHumidityRatio">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="AirSystemDesignPrecoolTemperature">
+      <xsd:annotation>
+         <xsd:documentation>Units: F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="AirSystemDesignPreheatHumidityRatio">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="AirSystemDesignPreheatTemperature">
+      <xsd:annotation>
+         <xsd:documentation>Units: F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="AirSystemFanPosition">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -80,6 +116,12 @@
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="BlowThrough"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="AirSystemHeatingSizingRatio">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="AirSystemName">
       <xsd:annotation>
@@ -2727,6 +2769,9 @@
          <xsd:enumeration value="NotOnWaterLoop"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="HeatRejectionBypassClosedTowerChecks">
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="HeatRejectionCapacityUnits">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -3028,7 +3073,9 @@
             <dtyp:displayterm value="RoomAC_HP">Room AC/HP</dtyp:displayterm>
             <dtyp:displayterm value="SPV_ACHP">SPVAC/ SPVHP</dtyp:displayterm>
             <dtyp:displayterm value="UnitaryCondensersAC">Unitary AC/ Condensers</dtyp:displayterm>
+            <dtyp:displayterm value="UnitaryCondensersAC_NoElectR">Unitary AC/ Cond. (no elec. resistance)</dtyp:displayterm>
             <dtyp:displayterm value="UnitaryHeatPumps">Unitary Heat Pumps</dtyp:displayterm>
+            <dtyp:displayterm value="UnitaryHeatPumpsNoElectR">Unitary Heat Pumps (no elec. resistance)</dtyp:displayterm>
             <dtyp:displayterm value="VariableRefrigerantFlow">Variable Refrigerant Flow</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -3041,7 +3088,9 @@
          <xsd:enumeration value="RoomAC_HP"/>
          <xsd:enumeration value="SPV_ACHP"/>
          <xsd:enumeration value="UnitaryCondensersAC"/>
+         <xsd:enumeration value="UnitaryCondensersAC_NoElectR"/>
          <xsd:enumeration value="UnitaryHeatPumps"/>
+         <xsd:enumeration value="UnitaryHeatPumpsNoElectR"/>
          <xsd:enumeration value="VariableRefrigerantFlow"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -3592,7 +3641,7 @@
    </xsd:simpleType>
    <xsd:simpleType name="PrimaryAirFlowMaximum">
       <xsd:annotation>
-         <xsd:documentation>Units: ft3 per min</xsd:documentation>
+         <xsd:documentation>Units: ft per min</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
@@ -3982,7 +4031,7 @@
             <dtyp:displayterm>Residential DHW System Distribution Type</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="DemandControlNR">Demand Control (Standard Design for new construction)</dtyp:displayterm>
+            <dtyp:displayterm value="DemandControlNR">Demand Control</dtyp:displayterm>
             <dtyp:displayterm value="NoLoopsNoCentralPump">No Loops or Central System Pump</dtyp:displayterm>
             <dtyp:displayterm value="NoControlContinuousPumping">No Control (continuous pumping)</dtyp:displayterm>
             <dtyp:displayterm value="TemperatureModulationMonitoring">Temperature modulation and monitoring</dtyp:displayterm>
@@ -4600,6 +4649,15 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ThermalZoneCoolingDesignFlow">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ThermalZoneCoolingDesignSizingFactor">
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ThermalZoneDescription">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -4624,6 +4682,15 @@
             <dtyp:displayterm>Thermal Zone Floor Area</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ThermalZoneHeatingDesignFlow">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ThermalZoneHeatingDesignSizingFactor">
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="ThermalZoneName">
@@ -4778,7 +4845,75 @@
          <xsd:enumeration value="WaterCooledCondensingUnit"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="UnitaryCondensersAC_NoElectR">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="AirCooledCondensingUnit">Condensing units, air cooled</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledPkg1PhaseAC">AC, air-cooled pkg (1 phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledPkg3PhaseAC">AC, air-cooled pkg (3 phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledPkgConstrainedAC">AC, air-cooled pkg, space constrained</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSmallDuctHighVelocityAC">AC, air-cooled, small duct, high velocity</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSplit1PhaseAC">AC, air cooled, split (1 phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSplit3PhaseAC">AC, air cooled, split (3 phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSplitConstrainedAC">AC, air-cooled split, space constrained</dtyp:displayterm>
+            <dtyp:displayterm value="EvaporativeCooledAC">AC, evaporatively cooled</dtyp:displayterm>
+            <dtyp:displayterm value="EvaporativeCooledCondensingUnit">Condensing units, evaporatively cooled</dtyp:displayterm>
+            <dtyp:displayterm value="WaterCooledAC">AC, water cooled</dtyp:displayterm>
+            <dtyp:displayterm value="WaterCooledCondensingUnit">Condensing units, water cooled</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="AirCooledCondensingUnit"/>
+         <xsd:enumeration value="AirCooledPkg1PhaseAC"/>
+         <xsd:enumeration value="AirCooledPkg3PhaseAC"/>
+         <xsd:enumeration value="AirCooledPkgConstrainedAC"/>
+         <xsd:enumeration value="AirCooledSmallDuctHighVelocityAC"/>
+         <xsd:enumeration value="AirCooledSplit1PhaseAC"/>
+         <xsd:enumeration value="AirCooledSplit3PhaseAC"/>
+         <xsd:enumeration value="AirCooledSplitConstrainedAC"/>
+         <xsd:enumeration value="EvaporativeCooledAC"/>
+         <xsd:enumeration value="EvaporativeCooledCondensingUnit"/>
+         <xsd:enumeration value="WaterCooledAC"/>
+         <xsd:enumeration value="WaterCooledCondensingUnit"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="UnitaryHeatPumps">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="AirCooledGasEngineHP">Air cooled gas engine heat pump</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledPkg1PhaseHP">Air-cooled, pkg (1phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledPkg3PhaseHP">Air-cooled, pkg (3 phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledPkgConstrainedHP">Air-cooled, pkg space constrained</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSmallDuctHighVelocityHP">Air-cooled, small duct, high velocity</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSplit1PhaseHP">Air-cooled, split (1phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSplit3PhaseHP">Air-cooled, split (3 phase)</dtyp:displayterm>
+            <dtyp:displayterm value="AirCooledSplitConstrainedHP">Air-cooled, split space constrained</dtyp:displayterm>
+            <dtyp:displayterm value="GroundSourceBrineToWaterHP">Ground source brine-to-water</dtyp:displayterm>
+            <dtyp:displayterm value="GroundSourceHP">Ground source</dtyp:displayterm>
+            <dtyp:displayterm value="GroundWaterSourceHP">Groundwater source</dtyp:displayterm>
+            <dtyp:displayterm value="GroundWaterSourceWaterToWaterHP">Groundwater source water-to-water</dtyp:displayterm>
+            <dtyp:displayterm value="WaterSourceHP">Water source</dtyp:displayterm>
+            <dtyp:displayterm value="WaterToWaterHP">Water source water-to-water</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="AirCooledGasEngineHP"/>
+         <xsd:enumeration value="AirCooledPkg1PhaseHP"/>
+         <xsd:enumeration value="AirCooledPkg3PhaseHP"/>
+         <xsd:enumeration value="AirCooledPkgConstrainedHP"/>
+         <xsd:enumeration value="AirCooledSmallDuctHighVelocityHP"/>
+         <xsd:enumeration value="AirCooledSplit1PhaseHP"/>
+         <xsd:enumeration value="AirCooledSplit3PhaseHP"/>
+         <xsd:enumeration value="AirCooledSplitConstrainedHP"/>
+         <xsd:enumeration value="GroundSourceBrineToWaterHP"/>
+         <xsd:enumeration value="GroundSourceHP"/>
+         <xsd:enumeration value="GroundWaterSourceHP"/>
+         <xsd:enumeration value="GroundWaterSourceWaterToWaterHP"/>
+         <xsd:enumeration value="WaterSourceHP"/>
+         <xsd:enumeration value="WaterToWaterHP"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UnitaryHeatPumpsNoElectR">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="AirCooledGasEngineHP">Air cooled gas engine heat pump</dtyp:displayterm>
@@ -5270,6 +5405,12 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ZoneSystemCoolingSizingRatio">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ZoneSystemFurnaceType">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -5285,6 +5426,12 @@
          <xsd:enumeration value="FurnaceTypeGravity"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ZoneSystemHeatingSizingRatio">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ZoneSystemHeatingToCoolingSizingRatio">
       <xsd:annotation>
          <xsd:documentation>Units: none</xsd:documentation>
@@ -5294,6 +5441,9 @@
    <xsd:simpleType name="ZoneSystemIndoorType">
       <xsd:restriction base="dtyp:EnumerationConstant"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ZoneSystemOptimumStart">
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ZoneSystemRatedFlowCapacity">
       <xsd:annotation>
          <xsd:documentation>Units: ft3 per min</xsd:documentation>
@@ -5302,7 +5452,7 @@
    </xsd:simpleType>
    <xsd:simpleType name="ZoneSystemRatedHeatRecoveryEffectiveness">
       <xsd:annotation>
-         <xsd:documentation>Units: none</xsd:documentation>
+         <xsd:documentation>Units: SRE per 100</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
