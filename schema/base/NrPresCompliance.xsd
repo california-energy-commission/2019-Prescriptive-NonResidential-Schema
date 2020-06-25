@@ -7,7 +7,7 @@
    xmlns:com="http://www.lmonte.com/besm/com"
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.023">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.026">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
@@ -1667,8 +1667,8 @@
             <dtyp:displayterm>Does Section O comply?</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
-            <dtyp:displayterm value="false">DOES NOT COMPLY</dtyp:displayterm>
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean">
@@ -4747,12 +4747,14 @@
             <dtyp:displayterm value="ConstantVolSysRequiredNA">NA: Constant volume system required by AHJ or Environmental, Health &amp; Safety</dtyp:displayterm>
             <dtyp:displayterm value="NewZoneExistingSysNA">NA: New zones on an existing constant volume system</dtyp:displayterm>
             <dtyp:displayterm value="ReducedExhaustMakeupAir">Exhaust airflow capable of reducing exhaust and make-up air to min circulation/ pressurization rate</dtyp:displayterm>
+            <dtyp:displayterm value="SysGT10achNA">NA: Systems designed for [d:gt/] 10 ACH</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="ConstantVolSysRequiredNA"/>
          <xsd:enumeration value="NewZoneExistingSysNA"/>
          <xsd:enumeration value="ReducedExhaustMakeupAir"/>
+         <xsd:enumeration value="SysGT10achNA"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="LabFanPowerMethod">
@@ -4791,7 +4793,7 @@
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="BioSafetyLevelGTE3NA">NA: Laboratory is classified as biosafety level [d:gte/]3</dtyp:displayterm>
-            <dtyp:displayterm value="NegativePressureRequiredNA">NA: Space required to be at negative pressure and where highest amount of transfer air used for make-up air exceeds transfer airflow rate</dtyp:displayterm>
+            <dtyp:displayterm value="NegativePressureRequiredNA">NA: Space required to be at negative pressure and where highest amount of transfer air used for make-up air exceeds available transfer airflow rate</dtyp:displayterm>
             <dtyp:displayterm value="PositivePressureRequiredNA">NA: Space required to be at positive pressure</dtyp:displayterm>
             <dtyp:displayterm value="ServingVivariumNA">NA: Serving vivarium space</dtyp:displayterm>
             <dtyp:displayterm value="SysMeetsTransferAirReq">Conditioned supply air delivered to any space with mechanical exhaust is designed  per [d:t24ref/]140.4(o)</dtyp:displayterm>
@@ -7254,6 +7256,17 @@
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="RequireNRCAPrc16A">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">Boolean value: true if compliance document is required and false if it is not.  If using integers, zero must represent false and one represent true</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="RequireNRCAPrc16F">
       <xsd:annotation>
          <xsd:documentation source="propertyrules">Boolean value: true if compliance document is required and false if it is not.  If using integers, zero must represent false and one represent true</xsd:documentation>
          <xsd:appinfo source="displayterm">

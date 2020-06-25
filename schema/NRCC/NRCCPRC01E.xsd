@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.017">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.026">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -173,7 +173,7 @@
                   <xsd:element name="B_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes process systems that are within the scope of the permit application and are demonstrating compliance using the prescriptive path outlined in [d:t24ref/]140.9 or [d:t24ref/]141.1 for alterations.[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes process systems that are within the scope of the permit application and are demonstrating compliance with mandatory requirements in [d:t24ref/]120.6 or prescriptive requirements in [d:t24ref/]140.9.[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B_Subheading" minOccurs="0">
@@ -269,13 +269,57 @@
                      <xsd:element name="C01_CompliantSectionF" type="comp:CompliantSectionF" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Refrigerated Warehouse/ Space [d:t24ref/]120.6(a) [d:line1/] (See Table F)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If B01b_ProjectHasRefrigSpace == false result = BlankGrayedOut  stored in NotApplicableMessage; 
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: Use this choice If B01b_ProjectHasRefrigSpace == true 
  
-Else If all subsections in Table F are completed Or have result == BlankGrayedOut 
-result = true display term Yes; 
-Else result = false display term No
-End If</xsd:documentation>
+If Fins01_DoesRefrigeratedAreaInsulationComply == true And Fslab01 and Fslab02 have data
+result = true; Else result = false;
+End If
+ 
+If result = true, Continue
+ 
+If Ffan01, Ffan02, Ffan05 all have data And Ffan03, Ffan04 and Ffan06 either have data or the NotApplicableMessage BlankGrayedOut
+result = true; Else result = false;
+End If
+If result = true, Continue
+ 
+If Fcon01Air, Fcon01Evap, Fcon01Water, Fcon01Adiabatic, Fcon01Altered have data  
+result = true; Else result = false;
+End If
+If result = true, Continue
+ 
+If FconAir_CondenserTypeApplies == true Then 
+If All Fconair11_Does CondenserComply == true  
+result = true; Else result = false;
+End If
+End If
+ 
+If result = true, Continue
+ 
+If Fcon01Water_CondenserTypeApplies == true Or Fcon01Evap_CondenserTypeApplies == true Then
+If All Fconwater10_Does CondenserComply == true  
+result = true; Else result = false;
+End If
+End If
+If result = true, Continue
+ 
+If Fcon01Adiabatic_CondenserTypeApplies == true Then
+If All Fconadia09_Does CondenserComply == true
+result = true; Else result = false;
+End If
+End If
+If result = true, Continue
+ 
+If Fcom01New_CompressorTypeApplies == true And Fcom02-Fcom05 have data OR
+If Fcom01Altered_Compressor === true
+result = true; Else result = false;
+End If
+If result = true, Continue
+ 
+If Fbar01And Fbar02 have data
+result = true; Else result = false;
+End If
+ 
+If result = true display term = Yes;  Else If resut = false display term = No.</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C01_NotApplicableMessage" >
@@ -296,13 +340,39 @@ End If</xsd:documentation>
                      <xsd:element name="C02_CompliantSectionG" type="comp:CompliantSectionG" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Commercial Refrigeration [d:t24ref/]120.6(b) [d:line1/] (See Table G)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If B01c_ProjectHasFoodStores == false result = BlankGrayedOut  stored in NotApplicableMessage; 
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  Use this choice If B01c_ProjectHasFoodStores == true
  
-Else If all subsections in Table G are completed or have result == BlankGrayedOut
- result = true display term Yes; 
-Else result = false display term No
-End If</xsd:documentation>
+If G01Condenser, G01Compressor, G01Case, and G01Heat have data 
+result = true; Else result = false;
+End If
+If result == true, Continue
+ 
+If G01Condenser_ComponentApplies == true Then
+If Gcon01_ReplacementCondensers Or Gcon02_ComponentsCertifiedTitle20 == true OR all Gcon11_DoesCondenserComply == true
+result = true; Else result = false;
+End If
+End If
+If result == true, Continue
+ 
+If Gcom01_ReusedEquipment == true Or  
+If Gcom01_ReusedEquipment == false And Gcom02, Gcom03, Gcom04 all have data
+result = true; Else result = false;
+End If
+ 
+If result == true, Continue
+ 
+If G01Case_ComponentApplies == true Then
+If Gcase02 and Gcase03 have data
+result = true; Else result = false;
+End If
+End If
+If result == true, Continue
+ 
+If Gheat01_ReusedEquipment == true Or If Gheat02_HeatRecoveryMethod has data
+result = true; Else result = false;
+End If
+ 
+If result == true display term Yes; Else If result == false display term No</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C02_NotApplicableMessage" >
@@ -322,13 +392,11 @@ End If</xsd:documentation>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C03_CompliantSectionH" type="comp:CompliantSectionH" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Parking Garage Exhaujst [d:t24ref/]120.6(c) [d:line1/] (See Table H)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If B01d_ProjectHasEnclosedParking == false result = BlankGrayedOut  stored in NotApplicableMessage; 
+                           <xsd:documentation source="FieldText">Parking Garage Exhaust [d:t24ref/]120.6(c) [d:line1/] (See Table H)</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">Calculated field: Use this choice If B01d_ProjectHasEnclosedParking == true.
  
-Else 
 If H01_VehiclesGT20%NonGas Or H02_NewExhaustLT10000cfm == true  
-Or If fields H03-H09 NotNull And All values for H14_DoesVentFanComply == true 
+Or  fields H03-H09all have data And All values for H14_DoesVentFanComply == true 
 result = true display term Yes; 
 Else result = false display term No
 End If</xsd:documentation>
@@ -336,7 +404,7 @@ End If</xsd:documentation>
                      </xsd:element>
                      <xsd:element name="C03_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Parking Garage Exhaujst [d:t24ref/]120.6(c) [d:line1/] (See Table H)</xsd:documentation>
+                           <xsd:documentation source="FieldText">Parking Garage Exhaust [d:t24ref/]120.6(c) [d:line1/] (See Table H)</xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">If B01d_ProjectHasEnclosedParking == false 
 result = BlankGrayedOut stored in NotApplicableMessage; 
 End If</xsd:documentation>
@@ -378,7 +446,7 @@ End If</xsd:documentation>
                   <xsd:choice maxOccurs="1">
                      <xsd:element name="C05_CompliantSectionJ" type="comp:CompliantSectionJ" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Compressed Ait Systems [d:t24ref/]120.6(e) [d:line1/] (See Table J)</xsd:documentation>
+                           <xsd:documentation source="FieldText">Compressed Air Systems [d:t24ref/]120.6(e) [d:line1/] (See Table J)</xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If B01f_ProjectHasCompressedAir  == false 
 result = BlankGrayedOut  stored in NotApplicableMessage; 
@@ -391,7 +459,7 @@ End If</xsd:documentation>
                      </xsd:element>
                      <xsd:element name="C05_NotApplicableMessage" >
                         <xsd:annotation>
-                           <xsd:documentation source="FieldText">Compressed Ait Systems [d:t24ref/]120.6(e) [d:line1/] (See Table J)</xsd:documentation>
+                           <xsd:documentation source="FieldText">Compressed Air Systems [d:t24ref/]120.6(e) [d:line1/] (See Table J)</xsd:documentation>
                            <xsd:documentation source="CalculationsAndRules">If B01f_ProjectHasCompressedAir == false 
 result = BlankGrayedOut stored in NotApplicableMessage; 
 End If</xsd:documentation>
@@ -407,14 +475,12 @@ End If</xsd:documentation>
                      <xsd:element name="C06_CompliantSectionK" type="comp:CompliantSectionK" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Elevators [d:t24ref/]120.6(f) [d:line1/] (See Table K)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  
-If B02a_ProjectHasElevatorControls == false 
-result = BlankGrayedOut  stored in NotApplicableMessage; 
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  Use this choice If B02a_ProjectHasElevatorControls == true 
  
-Else If 
-KTotals06a_AllLuminairePowerInArea LT KTotals07a_LightingPowerAllowance 
-AND K08_OccupancySensorControl, K15 OccupancySensorControl, And K16_BuildingPlanReference NotNull 
-AND for all rows either K10_IsSpaceConditioned == true  Or If present K13_FanPowerPerFlow  LT K14_FanEfficacyRequired  then 
+If KTotals06a_AllLuminairePowerInArea LTE KTotals07a_LightingPowerAllowance 
+AND for all rows either K10_IsSpaceConditioned == true  Or If present K13_FanPowerPerFlow  LTE K14_FanEfficacyRequired  AND
+If K01, K02, K03, K04, K05, K06, K08, K09, K10, K15 and K16 have data And
+K07, K11, K12, K13, K14 have data or the NotApplicableMessage value of BlankGrayedOut then 
 result = true display term Yes; 
 Else result = false display term No
 End If</xsd:documentation>
@@ -466,11 +532,9 @@ End If</xsd:documentation>
                      <xsd:element name="C08_CompliantSectionM" type="comp:CompliantSectionM" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Computer Rooms [d:t24ref/]140.9(a) [d:line1/] (See Table M)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  
-If B02c_ProjectHasComputerRoom  == false 
-result = BlankGrayedOut  stored in NotApplicableMessage; 
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  Use this choice If B02c_ProjectHasComputerRoom  == true
  
-Else If all subsections in Table M are completed or have result == BlankGrayedOut 
+If all fields M01 - M09 in Section M are completed And M06_FanPowerPerCooling LTE M07_FanSystemMaxAllowedPower
 result = true display term Yes; 
 Else result = false display term No
 End If</xsd:documentation>
@@ -494,16 +558,14 @@ End If</xsd:documentation>
                      <xsd:element name="C09_CompliantSectionN" type="comp:CompliantSectionN" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">Commercial Kitchens [d:t24ref/]140.9(b) [d:line1/] (See Table N)</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">Calculated field:  
-If B02d_ProjectHasCommercialKitchen == false 
-result = BlankGrayedOut  stored in NotApplicableMessage; 
+                           <xsd:documentation source="CalculationsAndRules">Calculated field:  Use this choice If B02d_ProjectHasCommercialKitchen == true.
  
-Else If Nv01_HoodsNotReplaced == true 
+If Nv01_HoodsNotReplaced == true 
 result = true display term Yes; 
  
 Else If Nv02, Nv03, Nv04, Nv05 NotNull 
 AND If Ne01a, Ne01b, Ne02, Ne03, Ne04, Ne05, Ne06  NotNull 
-AND for all rows where both are present If Ne07_KitchenExhaustHoodFlow LT Ne08_ExhaustMaxFlowPerHoodLF 
+AND for all rows where both are present If Ne07_KitchenExhaustHoodFlow LTE Ne08_ExhaustMaxFlowPerHoodLF 
 result = true display term Yes; 
 Else result = false display term No
 End If</xsd:documentation>
@@ -1674,7 +1736,7 @@ End If</xsd:documentation>
                                     <xsd:element name="Gcom02to04NA_NotApplicableMessage" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText"></xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Gcom01_ReusedCompressors == true result = BlankGrayedOut applies to Gcom02 - Gcom04</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Gcom01_ReusedEquipment == true result = BlankGrayedOut applies to Gcom02 - Gcom04</xsd:documentation>
                                        </xsd:annotation>
                                        <xsd:simpleType>
                                           <xsd:restriction base="comp:NotApplicableMessage">
@@ -1685,7 +1747,7 @@ End If</xsd:documentation>
                                     <xsd:element name="TableGcom" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText"></xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">This table is required If Gcom01_ReusedCompressors == false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">This table is required If Gcom01_ReusedEquipment == false</xsd:documentation>
                                        </xsd:annotation>
                                        <xsd:complexType>
                                           <xsd:sequence>
@@ -2365,7 +2427,7 @@ End If</xsd:documentation>
                   <xsd:element name="M_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes all computer room systems with power density's greater than 20 W/ft[d:sup]2[/d:sup] to demonstrate compliance within the requirements of [d:t24ref/]140.9(a).[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes all computer room systems with power density's greater than 20 W/ft[d:sup]2[/d:sup] to demonstrate compliance within the prescriptive requirements of [d:t24ref/]140.9(a).[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="TableComputerRoom" >
@@ -2462,7 +2524,7 @@ End If</xsd:documentation>
                   <xsd:element name="N_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This table contains all new and replacement hoods being installed within the scope of the permit application.  The inputs within Table N are used to demonstrate compliance within [d:t24ref/]140.9(b). [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table contains all new and replacement hoods being installed within the scope of the permit application.  Table N is used to demonstrate compliance with prescriptive requirements found in [d:t24ref/]140.9(b). [/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Nvent" >
@@ -2552,147 +2614,172 @@ End If</xsd:documentation>
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="TableNExhaust" >
+                  <xsd:element name="NeReqChoice" >
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">[d:b]Kitchen Exhaust: Airflow Rate [d:t24ref/]140.9(b)1B[/d:b]</xsd:documentation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                        <xsd:choice >
+                           <xsd:element name="Ne01to08NA_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If Nv01_HoodsNotReplaced == true result for Ne01 to Ne08 = BlankGrayedOut and NEndNote1 is not displayed</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="NeReq" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Nv01_HoodsNotReplaced == false</xsd:documentation>
+                              </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="Ne01a_SpaceName" type="com:SpaceName" >
+                                    <xsd:element name="TableNExhaust" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Kitchen Name or Item Tag</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Ne01b_HoodExhaustCompliance" type="comp:HoodExhaustCompliance" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Compliance Method per [d:t24ref/]140.9(b)1B</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from list: Type1RateMeetsReq display term Type1 hood design exhaust rates do not exceed the maximum allowed per [d:t24ref/]140.9(b)1 as documented below, ExhaustLTE5000cfmNA display term NA: Kitchen/ dining facility has a total Type I and Type II kitchen hood exhaust airflow rate [d:lte/] 5,000 cfm, ReplaceAir75PctTransferAirNA display term NA: 75% of total Type I and Type II exhaust replacement air is transfer air that would otherwise be exhausted, ExistHoodsReplacedNA display term NA: Existing hoods are being replaced as part of an addition or alteration</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="TableHoods" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="FieldText">[d:b]Kitchen Exhaust: Airflow Rate [d:t24ref/]140.9(b)1B[/d:b]</xsd:documentation>
                                        </xsd:annotation>
                                        <xsd:complexType>
                                           <xsd:sequence>
                                              <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                                                 <xsd:complexType>
                                                    <xsd:sequence>
-                                                      <xsd:element name="Ne02_ComponentName" type="comp:ComponentName" >
+                                                      <xsd:element name="Ne01a_SpaceName" type="com:SpaceName" >
                                                          <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                                            <xsd:documentation source="FieldText">Kitchen Name or Item Tag</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Ne03_KitchenHoodType" type="com:KitchenHoodType" >
+                                                      <xsd:element name="Ne01b_HoodExhaustCompliance" type="comp:HoodExhaustCompliance" >
                                                          <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Hood Type [d:sup]1[/d:sup]</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: Type1 display term Type I, Type2HeatSteam display term Type II</xsd:documentation>
+                                                            <xsd:documentation source="FieldText">Compliance Method per [d:t24ref/]140.9(b)1B</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: Type1RateMeetsReq display term Type1 hood design exhaust rates do not exceed the maximum allowed per [d:t24ref/]140.9(b)1 as documented below, ExhaustLTE5000cfmNA display term NA: Kitchen/ dining facility has a total Type I and Type II kitchen hood exhaust airflow rate [d:lte/] 5,000 cfm, ReplaceAir75PctTransferAirNA display term NA: 75% of total Type I and Type II exhaust replacement air is transfer air that would otherwise be exhausted, ExistHoodsReplacedNA display term NA: Existing hoods are being replaced as part of an addition or alteration</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ne04_KitchenExhaustHoodStyle" type="com:KitchenExhaustHoodStyle" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Hood Style</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list: WallMountedCanopy display term Wall-mounted Canopy, SingleIsland display term Single Island,  DoubleIsland display term Double Island, Eyebrow display term Eyebrow, BackshelfPassover display term Backshelf / Passover</xsd:documentation>
-                                                            </xsd:annotation>
-                                                         </xsd:element>
-                                                         <xsd:element name="Ne04_NotApplicableMessage" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Hood Style</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
-                                                            </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="comp:NotApplicableMessage">
-                                                                  <xsd:enumeration value="BlankGrayedOut"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
-                                                         </xsd:element>
-                                                      </xsd:choice>
-                                                      <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ne05_KitchenExhaustHoodLength" type="com:KitchenExhaustHoodLength" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Hood Length (ft)</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else user input</xsd:documentation>
-                                                            </xsd:annotation>
-                                                         </xsd:element>
-                                                         <xsd:element name="Ne05_NotApplicableMessage" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Hood Length (ft)</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
-                                                            </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="comp:NotApplicableMessage">
-                                                                  <xsd:enumeration value="BlankGrayedOut"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
-                                                         </xsd:element>
-                                                      </xsd:choice>
-                                                      <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ne06_KitchenExhaustHoodDuty" type="com:KitchenExhaustHoodDuty" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Equipment Duty</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from customized list as follows: Switch (KitchenExhaustHoodStyle) case Eyebrow: list  LightDuty display term Light Duty, MediumDuty display term Medium Duty; case  BackshelfPassover: list LightDuty display term Light Duty, MediumDuty display term Medium Duty, HeavyDuty display term Heavy Duty; case WallMountedCanopy: case SingleIsland: case DoubleIsland:  list  LightDuty display term Light Duty, MediumDuty display term Medium Duty, HeavyDuty display term Heavy Duty, ExtraHeavyDuty display term Extra Heavy Duty</xsd:documentation>
-                                                            </xsd:annotation>
-                                                         </xsd:element>
-                                                         <xsd:element name="Ne06_NotApplicableMessage" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Equipment Duty</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
-                                                            </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="comp:NotApplicableMessage">
-                                                                  <xsd:enumeration value="BlankGrayedOut"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
-                                                         </xsd:element>
-                                                      </xsd:choice>
-                                                      <xsd:element name="Ne07_KitchenExhaustHoodFlow" type="com:KitchenExhaustHoodFlow" >
+                                                      <xsd:element name="TableHoods" >
                                                          <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Design Hood Exhaust Rate CFM</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                            <xsd:documentation source="FieldText"></xsd:documentation>
                                                          </xsd:annotation>
+                                                         <xsd:complexType>
+                                                            <xsd:sequence>
+                                                               <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                                                  <xsd:complexType>
+                                                                     <xsd:sequence>
+                                                                        <xsd:element name="Ne02_ComponentName" type="comp:ComponentName" >
+                                                                           <xsd:annotation>
+                                                                              <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                                                              <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                                           </xsd:annotation>
+                                                                        </xsd:element>
+                                                                        <xsd:element name="Ne03_KitchenHoodType" type="com:KitchenHoodType" >
+                                                                           <xsd:annotation>
+                                                                              <xsd:documentation source="FieldText">Hood Type [d:sup]1[/d:sup]</xsd:documentation>
+                                                                              <xsd:documentation source="CalculationsAndRules">User selects from list: Type1 display term Type I, Type2HeatSteam display term Type II</xsd:documentation>
+                                                                           </xsd:annotation>
+                                                                        </xsd:element>
+                                                                        <xsd:choice maxOccurs="1">
+                                                                           <xsd:element name="Ne04_KitchenExhaustHoodStyle" type="com:KitchenExhaustHoodStyle" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Hood Style</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list: WallMountedCanopy display term Wall-mounted Canopy, SingleIsland display term Single Island,  DoubleIsland display term Double Island, Eyebrow display term Eyebrow, BackshelfPassover display term Backshelf / Passover</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                           </xsd:element>
+                                                                           <xsd:element name="Ne04_NotApplicableMessage" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Hood Style</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                              <xsd:simpleType>
+                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                 </xsd:restriction>
+                                                                              </xsd:simpleType>
+                                                                           </xsd:element>
+                                                                        </xsd:choice>
+                                                                        <xsd:choice maxOccurs="1">
+                                                                           <xsd:element name="Ne05_KitchenExhaustHoodLength" type="com:KitchenExhaustHoodLength" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Hood Length (ft)</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else user input</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                           </xsd:element>
+                                                                           <xsd:element name="Ne05_NotApplicableMessage" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Hood Length (ft)</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                              <xsd:simpleType>
+                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                 </xsd:restriction>
+                                                                              </xsd:simpleType>
+                                                                           </xsd:element>
+                                                                        </xsd:choice>
+                                                                        <xsd:choice maxOccurs="1">
+                                                                           <xsd:element name="Ne06_KitchenExhaustHoodDuty" type="com:KitchenExhaustHoodDuty" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Equipment Duty</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from customized list as follows: Switch (KitchenExhaustHoodStyle) case Eyebrow: list  LightDuty display term Light Duty, MediumDuty display term Medium Duty; case  BackshelfPassover: list LightDuty display term Light Duty, MediumDuty display term Medium Duty, HeavyDuty display term Heavy Duty; case WallMountedCanopy: case SingleIsland: case DoubleIsland:  list  LightDuty display term Light Duty, MediumDuty display term Medium Duty, HeavyDuty display term Heavy Duty, ExtraHeavyDuty display term Extra Heavy Duty</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                           </xsd:element>
+                                                                           <xsd:element name="Ne06_NotApplicableMessage" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Equipment Duty</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                              <xsd:simpleType>
+                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                 </xsd:restriction>
+                                                                              </xsd:simpleType>
+                                                                           </xsd:element>
+                                                                        </xsd:choice>
+                                                                        <xsd:element name="Ne07_KitchenExhaustHoodFlow" type="com:KitchenExhaustHoodFlow" >
+                                                                           <xsd:annotation>
+                                                                              <xsd:documentation source="FieldText">Design Hood Exhaust Rate CFM</xsd:documentation>
+                                                                              <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                                                           </xsd:annotation>
+                                                                        </xsd:element>
+                                                                        <xsd:choice maxOccurs="1">
+                                                                           <xsd:element name="Ne08_ExhaustMaxFlowPerHoodLF" type="com:ExhaustMaxFlowPerHoodLF" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Max Hood Exhaust Rate Allowed CFM</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else calculated field:  final result = result1 x Ne05_KitchenExhaustHoodLength  where result1 is assigned as follows: Switch (Ne06_KitchenExhaustHoodDuty) case LightDuty: If Ne04_KitchenExhaustHoodStyle == WallMountedCanopy result1 = 140; Else If Ne04_KitchenExhaustHoodStyle == SingleIsland: result1 = 280; Else If Ne04_KitchenExhaustHoodStyle == BackshelfPassover result1 = 210; Else result1 = 175; case MediumDuty:  If Ne04_KitchenExhaustHoodStyle == SingleIsland result1 = 350; Else If Ne04_KitchenExhaustHoodStyle == Eyebrow result1 = 175; Else result1 = 210;  case HeavyDuty: If Ne04_KitchenExhaustHoodStyle == SingleIsland result1 = 420; Else result1 = 280; case ExtraHeavyDuty:  If Ne04_KitchenExhaustHoodStyle == SingleIsland result1 = 490; Else result1 = 385;</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                           </xsd:element>
+                                                                           <xsd:element name="Ne08_NotApplicableMessage" >
+                                                                              <xsd:annotation>
+                                                                                 <xsd:documentation source="FieldText">Max Hood Exhaust Rate Allowed CFM</xsd:documentation>
+                                                                                 <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
+                                                                              </xsd:annotation>
+                                                                              <xsd:simpleType>
+                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                 </xsd:restriction>
+                                                                              </xsd:simpleType>
+                                                                           </xsd:element>
+                                                                        </xsd:choice>
+                                                                     </xsd:sequence>
+                                                                  </xsd:complexType>
+                                                               </xsd:element>
+                                                            </xsd:sequence>
+                                                         </xsd:complexType>
                                                       </xsd:element>
-                                                      <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ne08_ExhaustMaxFlowPerHoodLF" type="com:ExhaustMaxFlowPerHoodLF" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Max Hood Exhaust Rate Allowed CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut stored in NotApplicableMessage; Else calculated field:  final result = result1 x Ne05_KitchenExhaustHoodLength  where result1 is assigned as follows: Switch (Ne06_KitchenExhaustHoodDuty) case LightDuty: If Ne04_KitchenExhaustHoodStyle == WallMountedCanopy result1 = 140; Else If Ne04_KitchenExhaustHoodStyle == SingleIsland: result1 = 280; Else If Ne04_KitchenExhaustHoodStyle == BackshelfPassover result1 = 210; Else result1 = 175; case MediumDuty:  If Ne04_KitchenExhaustHoodStyle == SingleIsland result1 = 350; Else If Ne04_KitchenExhaustHoodStyle == Eyebrow result1 = 175; Else result1 = 210;  case HeavyDuty: If Ne04_KitchenExhaustHoodStyle == SingleIsland result1 = 420; Else result1 = 280; case ExtraHeavyDuty:  If Ne04_KitchenExhaustHoodStyle == SingleIsland result1 = 490; Else result1 = 385;</xsd:documentation>
-                                                            </xsd:annotation>
-                                                         </xsd:element>
-                                                         <xsd:element name="Ne08_NotApplicableMessage" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText">Max Hood Exhaust Rate Allowed CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Ne01b_HoodExhaustCompliance != Type1RateMeetsReq Or If Ne03_KitchenHoodType == Type2HeatSteam result = BlankGrayedOut</xsd:documentation>
-                                                            </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="comp:NotApplicableMessage">
-                                                                  <xsd:enumeration value="BlankGrayedOut"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
-                                                         </xsd:element>
-                                                      </xsd:choice>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
                                           </xsd:sequence>
                                        </xsd:complexType>
                                     </xsd:element>
+                                    <xsd:element name="NEndNote1" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTES: Type II hoods do not have a max hood exhaust air rate per [d:t24ref/]140.9(b)1B [/d:i]</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
                                  </xsd:sequence>
                               </xsd:complexType>
                            </xsd:element>
-                        </xsd:sequence>
+                        </xsd:choice>
                      </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="NEndNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]FOOTNOTES: Type II hoods do not have a max hood exhaust air rate per [d:t24ref/]140.9(b)1B [/d:i]</xsd:documentation>
-                     </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
             </xsd:complexType>
@@ -2894,10 +2981,10 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="Q07_RequireNRCAPrc16A" type="comp:RequireNRCAPrc16A" >
+                  <xsd:element name="Q07_RequireNRCAPrc16F" type="comp:RequireNRCAPrc16F" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-PRC-16 Refrigerated Warehouses - Adiabatic Condenser Controls</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-PRC-16-F Refrigerated Warehouses - Adiabatic Condenser Controls</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcon01Adiabatic_CondenserTypeApplies == true  result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -2909,7 +2996,7 @@ End If</xsd:documentation>
                   <xsd:element name="Q08_RequireNRCAPrc07F" type="comp:RequireNRCAPrc07F" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-PRC-07 Refrigerated Warehouses - Variable Speed Compressor</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-PRC-07-F Refrigerated Warehouses - Variable Speed Compressor</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcom04_CompressorVariableSpeed == CompressorSpeedControlled result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
