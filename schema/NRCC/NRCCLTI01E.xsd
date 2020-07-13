@@ -12,7 +12,7 @@
    xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:altova="http://www.altova.com/xml-schema-extensions"
-   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.0.019">
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.1.001">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
@@ -43,7 +43,7 @@
             </xsd:element>
             <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
          </xsd:sequence>
-         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20190401"/>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20200601"/>
          <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCLTIE"/>
       </xsd:complexType>
    </xsd:element>
@@ -898,7 +898,21 @@ End If</xsd:documentation>
                      <xsd:element name="C10_DoLightingControlsComply" type="comp:DoLightingControlsComply" >
                         <xsd:annotation>
                            <xsd:documentation source="FieldText">[d:b]Controls Compliance (See Table H for Details)[/d:b]</xsd:documentation>
-                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull, result = DoesNotComply display term DOES NOT COMPLY; Else If H01, H02 and H04-H10 are completed result = Complies display term COMPLIES; Else result =  DoesNotComply display term DOES NOT COMPLY;</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If all values for Baltered02_LightingPrescriptiveMethodNR == Or Baltered04_LightingPrescriptiveMethodNR == RatedPowerReduction result = BlankGrayedOut stored in NotApplicableMessage and field is grayed out and blank; 
+Else
+If D03_ExceptionalConditionMessageNRCCLTIE contains  LP80PercentAlterationExceededInR Or LP80PercentAlterationMissingDataInR Or LP80PercentAlterationOnlyIssueInH 
+result = DoesNotComply display term DOES NOT COMPLY;
+ 
+Else 
+If H01, H02 and H04-H10 are NOT completed 
+result =  DoesNotComply display term DOES NOT COMPLY;
+Else If H_Exception02_ExceptionalConditionNote IsPresent And NotNull, 
+result = CompliesExceptionalConditions display term COMPLIES with Exceptional Conditions, 
+Else If H_Exception02_ExceptionalConditionNote IsPresent And IsNull,
+result = DoesNotComply display term DOES NOT COMPLY;
+Else
+result = Complies display term COMPLIES; 
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C10_NotApplicableMessage" >
@@ -3187,7 +3201,7 @@ End If</xsd:documentation>
                                              <xsd:element name="Lc03_TailoredWallLightingPowerPerFoot" type="comp:TailoredWallLightingPowerPerFoot" >
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Wall Display Density (W/lf)</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Calculated value: wall display lighting density rules for the space function type  in Kc03 for the area selected in Lc01 as follows:  if Kc03_SpaceFunctionTailored == AuditoriumArea result = 3.00; Else If Kc03_SpaceFunctionTailored == HotelLobby Or MainEntryLobby result = 3.50;  Else If Kc03_SpaceFunctionTailored == ConventionArea, ConferenceArea, MultipurposeArea, MeetingCenterArea Or MotionPictureTheater  result = 2.00;  Else If Kc03_SpaceFunctionTailored == DiningArea result = 1.25; Else If Kc03_SpaceFunctionTailored == ReligiousWorshipArea result = 1.30; else if Kc03_SpaceFunctionTailored == RetailMerchandiseSale Or ShowroomArea  result = 11.80;  Else If Kc03_SpaceFunctionTailored == ExhibitMuseumArea  result = 11.50;  Else If Kc03_SpaceFunctionTailored == GroceryStoreArea result = 6.80;  Else If Kc03_SpaceFunctionTailored == HotelBallroomEventsArea result = 1.80;  Else If Kc03_SpaceFunctionTailored == PerformanceTheater result = 7.50.</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">Calculated value: wall display lighting density rules for the space function type  in Kc03 for the area selected in Lc01 as follows:  if Kc03_SpaceFunctionTailored == AuditoriumArea result = 3.00; Else If Kc03_SpaceFunctionTailored == HotelLobby Or MainEntryLobby result = 3.50;  Else If Kc03_SpaceFunctionTailored == ConventionArea, ConferenceArea, MultipurposeArea, MeetingCenterArea Or MotionPictureTheater  result = 2.00;  Else If Kc03_SpaceFunctionTailored == DiningArea result = 1.25; Else If Kc03_SpaceFunctionTailored == ReligiousWorshipArea result = 1.30; else if Kc03_SpaceFunctionTailored == RetailMerchandiseSales Or ShowroomArea  result = 11.80;  Else If Kc03_SpaceFunctionTailored == ExhibitMuseumArea  result = 11.50;  Else If Kc03_SpaceFunctionTailored == GroceryStoreArea result = 6.80;  Else If Kc03_SpaceFunctionTailored == HotelBallroomEventsArea result = 1.80;  Else If Kc03_SpaceFunctionTailored == PerformanceTheater result = 7.50.</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Lc04_TailoredPowerCalculatedForArea" type="comp:TailoredPowerCalculatedForArea" >
