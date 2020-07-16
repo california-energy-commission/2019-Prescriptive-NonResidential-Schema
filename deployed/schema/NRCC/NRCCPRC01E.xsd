@@ -2384,7 +2384,7 @@ End If</xsd:documentation>
                                                 <d:t24ref h="120.6(d)3"/> &amp;amp; 
                                                 <d:t24ref h="120.6(d)4"/>
                                              </xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If I03_CombustionAirShutOff == InputLT2_5MMBtuhNA Or I02_ProcessBoilerInputRange == GTE5ToLT10MMBtuh Or GTE10MMBtuh  result = BlankGrayedOut; NotApplicableMessage Else If user selects only item, Designed and controlled per 
+                                             <xsd:documentation source="CalculationsAndRules">If I03_CombustionAirShutOff == InputLT2_5MMBtuhNA Or I02_ProcessBoilerInputRange == LT2_5MMBtuh Or GTE2_5ToLT5MMBtuh  result = BlankGrayedOut; NotApplicableMessage Else If user selects only item, Designed and controlled per 
                                                 <d:t24ref h="120.6(d)"/> result = true; else result = false</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -2394,7 +2394,7 @@ End If</xsd:documentation>
                                                 <d:t24ref h="120.6(d)3"/> &amp;amp; 
                                                 <d:t24ref h="120.6(d)4"/>
                                              </xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If I03_CombustionAirShutOff == InputLT2_5MMBtuhNA Or I02_ProcessBoilerInputRange == GTE5ToLT10MMBtuh Or GTE10MMBtuh  result = BlankGrayedOut</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If I03_CombustionAirShutOff == InputLT2_5MMBtuhNA Or I02_ProcessBoilerInputRange == LT2_5MMBtuh Or GTE2_5ToLT5MMBtuh  result = BlankGrayedOut</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
@@ -2704,12 +2704,20 @@ End If</xsd:documentation>
                                           </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
-                                    <xsd:element name="K15_OccupancySensorControl" type="com:OccupancySensorControl">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Controls</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects only item in list: Occupancy sensors provided;   If selected result = true;  Else result = false</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="K15_OccupancySensorControl" type="com:OccupancySensorControl">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Controls</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">User selects only item in list: Occupancy sensors provided;   If selected result = true;  Else result = false</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="K15_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Controls</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If K10_IsSpaceConditioned == true result = BlankGrayedOut;</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
                                  </xsd:sequence>
                               </xsd:complexType>
                            </xsd:element>
