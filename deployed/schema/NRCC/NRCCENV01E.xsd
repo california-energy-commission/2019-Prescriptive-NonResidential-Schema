@@ -511,7 +511,7 @@ Else If Fspan01_UseInAreaWeightedAveUfactor == true Then If FCalc1UF05_DoesAreaW
 If F01 Metal_RoofTypeApplies == true, 
 If fields beginning with Fmetalp02, Fmetalp03, Fmetalp04, Fmetalp05, Fmetalp06, Fmetalp08, Fmetalp09, Fmetalp06, Fmetalp10, Fmetalp11, Fmetalp12 and  Fmetalp13 == BlankGrayedOut Or have another value, And If Fmetalp07_RoofAssemblyName has a value result = true; Else result = false;  If result == true continue evaluation: 
  
-If Fmetalp01_UseInAreaWeightedAveUfactor == false  Then If Fmetalp14_UfactorJA429 Or Fmetalp14_UfactorJA4Other LTE Fmetalp11_InsulationUFactorLimit result = true; Else result = false; If result == true continue evaluation: 
+If Fmetalp01_UseInAreaWeightedAveUfactor == false  Then If Fmetalp12_UfactorJA429 Or Fmetalp12_UfactorJA4Other LTE Fmetalp11_InsulationUFactorLimit result = true; Else result = false; If result == true continue evaluation: 
  
 Else If Fmetalp01_UseInAreaWeightedAveUfactor == true Then If FCalc1UF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false. If result == true continue evaluation:  
  
@@ -838,81 +838,103 @@ If J01_DoorName, J02_DoorDescription, J03_TopLevelOccupancy, J04_DoorOperation, 
                         <xsd:annotation>
                            <xsd:documentation source="FieldText"/>
                            <xsd:documentation source="CalculationsAndRules">Calculated field: Result = true display term Yes, or false display term No. 
-If K01VerticalNew_FenestrationTypeApplies == true 
-If fields beginning with Kvert02, Kvert03, Kvert04, Kvert05 have values And Kvert06_GlazingAreaLimitAll GTE Kvert07_TotalGlazingAreaAllOrientations  And Kvert08_GlazingAreaLimitWest GTE Kvert09_TotalGlazingAreaWest result = true; Else result = false;  If result == true continue evaluation: 
+If K01VerticalNew_FenestrationTypeApplies == true Or K01GlazedDoors_FenestrationTypeApplies == true 
+If fields beginning with Kvert02, Kvert03, Kvert04, Kvert05 have values And Kvert06_GlazingAreaLimitAll GTE Kvert07_TotalGlazingAreaAllOrientations  And Kvert08_GlazingAreaLimitWest GTE Kvert09_TotalGlazingAreaWest result = true;
+Else result = false;  
+End If
+End If
+If result == true continue evaluation: 
  
-If K01VerticalAlt_FenestrationTypeApplies  Or K01VerticalNew_FenestrationTypeApplies  ==  true 
-If fields beginning with Kvertperf04, Kvertperf05, Kvertperf06,  Kvertperf07, Kvertperf08, Kvertperf09, Kvertperf11a, Kvertperf11b, Kvertperf11c,  Kvertperf12a, Kvertperf12b, Kvertperf12c,  Kvertperf13 == BlankGrayedOut or have another value result = true; Else result = false;  If result == true continue evaluation: 
+If K01VerticalAlt_FenestrationTypeApplies  Or K01VerticalNew_FenestrationTypeApplies  Or K01GlazedDoors_FenestrationTypeApplies == true  
+If fields beginning with Kvertperf04, Kvertperf05, Kvertperf06,  Kvertperf07, Kvertperf08, Kvertperf09, Kvertperf11a, Kvertperf11b, Kvertperf11c,  Kvertperf12a, Kvertperf12b, Kvertperf12c,  Kvertperf13 == BlankGrayedOut or have another value result = true; 
+Else result = false;  
+End If
+End If
+If result == true continue evaluation: 
  
 If Kvertperf01_UseInAreaWeightedAveUfactor == false 
-If Kvertperf11a_UFactorLimit GTE Kvertperf12a_UFactor result = true; Else result = false; 
- 
+If Kvertperf11a_UFactorLimit GTE Kvertperf12a_UFactor result = true; 
+Else result = false; 
+End If 
 Else If Kvertperf01_UseInAreaWeightedAveUfactor == true 
-If KCalcVertUF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  If result == true continue evaluation: 
+If KCalcVertUF05_DoesAreaWeightAvgComplyUfactor == true result = true; 
+Else result = false; 
+End If
+End If
  
+If result == true continue evaluation: 
  
 If Kvertperf02_UseInAreaWeightedAveSHGC == false 
-If Kvertperf11b_SHGC_Limit GTE Kvertperf12b_SHGC result = true; Else result = false;  
- 
+If Kvertperf11b_SHGC_Limit GTE Kvertperf12b_SHGC result = true; 
+Else result = false;  
+End If 
 Else If Kvertperf02_UseInAreaWeightedAveSHGC == true 
-If KCalcVertSHGC05_DoesAreaWeightAvgComplySHGC == true result = true; else result = false;  If result == true continue evaluation: 
+If KCalcVertSHGC05_DoesAreaWeightAvgComplySHGC == true result = true; 
+else result = false;  
+End If
+End If
  
- 
+If result == true continue evaluation: 
+  
 If Kvertperf03_UseInAreaWeightedAveVT == false 
-If Kvertperf11c_VT_Limit LTE Kvertperf12c_VT result = true; Else result = false;  
- 
+If Kvertperf11c_VT_Limit LTE Kvertperf12c_VT result = true; 
+Else result = false;  
+End If 
 Else If Kvertperf03_UseInAreaWeightedAveVT == true 
-If KCalcVertVT05_DoesAreaWeightAvgComplyVT == true result = true; else result = false;  If result == true continue evaluation: 
+If KCalcVertVT05_DoesAreaWeightAvgComplyVT == true result = true; 
+else result = false;  
+End If
+End If
+If result == true continue evaluation: 
  
  
+If  K01Skylights_FenestrationTypeApplies  ==  true
+  
+If fields beginning with Ksky01, Ksky02, Ksky03 And Ksky04 have values And Ksky03_SkylightAreaLimit  GTE  Ksky04_TotalSkylightArea result = true; 
+Else result = false; 
+End If
  
-If  K01Skylights_FenestrationTypeApplies  ==  true  
-If fields beginning with Ksky01, Ksky02, Ksky03 And Ksky04 have values And Ksky03_SkylightAreaLimit  GTE  Ksky04_TotalSkylightArea result = true; Else result = false; If result == true continue evaluation: 
+If result == true continue evaluation: 
  
-If fields beginning with Kskyperf04, Kskyperf05, Kskyperf06, Kskyperf07, Kskyperf08, Kskyperf10a, Kskyperf10b, Kskyperf10c, Kskyperf11a, Kskyperf11b, Kskyperf11c And Kskyperf12 == BlankGrayedOut or have another value result = true; Else result = false;  If result == true continue evaluation:  
+If fields beginning with Kskyperf04, Kskyperf05, Kskyperf06, Kskyperf07, Kskyperf08, Kskyperf10a, Kskyperf10b, Kskyperf10c, Kskyperf11a, Kskyperf11b, Kskyperf11c And Kskyperf12 == BlankGrayedOut or have another value result = true; 
+Else result = false;  
+End If
+If result == true continue evaluation:  
  
 If Kskyperf01_UseInAreaWeightedAveUfactor == false  
-If  Kskyperf10a_UFactorLimit GTE Kskyperf11a_UFactor result = true; Else result = false; 
- 
+If  Kskyperf10a_UFactorLimit GTE Kskyperf11a_UFactor result = true; 
+Else result = false; 
+End If 
 Else If Kskyperf01_UseInAreaWeightedAveUfactor == true 
-If KCalcSkyUF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false; If result == true continue evaluation:  
+If KCalcSkyUF05_DoesAreaWeightAvgComplyUfactor == true result = true; 
+Else result = false; 
+End If
+End If
+If result == true continue evaluation:  
  
  
 If Kskyperf02_UseInAreaWeightedAveSHGC == false 
-If  Kskyperf10b_SHGC_Limit GTE Kskyperf11b_SHGC result = true; Else result = false; 
- 
+If  Kskyperf10b_SHGC_Limit GTE Kskyperf11b_SHGC result = true; 
+Else result = false; 
+End If 
 Else If Kskyperf02_UseInAreaWeightedAveSHGC == true 
-If KCalcSkySHGC05_DoesAreaWeightAvgComplySHGC == true result = true; Else result = false;  If result == true continue evaluation:  
+If KCalcSkySHGC05_DoesAreaWeightAvgComplySHGC == true result = true; 
+Else result = false;  
+End If
  
+If result == true continue evaluation:  
  
 If  Kskyperf03_UseInAreaWeightedAveVT == false 
-If Kskyperf10c_VT_Limit LTE Kskyperf11c_VT result = true; Else result = false; 
- 
-Else If  Kskyperf03_UseInAreaWeightedAveVT == true If KCalcSkyVT05_DoesAreaWeightAvgComplyVT == true result = true; Else result = false;  If result == true continue evaluation: 
- 
- 
- 
-If  K01GlazedDoors_FenestrationTypeApplies  ==  true  
-If fields beginning with Kdoorperf04, Kdoorperf05, Kdoorperf06, Kdoorperf07, Kdoorperf09a, Kdoorperf09b, Kdoorperf09c, Kdoorperf10a, Kdoorperf10b, Kdoorperf10c And Kdoorperf11 == BlankGrayedOut or have another value result = true; Else result = false;  If result == true continue evaluation:  
- 
-If Kdoorperf01_UseInAreaWeightedAveUfactor == false 
-If Kdoorperf09a_UFactorLimit GTE Kdoorperf10a_UFactor result = true; Else result = false;
- 
-Else If Kdoorperf01_UseInAreaWeightedAveUfactor == true 
-If KCalcVertUF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  If result == true continue evaluation:  
- 
- 
-If Kdoorperf02_UseInAreaWeightedAveSHGC == false  
- If Kdoorperf09b_SHGC_Limit GTE Kdoorperf10b_SHGC result = true; Else result = false; 
- 
-Else If Kdoorperf02_UseInAreaWeightedAveSHGC == true If KCalcVertSHGC05_DoesAreaWeightAvgComplySHGC == true result = true; else result = false;  If result == true continue evaluation: 
- 
- 
-If Kdoorperf03_UseInAreaWeightedAveVT == false   
-If Kdoorperf09c_VT_Limit LTE Kdoorperf10c_VT result = true; Else result = false; 
- 
-Else If Kdoorperf03_UseInAreaWeightedAveVT == true 
-If KCalcVertVT05_DoesAreaWeightAvgComplyVT == true result = true; else result = false;</xsd:documentation>
+If Kskyperf10c_VT_Limit LTE Kskyperf11c_VT result = true; 
+Else result = false; 
+End If 
+Else If  Kskyperf03_UseInAreaWeightedAveVT == true 
+If KCalcSkyVT05_DoesAreaWeightAvgComplyVT == true result = true; 
+Else result = false;
+End If  
+End If
+End If 
+End If</xsd:documentation>
                         </xsd:annotation>
                      </xsd:element>
                      <xsd:element name="C06_NotApplicableMessage">
@@ -1243,7 +1265,7 @@ R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or 
                                                 <xsd:element name="Fframed08_UfactorSpecSource" type="comp:UfactorSpecSource">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies  Or If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
  
 Else User selects from list: 
 JA4Tables display term JA4 Tables, 
@@ -1513,7 +1535,7 @@ Else If A03_ClimateZoneNumber == 3, 5 Or 6 result = 0.034; Else result = 0.039; 
 case RelocableSchoolBuildingAllZones:  result = 0.034; 
  End Switch
  
-Else If Fframed04_Status == ExistingAltered And Fframed13_ConstructionSpecificationMethod == UFactor 
+Else If Fframed04_Status == ExistingAlteration And Fframed13_ConstructionSpecificationMethod == UFactor 
  
 If Fframed06_TopLevelOccupancy == Nonresidential
 If A03_ClimateZoneNumber == 1Or InRange(3,9)  result =  0.082;
@@ -1525,7 +1547,7 @@ End if</xsd:documentation>
                                                 <xsd:element name="Fframed14_InsulationRValueLimit" type="env:InsulationRValueLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAltered And Fframed13_ConstructionSpecificationMethod == RValue 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And Fframed13_ConstructionSpecificationMethod == RValue 
  
 If Fframed06_TopLevelOccupancy) == Nonresidential 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
@@ -2337,7 +2359,7 @@ Or If Fframed01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut sto
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Metal building roofs may not be combined with other roof types.  The area-weighted compliance option is not available for alterations demonstrating compliance with R-values in 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -2346,7 +2368,7 @@ Or If Fframed01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut sto
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup> If "R-value" is shown in cell 13 as the Thermal Performance Unit, the R-value shown here is for continuous insulation per 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -2675,7 +2697,7 @@ Else If FSIPS08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
                                                 <xsd:element name="FSIPS13_ConstructionSpecificationMethod">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAltered And FSIPS01_UseInAreaWeightedAveUfactor   == false list RValue display term R-value, UFactor display term U-factor ; 
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And FSIPS01_UseInAreaWeightedAveUfactor   == false list RValue display term R-value, UFactor display term U-factor ; 
  
 Else result = UFactor and cannot be changed by user</xsd:documentation>
                                                    </xsd:annotation>
@@ -2718,7 +2740,7 @@ End If
 case RelocableSchoolBuildingAllZones:  result = 0.034; 
 End Switch
  
-Else If FSIPS04_Status == ExistingAltered And FSIPS13_ConstructionSpecificationMethod == UFactor  
+Else If FSIPS04_Status == ExistingAlteration And FSIPS13_ConstructionSpecificationMethod == UFactor  
 If FSIPS06_TopLevelOccupancy == Nonresidential 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9)  result =  0.082; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; 
@@ -2732,7 +2754,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="FSIPS14_InsulationRValueLimit" type="env:InsulationRValueLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAltered And FSIPS13_ConstructionSpecificationMethod == RValue 
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And FSIPS13_ConstructionSpecificationMethod == RValue 
  
 If FSIPS06_TopLevelOccupancy) == Nonresidential 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
@@ -3186,7 +3208,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Metal building roofs may not be combined with other roof types.  The area-weighted compliance option is not available for alterations demonstrating compliance with R-values in 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -3195,7 +3217,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup> If "R-value" is shown in cell 13 as the Thermal Performance Unit, the R-value shown here is for continuous insulation per 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -3478,7 +3500,7 @@ Else If Fspan08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
                                                 <xsd:element name="Fspan12_ConstructionSpecificationMethod">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAltered And Fspan01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And Fspan01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
  
 Else result = UFactor and cannot be changed by user</xsd:documentation>
                                                    </xsd:annotation>
@@ -3522,7 +3544,7 @@ End If
 case RelocableSchoolBuildingAllZones:  result = 0.034; 
 End Switch 
  
-Else If Fspan04_Status == ExistingAltered And Fspan12_ConstructionSpecificationMethod == UFactor 
+Else If Fspan04_Status == ExistingAlteration And Fspan12_ConstructionSpecificationMethod == UFactor 
  
 If Fspan06_TopLevelOccupancy == Nonresidential 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9)  result =  0.082; 
@@ -3537,7 +3559,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fspan13_InsulationRValueLimit" type="env:InsulationRValueLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAltered And Fspan12_ConstructionSpecificationMethod == RValue 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And Fspan12_ConstructionSpecificationMethod == RValue 
  
 If Fspan06_TopLevelOccupancy) == Nonresidential 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
@@ -3759,7 +3781,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Metal building roofs may not be combined with other roof types.  The area-weighted compliance option is not available for alterations demonstrating compliance with R-values in 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -3768,7 +3790,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup> If "R-value" is shown in cell 13 as the Thermal Performance Unit, the R-value shown here is for continuous insulation per 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -3979,7 +4001,7 @@ Else If  Fmetalp08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters
                                                 <xsd:element name="Fmetalp10_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalp04_Status == ExistingAlteration And  Fmetalp05_RoofInsulationException  != NoExceptionApplies Or If Fmetalp01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalp04_Status == ExistingAlteration And  Fmetalp05_RoofInsulationException  != NoExceptionApplies result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -4007,7 +4029,7 @@ Else result = 0.039;
 case RelocableSchoolBuildingAllZones:  result = 0.034; 
 End Switch
  
-Else If Fmetalp04_Status == ExistingAltered  
+Else If Fmetalp04_Status == ExistingAlteration  
  
 If Fmetalp06_TopLevelOccupancy == Nonresidential 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9)  result =  0.082; 
@@ -4022,7 +4044,7 @@ End if</xsd:documentation>
                                                 <xsd:element name="Fmetalp11_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalp04_Status == ExistingAlteration And  Fmetalp05_RoofInsulationException  != NoExceptionApplies Or If Fmetalp01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalp04_Status == ExistingAlteration And  Fmetalp05_RoofInsulationException  != NoExceptionApplies  result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -4058,7 +4080,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fmetalp12_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">U-factor per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalp04_Status == ExistingAlteration And  Fmetalp05_RoofInsulationException  != NoExceptionApplies Or If Fmetalp01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalp04_Status == ExistingAlteration And  Fmetalp05_RoofInsulationException  != NoExceptionApplies result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -4099,7 +4121,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Metal building roofs may not be combined with other roof types.  The area-weighted compliance option is not available for alterations demonstrating compliance with R-values in 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -4434,7 +4456,7 @@ Else If Fmetalb08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
                                                 <xsd:element name="Fmetalb12_ConstructionSpecificationMethod">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAltered And Fmetalb01_UseInAreaWeightedAveUfactor == false list RValue, UFactor ; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And Fmetalb01_UseInAreaWeightedAveUfactor == false list RValue, UFactor ; 
  
 Else result = UFactor and cannot be changed by user</xsd:documentation>
                                                    </xsd:annotation>
@@ -4464,14 +4486,14 @@ Else result = UFactor and cannot be changed by user</xsd:documentation>
                                                       </xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == New result = 0.041;  
  
-Else If Fmetalb04_Status == ExistingAltered And Fmetalb12_ConstructionSpecificationMethod == UFactor 
+Else If Fmetalb04_Status == ExistingAlteration And Fmetalb12_ConstructionSpecificationMethod == UFactor 
  
 If Fmetalb06_TopLevelOccupancy == Nonresidential 
 If A03_ClimateZoneNumber == 1Or InRange(3,9)  result =  0.082; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; 
 End If
  
-Else If Fmetalb06_TopLevelOccupancy == ResidentialNR result = 0.55;
+Else If Fmetalb06_TopLevelOccupancy == ResidentialNR result = 0.055;
 End If
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -4480,7 +4502,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAltered And Fmetalb12_ConstructionSpecificationMethod == RValue 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And Fmetalb12_ConstructionSpecificationMethod == RValue 
  
 If Fmetalb06_TopLevelOccupancy == Nonresidential 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
@@ -4530,10 +4552,10 @@ End If</xsd:documentation>
                                                                <xsd:element name="Fmetalb14_UfactorJA427Screw" type="comp:UfactorJA427Screw">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText"/>
-                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBuildingRoofType == ScrewDownRoof 
+                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBldgRoofType == ScrewDownRoof 
  
 If Fmetalb10_CavityInsulationNR  == R10 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.184; 
 case R6: result = 0.087; 
 case R9: result =  0.069; 
@@ -4547,7 +4569,7 @@ case R38: result = 0.023;
 End Switch
  
 Else If Fmetalb10_CavityInsulationNR  == R11 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.182; 
 case R6: result = 0.087; 
 case R9: result =  0.069; 
@@ -4561,7 +4583,7 @@ case R38: result = 0.023;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R13 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.174; 
 case R6: result = 0.085; 
 case R9: result =  0.068; 
@@ -4575,7 +4597,7 @@ case R38: result = 0.023;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R16 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.157; 
 case R6: result = 0.081; 
 case R9: result =  0.065; 
@@ -4589,7 +4611,7 @@ case R38: result = 0.023;
 End Switch   
  
 Else If Fmetalb10_CavityInsulationNR  == R19 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.151; 
 case R6: result = 0.079; 
 case R9: result =  0.064; 
@@ -4608,10 +4630,10 @@ End If</xsd:documentation>
                                                                <xsd:element name="Fmetalb14_UfactorJA427SeamSingle" type="comp:UfactorJA427SeamSingle">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText"/>
-                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBuildingRoofType == StandingSeam1Layer 
+                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBldgRoofType == StandingSeam1Layer 
  
  If Fmetalb10_CavityInsulationNR  == R0 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 1.280; 
 case R6: result = 0.147; 
 case R9: result =  0.102; 
@@ -4625,7 +4647,7 @@ case R38: result = 0.026;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R10 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.115; 
 case R6: result = 0.068; 
 case R9: result =  0.057; 
@@ -4639,7 +4661,7 @@ case R38: result = 0.021;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R11 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.107; 
 case R6: result = 0.065; 
 case R9: result =  0.055; 
@@ -4653,7 +4675,7 @@ case R38: result = 0.021;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R13 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.101; 
 case R6: result = 0.063; 
 case R9: result =  0.053; 
@@ -4667,7 +4689,7 @@ case R38: result = 0.021;
 End Switch   
  
 Else If Fmetalb10_CavityInsulationNR  == R16 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.096; 
 case R6: result = 0.061; 
 case R9: result =  0.052; 
@@ -4681,7 +4703,7 @@ case R38: result = 0.021;
 End Switch  
  
 Else If Fmetalb10_CavityInsulationNR  == R19 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.082; 
 case R6: result = 0.055; 
 case R9: result =  0.047; 
@@ -4700,9 +4722,9 @@ End If</xsd:documentation>
                                                                <xsd:element name="Fmetalb14_UfactorJA427SeamDouble" type="comp:UfactorJA427SeamDouble">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText"/>
-                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBuildingRoofType == StandingSeam2Layer 
+                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBldgRoofType == StandingSeam2Layer 
  If Fmetalb10_CavityInsulationNR  == R10_R10  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.088; 
 case R6: result = 0.058; 
 case R9: result =  0.049; 
@@ -4716,7 +4738,7 @@ case R38: result = 0.020;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R10_R11 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.086; 
 case R6: result = 0.057; 
 case R9: result =  0.048; 
@@ -4730,7 +4752,7 @@ case R38: result = 0.020;
 End Switch 
  
  Else If Fmetalb10_CavityInsulationNR  == R11_R11 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.085; 
 case R6: result = 0.056; 
 case R9: result =  0.048; 
@@ -4744,7 +4766,7 @@ case R38: result = 0.020;
 End Switch
  
 Else If Fmetalb10_CavityInsulationNR  == R10_R13  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.084; 
 case R6: result = 0.056; 
 case R9: result =  0.048; 
@@ -4758,7 +4780,7 @@ case R38: result = 0.020;
 End Switch  
  
 Else If Fmetalb10_CavityInsulationNR  == R11_R13  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.082; 
 case R6: result = 0.055; 
 case R9: result =  0.047; 
@@ -4773,7 +4795,7 @@ End Switch
  
  
 Else If Fmetalb10_CavityInsulationNR  == R13_R13  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.075; 
 case R6: result = 0.052; 
 case R9: result =  0.045; 
@@ -4787,7 +4809,7 @@ case R38: result = 0.019;
 End Switch
  
 Else If Fmetalb10_CavityInsulationNR  == R10_R19  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.074; 
 case R6: result = 0.051; 
 case R9: result =  0.044; 
@@ -4801,7 +4823,7 @@ case R38: result = 0.019;
 End Switch  
  
 Else If Fmetalb10_CavityInsulationNR  == R11_R19  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.072; 
 case R6: result = 0.050; 
 case R9: result =  0.044; 
@@ -4815,7 +4837,7 @@ case R38: result = 0.019;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R13_R19  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.068; 
 case R6: result = 0.048; 
 case R9: result =  0.042; 
@@ -4829,7 +4851,7 @@ case R38: result = 0.019;
 End Switch 
  
 Else If Fmetalb10_CavityInsulationNR  == R16_R19  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.065; 
 case R6: result = 0.047; 
 case R9: result =  0.041; 
@@ -4843,7 +4865,7 @@ case R38: result = 0.019;
 End Switch
  
 Else If Fmetalb10_CavityInsulationNR  == R19_R19  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.060; 
 case R6: result = 0.044; 
 case R9: result =  0.039; 
@@ -4862,9 +4884,9 @@ End If</xsd:documentation>
                                                                <xsd:element name="Fmetalb14_UfactorJA427Blocks" type="comp:UfactorJA427Blocks">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText"/>
-                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBuildingRoofType == FilledThermalBlocks 
+                                                                     <xsd:documentation source="CalculationsAndRules">If Fmetalb09_MetalBldgRoofType == FilledThermalBlocks 
 If Fmetalb10_CavityInsulationNR  == R10_R19  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb11_ContinuousInsulationNR) 
 case R0: result = 0.041; 
 case R6: result = 0.033; 
 case R9: result =  0.030; 
@@ -4924,7 +4946,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Metal building roofs may not be combined with other roof types.  The area-weighted compliance option is not available for alterations demonstrating compliance with R-values in 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -4933,7 +4955,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup> If "R-value" is shown in cell 13 as the Thermal Performance Unit, the R-value shown here is for continuous insulation per 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -5848,7 +5870,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed06_WallType">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Location</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue Or If Hframed04b_Status == ExistingAltered result = BlankGrayedOut stored in NotApplicableMessage;  
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue Or If Hframed04b_Status == ExistingAlteration result = BlankGrayedOut stored in NotApplicableMessage;  
 Else User selects from list: ExteriorWall display term Exterior, DemisingWall display term Demising
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -5862,7 +5884,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed06_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Location</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue Or If Hframed04b_Status == ExistingAltered result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue Or If Hframed04b_Status == ExistingAlteration result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -6025,7 +6047,7 @@ End If</xsd:documentation>
                                              <xsd:element name="Hframed10_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAltered  And Hframed01_UseInAreaWeightedAveUfactor  == false And Hframed02_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
+                                                   <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAlteration  And Hframed01_UseInAreaWeightedAveUfactor  == false And Hframed02_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -6034,7 +6056,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed11_InsulationUFactorLimit" type="env:InsulationUFactorLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAltered And Hframed10_ConstructionSpecificationMethod == UFactor 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAlteration And Hframed10_ConstructionSpecificationMethod == UFactor 
  If Hframed04a_TopLevelOccupancy == OtherOccupancy Then 
  If Hframed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum result = 0.110; 
  Else If Hframed07_PartitionFramingMaterial == Metal result = 0.217; 
@@ -6069,7 +6091,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed11_InsulationRValueLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAltered And Hframed10_ConstructionSpecificationMethod == RValue 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAlteration And Hframed10_ConstructionSpecificationMethod == RValue 
 If Hframed04a_TopLevelOccupancy == OtherOccupancy  
 If Hframed07a_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum result = R11; 
 Else result = R13;
@@ -6459,7 +6481,7 @@ Else If Hframed05_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Metal framed walls may not be combined with other wall types.  Wood framed walls are combined with SIPS, spandrel &amp;amp; curtain, metal panel and straw bale wall types. The area-weighted compliance option is not available for alterations demonstrating compliance with R-values in 
-                                       <d:t24table>Table 141.0-C</d:t24table>.</d:i>
+                                       <d:t24table/>Table 141.0-C.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -7105,7 +7127,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Mass walls are combined with concrete sandwich panel, log and ICF wall types.  Mass walls must meet mandatory requirements in 
                                        <d:t24ref h="120.7(b)"/>, but may area-weight to comply with prescriptive requirements in 
-                                       <d:t24table>Table 140.3</d:t24table> for new construction. </d:i>
+                                       <d:t24table/>Table 140.3 for new construction. </d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -7114,8 +7136,8 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup> Mass walls are defined as "light" or "heavy" depending on their Heat Capacity. Heat Capacity is determined in 
-                                       <d:t24table>Tables 4.3.5</d:t24table> and 
-                                       <d:t24table>4.3.6</d:t24table> in Joint Appendix 4.  Walls with Heat Capacity of 15 or greater are "heavy" while walls with Heat Capacity from 7 to less than 15 are "light".  Walls with heat capacity less than 7 would be categorized as "Wood framed and Other" for compliance purposes. </d:i>
+                                       <d:t24table/>Tables 4.3.5 and 
+                                       <d:t24table/>4.3.6 in Joint Appendix 4.  Walls with Heat Capacity of 15 or greater are "heavy" while walls with Heat Capacity from 7 to less than 15 are "light".  Walls with heat capacity less than 7 would be categorized as "Wood framed and Other" for compliance purposes. </d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -7600,7 +7622,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Concrete Sandwich Panel walls may combined with mass, log and ICF wall types.  Concrete Sandwich Panel walls must meet mandatory requirements in 
                                        <d:t24ref h="120.7(b)"/>, but may area-weight to comply with prescriptive requirements in 
-                                       <d:t24table>Table 140.3</d:t24table> for new construction. </d:i>
+                                       <d:t24table/>Table 140.3 for new construction. </d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -7609,8 +7631,8 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup> Mass walls are defined as "light" or "heavy" depending on their Heat Capacity. Heat Capacity is determined in 
-                                       <d:t24table>Tables 4.3.5</d:t24table> and 
-                                       <d:t24table>4.3.6</d:t24table> in Joint Appendix 4.  Walls with Heat Capacity of 15 or greater are "heavy" while walls with Heat Capacity from 7 to less than 15 are "light".  Walls with heat capacity less than 7 would be categorized as "Wood framed and Other" for compliance purposes. </d:i>
+                                       <d:t24table/>Tables 4.3.5 and 
+                                       <d:t24table/>4.3.6 in Joint Appendix 4.  Walls with Heat Capacity of 15 or greater are "heavy" while walls with Heat Capacity from 7 to less than 15 are "light".  Walls with heat capacity less than 7 would be categorized as "Wood framed and Other" for compliance purposes. </d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -7845,7 +7867,7 @@ End If</xsd:documentation>
                                              <xsd:element name="HSIPS09_ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If HSIPS03b_Status == ExistingAltered And HSIPS01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
+                                                   <xsd:documentation source="CalculationsAndRules">If HSIPS03b_Status == ExistingAlteration And HSIPS01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -7880,7 +7902,7 @@ End If
 case RelocableSchoolBuildingAllZones:  result = 0.059;
 End Switch
  
-Else If HSIPS03a_Status == ExistingAltered And HSIPS09_ConstructionSpecificationMethod  == UFactor  result = 0.110;
+Else If HSIPS03a_Status == ExistingAlteration And HSIPS09_ConstructionSpecificationMethod  == UFactor  result = 0.110;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -7888,7 +7910,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS03b_Status == ExistingAltered And HSIPS09_ConstructionSpecificationMethod  == RValue result = R11;
+                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS03b_Status == ExistingAlteration And HSIPS09_ConstructionSpecificationMethod  == RValue result = R11;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8403,7 +8425,7 @@ End If</xsd:documentation>
                                              <xsd:element name="Hspandrel08_ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If Hspandrel03b_Status == ExistingAltered And Hspandrel01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
+                                                   <xsd:documentation source="CalculationsAndRules">If Hspandrel03b_Status == ExistingAlterationAnd Hspandrel01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -8438,7 +8460,7 @@ End If
 case RelocableSchoolBuildingAllZones:  result = 0.059; 
 End Switch
  
-Else If Hspandrel3b_Status == ExistingAltered And Hspandrel08_ConstructionSpecificationMethod  == UFactor  result = 0.280;
+Else If Hspandrel3b_Status == ExistingAlteration And Hspandrel08_ConstructionSpecificationMethod  == UFactor  result = 0.280;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -8446,7 +8468,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hspandre03b_Status == ExistingAltered And Hspandrel08_ConstructionSpecificationMethod  == RValue result = R4;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hspandre03b_Status == ExistingAlteration And Hspandrel08_ConstructionSpecificationMethod  == RValue result = R4;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8881,7 +8903,7 @@ end If</xsd:documentation>
                                              <xsd:element name="Hmetalb08_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If Hmetalb03b_Status == ExistingAltered And Hmetalb01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
+                                                   <xsd:documentation source="CalculationsAndRules">If Hmetalb03b_Status == ExistingAlteration And Hmetalb01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -8912,7 +8934,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb09_InsulationRValueLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb03b_Status == ExistingAltered And Hmetalb08_ConstructionSpecificationMethod == RValue 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb03b_Status == ExistingAlteration And Hmetalb08_ConstructionSpecificationMethod == RValue 
 If Hmetalb03a_TopLevelOccupancy == OtherOccupancy  result = R13;
 End If
 End If</xsd:documentation>
@@ -9686,7 +9708,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  Log Home walls may be combined with mass, concrete sandwich panel and ICF wall types.  Log Home walls must meet mandatory insulation requirements in 
                                        <d:t24ref h="120.7(b)"/>, but may area-weight to comply with prescriptive requirements in 
-                                       <d:t24table>Table 140.3</d:t24table> for new construction. </d:i>
+                                       <d:t24table/>Table 140.3 for new construction. </d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -9695,7 +9717,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup> Log Home walls are defined as "wood framed and other" or "light " depending on their Heat Capacity.  Heat Capacity is determined in 
-                                       <d:t24table>Table 4.3.11</d:t24table> in Joint Appendix 4.  Walls with Heat Capacity from 7 to less than 15 are "light".  Walls with heat cpacity less than 7 would be categorized as "Wood framed and Other" for compliance pruposes.</d:i>
+                                       <d:t24table/>Table 4.3.11 in Joint Appendix 4.  Walls with Heat Capacity from 7 to less than 15 are "light".  Walls with heat cpacity less than 7 would be categorized as "Wood framed and Other" for compliance pruposes.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -9821,7 +9843,7 @@ End if</xsd:documentation>
                                              <xsd:element name="Hstraw07_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If Hstraw04b_Status == ExistingAltered And Hstraw01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
+                                                   <xsd:documentation source="CalculationsAndRules">If Hstraw04b_Status == ExistingAlteration And Hstraw01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -9850,7 +9872,7 @@ End If
 case RelocableSchoolBuildingAllZones:  result = 0.059; 
 End Switch
  
-Else If Hstraw04b_Status == ExistingAltered And Hstraw05_ConstructionSpecificationMethod  == UFactor  result = 0.110;
+Else If Hstraw04b_Status == ExistingAlteration And Hstraw05_ConstructionSpecificationMethod  == UFactor  result = 0.110;
 End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -9858,7 +9880,7 @@ End if</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hstraw04b_Status == ExistingAltered And Hstraw05_ConstructionSpecificationMethod  == RValue result = R11;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hstraw04b_Status == ExistingAlteration And Hstraw05_ConstructionSpecificationMethod  == RValue result = R11;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -10365,7 +10387,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual assembly is non-compliant, assemblies may show compliance using an area-weighted calculation.  ICF walls may be combined with mass, concrete sandwich panel and log wall types.  ICF walls must meet mandatory insulation requirements in 
                                        <d:t24ref h="120.7(b)"/>, but may area-weight to comply with prescriptive requirements in 
-                                       <d:t24table>Table 140.3</d:t24table> for new construction. </d:i>
+                                       <d:t24table/>Table 140.3 for new construction. </d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -10374,7 +10396,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup>ICF walls are defined as "light" or "heavy" depending on their Heat Capacity.  Heat Capacity is determined in 
-                                       <d:t24table>Table 4.3.13</d:t24table> in Joint Appendix 4.  Walls with Heat Capacity of 15 or greater are "heavy" while walls with Heat Capacity from 7 to less than 15 are "light". </d:i>
+                                       <d:t24table/>Table 4.3.13 in Joint Appendix 4.  Walls with Heat Capacity of 15 or greater are "heavy" while walls with Heat Capacity from 7 to less than 15 are "light". </d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -11073,7 +11095,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Iframed05_HasCrawlspace" type="env:HasCrawlspace">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Crawlspace</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage;  
+                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == RValue Or If Iframed03b_Status == ExistingAlteration  result = BlankGrayedOut stored in NotApplicableMessage;  
 Else User selects from list: Yes (result = true), No (result = false).
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -11081,7 +11103,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Iframed05_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Crawlspace</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == RValue Or If Hframed04b_Status == ExistingAltered result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == RValue Or If Iframed03b_Status == ExistingAlteration result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -11261,7 +11283,7 @@ End If</xsd:documentation>
                                              <xsd:element name="Iframed09_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If  Iframed03b_Status == ExistingAltered  And Iframed01_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
+                                                   <xsd:documentation source="CalculationsAndRules">If  Iframed03b_Status == ExistingAlteration  And Iframed01_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -11272,7 +11294,7 @@ End If</xsd:documentation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If Iframed09_ConstructionSpecificationMethod == UFactor 
-If Iframed03b_Status == ExistingAltered  
+If Iframed03b_Status == ExistingAlteration  
 If Iframed03a_TopLevelOccupancy == OtherOccupancy  result = 0.071; 
 End If
 Else If Iframed03b_Status == New
@@ -11296,7 +11318,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Iframed10_InsulationRValueLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed03b_Status == ExistingAltered And  Iframed09_ConstructionSpecificationMethod == RValue
+                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed03b_Status == ExistingAlteration And  Iframed09_ConstructionSpecificationMethod == RValue
  If  Iframed03a_TopLevelOccupancy == OtherOccupancy  result =R11; 
 End If
 End If</xsd:documentation>
@@ -12397,7 +12419,7 @@ End If</xsd:documentation>
                                              <xsd:element name="Imass08_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If Imass04b_Status == ExistingAltered  And Imass01_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
+                                                   <xsd:documentation source="CalculationsAndRules">If Imass04b_Status == ExistingAlteration  And Imass01_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -12411,7 +12433,7 @@ End If</xsd:documentation>
 If Imass08_ConstructionSpecificationMethod == UFactor 
 Switch ( Imass04b_TopLevelOccupancy) 
 case AlteredOccupancy:
-If Imass04b_Status == ExistingAltered result = 0.111; 
+If Imass04b_Status == ExistingAlteration result = 0.111; 
 End If
  
 case  Nonresidential: 
@@ -12436,7 +12458,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Imass04b_Status == ExistingAltered And  Imass08_ConstructionSpecificationMethod == RValue 
+                                                      <xsd:documentation source="CalculationsAndRules">If  Imass04b_Status == ExistingAlteration And  Imass08_ConstructionSpecificationMethod == RValue 
 If  Imass04a_TopLevelOccupancy == AlteredOccupancy  result = R6; 
 End If
 End If</xsd:documentation>
@@ -13113,9 +13135,9 @@ End Switch</xsd:documentation>
                   <xsd:element name="Kvert" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">
-                           <d:b>Vertical Fenestration and Glazed Doors- Total Building &amp;amp; west Facing area (New Construction &amp;amp; Additions Only)</d:b>
+                           <d:b>Vertical Fenestration and Glazed Doors- Total Building &amp;amp; West Facing Area (New Construction &amp;amp; Additions Only)</d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is required If K01VerticalNew_FenestrationTypeApplies == true</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required If K01VerticalNew_FenestrationTypeApplies == true Or K01GlazedDoors_FenestrationTypeApplies == true</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -13205,7 +13227,7 @@ End Switch</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>1</d:sup>FOOTNOTES: Orientation between 226 deg and 315 deg are considered "West Facing".  A diagram has been provided in the 
-                                       <d:t24table>Nonresidential Compliance Manual</d:t24table> for visual reference.</d:i>
+                                       <d:t24table/>Nonresidential Compliance Manual for visual reference.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -13232,29 +13254,29 @@ End Switch</xsd:documentation>
                   <xsd:element name="Kvertperf" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">
-                           <d:b>Vertical Fenestration- U-factor, Solar Heat Gain Coefficient (RSHGC/ SHGC), Visible Transmittance (VT)</d:b>
+                           <d:b>Vertical Fenestration And Glazed Doors- U-factor, Solar Heat Gain Coefficient (RSHGC/ SHGC), Visible Transmittance (VT)</d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is required If K01VerticalAlt_FenestrationTypeApplies  Or K01VerticalNew_FenestrationTypeApplies  ==  true</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required If K01VerticalAlt_FenestrationTypeApplies  Or K01VerticalNew_FenestrationTypeApplies   Or K01GlazedDoors_FenestrationTypeApplies == true</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
                            <xsd:element name="Kvertperf01_UseInAreaWeightedAveUfactor" type="comp:UseInAreaWeightedAveUfactor">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average U-factor for Vertical Fenestration<d:sup>1</d:sup>
+                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average U-factor for Vertical Fenestration and Glazed Doors<d:sup>1</d:sup>
                                  </xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If checked result = true, Else result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Kvertperf02_UseInAreaWeightedAveSHGC" type="comp:UseInAreaWeightedAveSHGC">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average (R)SHGC for Vertical Fenestration<d:sup>1</d:sup>
+                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average (R)SHGC for Vertical Fenestration and Glazed Doors<d:sup>1</d:sup>
                                  </xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If checked result = true, Else result = false</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Kvertperf03_UseInAreaWeightedAveVT" type="comp:UseInAreaWeightedAveVT">
                               <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average VT for Vertical Fenestration<d:sup>1</d:sup>
+                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average VT for Vertical Fenestration and Glazed Doors<d:sup>1</d:sup>
                                  </xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If checked result = true, Else result = false</xsd:documentation>
                               </xsd:annotation>
@@ -13277,7 +13299,7 @@ End Switch</xsd:documentation>
                                              <xsd:element name="Kvertperf05_FenestrationProductType">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Fenestration Type</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from dropdown FixedWindow display term Fixed window, OperableWindow display term Operable window, StoreFront display term Storefront, CurtainWall display term Curtain wall, ChromogenicFen display term Chromogenic Glazing, DemisingWallFen display term Fenestration in Demising Wall</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects from dropdown FixedWindow display term Fixed window, OperableWindow display term Operable window, StoreFront display term Storefront, CurtainWall display term Curtain wall, ChromogenicFen display term Chromogenic Glazing, DemisingWallFen display term Fenestration in Demising Wall, GlazedDoor display term Glazed Door</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="env:FenestrationProductType">
@@ -13285,6 +13307,7 @@ End Switch</xsd:documentation>
                                                       <xsd:enumeration value="CurtainWall"/>
                                                       <xsd:enumeration value="DemisingWallFen"/>
                                                       <xsd:enumeration value="FixedWindow"/>
+                                                      <xsd:enumeration value="GlazedDoor"/>
                                                       <xsd:enumeration value="OperableWindow"/>
                                                       <xsd:enumeration value="StoreFront"/>
                                                    </xsd:restriction>
@@ -13303,7 +13326,10 @@ End Switch</xsd:documentation>
 Else User selects from dropdown list 
 End if
  
-The list is generated from display terms for the two properties as follows: 
+If Kvertperf05_FenestrationProductType == GlazedDoor
+list only includes TopLevelOccupancy values Nonresidential, ResidentialNR and RelocableSchoolBuildingAllZones 
+ 
+Else the list is generated from display terms for the two properties as follows: 
  
 TopLevelOccupancy values Nonresidential, ResidentialNR and RelocableSchoolBuildingAllZones are listed 4 times, once for each of these
  
@@ -13513,7 +13539,9 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf11a_UFactorLimit" type="com:UFactorLimit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf06_FenestrationModification == AllNew, AddGT50ft2 Or AddLTE50ft2  
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == GlazedDoor
+result = 0.45 
+Else If Kvertperf06_FenestrationModification == AllNew, AddGT50ft2 Or AddLTE50ft2  
 If Kvertperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 Switch (Kvertperf05_FenestrationProductType) 
 case FixedWindow:  result = 0.36; 
@@ -13548,7 +13576,9 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf11b_SHGC_Limit" type="com:SHGC_Limit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf07_ComplianceMethodSHGC_VT == Table140_3BCD  
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == GlazedDoor
+result = 0.45 
+Else If Kvertperf07_ComplianceMethodSHGC_VT == Table140_3BCD  
 If Kvertperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 Switch (Kvertperf05_FenestrationProductType) 
 case FixedWindow:  result = 0.25; 
@@ -13585,7 +13615,11 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf11c_VT_Limit" type="com:VT_Limit">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf08_ComplianceMethodSHGC_VT == Table140_3BCD 
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == GlazedDoor
+ If Kvertperf06_TopLevelOccupancy == Nonresidential  Or ResidentialNR result = 0.17
+End If
+ 
+Else If Kvertperf08_ComplianceMethodSHGC_VT == Table140_3BCD 
  If Kvertperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 Switch (Kvertperf05_FenestrationProductType) 
 case FixedWindow:  result = 0.42; 
@@ -13601,7 +13635,11 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf11c_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen 
+Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  
+Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  
+Or If Kvertperf05_FenestrationProductType == GlazedDoor And  If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones 
+ result = BlankGrayedOutresult = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -13807,7 +13845,7 @@ If Kvertperf14_WindowProjecting == true result = 0.53 x Kvertperf18c_VT_CenterOf
  
 Else If Kvertperf05_FenestrationProductType == OperableWindow result = 0.67 x Kvertperf18c_VT_CenterOfGlass; 
  
-Else If Kvertperf05_FenestrationProductType == FixedWindow result = 0.77 x Kvertperf18c_VT_CenterOfGlass; 
+Else If Kvertperf05_FenestrationProductType == FixedWindow Or GlazedDoor result = 0.77 x Kvertperf18c_VT_CenterOfGlass; 
  
 Else If Kvertperf05_FenestrationProductType == Storefront Or  CurtainWall  result = 0.88 x Kvertperf18c_VT_CenterOfGlass;
 End If</xsd:documentation>
@@ -13826,12 +13864,35 @@ End If</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:complexType>
                                                    <xsd:sequence>
-                                                      <xsd:element name="Kvertperf20_GreenhouseGardenWindow" type="env:GreenhouseGardenWindow">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Greenhouse/ Garden Window?</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input; If checked result = true, Else result = false;</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf20_GreenhouseGardenWindow" type="env:GreenhouseGardenWindow">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Greenhouse/ Garden Window?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == GlazedDoor
+result = BlankGrayedOut stored in NotApplicaleMessage
+Else 
+User input;
+End If
+ 
+ If checked result = true, Else result = false;</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf20_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Greenhouse/ Garden Window?</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == GlazedDoor
+result = BlankGrayedOut stored in NotApplicaleMessage
+Else 
+User input;
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                       <xsd:element name="Kvertperf21_WindowProjecting" type="env:WindowProjecting">
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Is the Window Projecting<d:sup>4</d:sup>
@@ -13895,6 +13956,24 @@ End If</xsd:documentation>
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">U-factor</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">Calculated field: 
+ If Kvertperf05_FenestrationProductType == GlazedDoor
+Switch (Kvertperf15_FenestrationFramingNR) 
+case MetalFraming:  
+If Kvertperf23_FenestrationPanes == SinglePane result = 1.25; 
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.77; 
+End If
+ 
+case MetalFramingWithThermalBreak: 
+If Kvertperf23_FenestrationPanes == DoublePane result = 0.59;  
+End If
+ 
+case NonMetalFraming:  
+If Kvertperf23_FenestrationPanes == SinglePane result =0.99; 
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.53;
+End If
+End Switch
+Else
+ 
 Switch (Kvertperf15_FenestrationFramingNR) 
 case MetalFraming: 
  
@@ -13949,6 +14028,42 @@ End Switch</xsd:documentation>
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">SHGC</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">Calculated field: 
+ If Kvertperf05_FenestrationProductType == GlazedDoor
+Switch (Kvertperf15_FenestrationFramingNR) 
+case MetalFraming: 
+If Kvertperf24_GlazingTint == ClearGlazing 
+If Kvertperf23_FenestrationPanes == SinglePane result = 0.83; 
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.73; 
+End If
+ 
+Else If Kvertper24_GlazingTint == TintedGlazing 
+If Kvertperf23_FenestrationPanes == SinglePane result = 0.68; 
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.60;  
+End If
+End If
+ 
+case MetalFramingWithThermalBreak: 
+If Kvertperf23_FenestrationPanes == DoublePane 
+If Kvertperf24_GlazingTint == ClearGlazing result = 0.69; 
+Else If Kvertperf24_GlazingTint == TintedGlazing result = 0.57;  
+End If
+End If
+ 
+case NonMetalFraming:  
+If Kvertperf24_GlazingTint == ClearGlazing 
+If Kvertperf23_FenestrationPanes == SinglePane result = 0.76; 
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.67; 
+End If
+ 
+Else If Kvertperf24_GlazingTint == TintedGlazing 
+If Kvertperf23_FenestrationPanes == SinglePane result =0.63; 
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.55;
+End If
+End If
+End Switch
+ 
+ 
+Else
 Switch (Kvertperf15_FenestrationFramingNR) 
 case MetalFraming:  
 If Kvertperf05_FenestrationProductType == OperableWindow  Then 
@@ -14027,7 +14142,8 @@ End Switch</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If Kvertperf14_WindowProjecting == true result = 0.53; 
 Else If Kvertperf05_FenestrationProductType == OperableWindow result = 0.67; 
-Else If Kvertperf05_FenestrationProductType == FixedWindow result = 0.77; 
+Else If Kvertperf05_FenestrationProductType == FixedWindow Or GlazedDoor
+ result = 0.77; 
 Else If Kvertperf05_FenestrationProductType == Storefront Or  CurtainWall  result = 0.88;</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
@@ -14145,9 +14261,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup>The NA6 Default Calculation can only be used for buildings with less than 200ft<d:sup>2</d:sup> of site built glazing.  If the project has greater than 200ft<d:sup>2</d:sup>, the only options for determining fenestration values are NFRC Certification or the 
-                                       <d:t24table>Default Tables in 
-                                          <d:t24ref h="110.6"/>
-                                       </d:t24table>.</d:i>
+                                       <d:t24table/>Default Tables in 110.6.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -14914,449 +15028,7 @@ End If</xsd:documentation>
                                  <xsd:documentation source="FieldText"/>
                                  <xsd:documentation source="AdditionalRequirements">
                                     <d:i><d:sup>2</d:sup>The NA6 Default Calculation can only be used for buildings with less than 200ft<d:sup>2</d:sup> of site built glazing.  If the project has greater than 200ft<d:sup>2</d:sup>, the only options for determining fenestration values are NFRC Certification or the 
-                                       <d:t24table>Default Tables in 
-                                          <d:t24ref h="110.6"/>
-                                       </d:t24table>.</d:i>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                        </xsd:sequence>
-                     </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="Kdoorperf" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Glazed Doors- U-factor, Solar Heat Gain Coefficient (SHGC), Visible Transmittance (VT)</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is required If  K01GlazedDoors_FenestrationTypeApplies  ==  true</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="Kdoorperf01_UseInAreaWeightedAveUfactor" type="comp:UseInAreaWeightedAveUfactor">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average U-factor for Glazed Doors<d:sup>1</d:sup>
-                                 </xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true, Else result = false</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="Kdoorperf02_UseInAreaWeightedAveSHGC" type="comp:UseInAreaWeightedAveSHGC">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average SHGC for Glazed Doors<d:sup>1</d:sup>
-                                 </xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true, Else result = false</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="Kdoorperf03_UseInAreaWeightedAveVT" type="comp:UseInAreaWeightedAveVT">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Calculate Area-Weighted Average VT for Glazed Doors<d:sup>1</d:sup>
-                                 </xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true, Else result = false</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="TableKdoorperf">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                              </xsd:annotation>
-                              <xsd:complexType>
-                                 <xsd:sequence>
-                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
-                                       <xsd:complexType>
-                                          <xsd:sequence>
-                                             <xsd:element name="Kdoorperf04_DoorName" type="env:DoorName">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Tag/Plan Detail ID</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf05_DoorDescription" type="env:DoorDescription">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Name/Description</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf06_TopLevelOccupancy">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Occupancy Type</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If user selects from list:  Nonresidential; display term Nonresidential/ Relocatable 1 CZ, ResidentialNR display term High-rise Res/Hotel/ Motel, RelocableSchoolBuildingAllZones display term Relocatable all CZ</xsd:documentation>
-                                                   <xsd:appinfo source="displayterm">
-                                                      <dtyp:displayterm value="ResidentialNR">= High-rise Res/Hotel/ Motel</dtyp:displayterm>
-                                                      <dtyp:displayterm value="Nonresidential">Nonresidential/ Relocatable 1 CZ</dtyp:displayterm>
-                                                      <dtyp:displayterm value="RelocableSchoolBuildingAllZones">Relocatable all CZ</dtyp:displayterm>
-                                                   </xsd:appinfo>
-                                                </xsd:annotation>
-                                                <xsd:simpleType>
-                                                   <xsd:restriction base="com:TopLevelOccupancy">
-                                                      <xsd:enumeration value="Nonresidential"/>
-                                                      <xsd:enumeration value="RelocableSchoolBuildingAllZones"/>
-                                                      <xsd:enumeration value="ResidentialNR"/>
-                                                   </xsd:restriction>
-                                                </xsd:simpleType>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf07_FenestrationComplianceCalc" type="comp:FenestrationComplianceCalc">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Calculation Method for Performance Values per Design<d:sup>2</d:sup>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from list: NFRC_Certified display term NFRC Certified, NA6DefaultCOG display term NA6 Default (COG)<d:sup>2</d:sup>, Table110_6Defaults display term 
-                                                      <d:t24ref h="110.6"/> Defaults</xsd:documentation>
-                                                   <xsd:appinfo source="displayterm">
-                                                      <dtyp:displayterm value="NA6DefaultCOG">NA6 Default (COG)<d:sup>2</d:sup>
-                                                      </dtyp:displayterm>
-                                                   </xsd:appinfo>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf08Label" minOccurs="0">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Product Performance Unit</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf08aLabel" minOccurs="0">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">U-factor (max)</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf08bLabel" minOccurs="0">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">SHGC (max)</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf08cLabel" minOccurs="0">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">VT (min)</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf09a_UFactorLimit" type="com:UFactorLimit">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Result = 0.45;</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf09b_SHGC_Limit" type="com:SHGC_Limit">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">Result = 0.23;</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:choice maxOccurs="1">
-                                                <xsd:element name="Kdoorperf09c_VT_Limit" type="com:VT_Limit">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kdoorperf06_TopLevelOccupancy == Nonresidential  Or ResidentialNR result = 0.17
-End if</xsd:documentation>
-                                                   </xsd:annotation>
-                                                </xsd:element>
-                                                <xsd:element name="Kdoorperf09c_NotApplicableMessage">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kdoorperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones  result = BlankGrayedOut
-End If</xsd:documentation>
-                                                   </xsd:annotation>
-                                                   <xsd:simpleType>
-                                                      <xsd:restriction base="comp:NotApplicableMessage">
-                                                         <xsd:enumeration value="BlankGrayedOut"/>
-                                                      </xsd:restriction>
-                                                   </xsd:simpleType>
-                                                </xsd:element>
-                                             </xsd:choice>
-                                             <xsd:element name="Kdoorperf10a_UFactor" type="com:UFactor">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If  Kdoorperf07_FenestrationComplianceCalc == NFRC_Certified  user input; 
-Else If Kdoorperf07_FenestrationComplianceCalc == NA6DefaultCOG result =  Kdoorperf15a_UfactorNA6;  
-Else If Kdoorperf07_FenestrationComplianceCalc == Table110_6Defaults  result =  Kdoorperf19a_Ufactor110Default
-End If</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf10b_SHGC" type="com:SHGC">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">If   Kdoorperf07_FenestrationComplianceCalc == NFRC_Certified  user input; 
-Else If  Kdoorperf07_FenestrationComplianceCalc == NA6DefaultCOG  result = Kdoorperf15b_ SHGC_NA6 
-Else If  Kdoorperf07_FenestrationComplianceCalc == Table110_6Defaults  result =  Kdoorperf19b_SHGC_110Default
-End If</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:choice maxOccurs="1">
-                                                <xsd:element name="Kdoorperf10c_VT" type="com:VT">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Kdoorperf07_FenestrationComplianceCalc == NFRC_Certified  user input; 
-Else If Kdoorperf07_FenestrationComplianceCalc == NA6DefaultCOG result = Kdoorperf15c_VT_NA6;  
-Else If Kdoorperf07_FenestrationComplianceCalc == Table110_6Defaults  result = Kdoorperf19c_VT_110Default;
-End If</xsd:documentation>
-                                                   </xsd:annotation>
-                                                </xsd:element>
-                                                <xsd:element name="Kdoorperf10c_NotApplicableMessage">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kdoorperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones  result = BlankGrayedOut</xsd:documentation>
-                                                   </xsd:annotation>
-                                                   <xsd:simpleType>
-                                                      <xsd:restriction base="comp:NotApplicableMessage">
-                                                         <xsd:enumeration value="BlankGrayedOut"/>
-                                                      </xsd:restriction>
-                                                   </xsd:simpleType>
-                                                </xsd:element>
-                                             </xsd:choice>
-                                             <xsd:choice maxOccurs="1">
-                                                <xsd:element name="Kdoorperf11_FenestrationVerticalArea" type="env:FenestrationVerticalArea">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Area ft<d:sup>2</d:sup>
-                                                      </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                   </xsd:annotation>
-                                                </xsd:element>
-                                                <xsd:element name="Kdoorperf11_NotApplicableMessage">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Area ft<d:sup>2</d:sup>
-                                                      </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kdoorperf01_UseInAreaWeightedAveUfactor And Kdoorperf02_UseInAreaWeightedAveSHGC  And Kdoorperf02_UseInAreaWeightedAveVT  == false  result = BlankGrayedOut
-End If</xsd:documentation>
-                                                   </xsd:annotation>
-                                                   <xsd:simpleType>
-                                                      <xsd:restriction base="comp:NotApplicableMessage">
-                                                         <xsd:enumeration value="BlankGrayedOut"/>
-                                                      </xsd:restriction>
-                                                   </xsd:simpleType>
-                                                </xsd:element>
-                                             </xsd:choice>
-                                             <xsd:element name="KdoorperfNA6" minOccurs="0">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">
-                                                      <d:b>NA6 Default Calculation</d:b>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">This subsection is required for current row If Kdoorperf07_FenestrationComplianceCalc == NA6DefaultCOG</xsd:documentation>
-                                                </xsd:annotation>
-                                                <xsd:complexType>
-                                                   <xsd:sequence>
-                                                      <xsd:element name="Kdoorperf12_FenestrationFramingNR" type="com:FenestrationFramingNR">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Frame Type</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: NonMetalFraming display term Non-metal, MetalFraming display term Metal, MetalFramingWithThermalBreak display term Metal w/ Thermal Break</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf13Label" minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance Unit</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf13aLabel" minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">U-factor</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf13bLabel" minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">SHGC</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf13cLabel" minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">VT</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf14a_UFactorCenterOfGlass" type="com:UFactorCenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf14b_SHGC_CenterOfGlass" type="com:SHGC_CenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf14c_VT_CenterOfGlass" type="com:VT_CenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf15a_UfactorNA6" type="env:UfactorNA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
-Switch (Kdoorperf13_FenestrationFramingNR) 
-case MetalFraming: result = 0.311 + (0.872 x Kdoorperf14a_UFactorCenterOfGlass); 
-case MetalFramingWithThermalBreak: case NonMetalFraming:  result = 0.202 + (0.867 x Kdoorperf14a_UFactorCenterOfGlass);
-End Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf15b_SHGC_NA6" type="com:SHGC_NA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: result = 0.08 + (0.86 x Kdoorperf14b_SHGC_CenterOfGlass)</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf15c_VT_NA6" type="env:VT_NA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field:   result = 0.77 x Kdoorperf14c_VT_CenterOfGlass;</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                   </xsd:sequence>
-                                                </xsd:complexType>
-                                             </xsd:element>
-                                             <xsd:element name="Kdoorperf110Defaults" minOccurs="0">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">
-                                                      <d:b>
-                                                         <d:t24ref h="110.6"/> Default Tables</d:b>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">This subsection is required for current row If Kdoorperf07_FenestrationComplianceCalc == Table110_6Defaults</xsd:documentation>
-                                                </xsd:annotation>
-                                                <xsd:complexType>
-                                                   <xsd:sequence>
-                                                      <xsd:element name="Kdoorperf16_FenestrationFramingNR" type="com:FenestrationFramingNR">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Frame Type</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from list: NonMetalFraming display term Non-metal, MetalFraming display term Metal, MetalFramingWithThermalBreak display term Metal w/ Thermal Break</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf17_FenestrationPanes">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Glazing Type</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from customized list as follows: 
-If Kdoorperf16_FenestrationFramingNR == NonMetalFraming Or MetalFraming list: 
-SinglePane display term Single Pane, DoublePane display term Double Pane, DoublePaneDivided display term Double Pane- divided lite, DoubleWithSpacers display term Double Pane- w/ spacers; 
- 
-Else list: DoublePane display term Double Pane, DoublePaneDivided display term Double Pane- divided lite, DoubleWithSpacers display term Double Pane- w/ spacers
-End if</xsd:documentation>
-                                                         </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="env:FenestrationPanes">
-                                                               <xsd:enumeration value="DoublePane"/>
-                                                               <xsd:enumeration value="DoublePaneDivided"/>
-                                                               <xsd:enumeration value="DoubleWithSpacers"/>
-                                                               <xsd:enumeration value="SinglePane"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf18_GlazingTint" type="env:GlazingTint">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Glazing Tint</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from list  TintedGlazing display term Yes, ClearGlazing display term No</xsd:documentation>
-                                                            <xsd:appinfo source="displayterm">
-                                                               <dtyp:displayterm value="TintedGlazing">Yes</dtyp:displayterm>
-                                                               <dtyp:displayterm value="ClearGlazing">No</dtyp:displayterm>
-                                                            </xsd:appinfo>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf19Label" minOccurs="0">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per   Default 110.6 Tables</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf19a_Ufactor110Default" type="env:Ufactor110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">U-factor</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
-Switch (Kdoorperf16_FenestrationFramingNR) 
-case MetalFraming:  
-If Kdoorperf17_FenestrationPanes == SinglePane result = 1.25; 
-Else If Kdoorperf17_FenestrationPanes == DoublePane result = 0.77; 
-End If
- 
-case MetalFramingWithThermalBreak: 
-If Kdoorperf17_FenestrationPanes == DoublePane result = 0.59;  
-End If
- 
-case NonMetalFraming:  
-If Kdoorperf17_FenestrationPanes == SinglePane result =0.99; 
-Else If Kdoorperf17_FenestrationPanes == DoublePane result = 0.53;
-End If
-end Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf19b_SHGC_110Default" type="com:SHGC_110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">SHGC</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
-Switch (Kdoorperf16_FenestrationFramingNR) 
-case MetalFraming: 
-If Kdoorperf18_GlazingTint == ClearGlazing 
-If Kdoorperf17_FenestrationPanes == SinglePane result = 0.83; 
-Else If Kdoorperf17_FenestrationPanes == DoublePane result = 0.73; 
-End If
- 
-Else If Kdoorperf18_GlazingTint == TintedGlazing 
-If Kdoorperf17_FenestrationPanes == SinglePane result = 0.68; 
-Else If Kdoorperf17_FenestrationPanes == DoublePane result = 0.60;  
-End If
-End If
- 
-case MetalFramingWithThermalBreak: 
-If Kdoorperf17_FenestrationPanes == DoublePane 
-If Kdoorperf18_GlazingTint == ClearGlazing result = 0.69; 
-Else If Kdoorperf18_GlazingTint == TintedGlazing result = 0.57;  
-End If
-End If
- 
-case NonMetalFraming:  
-If Kdoorperf18_GlazingTint == ClearGlazing 
-If Kdoorperf17_FenestrationPanes == SinglePane result = 0.76; 
-Else If Kdoorperf17_FenestrationPanes == DoublePane result = 0.67; 
-End If
- 
-Else If Kdoorperf18_GlazingTint == TintedGlazing 
-If Kdoorperf17_FenestrationPanes == SinglePane result =0.63; 
-Else If Kdoorperf17_FenestrationPanes == DoublePane result = 0.55;
-End If
-End If
-End Swithc</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kdoorperf19c_VT_110Default" type="env:VT_110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">VT</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field:   result = 0.77;</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                   </xsd:sequence>
-                                                </xsd:complexType>
-                                             </xsd:element>
-                                          </xsd:sequence>
-                                       </xsd:complexType>
-                                    </xsd:element>
-                                 </xsd:sequence>
-                              </xsd:complexType>
-                           </xsd:element>
-                           <xsd:element name="Kdoorperf20a_NA6FenestrationArea" type="comp:NA6FenestrationArea">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Total Glazed Door Area using NA6 Default:<d:sup>2</d:sup>
-                                 </xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">Calculated Field: Loop through all rows anf for each row:
- If Kdoorperf07_FenestrationComplianceCalc == NA6DefaultCOG result += Kdoorperf11_GlazingArea
-End If</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="Kdoorperf20b_DoesNA6AreaComply" type="comp:DoesNA6AreaComply">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">Calculated Field: 
-If Kdoorperf20a_NA6FenestrationArea LTE 200 ft2 result = true display term COMPLIES; 
-Else result = false display term DOES NOT COMPLY.  
-End If
-If result == false  D03_ExceptionalConditionMessageNRCCENVE  += SiteBuiltVerticalFenestrationInK
-End If</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="KdoorperfFootNote1" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">
-                                    <d:i><d:sup>1</d:sup>FOOTNOTES: If any individual glazed door product is non-compliant, products may show compliance using an area-weighted calculation.  Area-weighted calculation shown in separate area-weighted table below.</d:i>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="KdoorperfFootNote2" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">
-                                    <d:i><d:sup>2</d:sup>The NA6 Default Calculation can only be used for buildings with less than 200ft<d:sup>2</d:sup> of site built glazing.  If the project has greater than 200ft<d:sup>2</d:sup>, the only options for determining fenestration values are NFRC Certification or the 
-                                       <d:t24table>Default Tables in 
-                                          <d:t24ref h="110.6"/>
-                                       </d:t24table>.</d:i>
+                                       <d:t24table/>Default Tables in 110.6.</d:i>
                                  </xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
@@ -15368,7 +15040,7 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">
                            <d:b>Area-Weighted Average U-factor, SHGC, VT  Compliance Calculation for  Vertical Fenestration And Glazed Doors</d:b>
                         </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveUfactor Or Kvertperf02_UseInAreaWeightedAveSHGC  Or Kvertperf03_ UseInAreaWeightedAveVT == true  Or If Kdoorperf01_UseInAreaWeightedAveUfactor Or Kdoorperf02_UseInAreaWeightedAveSHGC  Or Kdoorperf02_UseInAreaWeightedAveVT  == true</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveUfactor Or Kvertperf02_UseInAreaWeightedAveSHGC  Or Kvertperf03_ UseInAreaWeightedAveVT == true</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -15385,7 +15057,7 @@ End If</xsd:documentation>
                            <xsd:element name="KCalcVertUF" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveUfactor Or Kdoorperf01_UseInAreaWeightedAveUfactor == true; Else this row is grayed out.  If both Kvertperf01_ UseInAreaWeightedAveUfactor And Kdoorperf01_UseInAreaWeightedAveUfactor == true, the results are combined</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveUfactor == true; Else this row is grayed out.</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -15399,8 +15071,6 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Total Area of Fenestration (ft<d:sup>2</d:sup>)</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field:
 If Kvertperf01_ UseInAreaWeightedAveUfactor == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);  
-End If
-If Kdoorperf01_UseInAreaWeightedAveUfactor == true result + = SUM ALL (Kdoorperf11_FenestrationVerticalArea)
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15408,13 +15078,8 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Required</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If Kvertperf01_ UseInAreaWeightedAveUfactor == true And Kdoorperf01_UseInAreaWeightedAveUfactor == true  result = (SUM ALL (Kvertperf11a_UFactorLimit x Kvertperf13_FenestrationVerticalArea)) + SUM ALL (Kdoorperf09a_UFactorLimit x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea;  
-End If
  
-If Kvertperf01_ UseInAreaWeightedAveUfactor == true And Kdoorperf01_UseInAreaWeightedAveUfactor == false result = (SUM ALL (Kvertperf11a_UFactorLimit x Kvertperf13_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea;  
-End If
- 
-If Kvertperf01_ UseInAreaWeightedAveUfactor == false And Kdoorperf01_UseInAreaWeightedAveUfactor == true result = (SUM ALL (Kdoorperf09a_UFactorLimit x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea
+If Kvertperf01_ UseInAreaWeightedAveUfactor == true  result = (SUM ALL (Kvertperf11a_UFactorLimit x Kvertperf13_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea;  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15422,13 +15087,9 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Designed</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If Kvertperf01_ UseInAreaWeightedAveUfactor == true And  Kdoorperf01_UseInAreaWeightedAveUfactor == true   result = ((SUM ALL (Kvertperf12a_UFactor  x Kvertperf13_FenestrationVerticalArea)) + (SUM ALL (Kdoorperf10a_UFactor  x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea; 
-End If
  
-If Kvertperf01_ UseInAreaWeightedAveUfactor == true And Kdoorperf01_UseInAreaWeightedAveUfactor == false  result = (SUM ALL (Kvertperf12a_UFactor  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea;  
-End If
- 
-If Kvertperf01_ UseInAreaWeightedAveUfactor == false And Kdoorperf01_UseInAreaWeightedAveUfactor == true result = (SUM ALL (Kdoorperf10a_UFactor  x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea</xsd:documentation>
+If Kvertperf01_ UseInAreaWeightedAveUfactor == true result = (SUM ALL (Kvertperf12a_UFactor  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertUF02_TotalFenestrationVerticalArea;  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="KCalcVertUF05_DoesAreaWeightAvgComplyUfactor" type="comp:DoesAreaWeightAvgComplyUfactor">
@@ -15447,7 +15108,7 @@ End If</xsd:documentation>
                            <xsd:element name="KCalcVertSHGC" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveSHGC Or Kdoorperf01_UseInAreaWeightedAveSHGC == true; Else this row is grayed out.  If both Kvertperf01_ UseInAreaWeightedAveSHGC And Kdoorperf01_UseInAreaWeightedAveSHGC == true, the results are combined</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveSHGC  == true; Else this row is grayed out.</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -15460,8 +15121,6 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Total Area of Fenestration (ft<d:sup>2</d:sup>)</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: If Kvertperf01_ UseInAreaWeightedAveSHGC == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);  
-End If
-If Kdoorperf01_UseInAreaWeightedAveSHGC == true result + = SUM ALL (Kdoorperf11_FenestrationVerticalArea)
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15469,13 +15128,8 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Required</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If Kvertperf01_ UseInAreaWeightedAveSHGC == true And Kdoorperf01_UseInAreaWeightedAveSHGC == true result = ((SUM ALL (Kvertperf11b_SHGC_Limit  x Kvertperf13_FenestrationVerticalArea)) + (SUM ALL (Kdoorperf09b_SHGC_Limit  x Kdoorperf11_FenestrationVerticalArea))) / KCalcVertSHGC02_TotalFenestrationVerticalArea;  
-End If
  
-If Kvertperf01_ UseInAreaWeightedAveSHGC == true And Kdoorperf01_UseInAreaWeightedAveSHGC == false result = (SUM ALL (Kvertperf11b_SHGC_Limit  x Kvertperf13_FenestrationVerticalArea)  / KCalcVertSHGC02_TotalFenestrationVerticalArea;  
-End If
- 
-If Kvertperf01_ UseInAreaWeightedAveSHGC == false And Kdoorperf01_UseInAreaWeightedAveSHGC == true result = (SUM ALL (Kdoorperf09b_SHGC_Limit  x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertSHGC02_TotalFenestrationVerticalArea
+If Kvertperf01_ UseInAreaWeightedAveSHGC == true  result = (SUM ALL (Kvertperf11b_SHGC_Limit  x Kvertperf13_FenestrationVerticalArea)  / KCalcVertSHGC02_TotalFenestrationVerticalArea;  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15483,13 +15137,8 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Designed</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-if Kvertperf01_ UseInAreaWeightedAveSHGC == true And Kdoorperf01_UseInAreaWeightedAveSHGC == true result = ((SUM ALL (Kvertperf12b_SHGC  x Kvertperf13_FenestrationVerticalArea)) + (SUM ALL (Kdoorperf10b_SHGC x Kdoorperf11_FenestrationVerticalArea)))  / KCalcVertSHGC02_TotalFenestrationVerticalArea; 
-End If
  
- if Kvertperf01_ UseInAreaWeightedAveSHGC == true And Kdoorperf01_UseInAreaWeightedAveSHGC == false result = (SUM ALL (Kvertperf12b_SHGC  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertSHGC02_TotalFenestrationVerticalArea;   
-End If
- 
-If Kvertperf01_ UseInAreaWeightedAveSHGC == false And Kdoorperf01_UseInAreaWeightedAveSHGC == true result = (SUM ALL (Kdoorperf10b_SHGC x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertSHGC02_TotalFenestrationVerticalArea
+ if Kvertperf01_ UseInAreaWeightedAveSHGC == true result = (SUM ALL (Kvertperf12b_SHGC  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertSHGC02_TotalFenestrationVerticalArea;   
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15509,7 +15158,7 @@ End If</xsd:documentation>
                            <xsd:element name="KCalcVertVT" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveVT Or Kdoorperf01_UseInAreaWeightedAveVT == true; Else this row is grayed out.  If both Kvertperf01_ UseInAreaWeightedAveVT And Kdoorperf01_UseInAreaWeightedAveVT == true, the results are combined</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveVT == true; Else this row is grayed out.</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -15521,20 +15170,15 @@ End If</xsd:documentation>
                                     <xsd:element name="KCalcVertVT02_TotalFenestrationVerticalArea" type="env:TotalFenestrationVerticalArea">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Total Area of Fenestration (ft<d:sup>2</d:sup>)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated field: Kvertperf01_ UseInAreaWeightedAveVT == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);  If Kdoorperf01_UseInAreaWeightedAveVT == true result + = SUM ALL (Kdoorperf11_FenestrationVerticalArea)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated field: Kvertperf01_ UseInAreaWeightedAveVT == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="KCalcVertVT03_AreaWeightAvgRequiredVT" type="comp:AreaWeightAvgRequiredVT">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Required</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If Kvertperf01_ UseInAreaWeightedAveVT == true And Kdoorperf01_UseInAreaWeightedAveVT == true result = ((SUM ALL (Kvertperf11c_VT_Limit  x Kvertperf13_FenestrationVerticalArea)) + (SUM ALL (Kdoorperf09c_VT_Limit  x Kdoorperf11_FenestrationVerticalArea))) / KCalcVertVT02_TotalFenestrationVerticalArea;  
-End If
  
-If Kvertperf01_ UseInAreaWeightedAveVT == true And Kdoorperf01_UseInAreaWeightedAveVT == false result = (SUM ALL (Kvertperf11c_VT_Limit  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea  
-End If
- 
-If Kvertperf01_ UseInAreaWeightedAveVT == false And Kdoorperf01_UseInAreaWeightedAveVT == true result = (SUM ALL (Kdoorperf09c_VT_Limit  x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea
+If Kvertperf01_ UseInAreaWeightedAveVT == true result = (SUM ALL (Kvertperf11c_VT_Limit  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15542,13 +15186,8 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Designed</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If Kvertperf01_ UseInAreaWeightedAveUfactor == true And Kdoorperf01_UseInAreaWeightedAveVT == true result = ((SUM ALL (Kvertperf12c_VisibleTransmittance  x Kvertperf13_FenestrationVerticalArea)) + (SUM ALL (Kdoorperf10c_VisibleTransmittance x Kdoorperf11_FenestrationVerticalArea))) / KCalcVertVT02_TotalFenestrationVerticalArea; 
-End If
  
-If Kvertperf01_ UseInAreaWeightedAveUfactor == true And If Kdoorperf01_UseInAreaWeightedAveVT == false result = (SUM ALL (Kvertperf12c_VisibleTransmittance  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea;  
-End If
- 
-If Kvertperf01_ UseInAreaWeightedAveUfactor == false And Kdoorperf01_UseInAreaWeightedAveUfactor == true result = (SUM ALL (Kdoorperf10c_VisibleTransmittance x Kdoorperf11_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea
+If Kvertperf01_ UseInAreaWeightedAveUfactor == true result = (SUM ALL (Kvertperf12c_VisibleTransmittance  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea;  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>

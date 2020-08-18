@@ -1234,12 +1234,14 @@
    </xsd:simpleType>
    <xsd:complexType name="ComplianceDocumentDataSchema">
       <xsd:sequence>
+         <xsd:element name="DeclarationsNRCCPRF" type="comp:DeclarationsNRCCPRF" minOccurs="1" maxOccurs="unbounded"/>
          <xsd:element name="DocumentAuthor" type="comp:DocumentAuthor"/>
          <xsd:element name="FieldTechnicianNRCA" type="comp:FieldTechnicianNRCA"/>
          <xsd:element name="Footer" type="comp:Footer"/>
          <xsd:element name="FooterNRCC" type="comp:FooterNRCC"/>
          <xsd:element name="HeaderNRCA" type="comp:HeaderNRCA"/>
          <xsd:element name="HeaderNRCC" type="comp:HeaderNRCC"/>
+         <xsd:element name="HeaderNRCCPRF" type="comp:HeaderNRCCPRF"/>
          <xsd:element name="HeaderNRCI" type="comp:HeaderNRCI"/>
          <xsd:element name="HeaderNRCV" type="comp:HeaderNRCV"/>
          <xsd:element name="MandatoryMeasureBlockNRCC" type="comp:MandatoryMeasureBlockNRCC"/>
@@ -1274,6 +1276,7 @@
             <dtyp:displayterm value="NRCCMCHE">NRCC-MCH-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCCPLBE">NRCC-PLB-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCCPRCE">NRCC-PRC-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCPRFE">NRCC-PRF-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCCSRAE">NRCC-SRA-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04cH">NRCVMCH04cH</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04dH">NRCVMCH04dH</dtyp:displayterm>
@@ -1294,6 +1297,7 @@
          <xsd:enumeration value="NRCCMCHE"/>
          <xsd:enumeration value="NRCCPLBE"/>
          <xsd:enumeration value="NRCCPRCE"/>
+         <xsd:enumeration value="NRCCPRFE"/>
          <xsd:enumeration value="NRCCSRAE"/>
          <xsd:enumeration value="NRCVMCH04cH"/>
          <xsd:enumeration value="NRCVMCH04dH"/>
@@ -1313,6 +1317,7 @@
             <dtyp:displayterm value="Indoor Lighting">Indoor Lighting</dtyp:displayterm>
             <dtyp:displayterm value="Mechanical Systems">Mechanical Systems</dtyp:displayterm>
             <dtyp:displayterm value="Nonresidential Building Commissioning">Nonresidential Building Commissioning</dtyp:displayterm>
+            <dtyp:displayterm value="NonResidentialPerformanceCompliance">Residential Performance Compliance Method</dtyp:displayterm>
             <dtyp:displayterm value="Outdoor Air Acceptance">Outdoor Air Acceptance</dtyp:displayterm>
             <dtyp:displayterm value="Outdoor Lighting">Outdoor Lighting</dtyp:displayterm>
             <dtyp:displayterm value="Process Systems">Process Systems</dtyp:displayterm>
@@ -1328,6 +1333,7 @@
          <xsd:enumeration value="Indoor Lighting"/>
          <xsd:enumeration value="Mechanical Systems"/>
          <xsd:enumeration value="Nonresidential Building Commissioning"/>
+         <xsd:enumeration value="NonResidentialPerformanceCompliance"/>
          <xsd:enumeration value="Outdoor Air Acceptance"/>
          <xsd:enumeration value="Outdoor Lighting"/>
          <xsd:enumeration value="Process Systems"/>
@@ -1342,6 +1348,7 @@
             <dtyp:displayterm value="CERTIFICATE OF ACCEPTANCE NR">CERTIFICATE OF ACCEPTANCE</dtyp:displayterm>
             <dtyp:displayterm value="CERTIFICATE OF COMPLIANCE NR">CERTIFICATE OF COMPLIANCE</dtyp:displayterm>
             <dtyp:displayterm value="CERTIFICATE OF VERIFICATION NR">CERTIFICATE OF VERIFICATION</dtyp:displayterm>
+            <dtyp:displayterm value="CertificateComplianceNonResPerformance">CERTIFICATE OF COMPLIANCE -  NONRESIDENTIAL PERFORMANCE COMPLIANCE METHOD</dtyp:displayterm>
             <dtyp:displayterm value="PROJECT REPORT NR">PROJECT REPORT</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -1349,6 +1356,7 @@
          <xsd:enumeration value="CERTIFICATE OF ACCEPTANCE NR"/>
          <xsd:enumeration value="CERTIFICATE OF COMPLIANCE NR"/>
          <xsd:enumeration value="CERTIFICATE OF VERIFICATION NR"/>
+         <xsd:enumeration value="CertificateComplianceNonResPerformance"/>
          <xsd:enumeration value="PROJECT REPORT NR"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -1479,6 +1487,12 @@
          <xsd:enumeration value="PerformanceAndPrescriptive"/>
          <xsd:enumeration value="Prescriptive"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ComplianceSoftwareVersion">
+      <xsd:annotation>
+         <xsd:documentation>This is the version of the Title 24 residential performance compliance software used for generating compliance results in a CF1R-PRF.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string"/>
    </xsd:simpleType>
    <xsd:simpleType name="CompliantLightSource">
       <xsd:annotation>
@@ -2222,6 +2236,12 @@
          <xsd:element name="ResponsiblePersonNRCC" type="comp:ResponsiblePersonNRCC"/>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:complexType name="DeclarationsNRCCPRF">
+      <xsd:sequence>
+         <xsd:element name="DocumentAuthorNRCC" type="comp:DocumentAuthorNRCC"/>
+         <xsd:element name="ResponsiblePersonNRCCPRF" type="comp:ResponsiblePersonNRCCPRF" minOccurs="1" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
    <xsd:simpleType name="DemandControlVent">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -2411,6 +2431,7 @@
             <dtyp:displayterm value="NRCC-MCH-E">NRCC-MCH-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-PLB-E">NRCC-PLB-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-PRC-E">NRCC-PRC-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCC-PRF-E">NRCC-PRF-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-SRA-E">NRCC-SRA-E</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -2424,6 +2445,7 @@
          <xsd:enumeration value="NRCC-MCH-E"/>
          <xsd:enumeration value="NRCC-PLB-E"/>
          <xsd:enumeration value="NRCC-PRC-E"/>
+         <xsd:enumeration value="NRCC-PRF-E"/>
          <xsd:enumeration value="NRCC-SRA-E"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -2955,6 +2977,45 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="EDR_ComplianceNotes">
+      <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EDR_MarginProposedEfficiency">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EDR_MarginProposedTotal">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EDR_ProposedEfficiency">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EDR_ProposedTotal">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EDR_StandardEfficiency">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EDR_StandardTotal">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
    <xsd:simpleType name="EconomizerMeetsRequiredControls">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -3084,6 +3145,36 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseComplianceMargin">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseImprovementSpaceCooling">
+      <xsd:annotation>
+         <xsd:documentation>Units: percent</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseImprovementSpaceHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: percent</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseImprovementTotal">
+      <xsd:annotation>
+         <xsd:documentation>Units: percent</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseImprovementWaterHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: percent</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
    <xsd:simpleType name="EnergyUseIntensityCalculationBOD">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -3091,6 +3182,96 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseMarginSpaceCooling">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseMarginSpaceHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseMarginTotal">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseMarginWaterHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseProposed">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseProposedDesign">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseProposedSpaceCooling">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseProposedSpaceHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseProposedTotal">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseProposedWaterHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseStandardDesign">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseStandardSpaceCooling">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseStandardSpaceHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseStandardTotal">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseStandardWaterHeating">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="EnergyUseTypeNR">
       <xsd:annotation>
@@ -3239,7 +3420,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="RoofAlterationExceptionInF">Table F indicates the roof alteration scope meets an exception listed in 
                <d:t24ref h="141.0(b)2Biii"/> and therefore does not trigger roof assembly insulation requirements.</dtyp:displayterm>
             <dtyp:displayterm value="RoofAreaWeightedAveInF">Table F indicates an area weighted average is being used for one or more roof assemblies to demonstrate compliance.  Area-weighted average tables are included at the bottom of Table F.</dtyp:displayterm>
-            <dtyp:displayterm value="SiteBuiltGlazedDoortInK">Table K indicates more than 200ft<d:sup>2</d:sup> of site built glazed door area is using the NA6 default to demonstrate compliance.  Please review Table K to reduce the area of site built glazed door using NA6 to 200ft<d:sup>2</d:sup> or less.</dtyp:displayterm>
             <dtyp:displayterm value="SiteBuiltSkylightInK">Table K indicates more than 200ft<d:sup>2</d:sup> of site built skylight is using the NA6 default to demonstrate compliance.  Please review Table K to reduce the area of site built skylight using NA6 to 200ft<d:sup>2</d:sup> or less.</dtyp:displayterm>
             <dtyp:displayterm value="SiteBuiltVerticalFenestrationInK">Table K indicates more than 200ft<d:sup>2</d:sup> of site built vertical fenestration is using the NA6 default to demonstrate compliance.  Please review Table K to reduce the area of site built vertical fenestration using NA6 to 200ft<d:sup>2</d:sup> or less.</dtyp:displayterm>
             <dtyp:displayterm value="UserChangedSelectionInM">Selections made in Table M have been changed by the permit applicant.  See Table E. Additional Remarks for permit applicant's explanation.</dtyp:displayterm>
@@ -3253,7 +3433,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="FloorAreaWeightedAveInI"/>
          <xsd:enumeration value="RoofAlterationExceptionInF"/>
          <xsd:enumeration value="RoofAreaWeightedAveInF"/>
-         <xsd:enumeration value="SiteBuiltGlazedDoortInK"/>
          <xsd:enumeration value="SiteBuiltSkylightInK"/>
          <xsd:enumeration value="SiteBuiltVerticalFenestrationInK"/>
          <xsd:enumeration value="UserChangedSelectionInM"/>
@@ -3876,6 +4055,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:element name="header05_ProjectCity" type="comp:ProjectCity"/>
          <xsd:element name="header06_ProjectZipcode" type="comp:ProjectZipcode"/>
          <xsd:element name="header07_DatePreparedNrPres" type="comp:DatePreparedString"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="HeaderNRCCPRF">
+      <xsd:sequence>
+         <xsd:element name="header01_ProjectName" type="comp:ProjectName"/>
+         <xsd:element name="streetAddress" type="comp:StreetAddress"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="HeaderNRCI">
@@ -5732,6 +5917,87 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="PerfComputerPRC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerfCondLTI">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerfDHW">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerfENV">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerfKitchenPRC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerfLabPRC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerfMCH">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerfSolarWH">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Performance</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Included</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerformanceComplianceResult">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">COMPLIES</dtyp:displayterm>
+            <dtyp:displayterm value="false">DOES NOT COMPLY</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="PermitDay">
       <xsd:annotation>
          <xsd:documentation>The day that the permit application is submitted to the building department. Used to determine applicability of Standards requirements that become effective at future dates.  Units: none</xsd:documentation>
@@ -7394,6 +7660,26 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:element name="responsiblePerson11_Phone" type="comp:PhoneNumber" minOccurs="0"/>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:complexType name="ResponsiblePersonNRCCPRF">
+      <xsd:sequence>
+         <xsd:element name="responsibleDesigner01_NameNRCC" type="comp:PersonFullName" minOccurs="0"/>
+         <xsd:element name="responsibleDesigner02_SignatureNRCC" type="comp:ElectronicSignature" minOccurs="0"/>
+         <xsd:element name="responsiblePerson03_Company" type="comp:Company" minOccurs="0"/>
+         <xsd:element name="responsiblePerson04_DateSigned" type="comp:SignatureDate" minOccurs="0"/>
+         <xsd:element name="responsiblePerson06_Address" type="comp:StreetAddress" minOccurs="0"/>
+         <xsd:element name="responsiblePerson07_License" type="comp:LicenseNumber" minOccurs="0"/>
+         <xsd:element name="responsiblePerson08_City" type="comp:City" minOccurs="0"/>
+         <xsd:element name="responsiblePerson09_State" type="comp:State" minOccurs="0"/>
+         <xsd:element name="responsiblePerson10_Zipcode" type="comp:Zipcode" minOccurs="0"/>
+         <xsd:element name="responsiblePerson11_Phone" type="comp:PhoneNumber" minOccurs="0"/>
+         <xsd:element name="responsiblePersonEnvelopeDesigner_Name" type="comp:PersonFullName" minOccurs="0"/>
+         <xsd:element name="responsiblePersonEnvelopeDesignerCompany" type="comp:Company" minOccurs="0"/>
+         <xsd:element name="responsiblePersonLightingDesigner_Name" type="comp:PersonFullName" minOccurs="0"/>
+         <xsd:element name="responsiblePersonLightingDesignerCompany" type="comp:Company" minOccurs="0"/>
+         <xsd:element name="responsiblePersonMechanicalDesigner_Name" type="comp:PersonFullName" minOccurs="0"/>
+         <xsd:element name="responsiblePersonMechanicalDesignerCompany" type="comp:Company" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
    <xsd:complexType name="ResponsiblePersonNRCV">
       <xsd:sequence/>
    </xsd:complexType>
@@ -8144,7 +8430,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    </xsd:simpleType>
    <xsd:simpleType name="StreetAddress">
       <xsd:annotation>
-         <xsd:documentation>This value is a string to hold street information in an address associated with a project or a person on the project.</xsd:documentation>
+         <xsd:documentation>This value is a string to hold address information associated with a project or a person on the project.</xsd:documentation>
          <xsd:appinfo source="displaytermType">
             <dtyp:displayterm>Street address</dtyp:displayterm>
          </xsd:appinfo>
@@ -8173,12 +8459,14 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="2013">2013</dtyp:displayterm>
             <dtyp:displayterm value="2016">2016</dtyp:displayterm>
             <dtyp:displayterm value="2019">2019</dtyp:displayterm>
+            <dtyp:displayterm value="2022">2022</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationYear">
          <xsd:enumeration value="2013"/>
          <xsd:enumeration value="2016"/>
          <xsd:enumeration value="2019"/>
+         <xsd:enumeration value="2022"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="TailoredFixtureType">
