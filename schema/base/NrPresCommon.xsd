@@ -403,7 +403,14 @@
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="DaylightControlType">
+   <xsd:simpleType name="DaylightingControlName">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:ObjectNamePermissive">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DaylightingControlType">
       <xsd:annotation>
          <xsd:documentation>The type of control that is used to control the electric lighting in response to daylight available at the reference point.</xsd:documentation>
          <xsd:appinfo source="displaytermType">
@@ -412,25 +419,18 @@
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="Continuous">Continuous</dtyp:displayterm>
             <dtyp:displayterm value="ContinuousPlusOff">Continuous Dimming + Off</dtyp:displayterm>
-            <dtyp:displayterm value="NoDaylightControl">No Daylighting Control</dtyp:displayterm>
+            <dtyp:displayterm value="None">No Daylighting Control</dtyp:displayterm>
             <dtyp:displayterm value="SteppedSwitching">Stepped Switching</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Continuous"/>
          <xsd:enumeration value="ContinuousPlusOff"/>
-         <xsd:enumeration value="NoDaylightControl"/>
+         <xsd:enumeration value="None"/>
          <xsd:enumeration value="SteppedSwitching"/>
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="DaylightingControlName">
-      <xsd:annotation>
-         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:ObjectNamePermissive">
-      </xsd:restriction>
-   </xsd:simpleType>
-   <xsd:simpleType name="DaylitZoneType">
+   <xsd:simpleType name="DaylitAreaType">
       <xsd:annotation>
          <xsd:documentation>Defines whether the daylighting control area is under a skylight or next to a window or some distance from a window</xsd:documentation>
          <xsd:appinfo source="displaytermType">
@@ -617,13 +617,6 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="FenestrationConstructionUFactor">
-      <xsd:annotation>
-         <xsd:documentation>The overall coefficient of thermal transmittance through a layer or construction assembly. It includes air film resistance at both surfaces.  Units: Btu per h ft2 F</xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative">
-      </xsd:restriction>
-   </xsd:simpleType>
    <xsd:simpleType name="FenestrationFramingNR">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -698,6 +691,24 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:restriction base="xsd:string">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="FixtureType">
+      <xsd:annotation>
+         <xsd:documentation>Enumeration type for determining luminaire heat gain distribution</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Luminaire Fixture Type</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NotInCeiling">Not In Ceiling</dtyp:displayterm>
+            <dtyp:displayterm value="RecessedOrDownlight">Ceiling Recessed Or Downlight</dtyp:displayterm>
+            <dtyp:displayterm value="RecessedWithLens">Ceiling Recessed With Lens</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NotInCeiling"/>
+         <xsd:enumeration value="RecessedOrDownlight"/>
+         <xsd:enumeration value="RecessedWithLens"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="FloorArea">
       <xsd:annotation>
          <xsd:documentation>  Units: ft2</xsd:documentation>
@@ -727,6 +738,48 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="FunctionScheduleGroup">
+      <xsd:annotation>
+         <xsd:documentation>A type specifying occupancy function categories used to determine schedules.</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Schedule Occupancy</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Assembly">Assembly</dtyp:displayterm>
+            <dtyp:displayterm value="DataCenter">Data Center</dtyp:displayterm>
+            <dtyp:displayterm value="Health">Health</dtyp:displayterm>
+            <dtyp:displayterm value="HighRiseResidential">High-Rise Residential</dtyp:displayterm>
+            <dtyp:displayterm value="LodgingAssembly">Multipurpose assembly</dtyp:displayterm>
+            <dtyp:displayterm value="Laboratory">Laboratory</dtyp:displayterm>
+            <dtyp:displayterm value="LightManufacturing">Light Manufacturing</dtyp:displayterm>
+            <dtyp:displayterm value="Office">Office</dtyp:displayterm>
+            <dtyp:displayterm value="Parking">Parking</dtyp:displayterm>
+            <dtyp:displayterm value="ResidentialCommon">Residential Common Space</dtyp:displayterm>
+            <dtyp:displayterm value="ResidentialLiving">Residential Living Space</dtyp:displayterm>
+            <dtyp:displayterm value="Restaurant">Restaurant</dtyp:displayterm>
+            <dtyp:displayterm value="Retail">Retail</dtyp:displayterm>
+            <dtyp:displayterm value="School">School</dtyp:displayterm>
+            <dtyp:displayterm value="Warehouse">Warehouse</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Assembly"/>
+         <xsd:enumeration value="DataCenter"/>
+         <xsd:enumeration value="Health"/>
+         <xsd:enumeration value="HighRiseResidential"/>
+         <xsd:enumeration value="LodgingAssembly"/>
+         <xsd:enumeration value="Laboratory"/>
+         <xsd:enumeration value="LightManufacturing"/>
+         <xsd:enumeration value="Office"/>
+         <xsd:enumeration value="Parking"/>
+         <xsd:enumeration value="ResidentialCommon"/>
+         <xsd:enumeration value="ResidentialLiving"/>
+         <xsd:enumeration value="Restaurant"/>
+         <xsd:enumeration value="Retail"/>
+         <xsd:enumeration value="School"/>
+         <xsd:enumeration value="Warehouse"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="GasType">
@@ -831,13 +884,13 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:annotation>
          <xsd:documentation>Method used for modeling uncontrolled air leakage or infiltration.</xsd:documentation>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="AirChangesPerHour_Infiltration">Infiltration air changes per hour</dtyp:displayterm>
-            <dtyp:displayterm value="FlowAreaInfiltration">Infiltration flow area</dtyp:displayterm>
+            <dtyp:displayterm value="AirChangesPerHour">Infiltration air changes per hour</dtyp:displayterm>
+            <dtyp:displayterm value="FlowArea">Infiltration flow area</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="AirChangesPerHour_Infiltration"/>
-         <xsd:enumeration value="FlowAreaInfiltration"/>
+         <xsd:enumeration value="AirChangesPerHour"/>
+         <xsd:enumeration value="FlowArea"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="IsAtriumGT55Ft">
@@ -938,6 +991,32 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="Type2HeatSteam"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="LampType">
+      <xsd:annotation>
+         <xsd:documentation>Enumeration type for determining luminaire heat gain distribution</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Luminaire Fixture Type</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="CFL">Compact Fluorescent (CFL)</dtyp:displayterm>
+            <dtyp:displayterm value="HighPressureSodium">High Pressure Sodium</dtyp:displayterm>
+            <dtyp:displayterm value="Incandescent">Incandescent</dtyp:displayterm>
+            <dtyp:displayterm value="LED">LED</dtyp:displayterm>
+            <dtyp:displayterm value="LinearFluorescent">Linear Fluorescent</dtyp:displayterm>
+            <dtyp:displayterm value="MercuryVapor">Mercury Vapor</dtyp:displayterm>
+            <dtyp:displayterm value="MetalHalide">Metal Halide</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="CFL"/>
+         <xsd:enumeration value="HighPressureSodium"/>
+         <xsd:enumeration value="Incandescent"/>
+         <xsd:enumeration value="LED"/>
+         <xsd:enumeration value="LinearFluorescent"/>
+         <xsd:enumeration value="MercuryVapor"/>
+         <xsd:enumeration value="MetalHalide"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="LatentHeatRatePerOccupant">
       <xsd:annotation>
          <xsd:documentation>The rate of latent heat released per person which is a function of activity  Units: Btu per h person</xsd:documentation>
@@ -996,50 +1075,6 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       <xsd:restriction base="dtyp:Longitude">
       </xsd:restriction>
    </xsd:simpleType>
-   <xsd:simpleType name="LuminaireFixtureType">
-      <xsd:annotation>
-         <xsd:documentation>Enumeration type for determining luminaire heat gain distribution</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Luminaire Fixture Type</dtyp:displayterm>
-         </xsd:appinfo>
-         <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="NotInCeiling">Not In Ceiling</dtyp:displayterm>
-            <dtyp:displayterm value="RecessedOrDownlight">Ceiling Recessed Or Downlight</dtyp:displayterm>
-            <dtyp:displayterm value="RecessedWithLens">Ceiling Recessed With Lens</dtyp:displayterm>
-         </xsd:appinfo>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="NotInCeiling"/>
-         <xsd:enumeration value="RecessedOrDownlight"/>
-         <xsd:enumeration value="RecessedWithLens"/>
-      </xsd:restriction>
-   </xsd:simpleType>
-   <xsd:simpleType name="LuminaireLampType">
-      <xsd:annotation>
-         <xsd:documentation>Enumeration type for determining luminaire heat gain distribution</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Luminaire Fixture Type</dtyp:displayterm>
-         </xsd:appinfo>
-         <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="CFL">Compact Fluorescent (CFL)</dtyp:displayterm>
-            <dtyp:displayterm value="HighPressureSodium">High Pressure Sodium</dtyp:displayterm>
-            <dtyp:displayterm value="Incandescent">Incandescent</dtyp:displayterm>
-            <dtyp:displayterm value="LED">LED</dtyp:displayterm>
-            <dtyp:displayterm value="LinearFluorescent">Linear Fluorescent</dtyp:displayterm>
-            <dtyp:displayterm value="MercuryVapor">Mercury Vapor</dtyp:displayterm>
-            <dtyp:displayterm value="MetalHalide">Metal Halide</dtyp:displayterm>
-         </xsd:appinfo>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="CFL"/>
-         <xsd:enumeration value="HighPressureSodium"/>
-         <xsd:enumeration value="Incandescent"/>
-         <xsd:enumeration value="LED"/>
-         <xsd:enumeration value="LinearFluorescent"/>
-         <xsd:enumeration value="MercuryVapor"/>
-         <xsd:enumeration value="MetalHalide"/>
-      </xsd:restriction>
-   </xsd:simpleType>
    <xsd:simpleType name="LuminaireStatus">
       <xsd:annotation>
          <xsd:documentation>Defines if a construction or equipment is new, existing,  modified, removed.  Standards such as efficiency standards may not apply if a construction or equipment in a project is existing.  equipment may be moved and reinstalled in the project.</xsd:documentation>
@@ -1060,6 +1095,18 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="New"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="Month">
+      <xsd:annotation>
+         <xsd:documentation>Interger value represents the month of the year and therefore is in the range of 1-12  Units: none</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Month</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative">
+         <xsd:maxInclusive value="12"/>
+         <xsd:minInclusive value="1"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="MonthDay">
       <xsd:annotation>
          <xsd:documentation>Integer value represents the day of the month and therefore is in the range of 1-31, with limits on the high end depending on the value for the Month property  Units: none</xsd:documentation>
@@ -1069,18 +1116,6 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:IntegerNonnegative">
          <xsd:maxInclusive value="31"/>
-         <xsd:minInclusive value="1"/>
-      </xsd:restriction>
-   </xsd:simpleType>
-   <xsd:simpleType name="MonthInteger">
-      <xsd:annotation>
-         <xsd:documentation>Interger value represents the month of the year and therefore is in the range of 1-12  Units: none</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Month</dtyp:displayterm>
-         </xsd:appinfo>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:IntegerNonnegative">
-         <xsd:maxInclusive value="12"/>
          <xsd:minInclusive value="1"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -1346,48 +1381,6 @@ receives the most illumination.  Units: ft2</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative">
-      </xsd:restriction>
-   </xsd:simpleType>
-   <xsd:simpleType name="ScheduleOccupancy">
-      <xsd:annotation>
-         <xsd:documentation>A type specifying occupancy function categories used to determine schedules.</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Schedule Occupancy</dtyp:displayterm>
-         </xsd:appinfo>
-         <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="Assembly">Assembly</dtyp:displayterm>
-            <dtyp:displayterm value="DataCenter">Data Center</dtyp:displayterm>
-            <dtyp:displayterm value="Health">Health</dtyp:displayterm>
-            <dtyp:displayterm value="HighRiseResidential">High-Rise Residential</dtyp:displayterm>
-            <dtyp:displayterm value="LodgingAssembly">Multipurpose assembly</dtyp:displayterm>
-            <dtyp:displayterm value="Laboratory">Laboratory</dtyp:displayterm>
-            <dtyp:displayterm value="LightManufacturing">Light Manufacturing</dtyp:displayterm>
-            <dtyp:displayterm value="Office">Office</dtyp:displayterm>
-            <dtyp:displayterm value="Parking">Parking</dtyp:displayterm>
-            <dtyp:displayterm value="ResidentialCommon">Residential Common Space</dtyp:displayterm>
-            <dtyp:displayterm value="ResidentialLiving">Residential Living Space</dtyp:displayterm>
-            <dtyp:displayterm value="Restaurant">Restaurant</dtyp:displayterm>
-            <dtyp:displayterm value="Retail">Retail</dtyp:displayterm>
-            <dtyp:displayterm value="School">School</dtyp:displayterm>
-            <dtyp:displayterm value="Warehouse">Warehouse</dtyp:displayterm>
-         </xsd:appinfo>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="Assembly"/>
-         <xsd:enumeration value="DataCenter"/>
-         <xsd:enumeration value="Health"/>
-         <xsd:enumeration value="HighRiseResidential"/>
-         <xsd:enumeration value="LodgingAssembly"/>
-         <xsd:enumeration value="Laboratory"/>
-         <xsd:enumeration value="LightManufacturing"/>
-         <xsd:enumeration value="Office"/>
-         <xsd:enumeration value="Parking"/>
-         <xsd:enumeration value="ResidentialCommon"/>
-         <xsd:enumeration value="ResidentialLiving"/>
-         <xsd:enumeration value="Restaurant"/>
-         <xsd:enumeration value="Retail"/>
-         <xsd:enumeration value="School"/>
-         <xsd:enumeration value="Warehouse"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SecondarySideDaylightingControls">
@@ -2099,7 +2092,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="AssemblyLobby">Lobbies</dtyp:displayterm>
             <dtyp:displayterm value="AudienceSeatingArea">Auditorium seating</dtyp:displayterm>
             <dtyp:displayterm value="AutoRepairVent">Auto-repair room</dtyp:displayterm>
-            <dtyp:displayterm value="BankLobby">Bank or bank lobby</dtyp:displayterm>
             <dtyp:displayterm value="BankVault">Bank Vault/safe deposit</dtyp:displayterm>
             <dtyp:displayterm value="BarberShop">Barbershop</dtyp:displayterm>
             <dtyp:displayterm value="BarCocktailLounge">Bar/ cocktail lounge</dtyp:displayterm>
@@ -2189,7 +2181,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="AssemblyLobby"/>
          <xsd:enumeration value="AudienceSeatingArea"/>
          <xsd:enumeration value="AutoRepairVent"/>
-         <xsd:enumeration value="BankLobby"/>
          <xsd:enumeration value="BankVault"/>
          <xsd:enumeration value="BarberShop"/>
          <xsd:enumeration value="BarCocktailLounge"/>

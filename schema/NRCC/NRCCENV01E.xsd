@@ -1187,7 +1187,7 @@ R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or 
                                                 <xsd:element name="Fframed08_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies  Or If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies  Or If Fframed13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
  
 Else User selects from list: 
 JA4Tables display term JA4 Tables, 
@@ -1200,7 +1200,7 @@ If result == JA4Other  D03_ExceptionalConditionMessageNRCCENVE += AdditionalDocJ
                                                 <xsd:element name="Fframed08_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies  Or If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies  Or If Fframed13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -1237,7 +1237,7 @@ Else If Fframed08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
                                                 <xsd:element name="Fframed09_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Roof Type &amp; Frame Material</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies Or If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies Or If Fframed13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
  ;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -1303,7 +1303,7 @@ Else If Fframed08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
                                                       <xsd:element name="Fframed10_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Frame Spacing  Depth</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies Or If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies Or If Fframed13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="comp:NotApplicableMessage">
@@ -1363,7 +1363,7 @@ Else If Fframed08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
                                                 <xsd:element name="Fframed11_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies Or If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F11 are grayed out;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies Or If Fframed13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F11 are grayed out;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -1460,10 +1460,12 @@ case RelocableSchoolBuildingAllZones:  result = 0.034;
  
 Else If Fframed04_Status == ExistingAlteration And Fframed13_ConstructionSpecificationMethod == UFactor 
  
-If Fframed06_TopLevelOccupancy == Nonresidential
+If Fframed06_TopLevelOccupancy == Nonresidential Or RelocableSchoolBuildingAllZones
 If A03_ClimateZoneNumber == 1Or InRange(3,9)  result =  0.082;
-Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; End If 
-Else If Fframed06_TopLevelOccupancy == ResidentialNR result = 0.55; End If
+Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; 
+End If 
+Else If Fframed06_TopLevelOccupancy == ResidentialNR result = 0.055; 
+End If
 End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -1472,7 +1474,7 @@ End if</xsd:documentation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And Fframed13_ConstructionSpecificationMethod == RValue 
  
-If Fframed06_TopLevelOccupancy) == Nonresidential 
+If Fframed06_TopLevelOccupancy) == Nonresidential Or RelocableSchoolBuildingAllZones 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = R14;  End If
  
@@ -1503,7 +1505,7 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="FieldText"></xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Fframed04_Status == ExistingAlteration And  Fframed05_RoofInsulationException  != NoExceptionApplies 
  
-Or If Fframed13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Fframed15 are grayed out;</xsd:documentation>
+Or If Fframed13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Fframed15 are grayed out;</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="comp:NotApplicableMessage">
@@ -2416,7 +2418,7 @@ R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or 
                                                 <xsd:element name="FSIPS08_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
 Else User selects from list: 
 JA4Tables display term JA4 Tables, 
 JA4Other display term Other per JA4.1.2.1, 
@@ -2428,7 +2430,7 @@ If result == JA4Other  D03_ExceptionalConditionMessageNRCCENVE += AdditionalDocJ
                                                 <xsd:element name="FSIPS08_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies  Or If FSIPS13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies  Or If FSIPS13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -2461,7 +2463,7 @@ SteelFraming display term Steel Framing</xsd:documentation>
                                                 <xsd:element name="FSIPS09_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Wood Framing Connection Type (Spline)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies  Or If FSIPS13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies  Or If FSIPS13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
  ;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -2503,7 +2505,7 @@ Else If FSIPS08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
                                                 <xsd:element name="FSIPS10_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Panel Thickness (in.)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;
  ;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -2548,7 +2550,7 @@ Else If FSIPS08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
                                                 <xsd:element name="FSIPS11_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Core Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F11 are grayed out;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F11 are grayed out;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -2649,12 +2651,12 @@ case RelocableSchoolBuildingAllZones:  result = 0.034;
 End Switch
  
 Else If FSIPS04_Status == ExistingAlteration And FSIPS13_ConstructionSpecificationMethod == UFactor  
-If FSIPS06_TopLevelOccupancy == Nonresidential 
+If FSIPS06_TopLevelOccupancy == Nonresidential Or RelocableSchoolBuildingAllZones
 If A03_ClimateZoneNumber == 1 Or InRange(3,9)  result =  0.082; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; 
 End If
  
-Else If FSIPS06_TopLevelOccupancy == ResidentialNR   result = 0.55;
+Else If FSIPS06_TopLevelOccupancy == ResidentialNR   result = 0.055;
 End If
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -2664,7 +2666,7 @@ End If</xsd:documentation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And FSIPS13_ConstructionSpecificationMethod == RValue 
  
-If FSIPS06_TopLevelOccupancy) == Nonresidential 
+If FSIPS06_TopLevelOccupancy) == Nonresidential Or RelocableSchoolBuildingAllZones 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = R14; 
 End if
@@ -2695,7 +2697,7 @@ End if</xsd:documentation>
                                                       <xsd:element name="FSIPS15_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText"></xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and all fields in FSIPS15 are grayed out;</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and all fields in FSIPS15 are grayed out;</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="comp:NotApplicableMessage">
@@ -3094,7 +3096,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="FSIPS16_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]3[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == Rvalue Or If FSIPS01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If FSIPS04_Status == ExistingAlteration And  FSIPS05_RoofInsulationException  != NoExceptionApplies Or If FSIPS13_ConstructionSpecificationMethod == RValue Or If FSIPS01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -3251,7 +3253,7 @@ R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or 
                                                 <xsd:element name="Fspan08_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fspan12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fspan12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
  
 Else User selects from list: 
 JA4Tables display term JA4 Tables, 
@@ -3264,7 +3266,7 @@ ApprovedSoftware display term Approved Software.
                                                 <xsd:element name="Fspan08_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -3295,7 +3297,7 @@ Else If  Fspan08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters t
                                                 <xsd:element name="Fspan09_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Fireproofing</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
  ;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -3327,7 +3329,7 @@ Else If Fspan08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
                                                 <xsd:element name="Fspan10_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Concrete Topping Thickness (in.)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -3439,12 +3441,12 @@ End Switch
  
 Else If Fspan04_Status == ExistingAlteration And Fspan12_ConstructionSpecificationMethod == UFactor 
  
-If Fspan06_TopLevelOccupancy == Nonresidential 
+If Fspan06_TopLevelOccupancy == Nonresidential Or RelocableSchoolBuildingAllZones
 If A03_ClimateZoneNumber == 1 Or InRange(3,9)  result =  0.082; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; 
 End if
  
-Else If Fspan06_TopLevelOccupancy == ResidentialNR result = 0.55;
+Else If Fspan06_TopLevelOccupancy == ResidentialNR result = 0.055;
 End If 
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -3454,7 +3456,7 @@ End If</xsd:documentation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And Fspan12_ConstructionSpecificationMethod == RValue 
  
-If Fspan06_TopLevelOccupancy) == Nonresidential 
+If Fspan06_TopLevelOccupancy) == Nonresidential Or RelocableSchoolBuildingAllZones 
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = R14;
 End If  
@@ -3485,7 +3487,7 @@ End If</xsd:documentation>
                                                       <xsd:element name="Fspan14_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText"></xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Fspan14 are grayed out;</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Fspan14 are grayed out;</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="comp:NotApplicableMessage">
@@ -3652,7 +3654,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fspan15_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]3[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == Rvalue Or If Fspan01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fspan04_Status == ExistingAlteration And  Fspan05_RoofInsulationException  != NoExceptionApplies Or If Fspan12_ConstructionSpecificationMethod == RValue Or If Fspan01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -3909,12 +3911,12 @@ End Switch
  
 Else If Fmetalp04_Status == ExistingAlteration  
  
-If Fmetalp06_TopLevelOccupancy == Nonresidential 
+If Fmetalp06_TopLevelOccupancy == Nonresidential Or RelocableSchoolBuildingAllZones
 If A03_ClimateZoneNumber == 1 Or InRange(3,9)  result =  0.082; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; 
 End if 
  
-Else If Fmetalp06_TopLevelOccupancy == ResidentialNR result = 0.55;
+Else If Fmetalp06_TopLevelOccupancy == ResidentialNR result = 0.055;
 End if 
 End if</xsd:documentation>
                                                    </xsd:annotation>
@@ -4128,7 +4130,7 @@ R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or 
                                                 <xsd:element name="Fmetalb08_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
  
 Else User selects from list: 
 JA4Tables display term JA4 Tables 
@@ -4141,7 +4143,7 @@ If result == JA4Other  D03_ExceptionalConditionMessageNRCCENVE += AdditionalDocJ
                                                 <xsd:element name="Fmetalb08_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -4175,7 +4177,7 @@ Else If Fmetalb_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
                                                 <xsd:element name="Fmetalb09_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Insulation System</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F09 are grayed out;
  ;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -4256,7 +4258,7 @@ Else If Fmetalb08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
                                                 <xsd:element name="Fmetalb10_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for F10 are grayed out;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -4353,7 +4355,7 @@ Else result = UFactor and cannot be changed by user</xsd:documentation>
  
 Else If Fmetalb04_Status == ExistingAlteration And Fmetalb12_ConstructionSpecificationMethod == UFactor 
  
-If Fmetalb06_TopLevelOccupancy == Nonresidential 
+If Fmetalb06_TopLevelOccupancy == Nonresidential Or RelocableSchoolBuildingAllZones
 If A03_ClimateZoneNumber == 1Or InRange(3,9)  result =  0.082; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = 0.055; 
 End If
@@ -4368,7 +4370,7 @@ End If</xsd:documentation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance [d:sup]2[/d:sup]</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And Fmetalb12_ConstructionSpecificationMethod == RValue 
  
-If Fmetalb06_TopLevelOccupancy == Nonresidential 
+If Fmetalb06_TopLevelOccupancy == Nonresidential Or RelocableSchoolBuildingAllZones
 If A03_ClimateZoneNumber == 1 Or InRange(3,9) result =  R8; 
 Else If A03_ClimateZoneNumber == 2 Or InRange(10,16) result = R14; 
 End If 
@@ -4398,7 +4400,7 @@ End If</xsd:documentation>
                                                       <xsd:element name="Fmetalb14_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText"></xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Fmetalb14 are grayed out;</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Fmetalb14 are grayed out;</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="comp:NotApplicableMessage">
@@ -4787,7 +4789,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fmetalb15_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]3[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == Rvalue Or If Fmetalb01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fmetalb04_Status == ExistingAlteration And  Fmetalb05_RoofInsulationException  != NoExceptionApplies Or If Fmetalb12_ConstructionSpecificationMethod == RValue Or If Fmetalb01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -5330,15 +5332,21 @@ If  G07_CoolRoofComplianceMethod == SolarReflectanceIndex Or If G04_TopLevelOccu
  
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
-If G05_RoofSlope == LowSlope result = 0.75; 
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) result = 0.16; 
+If G05_RoofSlope == LowSlope 
+result = 75; 
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+result = 16; 
 End if
  
 case ResidentialNR:  
 If G05_RoofSlope == LowSlope 
-If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15 result = 0.64; 
-Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13, 14 Or 15 result = 0.64;
+If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15
+result = 64; 
+Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13, 14 Or 15 
+result = 64;
 End If
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) result = 16; 
+ 
 End If
 End Switch
 End If</xsd:documentation>
@@ -5347,8 +5355,27 @@ End If</xsd:documentation>
                                        <xsd:element name="G08c_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">SRI</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccupancy == RelocableSchoolBuildingAllZones: result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">Calculated field:  Several conditions result in BlankGrayedOut:  
+If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccupancy == RelocableSchoolBuildingAllZones
+result = BlankGrayedOut stored in NotApplicableMessage
+End If
+Or 
+If G04_TopLevelOccupancy == Nonresidential Or ResidentialNR
+If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber == 1 Or 16
+result = BlankGrayedOut stored in NotApplicableMessage
+ 
+Else If G04_TopLevelOccupancy == ResidentialNR:  
+If G05_RoofSlope == LowSlope 
+If G03_Status == New 
+If A03_ClimateZoneNumber == 12, 16 Or InRange (1-8) 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If
+Else If G03_Status == ExistingAlteration
+If A03_ClimateZoneNumber == 12, 16 Or InRange (1-9) 
+result = BlankGrayedOut stored in NotApplicableMessage
+End If
+End If
+End If</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
@@ -5377,7 +5404,10 @@ End if</xsd:documentation>
                                        <xsd:element name="G09a_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Reflectance</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If G07_CoolRoofComplianceMethod != AgedSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != InitialSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != UfactorTradeOff And If G07_CoolRoofComplianceMethod != UfactorTradeOffAlterations result = BlankGrayedOut
+                                             <xsd:documentation source="CalculationsAndRules">If G07_CoolRoofComplianceMethod != AgedSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != InitialSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != UfactorTradeOff And If G07_CoolRoofComplianceMethod != UfactorTradeOffAlterations 
+Or
+If G08a_NotApplicableMessage == BlankGrayedOut
+result = BlankGrayedOut
 End If</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -5398,7 +5428,10 @@ End If</xsd:documentation>
                                        <xsd:element name="G09b_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Emittance</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If G07_CoolRoofComplianceMethod != AgedSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != InitialSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != UfactorTradeOff And If G07_CoolRoofComplianceMethod != UfactorTradeOffAlterations result = BlankGrayedOut
+                                             <xsd:documentation source="CalculationsAndRules">If G07_CoolRoofComplianceMethod != AgedSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != InitialSolarReflectanceThermaEmittance And If G07_CoolRoofComplianceMethod != UfactorTradeOff And If G07_CoolRoofComplianceMethod != UfactorTradeOffAlterations 
+Or
+If G08b_NotApplicableMessage == BlankGrayedOut
+result = BlankGrayedOut
 End If</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -5419,7 +5452,9 @@ End If</xsd:documentation>
                                        <xsd:element name="G09c_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">SRI</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccupancy = RelocableSchoolBuildingAllZones: result = BlankGrayedOut stored in NotApplicableMessage
+                                             <xsd:documentation source="CalculationsAndRules">If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccupancy = RelocableSchoolBuildingAllZones Or
+If G08c_NotApplicableMessage == BlankGrayedOut
+ result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -5666,7 +5701,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed05_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
 Else User selects from list: JA4Tables display term JA4 Tables, JA4Other display term Other per JA4.1.2.1, ApprovedSoftware display term Approved Software. 
 End If
  
@@ -5676,7 +5711,7 @@ End If
                                                 <xsd:element name="Hframed05_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -5856,7 +5891,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed09_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Hframed08 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Hframed09 are grayed out;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -5938,7 +5973,7 @@ End If</xsd:documentation>
                                                       <xsd:element name="Hframed12_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText"></xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Hframed11 are grayed out;
+                                                            <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and all fields in Hframed12 are grayed out;
 End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
@@ -6281,7 +6316,7 @@ Else If Hframed05_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
                                                 <xsd:element name="Hframed13_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]3[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == Rvalue Or If Hframed01_UseInAreaWeightedAveUfactor Or Hframed02_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue Or If Hframed01_UseInAreaWeightedAveUfactor Or Hframed02_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -7504,7 +7539,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="HSIPS04_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -7533,7 +7568,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="HSIPS05_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Wood Framing Connection Type (Spline)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H05 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H05 are grayed out;
 End If
  ;</xsd:documentation>
                                                    </xsd:annotation>
@@ -7572,7 +7607,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="HSIPS06_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Panel Thickness (in.)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H06 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H06 are grayed out;
 End If
  ;</xsd:documentation>
                                                    </xsd:annotation>
@@ -7637,7 +7672,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="HSIPS08_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H07 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H07 are grayed out;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -7710,7 +7745,7 @@ End If</xsd:documentation>
                                                       <xsd:element name="HSIPS11_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">U-factor per Design</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H11 are grayed out;
+                                                            <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H11 are grayed out;
 End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
@@ -7965,7 +8000,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="HSIPS12_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]3[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == Rvalue  Or HSIPS01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If HSIPS09_ConstructionSpecificationMethod == RValue  Or HSIPS01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8074,7 +8109,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hspandrel04_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hspandrel08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage
+                                                      <xsd:documentation source="CalculationsAndRules">If Hspandrel08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8110,7 +8145,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hspandrel05_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Type</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSpandrel08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H05 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If HSpandrel08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H05 are grayed out;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8152,7 +8187,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hspandrel06_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Finish</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HSpandrel08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H06 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If HSpandrel08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H06 are grayed out;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8254,7 +8289,7 @@ End If</xsd:documentation>
                                                       <xsd:element name="Hspandrel10_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">U-factor per Design</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If HSpandrel08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H10 are grayed out;
+                                                            <xsd:documentation source="CalculationsAndRules">If HSpandrel08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H10 are grayed out;
 End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
@@ -8426,7 +8461,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hspandrel11_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]2[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hspandrel08_ConstructionSpecificationMethod == Rvalue  Or Hspandrel01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hspandrel08_ConstructionSpecificationMethod == RValue  Or Hspandrel01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8523,7 +8558,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb04_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
 Else User selects from list: JA4Tables display term JA4 Tables, JA4Other display term Other per JA4.1.2.1, ApprovedSoftware display term Approved Software.  
 End If
 If result == JA4Other  D03_ExceptionalConditionMessageNRCCENVE += AdditionalDocJA4OtherSoftware
@@ -8533,7 +8568,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb04_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8563,7 +8598,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb05_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Insulation System</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows in H05 are grayed out
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows in H05 are grayed out
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8648,7 +8683,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb07_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows in H07 are grayed out
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows in H07 are grayed out
 end If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8772,7 +8807,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb10_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">U-factor per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H10 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for H10 are grayed out;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8793,7 +8828,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb11_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]3[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == Rvalue  Or Hmetalb01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb08_ConstructionSpecificationMethod == RValue  Or Hmetalb01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -9658,7 +9693,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hstraw10_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Net Area [d:sup]3[/d:sup] ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hstraw07_ConstructionSpecificationMethod == Rvalue  Or Hstraw01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hstraw07_ConstructionSpecificationMethod == RValue  Or Hstraw01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -10747,7 +10782,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Iframed04_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Iframed09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Iframed09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
 Else User selects from list: JA4Tables display term JA4 Tables, JA4Other display term Other per JA4.1.2.1, ApprovedSoftware display term Approved Software.  If result == JA4Other  D03_ExceptionalConditionMessageNRCCENVE += AdditionalDocJA4OtherSoftware
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -10755,7 +10790,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Iframed04_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -10861,7 +10896,7 @@ End If</xsd:documentation>
                                                       <xsd:element name="Iframed06_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Frame Material, Spacing  &amp; Depth</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If Iframed09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Hframed07 are grayed out;
+                                                            <xsd:documentation source="CalculationsAndRules">If Iframed09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Hframed07 are grayed out;
 End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
@@ -10945,7 +10980,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Iframed08_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Iframed08 are grayed out;
+                                                      <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and both rows for Iframed08 are grayed out;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -11014,7 +11049,7 @@ End If</xsd:documentation>
                                                       <xsd:element name="Iframed11_NotApplicableMessage" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText"></xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage and all fields in  Iframed11 are grayed out;
+                                                            <xsd:documentation source="CalculationsAndRules">If  Iframed09_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage and all fields in  Iframed11 are grayed out;
 End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
@@ -11459,7 +11494,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Iframed12_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Area ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Iframed09_ConstructionSpecificationMethod == Rvalue Or If Iframed01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Iframed09_ConstructionSpecificationMethod == RValue Or If Iframed01_UseInAreaWeightedAveUfactor == false result = BlankGrayedOut stored in NotApplicableMessage;
 end If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -11981,7 +12016,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Imass05_UfactorSpecSource" type="comp:UfactorSpecSource" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Imass08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Imass08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage; 
 Else User selects from list: JA4Tables display term JA4 Tables, JA4Other display term Other per JA4.1.2.1, ApprovedSoftware display term Approved Software. 
 End If
 If result == JA4Other  D03_ExceptionalConditionMessageNRCCENVE += AdditionalDocJA4OtherSoftware
@@ -11991,7 +12026,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Imass05_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">How Design U-factor was determined</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -12033,7 +12068,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Imass06_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Insulation Location</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut and both rows from 06 are grayed out
+                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut and both rows from 06 are grayed out
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -12220,7 +12255,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Imass10_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">U-factor per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut and both rows from 10 are grayed out
+                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut and both rows from 10 are grayed out
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -12240,7 +12275,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Imass11_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Area ft[d:sup]2[/d:sup]</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == Rvalue result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -13624,45 +13659,11 @@ End Switch</xsd:documentation>
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">SHGC</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">Calculated field: 
- If Kvertperf05_FenestrationProductType == GlazedDoor
-Switch (Kvertperf15_FenestrationFramingNR) 
-case MetalFraming: 
-If Kvertperf24_GlazingTint == ClearGlazing 
-If Kvertperf23_FenestrationPanes == SinglePane result = 0.83; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.73; 
-End If
  
-Else If Kvertper24_GlazingTint == TintedGlazing 
-If Kvertperf23_FenestrationPanes == SinglePane result = 0.68; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.60;  
-End If
-End If
- 
-case MetalFramingWithThermalBreak: 
-If Kvertperf23_FenestrationPanes == DoublePane 
-If Kvertperf24_GlazingTint == ClearGlazing result = 0.69; 
-Else If Kvertperf24_GlazingTint == TintedGlazing result = 0.57;  
-End If
-End If
- 
-case NonMetalFraming:  
-If Kvertperf24_GlazingTint == ClearGlazing 
-If Kvertperf23_FenestrationPanes == SinglePane result = 0.76; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.67; 
-End If
- 
-Else If Kvertperf24_GlazingTint == TintedGlazing 
-If Kvertperf23_FenestrationPanes == SinglePane result =0.63; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.55;
-End If
-End If
-End Switch
- 
- 
-Else
 Switch (Kvertperf15_FenestrationFramingNR) 
 case MetalFraming:  
 If Kvertperf05_FenestrationProductType == OperableWindow  Then 
+ 
 If Kvertperf24_GlazingTint == ClearGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.80; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.70; 
@@ -13675,7 +13676,7 @@ Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.59;
 End If
 End If
  
-Else If Kvertperf05_FenestrationProductType == FixedWindow Then 
+Else If Kvertperf05_FenestrationProductType == FixedWindow, GlazedDoor, CurtainWall, Or StoreFront Then 
 If Kvertperf24_GlazingTint == ClearGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.83; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.73; 
@@ -13696,7 +13697,7 @@ If Kvertperf24_GlazingTint == ClearGlazing result = 0.63;
 Else If Kvertperf24_GlazingTint == TintedGlazing result = 0.53; 
 End If
  
-Else If Kvertperf05_FenestrationProductType == FixedWindow 
+Else If Kvertperf05_FenestrationProductType ==  FixedWindow, GlazedDoor, CurtainWall, Or StoreFront 
 If Kvertperf24_GlazingTint == ClearGlazing result = 0.69; 
 Else If Kvertperf24_GlazingTint == TintedGlazing result = 0.57;  
 End If
@@ -13716,7 +13717,7 @@ If Kvertperf23_FenestrationPanes == SinglePane result =0.60;
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.53; 
 End If
  
-Else If Kvertperf05_FenestrationProductType == FixedWindow  Then 
+Else If Kvertperf05_FenestrationProductType ==  FixedWindow, GlazedDoor, CurtainWall, Or StoreFront  Then 
 If Kvertperf24_GlazingTint == ClearGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.76; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.67; 
