@@ -609,15 +609,12 @@ Else If Hframed01_UseInAreaWeightedAveUfactor == true  If HCalc1UF05_DoesAreaWei
  
 If Hframed02_UseInAreaWeightedAveUfactor == true  If HCalc3UF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  If result == true continue evaluation:  
  
- 
- 
 If H01Mass_WallTypeApplies == true, 
-If fields beginning with Hmass02, Hmass03, Hmass04, Hmass05, Hmass06, Hmass07, Hmass08, Hmass09, Hmass10, Hmass11, Hmass12 == BlankGrayedOut or have another value result = true, Else result = false.   If result == true continue evaluation: 
+If fields beginning with Hmass02, Hmass03, Hmass04, Hmass05, Hmass06, Hmass07, Hmass08, Hmass09, Hmass10, Hmass11, Hmass12 == BlankGrayedOut, or have another value result = true, Else result = false.   If result == true continue evaluation: 
  
 If Hmass01_UseInAreaWeightedAveUfactor == false If field beginning with Hmass11_UfactorJA4314 Or Hmass11_UfactorJA4Other that IsPresent is  LTE Hmass10_UFactorLimit result = true; Else result = false;  If result == true continue evaluation: 
  
 Else If Hmass01_UseInAreaWeightedAveUfactor == true  If HCalc2UF06_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;   If result == true continue evaluation:  
- 
  
  
 If H01Concrete_WallTypeApplies == true, 
@@ -657,7 +654,6 @@ Else If Hspandrel01_UseInAreaWeightedAveUfactor == true
 If HCalc3UF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  If result == true continue evaluation:  
  
  
- 
 If H01 MetalBldg_WallTypeApplies == true, If fields beginning with Hmetalb02, Hmetalb03a, Hmetalb03b, Hmetalb04, Hmetalb05, Hmetalb06, Hmetalb07, Hmetalb08, Hmetalb09, Hmetalb10, Hmetalb11 == BlankGrayedOut or have another value result = true, Else result = false.   If result == true continue evaluation: 
  
 If Hmetalb01_UseInAreaWeightedAveUfactor == false
@@ -666,8 +662,17 @@ If Hmetalb08_ConstructionSpecificationMethod == RValue Then If Hmetalb06_CavityI
 Else If Hmetalb08_ConstructionSpecificationMethod == UFactor  If field beginning with Hmetalb10_UfactorJA4 that IsPresent is LTE Hmetalb09_InsulationUFactorLimit result = true; Else result = false;  If result == true continue evaluation:
  
  
-Else If Hmetalb01_UseInAreaWeightedAveUfactor == true  If HCalc4UF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  If result == true continue evaluation:  
+Else If Hmetalb01_UseInAreaWeightedAveUfactor == true  If HCalc4UF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  If result == true continue evaluation: 
  
+ 
+ 
+ 
+If H01 Metal_WallTypeApplies == true, If fields beginning with Hmetalp02, Hmetalp03, Hmetalp04a, Hmetalp04b, Hmetalp05, Hmetalp06, Hmetalp07, Hmetalp08, Hmetalp09 == BlankGrayedOut or have another value result = true, Else result = false.   If result == true continue evaluation: 
+ 
+If  Hmetalp_UseInAreaWeightedAveUfactor == false  If field beginning with Hmetalp08_UfactorJA4 that IsPresent is LTE Hmetalp07_UFactorLimit   result = true, Else result = false.   If result == true continue evaluation: 
+ 
+If  Hmetalp_UseInAreaWeightedAveUfactor == true  And HCalc3UF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  
+If result == true continue evaluation:
  
  
 If H01Straw_WallTypeApplies == true, If fields beginning with Hstraw02, Hstraw03, Hstraw04a, Hstraw04b, Hstraw05, Hstraw06, Hstraw07, Hstraw08, Hstraw09, Hstraw10  == BlankGrayedOut or have another value result = true, Else result = false.   If result == true continue evaluation: 
@@ -1400,12 +1405,21 @@ Else If Fframed08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters 
 Else If Fframed08_UfactorSpecSource == JA4Tables user selects from list as follows:  
 If Fframed09_ConstructionAssemblyName == WoodFramedAttic Or MetalFramedAttic: list R0 (display term None), R11, R13, R19,  R21, R22, R25, R30, R38, R44, R49, R60;   
  
-Else  If Fframed09_ConstructionAssemblyName == WoodFramedRafter Or MetalFramedRafter  
+Else  If Fframed09_ConstructionAssemblyName == WoodFramedRafter 
 Switch (Fframed10_FramingSize) 
 case 2x4:  list R0 (display term None), R11, R13, R15, R19Batt, R19SprayRigid; 
 case 2x6: list R0 (display term None), R11, R13, R15, R19,  R21;  
 case 2x8: list R0 (display term None), R19, R21; 
 case 2x10:  list R0 (display term None), R22, R25, R30; 
+case 2x12: list R0 (display term None), R30, R38; 
+case 2x14:  list R0 (display term None), R38;
+ 
+Else  If Fframed09_ConstructionAssemblyName == MetalFramedRafter  
+Switch (Fframed10_FramingSize) 
+case 2x4:  list R0 (display term None), R11, R13, R15, R19Batt, R19SprayRigid; 
+case 2x6: list R0 (display term None), R11, R13, R15, R19;  
+case 2x8: list R0 (display term None), R19, R21; 
+case 2x10:  list R0 (display term None), R25, R30; 
 case 2x12: list R0 (display term None), R30, R38; 
 case 2x14:  list R0 (display term None), R38;</xsd:documentation>
                                                    </xsd:annotation>
@@ -2656,7 +2670,7 @@ Else If FSIPS08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If FSIPS08_UfactorSpecSource == JA4Other Or ApprovedSoftware this row is grayed out; 
-Else If FSIPS08_UfactorSpecSource == JA4Tables user selects from list: 
+Else If FSIPS08_UfactorSpecSource == JA4Tables And FSIPS13_ConstructionSpecificationMethod != RValue  user selects from list: 
 R0ci display term None, 
 R2ci display term R-2, 
 R4ci display term R-4, 
@@ -2679,8 +2693,10 @@ R8ci display term R-8</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If FSIPS08_UfactorSpecSource == JA4Tables, this row is grayed out; 
- 
-Else If FSIPS08_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters text</xsd:documentation>
+Else If FSIPS08_UfactorSpecSource == JA4Other Or ApprovedSoftware 
+Or If FSIPS13_ConstructionSpecificationMethod == RValue
+User enters text
+End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="FSIPS12_NotApplicableMessage">
@@ -5292,9 +5308,9 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="LowSlope">
-                                                <d:lte/>2:12 (Low)</dtyp:displayterm>
+                                                <d:lt/>2:12 (Low)</dtyp:displayterm>
                                              <dtyp:displayterm value="SteepSlope">
-                                                <d:gt/> 2:12 (Steep)</dtyp:displayterm>
+                                                <d:gte/> 2:12 (Steep)</dtyp:displayterm>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -5329,10 +5345,11 @@ MetalBdgRoof display term Metal Building</xsd:documentation>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="G07_CoolRoofComplianceMethod" type="comp:CoolRoofComplianceMethod">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: 
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="G07_CoolRoofComplianceMethod" type="comp:CoolRoofComplianceMethod">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: 
 Always list: 
 InitialSolarReflectanceThermaEmittance display term Solar Reflectance (Initial)/ Emittance, 
 AgedSolarReflectanceThermaEmittance display term Solar Reflectance (Aged)/ Emittance, 
@@ -5345,10 +5362,10 @@ Customize the rest of the list as follows:
 Switch ( G03_Status) 
 case ExistingAlteration: also list 
 MassRoofGTE25Lbs display term NA: Weight 
-                                             <d:gte/> 25lb/ft<d:sup>2</d:sup> over membrane and
+                                                <d:gte/> 25lb/ft<d:sup>2</d:sup> over membrane and
 RoofAlteredLT2000Ft2 display term NA:
-                                             <d:lte/> 50% roof area &amp;amp; 
-                                             <d:lt/>2,000ft2 altered;   
+                                                <d:lte/> 50% roof area &amp;amp; 
+                                                <d:lt/>2,000ft2 altered;   
  
 In addition If G04_TopLevelOccupancy == Nonresidential also list: 
 UfactorTradeOffAlterations display term U-factor Trade-off per Table 141.0-B;  
@@ -5357,21 +5374,34 @@ UfactorTradeOffAlterations display term U-factor Trade-off per Table 141.0-B;
 case New:
  If G05_RoofSlope == LowSlope also list  
 MassRoofGTE25Lbs display term NA: Weight 
-                                             <d:gte/> 25lb/ft<d:sup>2</d:sup> over membrane; 
+                                                <d:gte/> 25lb/ft<d:sup>2</d:sup> over membrane; 
  
 If G04_TopLevelOccupancy == Nonresidential also list 
 UfactorTradeOff display term U-factor Trade-off per Table 140.3; 
  
 If A03_ClimateZoneNumber == 3 Or 5 also list 
 WoodFrameLTEU034 display term NA: Wood Frame Roof U :
-                                             <d:lte/> 0.034.</xsd:documentation>
-                                          <xsd:appinfo source="displayterm">
-                                             <dtyp:displayterm value="AgedSolarReflectanceThermaEmittance">Solar Reflectance (Aged)/ Emittance</dtyp:displayterm>
-                                             <dtyp:displayterm value="InitialSolarReflectanceThermaEmittance">Solar Reflectance (Initial)/ Emittance</dtyp:displayterm>
-                                             <dtyp:displayterm value="SolarReflectanceIndex">Solar Reflectance Index (SRI)</dtyp:displayterm>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                                <d:lte/> 0.034.</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="AgedSolarReflectanceThermaEmittance">Solar Reflectance (Aged)/ Emittance</dtyp:displayterm>
+                                                <dtyp:displayterm value="InitialSolarReflectanceThermaEmittance">Solar Reflectance (Initial)/ Emittance</dtyp:displayterm>
+                                                <dtyp:displayterm value="SolarReflectanceIndex">Solar Reflectance Index (SRI)</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="G07_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">For any of these conditions result = BlankGrayedOut; 
+ 
+Condition: G05_RoofSlope == SteepSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New Or ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16; 
+ 
+Condition:  G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New And A03_ClimateZoneNumber == 12, 16 Or InRange(1,8); 
+ 
+Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 12, 16 Or InRange(1,9);</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
                                     <xsd:element name="G08Label" minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Required Minimum Material Performance</xsd:documentation>
@@ -5386,14 +5416,16 @@ WoodFrameLTEU034 display term NA: Wood Frame Roof U :
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
 If G05_RoofSlope == LowSlope result = 0.63; 
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) result = 0.20; 
+Else If G05_RoofSlope == SteepSlope result = 0.20; 
 End If
  
 case ResidentialNR:  
-If G05_RoofSlope == LowSlope
- If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15 result = 0.55; 
+If G05_RoofSlope == LowSlope 
+If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15 result = 0.55; 
 Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13, 14 Or 15 result = 0.55; 
 End If
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) result = 0.20; 
+ 
  
 case RelocableSchoolBuildingAllZones:
  If G05_RoofSlope == LowSlope result = 0.63; 
@@ -5426,11 +5458,11 @@ End If</xsd:documentation>
  
 Condition: G07_CoolRoofComplianceMethod != AgedSolarReflectanceThermaEmittance Or InitialSolarReflectanceThermaEmittance  Or UfactorTradeOff Or  UfactorTradeOffAlterations;  
  
-Condition: G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber == 1 Or 16; 
+Condition: G05_RoofSlope == SteepSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New Or ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16; 
  
-Condition:  G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status = New And A03_ClimateZoneNumber == 12, 16 Or InRange(1,8); 
+Condition:  G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New And A03_ClimateZoneNumber == 12, 16 Or InRange(1,8); 
  
-Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status = ExistingAlteration And A03_ClimateZoneNumber == 12, 16 Or InRange(1,9);</xsd:documentation>
+Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 12, 16 Or InRange(1,9);</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
@@ -5447,19 +5479,25 @@ Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR 
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
 If G05_RoofSlope == LowSlope result = 0.75; 
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) result = 0.75; 
+Else If G05_RoofSlope == SteepSlope result = 0.75; 
 End If
  
 case ResidentialNR:  
 If G05_RoofSlope == LowSlope 
-If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15 result = 0.75; 
+If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15 
+result = 0.75; 
 Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13, 14 Or 15 result = 0.75; 
 End If
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+result = 0.75; 
+ 
 End If
  
 case RelocableSchoolBuildingAllZones: 
-If G05_RoofSlope == LowSlope result = 0.75; 
-Else If G05_RoofSlope == SteepSlope result = 0.75
+If G05_RoofSlope == LowSlope 
+result = 0.75; 
+Else If G05_RoofSlope == SteepSlope 
+result = 0.75
 End If
 End Switch</xsd:documentation>
                                           </xsd:annotation>
@@ -5469,13 +5507,13 @@ End Switch</xsd:documentation>
                                              <xsd:documentation source="FieldText">Emittance</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">For any of these conditions result = BlankGrayedOut; 
  
-Condition: G07_CoolRoofComplianceMethod != AgedSolarReflectanceThermaEmittance Or InitialSolarReflectanceThermaEmittance  Or UfactorTradeOff Or  UfactorTradeOffAlterations; 
+Condition: G07_CoolRoofComplianceMethod != AgedSolarReflectanceThermaEmittance Or InitialSolarReflectanceThermaEmittance;
  
-Condition: G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber == 1 Or 16; 
+Condition: G05_RoofSlope == SteepSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New Or ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16; 
  
-Condition:  G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status = New And A03_ClimateZoneNumber == 12, 16 Or InRange(1,8); 
+Condition:  G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New And A03_ClimateZoneNumber == 12, 16 Or InRange(1,8); 
  
-Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status = ExistingAlteration And A03_ClimateZoneNumber == 12, 16 Or InRange(1,9);</xsd:documentation>
+Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 12, 16 Or InRange(1,9);</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
@@ -5496,7 +5534,7 @@ Switch ( G04_TopLevelOccupancy)
 case Nonresidential: 
 If G05_RoofSlope == LowSlope 
 result = 75; 
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+Else If G05_RoofSlope == SteepSlope 
 result = 16; 
 End if
  
@@ -5507,7 +5545,8 @@ result = 64;
 Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13, 14 Or 15 
 result = 64;
 End If
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) result = 16; 
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+result = 16; 
  
 End If
 End Switch
@@ -5522,8 +5561,8 @@ If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccu
 result = BlankGrayedOut stored in NotApplicableMessage
 End If
 Or 
-If G04_TopLevelOccupancy == Nonresidential Or ResidentialNR
-If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber == 1 Or 16
+If G04_TopLevelOccupancy ==  ResidentialNR
+If G05_RoofSlope == SteepSlope And G03_Status == New Or ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16
 result = BlankGrayedOut stored in NotApplicableMessage
  
 Else If G04_TopLevelOccupancy == ResidentialNR:  
@@ -5614,7 +5653,7 @@ End If</xsd:documentation>
                                        <xsd:element name="G09c_NotApplicableMessage">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">SRI</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccupancy = RelocableSchoolBuildingAllZones Or
+                                             <xsd:documentation source="CalculationsAndRules">If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccupancy == RelocableSchoolBuildingAllZones Or
 If G08c_NotApplicableMessage == BlankGrayedOut
  result = BlankGrayedOut stored in NotApplicableMessage
 End If</xsd:documentation>
@@ -5639,7 +5678,6 @@ LTE0_031 display term
                                                 <d:lte/>0.031, 
 0_0311To0_033 display term 0.0311-0.033, 
 0_0331To0_035 display term 0.0331-0.035, 
-0_0341To0_035 display term 0.0341-0.035, 
 0_0351To0_038 display term 0.0351-0.038;
 End If 
  
@@ -5692,8 +5730,17 @@ End If</xsd:documentation>
                                        <xsd:element name="G10_NotApplicableMessage">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">U-factor of Assembly</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If G07_CoolRoofComplianceMethod != UfactorTradeOff  UfactorTradeOffAlterations And WoodFrameLTEU034 result = BlankGrayedOut
-End If</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If any of these conditions are true
+result = BlankGrayedOut
+End If
+ 
+Condition: G07_CoolRoofComplianceMethod != UfactorTradeOff And   UfactorTradeOffAlterations And WoodFrameLTEU034 
+ 
+Condition: G05_RoofSlope == SteepSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New Or ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16; 
+ 
+Condition:  G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New And A03_ClimateZoneNumber == 12, 16 Or InRange(1,8); 
+ 
+Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 12, 16 Or InRange(1,9);</xsd:documentation>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
@@ -5990,14 +6037,28 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed08_CavityInsulationNR">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed05_UfactorSpecSource == JA4Other Or ApprovedSoftware this row is grayed out; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed05_UfactorSpecSource == JA4Other Or ApprovedSoftware this row is grayed out;  
+Else If Hframed05_UfactorSpecSource == JA4Tables 
+user selects from list customized as follows: 
  
-Else If Hframed05_UfactorSpecSource == JA4Tables user selects from list customized as follows: 
-If Hframed07_PartitionFramingMaterial == Metal, list: R0 (display term None), R5, R11, R13, R15, R19,  R20, R22, R25, R30;     
+If Hframed07_PartitionFramingMaterial == Metal,
+Switch (Hframed07_FramingSize)
+case 2x4: list: R0 (display term None), R5, R11, R13, R15;
+case 2x6: list: R0 (display term None),  R19,  R20, R21;
+case 2x8:  list: R0 (display term None),  R19, R22, R25, R30; 
+End Switch;
  
-Else If Hframed07_PartitionFramingMaterial == WoodFraming, list: R0 (display term None), R11, R13, R15, R19,  R21, R22, R23, R25, R30; 
+Else If Hframed07_PartitionFramingMaterial == WoodFraming And Hframed07_FramingSize == 2x6
+list: R0 (display term None), R19,  R20, R21, R22, R23, R25;
+Else If Hframed07_PartitionFramingMaterial == Wood0_625Gypsum  And Hframed07_FramingSize == 2x6
+list: R0 (display term None), R19,  R21, R22
+End If;
  
-Else If Hframed07_PartitionFramingMaterial == Wood0_625Gypsum, list R0 (display term None), R11, R13, R15, R19,  R21, R22, R25, R30;
+If Hframed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum
+If Hframed07_FramingSize == 2x4
+list R0 (display term None), R11, R13, R15 
+Else If Hframed07_FramingSize == 2x8
+list: R0 (display term None), R19, R22, R25, R30; 
 End If
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -6644,14 +6705,14 @@ End if</xsd:documentation>
                                                       <xsd:element name="Hmass08">
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">If Hmass04_UfactorSpecSource == JA4Tables, data for this choice is required; Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware  this row is grayed out;</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Hmass04_UfactorSpecSource == JA4Tables, and framing is applicable, data for this choice is required; Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware  this row is grayed out;</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:complexType>
                                                             <xsd:sequence>
                                                                <xsd:element name="Hmass08_PartitionFramingMaterial">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User picks from dropdown list NoFraming display term No frame type- any Thick, WoodFraming display term Wood- is listed with each value for FramingDepth appended, Metal display term Metal- is listed with each value for FramingDepth appended, EIFS display term EIFS</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User picks from dropdown list NoFraming display term No frame type- any Thick, WoodFraming display term Wood - is listed with each value for FramingDepth appended, Metal display term Metal - is listed with each value for FramingDepth appended, EIFS display term EIFS</xsd:documentation>
                                                                      <xsd:appinfo source="displayterm">
                                                                         <dtyp:displayterm value="WoodFraming">Wood-</dtyp:displayterm>
                                                                         <dtyp:displayterm value="Metal">Metal-</dtyp:displayterm>
@@ -6680,9 +6741,25 @@ End if</xsd:documentation>
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Hmass04_UfactorSpecSource == JA4Tables, this row is grayed out; 
-Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters text
+Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware and framing is applicable, user enters text
 End if</xsd:documentation>
                                                          </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Hmass08_NotApplicableMessage">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">Use this choice if  framing is not applicable
+result = FramingNA  display term NA 
+ 
+If Hmass04_UfactorSpecSource == JA4Tables, result is displayed in top cell for Hmass08
+Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware result is displayed in bottom cell for Hmass08
+End if</xsd:documentation>
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:NotApplicableMessage">
+                                                               <xsd:enumeration value="FramingNA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                    </xsd:choice>
                                                 </xsd:complexType>
@@ -6691,9 +6768,10 @@ End if</xsd:documentation>
                                                 <xsd:element name="Hmass09_CavityInsulationNR">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmass04_UfactorSpecSource == JA4Other this row is grayed out; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware this row is grayed out; 
  
-Else If Hmass04_UfactorSpecSource == JA4Tables, user selects from list:  R0 display term none, R1 display term R-1, R2 display term R-2, R3 display term R-3, R4 display term R-4, R5 display term R 5, R6 display term R-6, R7 display term R-7, R8 display term R-8, R9 display term R-9, R10 display term R 10, R11 display term R-11, R12 display term R-12, R13 display term R-13, R14 display term R-14, R15 display term R-15, R16 display term R-16, R17 display term R-17, R18 display term R-18, R19 display term R-19, R20 display term R-20, R21 display term R-21
+Else If Hmass04_UfactorSpecSource == JA4Tables and cavity insulation is applicable
+, user selects from list:  R0 display term none, R1 display term R-1, R2 display term R-2, R3 display term R-3, R4 display term R-4, R5 display term R 5, R6 display term R-6, R7 display term R-7, R8 display term R-8, R9 display term R-9, R10 display term R 10, R11 display term R-11, R12 display term R-12, R13 display term R-13, R14 display term R-14, R15 display term R-15, R16 display term R-16, R17 display term R-17, R18 display term R-18, R19 display term R-19, R20 display term R-20, R21 display term R-21
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -6727,8 +6805,19 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">f Hmass04_UfactorSpecSource == JA4Tables, this row is grayed out; 
-Else If Hmass04_UfactorSpecSource == JA4Other, user enters text
+Else If Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware  and cavity insulation is applicable, user enters text
 End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Hmass09_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">Use this choice if  cavity insulation is not applicable
+result = FramingNA  display term NA 
+ 
+If Hmass04_UfactorSpecSource == JA4Tables, result is displayed in top cell for Hmass09
+Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware result is displayed in bottom cell for Hmass09
+End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                              </xsd:choice>
@@ -7315,6 +7404,22 @@ Else If  Hconcrete04_UfactorSpecSource == JA4Other Or ApprovedSoftware user ente
 End If</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
+                                                      <xsd:element name="Hconcrete08_NotApplicableMessage">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">Use this choice if  framing is not applicable
+result = FramingNA  display term NA 
+ 
+If Hmass04_UfactorSpecSource == JA4Tables, result is displayed in top cell for Hmass08
+Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware result is displayed in bottom cell for Hmass08
+End if</xsd:documentation>
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:NotApplicableMessage">
+                                                               <xsd:enumeration value="FramingNA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
                                                    </xsd:choice>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -7322,7 +7427,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hconcrete09_CavityInsulationNR">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hconcrete04_UfactorSpecSource == JA4Other this row is grayed out; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hconcrete04_UfactorSpecSource == JA4Other Or ApprovedSoftware this row is grayed out; 
  
 Else If Hconcrete04_UfactorSpecSource == JA4Tables, user selects from list:  R0 display term none, R1 display term R-1, R2 display term R-2, R3 display term R-3, R4 display term R-4, R5 display term R 5, R6 display term R-6, R7 display term R-7, R8 display term R-8, R9 display term R-9, R10 display term R 10, R11 display term R-11, R12 display term R-12, R13 display term R-13, R14 display term R-14, R15 display term R-15, R16 display term R-16, R17 display term R-17, R18 display term R-18, R19 display term R-19, R20 display term R-20, R21 display term R-21
 End If</xsd:documentation>
@@ -7358,8 +7463,19 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hconcrete04_UfactorSpecSource == JA4Tables, this row is grayed out; 
-Else If Hconcrete04_UfactorSpecSource == JA4Other, user enters text
+Else If Hconcrete04_UfactorSpecSource == JA4Other Or ApprovedSoftware, user enters text
 End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Hconcrete09_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">Use this choice if  cavity insulation is not applicable
+result = FramingNA  display term NA 
+ 
+If Hmass04_UfactorSpecSource == JA4Tables, result is displayed in top cell for Hmass09
+Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware result is displayed in bottom cell for Hmass09
+End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                              </xsd:choice>
@@ -7766,13 +7882,25 @@ End If</xsd:documentation>
                                                 </xsd:element>
                                              </xsd:choice>
                                              <xsd:choice maxOccurs="1">
-                                                <xsd:element name="HSIPS05_SplineType" type="env:SplineType">
+                                                <xsd:element name="HSIPS05_SplineType">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Wood Framing Connection Type (Spline)</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If HSIPS04_UfactorSpecSource == JA4Other Or ApprovedSoftware this row is grayed out; 
-Else If HSIPS04_UfactorSpecSource == JA4Tables user selects from list: OSB, Single2x display term Single 2x, Double2x display term Double 2x, I_Joist display term I-joist, SteelFraming display term Steel Framing
+Else If HSIPS04_UfactorSpecSource == JA4Tables user selects from list: 
+OSB, 
+Single2x display term Single 2x, 
+Double2x display term Double 2x, 
+I_Joist display term I-joist
 End If</xsd:documentation>
                                                    </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="env:SplineType">
+                                                         <xsd:enumeration value="Double2x"/>
+                                                         <xsd:enumeration value="I_Joist"/>
+                                                         <xsd:enumeration value="OSB"/>
+                                                         <xsd:enumeration value="Single2x"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
                                                 </xsd:element>
                                                 <xsd:element name="HSIPS05_SplineTypeOther" type="env:SplineTypeOther">
                                                    <xsd:annotation>
@@ -8540,10 +8668,10 @@ End If</xsd:documentation>
                                                                <xsd:element name="Hspandrel10_UfactorJA438Spandrel" type="comp:UfactorJA438Spandrel">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">per JA4</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">Use this choice If Hspandrel05_GlassWallType == Spandrel:   
+                                                                     <xsd:documentation source="CalculationsAndRules">Use this choice If Hspandrel05a_GlassWallType == Spandrel:   
 If Hspandrel05_SpandrelCurtainType == AluminumNoThermalBreak 
 If Hspandrel06_SpandrelCurtainFinish  == SinglePaneGlass Or StoneMetalConcrete 
-(Hspandrel07_CavityInsulationNR) 
+Switch (Hspandrel07_CavityInsulationNR) 
 case R0:  0.445;  case R4: 0.285;  case R7:  0.259; case R10: 0.247;   case R15: 0.236;   case R20: 0.230;    case R25: 0.226;   case R30: 0.224;  
 End Switch
 Else Hspandrel06_SpandrelCurtainFinish  == DoubleNoLowE 
@@ -8606,7 +8734,7 @@ End If</xsd:documentation>
                                                                <xsd:element name="Hspandrel10_UfactorJA438Curtain" type="comp:UfactorJA438Curtain">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">per JA4</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">Use this choice If Hspandrel05_GlassWallType == Curtain:   
+                                                                     <xsd:documentation source="CalculationsAndRules">Use this choice If Hspandrel05a_GlassWallType == Curtain:   
 If Hspandrel05_SpandrelCurtainType == AluminumNoThermalBreakCW 
 If Hspandrel06_SpandrelCurtainFinish  == SinglePaneGlass Or StoneMetalConcrete 
 Switch (Hspandrel07_CavityInsulationNR) 
@@ -8824,7 +8952,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb05_MetalBldgInsulation" type="env:MetalBldgInsulation">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Insulation System</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JA4Other row is grayed out; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JA4Other Or ApprovedSoftware row is grayed out; 
 Else If Hmetalb04_UfactorSpecSource == JATables user  selects from list: SingleLayerBatt display term    Single Layer Batt Insulation, DoubleLayerBatt display term Double Layer Batt Insulation
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -8833,7 +8961,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Insulation System</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JATables row is grayed out; 
-Else If Hmetalb04_UfactorSpecSource == JA4Other, user enters text
+Else If Hmetalb04_UfactorSpecSource == JA4Other Or ApprovedSoftware, user enters text
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -8854,7 +8982,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb06_CavityInsulationNR">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JA4Other row is grayed out; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JA4Other Or ApprovedSoftware row is grayed out; 
 Else If Hmetalb04_UfactorSpecSource == JATables user  selects from customized list as follows:  
 If  Hmetalb05_MetalBldgInsulation == SingleLayerBatt list 
 R0 display term none, 
@@ -8889,7 +9017,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JATables row is grayed out; 
-Else If Hmetalb04_UfactorSpecSource == JA4Other, user enters text
+Else If Hmetalb04_UfactorSpecSource == JA4Other Or ApprovedSoftware, user enters text
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -8898,7 +9026,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hmetalb07_ContinuousInsulationNR">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JA4Other row is grayed out; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JA4Other Or ApprovedSoftware row is grayed out; 
 Else If Hmetalb04_UfactorSpecSource == JATables user  selects from list: R0ci display term None, R2ci display term R-2, R4ci display term R-4, R6ci display term R-6, R7ci display term R-7, R8ci display term R-8, R10ci display term R-10, R14ci display term R-14,</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -8918,7 +9046,7 @@ Else If Hmetalb04_UfactorSpecSource == JATables user  selects from list: R0ci di
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hmetalb04_UfactorSpecSource == JATables row is grayed out; 
-Else If Hmetalb04_UfactorSpecSource == JA4Other, user enters text
+Else If Hmetalb04_UfactorSpecSource == JA4Other Or ApprovedSoftware, user enters text
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -9447,6 +9575,22 @@ Else If  Hlog04_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters te
 End if</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
+                                                      <xsd:element name="Hlog08_NotApplicableMessage">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">Use this choice if  framing is not applicable
+result = FramingNA  display term NA 
+ 
+If Hmass04_UfactorSpecSource == JA4Tables, result is displayed in top cell for Hmass08
+Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware result is displayed in bottom cell for Hmass08
+End if</xsd:documentation>
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:NotApplicableMessage">
+                                                               <xsd:enumeration value="FramingNA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
                                                    </xsd:choice>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -9454,7 +9598,7 @@ End if</xsd:documentation>
                                                 <xsd:element name="Hlog07_CavityInsulationNR">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hlog04_UfactorSpecSource == JA4Other this row is grayed out; 
+                                                      <xsd:documentation source="CalculationsAndRules">If Hlog04_UfactorSpecSource == JA4Other Or ApprovedSoftware this row is grayed out; 
 Else If Hlog04_UfactorSpecSource == JA4Tables, user selects from list:  R0 display term none, R1 display term R-1, R2 display term R-2, R3 display term R-3, R4 display term R-4, R5 display term R 5, R6 display term R-6, R7 display term R-7, R8 display term R-8, R9 display term R-9, R10 display term R 10, R11 display term R-11, R12 display term R-12, R13 display term R-13, R14 display term R-14, R15 display term R-15, R16 display term R-16, R17 display term R-17, R18 display term R-18, R19 display term R-19, R20 display term R-20, R21 display term R-21
  
 End if</xsd:documentation>
@@ -9490,8 +9634,19 @@ End if</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">f Hlog04_UfactorSpecSource == JA4Tables, this row is grayed out; 
-Else If Hlog04_UfactorSpecSource == JA4Other, user enters text
+Else If Hlog04_UfactorSpecSource == JA4Other Or ApprovedSoftware, user enters text
 End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Hlog09_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">Use this choice if  cavity insulation is not applicable
+result = FramingNA  display term NA 
+ 
+If Hmass04_UfactorSpecSource == JA4Tables, result is displayed in top cell for Hmass09
+Else If  Hmass04_UfactorSpecSource == JA4Other Or ApprovedSoftware result is displayed in bottom cell for Hmass09
+End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                              </xsd:choice>
@@ -9915,7 +10070,7 @@ End if</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hstraw04b_Status == ExistingAlteration And Hstraw05_ConstructionSpecificationMethod  == RValue result = R11;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hstraw04b_Status == ExistingAlteration And Hstraw07_ConstructionSpecificationMethod  == RValue result = R11;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -10093,11 +10248,11 @@ End If</xsd:documentation>
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Insulation Type</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from customized list:  
-If HICF05_TypeICF == Flat list: ExpandedPolystyrene display term ESP,  ExtrudedPolystyrene display term XPS,  Polyurethane,  CementEPScompound display term = Cement/EPS Compound; 
-Else   If HICF05_TypeICF == GridWaffle Or GridScreen list: ExpandedPolystyrene display term ESP,
+If HICF05_TypeICF == Flat list: ExpandedPolystyrene display term EPS,  ExtrudedPolystyrene display term XPS,  Polyurethane,  CementEPScompound display term = Cement/EPS Compound; 
+Else   If HICF05_TypeICF == GridWaffle Or GridScreen list: ExpandedPolystyrene display term EPS,
 End If</xsd:documentation>
                                                    <xsd:appinfo source="displayterm">
-                                                      <dtyp:displayterm value="ExpandedPolystyrene">ESP</dtyp:displayterm>
+                                                      <dtyp:displayterm value="ExpandedPolystyrene">EPS</dtyp:displayterm>
                                                       <dtyp:displayterm value="ExtrudedPolystyrene">XPS</dtyp:displayterm>
                                                       <dtyp:displayterm value="CementEPScompound">Cement/EPS Compound</dtyp:displayterm>
                                                    </xsd:appinfo>
@@ -10111,12 +10266,10 @@ End If</xsd:documentation>
                                                    </xsd:restriction>
                                                 </xsd:simpleType>
                                              </xsd:element>
-                                             <xsd:choice maxOccurs="1">
-                                                <xsd:element name="HICF08_InsulationICF" type="env:InsulationICF">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Insulation Thickness (in)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HICF04_UfactorSpecSource == JAOther this row is grayed out; 
-Else user selects from list customized as follows: 
+                                             <xsd:element name="HICF08_InsulationICF" type="env:InsulationICF">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Insulation Thickness (in)</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: 
 If HICF07_InsulationType == ExpandedPolystyrene list: 2icf display term 2 in., 2_25icf display term 2.25 in., 2_5icf display term 2.5 in., 2_625icf display term 2.625 in., 2_75icf display term 2.75 in., 3icf display term 3 in., 3icf display term 3 in., 4icf display term 4 in.; 
  
 Else If HICF07_InsulationType == ExtrudedPolystyrene list: 2icf display term 2 in., 2_5icf display term 2.5 in., 2_625icf display term 2.625 in., 2_75icf display term 2.75 in., 3icf display term 3 in., 3icf display term 3 in., 4icf display term 4 in.; 
@@ -10124,17 +10277,8 @@ Else If HICF07_InsulationType == ExtrudedPolystyrene list: 2icf display term 2 i
 Else If HICF07_InsulationType == Polyurethane list: 1_5icf display term 1.5 in., 2icf display term 2 in., 4_5icf display term 4.5 in.;  Else If HICF07_InsulationType == CementEPScompound list: 2icf display term 2 in., 3icf display term 3 in., 4icf display term 4 in.;
 End If
 End If</xsd:documentation>
-                                                   </xsd:annotation>
-                                                </xsd:element>
-                                                <xsd:element name="HICF08_InsulationOther" type="env:InsulationOther">
-                                                   <xsd:annotation>
-                                                      <xsd:documentation source="FieldText">Insulation Thickness (in)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If HICF04_UfactorSpecSource == JAOther user enters value; 
-Else row is grayed out.
-End If</xsd:documentation>
-                                                   </xsd:annotation>
-                                                </xsd:element>
-                                             </xsd:choice>
+                                                </xsd:annotation>
+                                             </xsd:element>
                                              <xsd:element name="HICF09_UFactorLimit" type="com:UFactorLimit">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Maximum U-factor Allowed<d:sup>2</d:sup>
@@ -10219,42 +10363,42 @@ End If</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If HICF07_InsulationType == ExpandedPolystyrene  
 If HICF05_TypeICF == Flat 
-If HICF07_InsulationICF == 2icf 
+If HICF08_InsulationICF == 2icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.058; case 6core: result = 0.057; case 8core: result = 0.056; case 10core: result = 0.055; case 12core: result = 0.055; 
 End Switch
-Else If HICF07_InsulationICF == 2_25icf 
+Else If HICF08_InsulationICF == 2_25icf 
 (HICF06_CoreICF) 
 case 4core: result = 0.052; case 6core: result = 0.051; case 8core: result = 0.051; case 10core: result = 0.050; case 12core: result = 0.050;  
 End Switch
-Else If HICF07_InsulationICF == 2_5icf 
+Else If HICF08_InsulationICF == 2_5icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.047; case 6core: result = 0.047; case 8core: result = 0.046; case 10core: result = 0.046; case 12core: result = 0.045;  
 End Switch
-Else If HICF07_InsulationICF == 2_625icf 
+Else If HICF08_InsulationICF == 2_625icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.045; case 6core: result = 0.045; case 8core: result = 0.044; case 10core: result = 0.044; case 12core: result = 0.043;  
 End Switch
-Else If HICF07_InsulationICF == 2_75icf 
+Else If HICF08_InsulationICF == 2_75icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.043; case 6core: result = 0.043; case 8core: result = 0.042; case 10core: result = 0.042; case 12core: result = 0.042;  
 End Switch
-Else If HICF07_InsulationICF == 3icf 
+Else If HICF08_InsulationICF == 3icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.040; case 6core: result = 0.040; case 8core: result = 0.039; case 10core: result = 0.039; case 12core: result = 0.039;  
 End Switch
-Else If HICF07_InsulationICF == 3_5icf 
+Else If HICF08_InsulationICF == 3_5icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.035; case 6core: result = 0.034; case 8core: result = 0.034; case 10core: result = 0.034; case 12core: result = 0.034;  
 End Switch
-Else If HICF07_InsulationICF == 4icf 
+Else If HICF08_InsulationICF == 4icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.031; case 6core: result = 0.030; case 8core: result = 0.030; case 10core: result = 0.030; case 12core: result = 0.030;  
 End Switch
 End If
  
 Else If HICF05_TypeICF == GridWaffle 
-Switch (HICF07_InsulationICF) 
+Switch (HICF08_InsulationICF) 
 case 2icf:  
 If HICF06_CoreICF == 6core result = 0.047; 
 Else If HICF06_CoreICF == 8core result = 0.039; 
@@ -10290,7 +10434,7 @@ End If
 End Switch
  
 Else If HICF05_TypeICF == GridScreen 
-Switch (HICF07_InsulationICF) 
+Switch (HICF08_InsulationICF) 
 case 2icf: result = 0.041; case 2_25icf: result = 0.038; case 2_5icf: result = 0.036; case 2_625icf: result = 0.035;  case 2_75icf: result 0.0323; case 3icf: result = 0.031;  case 3_5icf: result = 0.028;  case 4icf: result = 0.025;
 End Switch
 End If</xsd:documentation>
@@ -10302,31 +10446,31 @@ End If</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If HICF07_InsulationType == ExtrudedPolystyrene  
 If HICF05_TypeICF == Flat 
-If HICF07_InsulationICF == 2icf 
+If HICF08_InsulationICF == 2icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.045; case 6core: result = 0.045; case 8core: result = 0.045; case 10core: result = 0.044; case 12core: result = 0.044; 
 End Switch
-Else If HICF07_InsulationICF == 2_5icf 
+Else If HICF08_InsulationICF == 2_5icf 
 (HICF06_CoreICF) 
 case 4core: result = 0.037; case 6core: result = 0.037; case 8core: result = 0.036; case 10core: result = 0.036; case 12core: result = 0.036;  
 End Swittch
-Else If HICF07_InsulationICF == 2_625icf 
+Else If HICF08_InsulationICF == 2_625icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.035; case 6core: result = 0.035; case 8core: result = 0.035; case 10core: result = 0.035; case 12core: result = 0.034;  
 End Switch
-Else If HICF07_InsulationICF == 2_75icf 
+Else If HICF08_InsulationICF == 2_75icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.034; case 6core: result = 0.034; case 8core: result = 0.033; case 10core: result = 0.033; case 12core: result = 0.033;  
 End Switch
-Else If HICF07_InsulationICF == 3icf 
+Else If HICF08_InsulationICF == 3icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.031; case 6core: result = 0.031; case 8core: result = 0.031; case 10core: result = 0.031; case 12core: result = 0.030;  
 End Switch
-Else If HICF07_InsulationICF == 3_5icf 
+Else If HICF08_InsulationICF == 3_5icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.027; case 6core: result = 0.027; case 8core: result = 0.027; case 10core: result = 0.027; case 12core: result = 0.026;  
 End Switch
-Else If HICF07_InsulationICF == 4icf 
+Else If HICF08_InsulationICF == 4icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.024; case 6core: result = 0.024; case 8core: result = 0.024; case 10core: result = 0.023; case 12core: result = 0.023;  
 End Switch
@@ -10335,15 +10479,15 @@ End If
  
 Else If HICF07_InsulationType == Polyurethane   
 If HICF05_TypeICF == Flat 
-If HICF07_InsulationICF == 1_5icf  
+If HICF08_InsulationICF == 1_5icf  
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.050; case 6core: result = 0.049; case 8core: result = 0.049; case 10core: result = 0.048; case 12core: result = 0.048; 
 End Switch
-Else If HICF07_InsulationICF == 2icf 
+Else If HICF08_InsulationICF == 2icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.042; case 6core: result = 0.042; case 8core: result = 0.041; case 10core: result = 0.041; case 12core: result = 0.041; 
 End Switch
-If HICF07_InsulationICF == 4_5icf 
+If HICF08_InsulationICF == 4_5icf 
 Switch (HICF06_CoreICF) 
 case 4core: result = 0.023; case 6core: result = 0.023; case 8core: result = 0.023; case 10core: result = 0.022; case 12core: result = 0.022;  
 End Switch
@@ -10352,23 +10496,23 @@ End If
  
 Else If HICF07_InsulationType == CementEPScompound 
 If HICF05_TypeICF == GridWaffle 
-If HICF07_InsulationICF == 2icf 
+If HICF08_InsulationICF == 2icf 
 If HICF06_CoreICF == 6core result = 0.059; 
 Else If HICF06_CoreICF == 8core result = 0.048;  
 End If
-Else If HICF07_InsulationICF == 3icf 
+Else If HICF08_InsulationICF == 3icf 
 If HICF06_CoreICF == 6core result = 0.043; 
 Else If HICF06_CoreICF == 8core result = 0.037;  
 End If
-Else If HICF07_InsulationICF == 4icf 
+Else If HICF08_InsulationICF == 4icf 
 If HICF06_CoreICF == 6core result = 0.034; 
 Else If HICF06_CoreICF == 8core result = 0.031;  
 End if
 End If
 Else If If HICF05_TypeICF == GridScreen 
-If HICF07_InsulationICF == 2icf  result = 0.052; 
-Else If HICF07_InsulationICF == 3icf  result = 0.040; 
-Else If HICF07_InsulationICF == 4icf  result = 0.032;
+If HICF08_InsulationICF == 2icf  result = 0.052; 
+Else If HICF08_InsulationICF == 3icf  result = 0.040; 
+Else If HICF08_InsulationICF == 4icf  result = 0.032;
 End If
 End If</xsd:documentation>
                                                                   </xsd:annotation>
@@ -12401,7 +12545,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Imass06_InsulationOther" type="env:InsulationOther">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Insulation Location</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Imass05_UfactorSpecSource == JA4Other user enters text.
+                                                      <xsd:documentation source="CalculationsAndRules">If Imass05_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters text.
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>

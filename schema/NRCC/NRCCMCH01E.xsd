@@ -1659,7 +1659,7 @@ End If</xsd:documentation>
 use this choice based on the following
 : 
 If F03_UnitaryHeatPumps == WaterSourceHP Then 
-If Fa02_ SizeRangeUnitaryHeatPumps == GTE65000AndLT135000
+If Fa02_ SizeRangeUnitaryHeatPumps == LT17000 Or GTE17000AndLT135000
 result = 4.3 
 Else If SizeRangeUnitaryHeatPumps == GTE135000AndLT240000 
 result = 2.9; 
@@ -2114,12 +2114,17 @@ End If
 End Switch
  
 Else If F03_ UnitaryHeatPumps == WaterSourceHP:
-If Fa02_SizeRangeUnitaryHeatPumps == GTE65000AndLT135000  
+If Fa02_SizeRangeUnitaryHeatPumps == LT17000  
+If F02_HvacSystemType == UnitaryHeatPumps
+result1 =12.2 (EER);  
+Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
+result1= 12.0 (EER);
+End If 
+Else If Fa02_SizeRangeUnitaryHeatPumps == GTE17000AndLT135000
 If F02_HvacSystemType == UnitaryHeatPumps
 result1 =13.0 (EER);  
 Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
 result1= 12.8 (EER);
-End If 
 End If 
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -4725,115 +4730,100 @@ End If</xsd:documentation>
                                                             </xsd:simpleType>
                                                          </xsd:element>
                                                       </xsd:choice>
-                                                      <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="J12_OccupantCount" type="com:OccupantCount" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText"># of people [d:sup]5[/d:sup]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction == LectureHall user input; 
-Else  result = BlankGrayedOut stored in NotApplicableMessage
-End If</xsd:documentation>
-                                                            </xsd:annotation>
-                                                         </xsd:element>
-                                                         <xsd:element name="J12_NotApplicableMessage" >
-                                                            <xsd:annotation>
-                                                               <xsd:documentation source="FieldText"># of people [d:sup]5[/d:sup]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction != LectureHall  result = BlankGrayedOut stored in NotApplicableMessage
-End If</xsd:documentation>
-                                                            </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="comp:NotApplicableMessage">
-                                                                  <xsd:enumeration value="BlankGrayedOut"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
-                                                         </xsd:element>
-                                                      </xsd:choice>
+                                                      <xsd:element name="J12_OccupantCount" type="com:OccupantCount" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText"># of people [d:sup]5[/d:sup]</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User input;</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
                                                       <xsd:element name="J13_OA_SpaceRequiredMin" type="com:OA_SpaceRequiredMin" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Required Min OA CFM</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If  J09_VentilationSpaceFunction == AllOthersVent, ClassroomArt, AutoRepairVent, BankLobby, BankVault , BarracksSleepingArea, BedroomLivingRoom,  CellWithToiletVent, MiscComputerSpace, ClassroomComputer, CopyPrintRoom, CorridorsResidential, DarkRoom, DaycareSickRoom, WeightRoom, AerobicsRoom,  JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LaundryRoom, DwellingUnitLaundryRoom, LibraryAssembly, LockerAllOthers, LockerAthleticIndustrial, MediaCenter,  StorageOccupiableDryMaterials, StorageOccupiableLiquids,  GeneralManufacturingLightIndustrial, OfficeSpaceVent, ParkingGarageVent, PharmacyPrepArea, PhotoStudio, OfficeReception,  ScienceLab, ShippingReceiving, ShowerRoom, ShowerContExhaust, WorkshopSortingPacking, SwimmingPool, TelephoneRoom, DataEntryTelephoneSpace, RestroomPrivateContExhaust, RestroomPublicContExhaust,  RestroomPrivate, RestroomPublic, TrashRecyclingRoom, CollegeLab MiscWarehouse Or WoodMetalShop; 
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
  
 Else If  VentilationSpaceFunction == Courtroom Or LegislativeChambers
 If J16a_DemandControlVent == ProvidedDCV 
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.19 x J10_SpaceFloorArea;
+result = Largest (( 0.19 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
+ 
 End If
  
 Else  If  VentilationSpaceFunction == DaycareToAge4
 If J16a_DemandControlVent == ProvidedDCV 
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.21 x J10_SpaceFloorArea; 
+result = Largest (( 0.21 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
+ 
 End If
  
 Else  If  VentilationSpaceFunction == LaundryCoinOperated
-result = 0.30 x J10_SpaceFloorArea; 
+result = Largest (( 0.30 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
  
 Else  If  VentilationSpaceFunction == MallCommon, MuseumChildrenAssembly, MuseumAssembly, Or PetShop
 If J16a_DemandControlVent == ProvidedDCV  
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.25 x J10_SpaceFloorArea;  
+result = Largest (( 0.25 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 End If
  
 Else  If  VentilationSpaceFunction == RetailSales Or Supermarket
 If J16a_DemandControlVent == ProvidedDCV 
-result = 0.20 x J10_SpaceFloorArea;
+result = Largest (( 0.20 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.25 x J10_SpaceFloorArea;  
+result = Largest (( 0.25 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
+  
 End If
  
 Else If  VentilationSpaceFunction == ClassroomAge5_18, ClassroomPostsecondary
 If J16a_DemandControlVent == ProvidedDCV  
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.38 x J10_SpaceFloorArea; 
+result = Largest (( 0.38 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0)); 
 End If
  
 Else If  VentilationSpaceFunction == BarberShop Or BeautyNailSalon
-result = 0.40 x J10_SpaceFloorArea;  
+result = Largest (( 0.40 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));  
  
 Else If  VentilationSpaceFunction == BarCocktailLounge
 If J16a_DemandControlVent == ProvidedDCV  
-result = 0.20 x J10_SpaceFloorArea;
+result = Largest (( 0.20 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.50 x J10_SpaceFloorArea;  
+result = Largest (( 0.50 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));  
 End If
  
 Else If  VentilationSpaceFunction == OfficeBreakRoom, FastfoodCafeteriaVent, GeneralCoffeeStation, ConferenceMeetingVent, ArenasVent, AssemblyLobby, MainEntryOffice, LodgingAssembly, MultiuseAssembly, RestaurantDining,  SportsSpectatorAreaVent, StagesStudios, SwimmingDeck Or TransportWaiting
 If J16a_DemandControlVent == ProvidedDCV  
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.50 x J10_SpaceFloorArea;  
+result = Largest (( 0.50 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));  
 End If
  
 Else  If  VentilationSpaceFunction == GamblingArea Or GameArcadesVent
 If J16a_DemandControlVent == ProvidedDCV  
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 0.68 x J10_SpaceFloorArea; 
+result = Largest (( 0.68 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0)); 
 End If
  
 Else If  VentilationSpaceFunction == DanceFloor 
 If J16a_DemandControlVent == ProvidedDCV  
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 1.50 x J10_SpaceFloorArea;  
+result = Largest (( 1.50 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));  
 End If
  
 Else  If  VentilationSpaceFunction == AudienceSeatingArea, BowlingAlleySeatingVent, ClassroomPerformance Or ReligiousAssemblyArea
 If J16a_DemandControlVent == ProvidedDCV  
-result = 0.15 x J10_SpaceFloorArea;
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 Else
-result = 1.07 x J10_SpaceFloorArea; 
+result = Largest (( 1.07 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0)); 
 End If
  
 Else  If VentilationSpaceFunction == LectureHall
 IIf J16a_DemandControlVent == ProvidedDCV  
-result = 0.15 x J10_SpaceFloorArea;
-Else
-result = 15 x J12_OccupantCount 
+result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
 End If
  
 End If</xsd:documentation>
