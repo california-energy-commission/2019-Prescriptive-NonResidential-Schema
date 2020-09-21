@@ -23,6 +23,9 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="AssemblyLayers">
+      <xsd:restriction base="xsd:string"/>
+   </xsd:simpleType>
    <xsd:simpleType name="CRRCProductID">
       <xsd:annotation>
          <xsd:documentation>The CRRC product identification number for the roofing product</xsd:documentation>
@@ -760,18 +763,40 @@
    <xsd:simpleType name="FenestrationAlterationType">
       <xsd:restriction base="dtyp:EnumerationConstant"/>
    </xsd:simpleType>
+   <xsd:simpleType name="FenestrationAssemblyArea">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="FenestrationAssemblySHGC">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="FenestrationAssemblyUFactor">
+      <xsd:annotation>
+         <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="FenestrationAssemblyVT">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="FenestrationCertificationMethod">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="CECDefaultPerformance">Default 110.6</dtyp:displayterm>
-            <dtyp:displayterm value="CF1R_ENV_02">Area-weighted Average Worksheet (CF1R-ENV-02)</dtyp:displayterm>
             <dtyp:displayterm value="NA6Equations">Equatio NA 6-1 and NA 6 -2</dtyp:displayterm>
             <dtyp:displayterm value="NFRCRated">NFRC</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="CECDefaultPerformance"/>
-         <xsd:enumeration value="CF1R_ENV_02"/>
          <xsd:enumeration value="NA6Equations"/>
          <xsd:enumeration value="NFRCRated"/>
       </xsd:restriction>
@@ -1690,6 +1715,34 @@
          <xsd:enumeration value="6In"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="OpaqueSurfaceType">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="AtticRoof">Attic Roofs</dtyp:displayterm>
+            <dtyp:displayterm value="CeilingBelowAttic">Ceilings (below attic)</dtyp:displayterm>
+            <dtyp:displayterm value="CeilingCathedral">Cathedral Ceilings</dtyp:displayterm>
+            <dtyp:displayterm value="CeilingInterior">Interior Ceiling</dtyp:displayterm>
+            <dtyp:displayterm value="ExteriorFloor">Exterior Floors</dtyp:displayterm>
+            <dtyp:displayterm value="ExteriorWall">Exterior Walls</dtyp:displayterm>
+            <dtyp:displayterm value="FloorOverCrawlspace">Floors Over Crawlspace</dtyp:displayterm>
+            <dtyp:displayterm value="InteriorFloor">Interior Floors</dtyp:displayterm>
+            <dtyp:displayterm value="InteriorWall">Interior Walls</dtyp:displayterm>
+            <dtyp:displayterm value="UndergroundWall">Underground Walls</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="AtticRoof"/>
+         <xsd:enumeration value="CeilingBelowAttic"/>
+         <xsd:enumeration value="CeilingCathedral"/>
+         <xsd:enumeration value="CeilingInterior"/>
+         <xsd:enumeration value="ExteriorFloor"/>
+         <xsd:enumeration value="ExteriorWall"/>
+         <xsd:enumeration value="FloorOverCrawlspace"/>
+         <xsd:enumeration value="InteriorFloor"/>
+         <xsd:enumeration value="InteriorWall"/>
+         <xsd:enumeration value="UndergroundWall"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="OutsideBoundaryCondition">
       <xsd:annotation>
          <xsd:documentation>Defines the nature of the environment that the outward facing surface of a Partition is in contact with.</xsd:documentation>
@@ -2254,6 +2307,24 @@ For selection of NA-6 properties</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="TotalGlazingAreaEast">
+      <xsd:annotation>
+         <xsd:documentation>The total area for all vertical fenestration glazing east facing fenestration.  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="TotalGlazingAreaNorth">
+      <xsd:annotation>
+         <xsd:documentation>The total area for all vertical fenestration glazing north facing fenestration.  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="TotalGlazingAreaSouth">
+      <xsd:annotation>
+         <xsd:documentation>The total area for all vertical fenestration glazing south facing fenestration.  Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="TotalGlazingAreaWest">
       <xsd:annotation>
          <xsd:documentation>The total area for all vertical fenestration glazing west facing fenestration.  Units: ft2</xsd:documentation>
@@ -2383,13 +2454,9 @@ For selection of NA-6 properties</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
-   <xsd:simpleType name="WWR">
+   <xsd:simpleType name="WWRpct">
       <xsd:annotation>
-         <xsd:documentation>The ratio of the rough opening area of the window in a parent Wall to the total Wall surface area.  This can either be a local ratio (for a single wall) or a global ratio (for all walls in the building or project).  Units: none</xsd:documentation>
-         <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
-         <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>Window Wall Ratio</dtyp:displayterm>
-         </xsd:appinfo>
+         <xsd:documentation>Units: percent</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>

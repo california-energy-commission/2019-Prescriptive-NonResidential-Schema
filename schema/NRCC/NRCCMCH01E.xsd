@@ -383,8 +383,45 @@ If Fc05 and Fc06 != BlankGrayedOut Then Fc05 GTE Fc06;
  
 Condition 5
 If TableChiller IsPresent  Then for every row  
-any field in range Fd01 - Fd10 != BlankGrayedOut has data And 
-If Fd06 And Fd07 != BlankGrayedOut Then Fd06 GTE Fd07;  
+If any field in range Fd01 - Fd10 != BlankGrayedOut has data Then
+ 
+Switch (Fd08a_EfficiencyType )
+case EER: 
+If Fd06a_EfficiencyEER And Fd07a_RangeMinEER != BlankGrayedOut Then 
+Fd06a_EfficiencyEER GTE Fd07a_RangeMinEER;
+End If
+ 
+case COP
+If Fd06a_EfficiencyCOP And Fd07a_RangeMinCOP != BlankGrayedOut Then 
+Fd06a_EfficiencyCOP GTE Fd07a_RangeMinCOP; 
+Else If Fd06a_ChillerCOP And Fd07a_RangeMinCOP != BlankGrayedOut Then
+Fd06a_ChillerCOP GTE Fd07a_RangeMinCOP; 
+End If
+ 
+case kWperTon:
+If Fd06a_EfficiencykWperTon And Fd07a_RangeMinkWperTon != BlankGrayedOut Then 
+Fd07a_RangeMinkWperTon GTE Fd06a_EfficiencykWperTon;
+End If
+End Switch
+ 
+Switch (Fd08b_EfficiencyType)
+case COP_IPLV:
+If Fd06b_EfficiencyCOP_IPLV And Fd07b_RangeMinCOP_IPLV != BlankGrayedOut Then 
+Fd06b_EfficiencyCOP_IPLV GTE Fd07b_RangeMinCOP_IPLV; 
+End If
+ 
+case EER_IPLV:
+If Fd06b_EfficiencyEER_IPLV And Fd07b_RangeMinEER_IPLV != BlankGrayedOut Then 
+Fd06b_EfficiencyEER_IPLV GTE Fd07b_RangeMinEER_IPLV; 
+End If
+ 
+case kWperTon_IPLV:
+If Fd06b_EfficiencykWperTon_IPLV And Fd07b_RangeMinkWperTon_IPLV != BlankGrayedOut Then 
+Fd07b_RangeMinkWperTon_IPLV GTE Fd06b_EfficiencykWperTon_IPLV;
+End If
+End Switch
+End If 
+End If 
  
 Condition 6
 If TableHeatRejection IsPresent  Then for every row 
@@ -582,7 +619,7 @@ Or If J18_DoesSystemVentilationComply == false for any system
 result = false display term No;
  
 Else 
-If J02b_HiRiseDwellingUnitsIncluded == true And
+If J02b_HiRiseDwellingUnitsIncluded == true And J19a_IsVentSystemContinuous == false
 If any field in range J19-J27 in any row does not have data
 Or If J28_IsVentSystemBalanced == false 
 Or J29_DoesVentMeetRequiredOA == false
@@ -2118,7 +2155,7 @@ If Fa02_SizeRangeUnitaryHeatPumps == LT17000
 If F02_HvacSystemType == UnitaryHeatPumps
 result1 =12.2 (EER);  
 Else If F02_HvacSystemType == UnitaryHeatPumpsNoElectR
-result1= 12.0 (EER);
+result1= 12.2 (EER);
 End If 
 Else If Fa02_SizeRangeUnitaryHeatPumps == GTE17000AndLT135000
 If F02_HvacSystemType == UnitaryHeatPumps
@@ -3093,7 +3130,7 @@ GasEngineDriven display term Water Cooled: Gas Engine</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Fd04_ChillerTonsRange" type="hvac:ChillerTonsRange" >
+                                    <xsd:element name="Fd04_ChillerTonsRange" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Size Category[d:sup]1[/d:sup] [d:line1/] (tons)</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list loaded as follows:  : 
@@ -3104,6 +3141,16 @@ GTE300ToLT400 display term [d:gte/]300 and [d:lt/]400 Tons;
 GTE400ToLT600 display term [d:gte/]400 and [d:lt/]600 Tons; 
 GTE600 display term [d:gte/]600 Tons;</xsd:documentation>
                                        </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="hvac:ChillerTonsRange">
+                                             <xsd:enumeration value="GTE150ToLT300"/>
+                                             <xsd:enumeration value="GTE300ToLT400"/>
+                                             <xsd:enumeration value="GTE400ToLT600"/>
+                                             <xsd:enumeration value="GTE600"/>
+                                             <xsd:enumeration value="GTE75ToLT150"/>
+                                             <xsd:enumeration value="LT75"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
                                     </xsd:element>
                                     <xsd:element name="Fd05_ChillerExceptionPathB" type="comp:ChillerExceptionPathB" >
                                        <xsd:annotation>
@@ -3404,7 +3451,7 @@ case GTE150ToLT300:
 If Fd05_ChillerExceptionPathB == NoExceptionTaken result1 = LTE0_440; 
 Else result1 = LTE0_540; 
 End If
-case GTE300ToLT600: 
+case GTE300ToLT400: case GTE400ToLT600:
 If Fd05_ChillerExceptionPathB == NoExceptionTaken result1 = LTE0_410; 
 Else result1 =LTE0_520; 
 End If
@@ -5052,6 +5099,14 @@ End If</xsd:documentation>
                            <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                               <xsd:complexType>
                                  <xsd:sequence>
+                                    <xsd:element name="J19a_IsVentSystemContinuous" type="comp:IsVentSystemContinuous" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Check the box if the system is using continuous ventilation to meet the ventilatiion requirements per [d:t24ref/]120.1(b)2Aivb</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true; Else result = false.
+ 
+If result == true D03_ExceptionalConditionMessageNRCCMCHE  += HRRContinuousVentInJ</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
                                     <xsd:element name="J19_SpaceName" type="com:SpaceName" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Space Name ot Item Tag</xsd:documentation>
@@ -5151,15 +5206,19 @@ EvaporativeCoolerNA display term NA: Evaporative Cooler</xsd:documentation>
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="J28_IsVentSystemBalanced" type="comp:IsVentSystemBalanced"  minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Is this a balanced system [d:sup]4[/d:sup]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == true 
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="J28_IsVentSystemBalanced" type="comp:IsVentSystemBalanced"  minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Is this a balanced system [d:sup]4[/d:sup]</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == true 
 this field is NOT required and NOT displayed
-End If
  
-If J02b_HiRiseDwellingUnitsIncluded == false
+Else If J02b_HiRiseDwellingUnitsIncluded == false
 this field is NOT required and NOT displayed
+ 
+Else  If J19a_IsVentSystemContinuous == true
+result = BlankGrayedOut stored in NotApplicableMessage 
+ 
 Else
 Calculated value: For all rows 
 If (J24_VentilationPerSpace - J25_ExhaustPerSpace) /  J24_VentilationPerSpace LTE 0.2 
@@ -5168,8 +5227,36 @@ result = true diplay term Yes;
 Else result = false display term No
 End If
 End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
+                        </xsd:annotation>
+                     </xsd:element>
+                     <xsd:element name="J28_NotApplicableMessage"  minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Is this a balanced system [d:sup]4[/d:sup]</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == true 
+this field is NOT required and NOT displayed
+ 
+Else If J02b_HiRiseDwellingUnitsIncluded == false
+this field is NOT required and NOT displayed
+ 
+Else If J19a_IsVentSystemContinuous == true
+result = BlankGrayedOut stored in NotApplicableMessage
+ 
+Else
+Calculated value: For all rows 
+If (J24_VentilationPerSpace - J25_ExhaustPerSpace) /  J24_VentilationPerSpace LTE 0.2 
+result = true diplay term Yes; 
+ 
+Else result = false display term No
+End If
+End if</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="BlankGrayedOut"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="J29_DoesVentMeetRequiredOA" type="comp:DoesVentMeetRequiredOA"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Meeting Outside Air Requirements?</xsd:documentation>
@@ -6135,6 +6222,12 @@ If B03e_ProjectHasVentilation == true result = true
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O01_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch02A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O01a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6145,6 +6238,12 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-MCH-03-A - Constant Volume Single Zone HVAC  NOTE: This form does not automatically move to "Yes'.  If Constant Volume Single Zone HVAC Systems are included in the scope, permit applicant should move this form to "Yes".</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated field:Boolean values with default result = false;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O02_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch03A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O02a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6163,6 +6262,12 @@ result = true display term selected Yes radio button
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O03_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch04A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O03a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6175,6 +6280,12 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated field:Boolean values with default result = false;  
  
 If H00b_FanSystemEconomizerType  == FixedTemperature, FixedEnthalpy, DifferentialTemperature Or  DifferentialEnthalpy  result = true result = true display term selected Yes radio buttonEnd If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O04_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch05A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O04a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6192,6 +6303,12 @@ If J16a_DemandControlVent == ProvidedDCV result = true display term selected Yes
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O05_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch06A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O05a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6205,6 +6322,12 @@ End If</xsd:documentation>
   
 If H00d_FanFlowType == VariableFlow And H02_FanFunction == Supply result = true display term selected Yes radio button
 End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O06_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch07A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O06a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6222,6 +6345,12 @@ If G05_PumpControlVF == HasVariableFlow result = true display term selected Yes 
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O07_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch08A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O07a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6235,6 +6364,12 @@ End If</xsd:documentation>
  
 If Fc09_TempControlReset Or Fd10_TempControlReset  == HasTempReset result = true display term selected Yes radio button
 End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O08_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch09A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O08a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6252,6 +6387,12 @@ End If</xsd:documentation>
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O09_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch10A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O09a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6265,6 +6406,12 @@ End If</xsd:documentation>
  
  If I02_ SystemZoning == MultiZoneDDC result = true display term selected Yes radio button
 End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O10_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch11A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O10a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6282,6 +6429,12 @@ End If</xsd:documentation>
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O11_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch12A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O11a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6297,6 +6450,12 @@ End If</xsd:documentation>
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O12_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch13A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O12a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6309,6 +6468,12 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated field:Boolean values with default result = false;</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O13_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch14A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O13a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6319,6 +6484,12 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-MCH-15-A Thermal Energy Storage (TES) System  Acceptance  NOTE:  This form does not automatically move to "Yes".  If Chilled water Storage, Ice-on-Coil Internal Melt, Ice-on-Coil External melt, Ice Harvester, Brine, Ice-Slurry, Eutecti Salt, Clathrate Hydrate Slurry (CHS), Cryogenic or Encapsulated (Ice Ball) Systems are included in the scope, permit applicant should move this form to 'Yes".</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated field:Boolean values with default result = false;</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O14_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch15A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O14a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6336,6 +6507,12 @@ End If</xsd:documentation>
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O15_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch16A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O15a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6349,6 +6526,12 @@ End If</xsd:documentation>
  
  If Fe_HasTempResetControls == true result = true display term selected Yes radio button
 End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O16_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch17A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O16a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6366,6 +6549,12 @@ End If</xsd:documentation>
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O17_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch18A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O17a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6379,6 +6568,12 @@ End If</xsd:documentation>
  
   If I05_ControlSystemShutOff == OccupancySensor Or If J16a_ OccupantSensorVent == ProvidedOccSensors result = true display term selected Yes radio button
 End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O18_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch19A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O18a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
@@ -6397,6 +6592,12 @@ result = true display term selected Yes radio button
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="O19_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch20 == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="O19a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -6410,6 +6611,12 @@ End If</xsd:documentation>
  
  If J28_IsVentSystemBalanced == false result = true display term selected Yes radio button
 End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="O20_SystemFieldVerified" type="comp:SystemFieldVerified"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch21 == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O20a_VerifedByInspector" type="comp:VerifedByInspector"  minOccurs="0">
