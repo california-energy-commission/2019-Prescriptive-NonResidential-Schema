@@ -6680,7 +6680,13 @@ If result == JA4Other  Or ApprovedSoftware D03_ExceptionalConditionMessageNRCCEN
                                              <xsd:element name="Hmass06_MasonryGrout" type="env:MasonryGrout">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Fill Options</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: If Hmass05_MasonryType ==  Concrete Or ClayBrick list  NoGrout display term Solid Unit; Else list  NoGrout display term Solid Unit, SolidGrout display term Solid Grout, PartialGrout display term Partial Grout-uninsulated, PartialInsulatedGrout display term Partial Grout-insulated</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: 
+If Hmass05_MasonryType ==  Concrete Or ClayBrick list  NoGrout display term Solid Unit; 
+ 
+Else If Hmass05_MasonryType == ClayHollowUnit  list SolidGrout display term Solid Grout, PartialGrout display term Partial Grout-uninsulated, PartialInsulatedGrout display term Partial Grout-insulated
+ 
+Else list  NoGrout display term Solid Unit, SolidGrout display term Solid Grout, PartialGrout display term Partial Grout-uninsulated, PartialInsulatedGrout display term Partial Grout-insulated
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Hmass07_MassThickness" type="env:MassThickness">
@@ -6947,7 +6953,8 @@ End If</xsd:documentation>
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                                                         <xsd:documentation source="CalculationsAndRules">Calculated field; 
-If Hmass06_ Hmass06_MasonryGrout != NoGrout use JAtable 4.3.5 as follows 
+If Hmass08_NotApplicableMessage != FramingNA  And If Hmass06_ Hmass06_MasonryGrout != NoGrout use this choice for not reported data from JAtable 4.3.5 as follows 
+ 
 If Hmass06_MasonryGrout == SolidGrout: 
 Switch (Hmass07_MassThickness) 
 case 6Mass: 
@@ -7033,7 +7040,8 @@ End If</xsd:documentation>
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                                                         <xsd:documentation source="CalculationsAndRules">Calculated field:   
-If Hmass06_ Hmass06_MasonryGrout == NoGrout use JAtable 4.3.6 as follows: 
+If Hmass08_NotApplicableMessage != FramingNA  And If Hmass06_MasonryGrout == NoGrout use this choice for not reported data from JAtable 4.3.6 as follows: 
+ 
 If Hmass05_MasonryType == CMULightWeight 
 Switch (Hmass07_MassThickness) 
 case 3Mass: result = 0.79; case 4Mass: result = 0.71; case 5Mass: result = 0.65; case 6Mass: result = 0.59; case 7Mass: result = 0.54; case 8Mass: result = 0.51; case 9Mass: result = 0.47; case 10Mass: result = 0.44; case11Mass: result = 0.42; case 12Mass: result = 0.39; 
@@ -7063,13 +7071,147 @@ End If
 End If</xsd:documentation>
                                                                      </xsd:annotation>
                                                                   </xsd:element>
+                                                                  <xsd:element name="Hmass11_NotApplicableMessage">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage == FramingNA 
+result = FramingNA 
+EndIf</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                     <xsd:simpleType>
+                                                                        <xsd:restriction base="comp:NotApplicableMessage">
+                                                                           <xsd:enumeration value="FramingNA"/>
+                                                                        </xsd:restriction>
+                                                                     </xsd:simpleType>
+                                                                  </xsd:element>
                                                                </xsd:choice>
                                                                <xsd:choice maxOccurs="1">
+                                                                  <xsd:element name="Hmass11_UfactorJA435NoFraming" type="comp:UfactorJA435NoFraming">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText"/>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage == FramingNA And 
+If Hmass06_ Hmass06_MasonryGrout != NoGrout use this choice for reported data from JA Table 4.3.5 as follows 
+ 
+If Hmass06_MasonryGrout == SolidGrout: 
+Switch (Hmass07_MassThickness) 
+case 6Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.68; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.72; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.76; 
+Else If Hmass05_MasonryType == ClayHollowUnit result = 0.65; 
+End If
+case 8Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.62; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.65; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.69; 
+Else If Hmass05_MasonryType == ClayHollowUnit result = 0.57;   
+End If
+case 10Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.55; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.59; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.62; 
+End If
+case 12Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.51; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.54; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.57;  
+End if
+End Switch
+ 
+Else If Hmass06_MasonryGrout == PartialGrout  
+Switch (Hmass07_MassThickness) 
+case 6Mass: 
+If Hmass05_MasonryType == CMULightWeight result = 0.54; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.58; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.61; 
+Else If Hmass05_MasonryType == ClayHollowUnit result = 0.52; 
+End If
+case 8Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.50; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.53; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.56; 
+Else If Hmass05_MasonryType == ClayHollowUnit result = 0.47;   
+End If
+case 10Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.46; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.49; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.52; 
+End If
+case 12Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.43; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.46; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.49;     
+End If
+End Switch
+ 
+Else If Hmass06_MasonryGrout == PartialInsulatedGrout 
+Switch (Hmass07_MassThickness) 
+case 6Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.44; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.48; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.52; 
+Else If Hmass05_MasonryType == ClayHollowUnit result = 0.45; 
+End If
+case 8Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.37; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.41; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.44; 
+Else If Hmass05_MasonryType == ClayHollowUnit result = 0.39;   
+End If
+case 10Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.34; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.37; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.41; 
+End If
+case 12Mass: 
+If  Hmass05_MasonryType == CMULightWeight result = 0.30; 
+Else If Hmass05_MasonryType == CMUMediumWeight result = 0.33; 
+Else If Hmass05_MasonryType == CMUNormalWeight result = 0.36;
+End If
+End Switch
+End If
+End If</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                  </xsd:element>
+                                                                  <xsd:element name="Hmass11_UfactorJA436NoFraming" type="comp:UfactorJA436NoFraming">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText"/>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage == FramingNA And 
+If Hmass06_ Hmass06_MasonryGrout == NoGrout use this choice for reported data from JA Table 4.3.6 as follows: 
+If Hmass05_MasonryType == CMULightWeight 
+Switch (Hmass07_MassThickness) 
+case 3Mass: result = 0.79; case 4Mass: result = 0.71; case 5Mass: result = 0.65; case 6Mass: result = 0.59; case 7Mass: result = 0.54; case 8Mass: result = 0.51; case 9Mass: result = 0.47; case 10Mass: result = 0.44; case11Mass: result = 0.42; case 12Mass: result = 0.39; 
+End Switch
+ 
+Else If Hmass05_MasonryType == CMUMediumWeight 
+Switch (Hmass07_MassThickness) 
+case 3Mass: result = 0.84; case 4Mass: result = 0.77; case 5Mass: result = 0.70; case 6Mass: result = 0.65; case 7Mass: result = 0.61; case 8Mass: result = 0.57; case 9Mass: result = 0.53; case 10Mass: result = 0.50; case11Mass: result = 0.48; case 12Mass: result = 0.45;  
+End Switch
+ 
+Else If Hmass05_MasonryType == CMUNormalWeight 
+Switch (Hmass07_MassThickness) 
+ 
+case 3Mass: result = 0.88; case 4Mass: result = 0.82; case 5Mass: result = 0.76; case 6Mass: result = 0.71; case 7Mass: result = 0.67; case 8Mass: result = 0.63; case 9Mass: result = 0.60; case 10Mass: result = 0.56; case11Mass: result = 0.53; case 12Mass: result = 0.51; 
+End Switch
+ 
+Else If Hmass05_MasonryType == ClayBrick 
+Switch (Hmass07_MassThickness) 
+case 3Mass: result = 0.80; case 4Mass: result = 0.72; case 5Mass: result = 0.66; 
+End Switch
+ 
+If Hmass05_MasonryType == Concrete 
+Switch (Hmass07_MassThickness) 
+case 3Mass: result = 0.96; case 4Mass: result = 0.91; case 5Mass: result = 0.86; case 6Mass: result = 0.82; case 7Mass: result = 0.78; case 8Mass: result = 0.74; case 9Mass: result = 0.71; case 10Mass: result = 0.68; case11Mass: result = 0.65; case 12Mass: result = 0.63;
+End Switch
+End If
+End If</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                  </xsd:element>
                                                                   <xsd:element name="Hmass11_UfactorJA4314Wood" type="comp:UfactorJA4314Wood">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
-If Hmass08_PartitionFramingMaterial == WoodFraming Then 
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == WoodFraming,  use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+ 
 If Hmass08_FramingDepth == 0_5In 
 Switch (Hmass09_CavityInsulationNR) 
 case R0: Rvalue = 1.3; case R1: Rvalue = 1.3;  case R2: Rvalue = 1.9;  case R3: Rvalue = 2.4; case R4: Rvalue = 2.7; 
@@ -7129,15 +7271,14 @@ Else If Hmass08_FramingDepth == 5_5In
 Switch (Hmass09_CavityInsulationNR) 
 case R0: Rvalue = 1.4; case R1: Rvalue = 1.6;  case R2: Rvalue = 2.6;  case R3: Rvalue = 3.6; case R4: Rvalue = 4.6;  case R5: Rvalue = 5.5;  case R6: Rvalue = 6.4; case R7: Rvalue = 7.3; case R8: Rvalue = 8.1;  case R9:  Rvalue = 8.9; case R10: Rvalue =9.6; case  R11: Rvalue = 10.3; case R12: Rvalue = 11.0;  case R13: Rvalue = 11.7; case R14: Rvalue = 12.4;  case R15: Rvalue = 13.0; case R16: Rvalue = 13.6;  case R17: Rvalue = 14.2; case R18: Rvalue = 14.7; case R19:  Rvalue = 15.3; case R20: Rvalue = 15.8;  case R21: Rvalue = 16.3;
 End Switch
-End If
 End If</xsd:documentation>
                                                                      </xsd:annotation>
                                                                   </xsd:element>
                                                                   <xsd:element name="Hmass11_UfactorJA4314Metal" type="comp:UfactorJA4314Metal">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
-If Hmass08_PartitionFramingMaterial == Metal 
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+ 
 If Hmass08_FramingDepth == 0_5In 
 Switch (Hmass09_CavityInsulationNR) 
 case R0: Rvalue = 0.9; case R1: Rvalue = 0.9;  case R2: Rvalue = 1.1;  case R3: Rvalue = 1.1; case R4: Rvalue = 1.2;  
@@ -7197,15 +7338,15 @@ Else If Hmass08_FramingDepth == 5_5In
 Switch (Hmass09_CavityInsulationNR) 
 case R0: Rvalue = 1.3; case R1: Rvalue = 1.4;  case R2: Rvalue = 2.1;  case R3: Rvalue = 2.8; case R4: Rvalue = 3.3;  case R5: Rvalue = 3.8;  case R6: Rvalue = 4.2; case R7: Rvalue = 4.6; case R8: Rvalue = 4.9;  case R9:  Rvalue = 5.2; case R10: Rvalue =5.4; case  R11: Rvalue = 5.7; case R12: Rvalue = 5.9;  case R13: Rvalue =6.1; case R14: Rvalue = 6.3;  case R15: Rvalue = 6.4; case R16: Rvalue = 6.6;  case R17: Rvalue = 6.7; case R18: Rvalue = 6.8; case R19:  Rvalue = 7.0; case R20: Rvalue = 7.1;  case R21: Rvalue = 7.2;
 End Switch
-End If
 End If</xsd:documentation>
                                                                      </xsd:annotation>
                                                                   </xsd:element>
                                                                   <xsd:element name="Hmass11_UfactorJA4314Other" type="comp:UfactorJA4314Other">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
-If Hmass08_PartitionFramingMaterial == NoFraming 
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == NoFraming  Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+ 
+If Hmass08_PartitionFramingMaterial == NoFraming  
 Switch (Hmass09_CavityInsulationNR) 
 case R0: Rvalue = 0.5; case R1: Rvalue = 1.5;  case R2: Rvalue = 2.5;  case R3: Rvalue = 3.5; case R4: Rvalue = 4.5;  case R5: Rvalue = 5.5;  case R6: Rvalue = 6.5; case R7: Rvalue = 7.5; case R8: Rvalue = 8.5; case R9:  Rvalue = 9.5; case R10: Rvalue = 10.5; case  R11: Rvalue = 11.5; case R12: Rvalue = 12.5; case R13: Rvalue = 13.5; case R14: Rvalue = 14.5;  case R15: Rvalue = 15.5; case R16: Rvalue = 16.5;  case R17: Rvalue = 17.5; case R18: Rvalue = 18.5; case R19:  Rvalue = 19.5; case R20: Rvalue = 20.5;  case R21: Rvalue = 21.5; 
 End Switch
@@ -7546,10 +7687,11 @@ End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:complexType>
                                                             <xsd:sequence>
-                                                               <xsd:element name="Hconcrete11_UfactorJA437" type="comp:UfactorJA437">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                               <xsd:choice maxOccurs="1">
+                                                                  <xsd:element name="Hconcrete11_UfactorJA437" type="comp:UfactorJA437">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">Calculated field: If Hconcrete08_NotAplicableMessge != FramingNA use this choice for not reported data from JA Table 4.3.7
 If Hconcrete05_ConcreteWebPercent == 0pct  
 If Hconcrete06_ SteelThroughInsulation == false 
 Switch (Hconcrete07_ConcreteSandwichInsulation ) 
@@ -7586,15 +7728,71 @@ case R7_0: result = 0.588; case R9_3: result = 0.556; case R14_0: 0.476; case R1
 End Switch
 End if
 End If</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
+                                                                     </xsd:annotation>
+                                                                  </xsd:element>
+                                                                  <xsd:element name="Hconcrete11_NotApplicableMessage">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge == FramingNA
+result = FramingNA
+End If</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                     <xsd:simpleType>
+                                                                        <xsd:restriction base="comp:NotApplicableMessage">
+                                                                           <xsd:enumeration value="FramingNA"/>
+                                                                        </xsd:restriction>
+                                                                     </xsd:simpleType>
+                                                                  </xsd:element>
+                                                               </xsd:choice>
                                                                <xsd:choice maxOccurs="1">
+                                                                  <xsd:element name="Hconcrete11_UfactorJA437NoFraming" type="comp:UfactorJA437NoFraming">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText"/>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge == FramingNA, use this choice for reported data from JA Table 4.3.7
+ 
+If Hconcrete05_ConcreteWebPercent == 0pct  
+If Hconcrete06_ SteelThroughInsulation == false 
+Switch (Hconcrete07_ConcreteSandwichInsulation ) 
+case R7_0: result = 0.122; case R9_3: result = 0.095; case R14_0: 0.066; case R18_6: 0.051; case R27_9: result = 0.034; 
+End Switch
+ 
+Else If Hconcrete06_ SteelThroughInsulation == true 
+Switch (Hconcrete07_ConcreteSandwichInsulation ) 
+case R7_0: result = 0.164; case R9_3: result = 0.128; case R14_0: 0.091; case R18_6: 0.070; case R27_9: result = 0.048;   
+End Switch
+End If
+ 
+Else If Hconcrete05_ConcreteWebPercent == 10pct  
+If Hconcrete06_ SteelThroughInsulation == false 
+Switch (Hconcrete07_ConcreteSandwichInsulation ) 
+case R7_0: result = 0.476; case R9_3: result = 0.435; case R14_0: 0.345; case R18_6: 0.286; case R27_9: result = 0.217;  
+End Switch
+ 
+Else If Hconcrete06_ SteelThroughInsulation == true 
+Switch (Hconcrete07_ConcreteSandwichInsulation ) 
+case R7_0: result = 0.500; case R9_3: result = 0.435; case R14_0: 0.357; case R18_6: 0.303; case R27_9: result = 0.227; 
+End Switch 
+End If
+ 
+Else If Hconcrete05_ConcreteWebPercent == 20pct  
+If Hconcrete06_ SteelThroughInsulation == false 
+Switch (Hconcrete07_ConcreteSandwichInsulation ) 
+case R7_0: result = 0.588; case R9_3: result = 0.556; case R14_0: 0.476; case R18_6: 0.417; case R27_9: result = 0.333; 
+End Switch
+ 
+Else If Hconcrete06_ SteelThroughInsulation == true 
+Switch (Hconcrete07_ConcreteSandwichInsulation ) 
+case R7_0: result = 0.588; case R9_3: result = 0.556; case R14_0: 0.476; case R18_6: 0.417; case R27_9: result = 0.333;
+End Switch
+End if
+End If</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                  </xsd:element>
                                                                   <xsd:element name="Hconcrete11_UfactorJA4314Wood" type="comp:UfactorJA4314Wood">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/(result from Hconcrete11_ UfactorJA437 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == WoodFraming, use this choice to adjust reported data.   Adjusted result for JA4 U-factor = 1/ (1/(result from Hconcrete11_ UfactorJA437 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
-If Hconcrete08_PartitionFramingMaterial == WoodFraming Then 
 If Hconcrete08_FramingDepth == 0_5In 
 Switch (Hconcrete09_CavityInsulationNR) 
 case R0: Rvalue = 1.3; case R1: Rvalue = 1.3;  case R2: Rvalue = 1.9;  case R3: Rvalue = 2.4; case R4: Rvalue = 2.7; 
@@ -7654,15 +7852,14 @@ Else If Hconcrete08_FramingDepth == 5_5In
 Switch (Hconcrete09_CavityInsulationNR) 
 case R0: Rvalue = 1.4; case R1: Rvalue = 1.6;  case R2: Rvalue = 2.6;  case R3: Rvalue = 3.6; case R4: Rvalue = 4.6;  case R5: Rvalue = 5.5;  case R6: Rvalue = 6.4; case R7: Rvalue = 7.3; case R8: Rvalue = 8.1;  case R9:  Rvalue = 8.9; case R10: Rvalue =9.6; case  R11: Rvalue = 10.3; case R12: Rvalue = 11.0;  case R13: Rvalue = 11.7; case R14: Rvalue = 12.4;  case R15: Rvalue = 13.0; case R16: Rvalue = 13.6;  case R17: Rvalue = 14.2; case R18: Rvalue = 14.7; case R19:  Rvalue = 15.3; case R20: Rvalue = 15.8;  case R21: Rvalue = 16.3;
 Endn Switch
-End If
 End If</xsd:documentation>
                                                                      </xsd:annotation>
                                                                   </xsd:element>
                                                                   <xsd:element name="Hconcrete11_UfactorJA4314Metal" type="comp:UfactorJA4314Metal">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/( result from Hconcrete11_ UfactorJA437 + Rvalue))  where Rvalue is assigned as follows using JA4 table 4.3.14  
-If Hconcrete08_PartitionFramingMaterial == Metal 
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == Metal, use this choice  to adjust reported data..  Adjusted result for JA4 U-factor = 1/ (1/( result from Hconcrete11_ UfactorJA437 + Rvalue))  where Rvalue is assigned as follows using JA4 table 4.3.14 
+ 
 If Hconcrete08_FramingDepth == 0_5In 
 Switch (Hconcrete09_CavityInsulationNR) 
 case R0: Rvalue = 0.9; case R1: Rvalue = 0.9;  case R2: Rvalue = 1.1;  case R3: Rvalue = 1.1; case R4: Rvalue = 1.2;  
@@ -7722,14 +7919,13 @@ Else If Hconcrete08_FramingDepth == 5_5In
 Switch (Hconcrete09_CavityInsulationNR) 
 case R0: Rvalue = 1.3; case R1: Rvalue = 1.4;  case R2: Rvalue = 2.1;  case R3: Rvalue = 2.8; case R4: Rvalue = 3.3;  case R5: Rvalue = 3.8;  case R6: Rvalue = 4.2; case R7: Rvalue = 4.6; case R8: Rvalue = 4.9;  case R9:  Rvalue = 5.2; case R10: Rvalue =5.4; case  R11: Rvalue = 5.7; case R12: Rvalue = 5.9;  case R13: Rvalue =6.1; case R14: Rvalue = 6.3;  case R15: Rvalue = 6.4; case R16: Rvalue = 6.6;  case R17: Rvalue = 6.7; case R18: Rvalue = 6.8; case R19:  Rvalue = 7.0; case R20: Rvalue = 7.1;  case R21: Rvalue = 7.2;
 End Switch
-End If
 End If</xsd:documentation>
                                                                      </xsd:annotation>
                                                                   </xsd:element>
                                                                   <xsd:element name="Hconcrete11_UfactorJA4314Other" type="comp:UfactorJA4314Other">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/(result from Hconcrete11_ UfactorJA437 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == NoFraming Or EIFS, use this choice  to adjust reported data..    Adjusted result for JA4 U-factor = 1/ (1/(result from Hconcrete11_ UfactorJA437 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
 If Hconcrete08_PartitionFramingMaterial == NoFraming 
 Switch (Hconcrete09_CavityInsulationNR) 
 case R0: Rvalue = 0.5; case R1: Rvalue = 1.5;  case R2: Rvalue = 2.5;  case R3: Rvalue = 3.5; case R4: Rvalue = 4.5;  case R5: Rvalue = 5.5;  case R6: Rvalue = 6.5; case R7: Rvalue = 7.5; case R8: Rvalue = 8.5; case R9:  Rvalue = 9.5; case R10: Rvalue = 10.5; case  R11: Rvalue = 11.5; case R12: Rvalue = 12.5; case R13: Rvalue = 13.5; case R14: Rvalue = 14.5;  case R15: Rvalue = 15.5; case R16: Rvalue = 16.5;  case R17: Rvalue = 17.5; case R18: Rvalue = 18.5; case R19:  Rvalue = 19.5; case R20: Rvalue = 20.5;  case R21: Rvalue = 21.5; 
@@ -9097,7 +9293,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hmetalb03b_Status == New 
-Switch ( Hmetalb03b_TopLevelOccupancy) 
+Switch ( Hmetalb03a_TopLevelOccupancy) 
 case  Nonresidential:  
 If A03_ClimateZoneNumber == 1, 3, 6 Or 7 result = 0.113; 
 Else  If A03_ClimateZoneNumber == 2, 4, 5, 16 Or InRange(8,14)  result = 0.061; 
@@ -9145,42 +9341,42 @@ End If
 Calculated Field: 
 If Hmetalb05_MetalBldgInsulation == SingleLayerBatt Then 
 If Hmetalb06_CavityInsulationNR  == R0  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 1.18; case R2: result = 0.351; case R4: result =  0.206; case R6: result =  0.146; case R7: result = 0.127; case R8: result = 0.113; case R10: result = 0.092; case R14: result = 0.067; 
 End Switch
-Else If Fmetalb10_CavityInsulationNR  == R6 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Else If Fmetalb06_CavityInsulationNR  == R6 
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.184; case R2: result = 0.135; case R4: result =  0.106; case R6: result =  0.087; case R7: result = 0.080; case R8: result = 0.074; case R10: result = 0.065; case R14: result = 0.051;  
 End Switch
-Else If Fmetalb10_CavityInsulationNR  == R10  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Else If Fmetalb06_CavityInsulationNR  == R10  
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.134; case R2: result = 0.106; case R4: result =  0.087; case R6: result =  0.074; case R7: result = 0.069; case R8: result = 0.065; case R10: result = 0.057; case R14: result = 0.047;  
 End Switch
-Else If Fmetalb10_CavityInsulationNR  == R11  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Else If Fmetalb06_CavityInsulationNR  == R11  
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.123; case R2: result = 0.099; case R4: result =  0.082; case R6: result =  0.071; case R7: result = 0.066; case R8: result = 0.062; case R10: result = 0.055; case R14: result = 0.045;  
 End Switch
-Else If Fmetalb10_CavityInsulationNR  == R13  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Else If Fmetalb06_CavityInsulationNR  == R13  
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.113; case R2: result = 0.092; case R4: result =  0.078; case R6: result =  0.067; case R7: result = 0.063; case R8: result = 0.059; case R10: result = 0.053; case R14: result = 0.044; 
 End Switch
 End If
  
 Else If Hmetalb05_MetalBldgInsulation == DoubleLayerBatt Then 
 If Hmetalb06_CavityInsulationNR  == R6_R13  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.07; case R2: result = 0.061; case R4: result =  0.055; case R6: result =  0.049; case R7: result = 0.047; case R8: result = 0.045; case R10: result = 0.041; case R14: result = 0.035; 
 End Switch
-Else If Fmetalb10_CavityInsulationNR  == R10_R13 
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Else If Fmetalb06_CavityInsulationNR  == R10_R13 
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.061; case R2: result = 0.054; case R4: result =  0.049; case R6: result =  0.045; case R7: result = 0.043; case R8: result = 0.041; case R10: result = 0.038; case R14: result = 0.033;  
 End Switch
-Else If Fmetalb10_CavityInsulationNR  == R13_R13  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Else If Fmetalb06_CavityInsulationNR  == R13_R13  
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.057; case R2: result = 0.051; case R4: result =  0.046; case R6: result =  0.042; case R7: result = 0.041; case R8: result = 0.039; case R10: result = 0.036; case R14: result = 0.032;  
  
-Else If Fmetalb10_CavityInsulationNR  == R19_R13  
-Switch (Fmetalb10_ContinuousInsulationNR) 
+Else If Fmetalb06_CavityInsulationNR  == R19_R13  
+Switch (Fmetalb07_ContinuousInsulationNR) 
 case R0: result = 0.048; case R2: result = 0.044; case R4: result =  0.040; case R6: result =  0.037; case R7: result = 0.036; case R8: result = 0.035; case R10: result = 0.032; case R14: result = 0.029;
 End Switch
 End If
@@ -9383,6 +9579,9 @@ Else If A03_ClimateZoneNumber == 11, 14, 15, 16 result = 0.042;
 End If
  
 case RelocableSchoolBuildingAllZones: result = 0.059.
+ 
+case OtherOccupancy:  result = 0.110;
+ 
 End Switch</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
@@ -9733,10 +9932,12 @@ End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:complexType>
                                                             <xsd:sequence>
-                                                               <xsd:element name="Hlog09_UfactorJA4311" type="comp:UfactorJA4311">
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                               <xsd:choice maxOccurs="1">
+                                                                  <xsd:element name="Hlog09_UfactorJA4311" type="comp:UfactorJA4311">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">Calculated field: If Hlog06_NotApplicableMessage != FramingNA use this choice for not reported data from JA Table 4311
+ 
 If Hlog05_LogDiameter == 6Log  result = 0.132; 
 Else If Hlog05_LogDiameter == 8Log result = 0.102; 
 Else If Hlog05_LogDiameter == 10Log result = 0.083; 
@@ -9744,15 +9945,42 @@ Else If Hlog05_LogDiameter == 12Log result = 0.070;
 Else If Hlog05_LogDiameter == 14Log result = 0.060; 
 Else If Hlog05_LogDiameter == 16Log result = 0.053;
 End If</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
+                                                                     </xsd:annotation>
+                                                                  </xsd:element>
+                                                                  <xsd:element name="Hlog09_NotApplicableMessage">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage == FramingNA
+result = FramingNA
+End If</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                     <xsd:simpleType>
+                                                                        <xsd:restriction base="comp:NotApplicableMessage">
+                                                                           <xsd:enumeration value="FramingNA"/>
+                                                                        </xsd:restriction>
+                                                                     </xsd:simpleType>
+                                                                  </xsd:element>
+                                                               </xsd:choice>
                                                                <xsd:choice maxOccurs="1">
+                                                                  <xsd:element name="Hlog09_UfactorJA4311NoFraming" type="comp:UfactorJA4311NoFraming">
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText"/>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage == FramingNA, use this choice for reported data from JA Table 4311
+ 
+If Hlog05_LogDiameter == 6Log  result = 0.132; 
+Else If Hlog05_LogDiameter == 8Log result = 0.102; 
+Else If Hlog05_LogDiameter == 10Log result = 0.083; 
+Else If Hlog05_LogDiameter == 12Log result = 0.070; 
+Else If Hlog05_LogDiameter == 14Log result = 0.060; 
+Else If Hlog05_LogDiameter == 16Log result = 0.053;
+End If</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                  </xsd:element>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Wood" type="comp:UfactorJA4314Wood">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/(result from Hlog09a_ UfactorJA4311 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == WoodFraming, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hlog09a_ UfactorJA4311 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
-If Hlog06_PartitionFramingMaterial == WoodFraming Then 
 If Hlog06_FramingDepth == 0_5In 
 Switch (Hlog07_CavityInsulationNR) 
 case R0: Rvalue = 1.3; case R1: Rvalue = 1.3;  case R2: Rvalue = 1.9;  case R3: Rvalue = 2.4; case R4: Rvalue = 2.7; 
@@ -9801,15 +10029,14 @@ End Switch
 Switch (Hlog07_CavityInsulationNR) 
 case R0: Rvalue = 1.4; case R1: Rvalue = 1.6;  case R2: Rvalue = 2.6;  case R3: Rvalue = 3.6; case R4: Rvalue = 4.6;  case R5: Rvalue = 5.5;  case R6: Rvalue = 6.4; case R7: Rvalue = 7.3; case R8: Rvalue = 8.1;  case R9:  Rvalue = 8.9; case R10: Rvalue =9.6; case  R11: Rvalue = 10.3; case R12: Rvalue = 11.0;  case R13: Rvalue = 11.7; case R14: Rvalue = 12.4;  case R15: Rvalue = 13.0; case R16: Rvalue = 13.6;  case R17: Rvalue = 14.2; case R18: Rvalue = 14.7; case R19:  Rvalue = 15.3; case R20: Rvalue = 15.8;  case R21: Rvalue = 16.3;
 End Switch
-End If
 End If</xsd:documentation>
                                                                      </xsd:annotation>
                                                                   </xsd:element>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Metal" type="comp:UfactorJA4314Metal">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/( result from Hlog09a_ UfactorJA4311 + Rvalue))  where Rvalue is assigned as follows using JA4 table 4.3.14  
-If Hlog06_PartitionFramingMaterial == Metal 
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/( result from Hlog09a_ UfactorJA4311 + Rvalue))  where Rvalue is assigned as follows using JA4 table 4.3.14  
+ 
 If Hlog06_FramingDepth == 0_5In 
 Switch (Hlog07_CavityInsulationNR) 
 case R0: Rvalue = 0.9; case R1: Rvalue = 0.9;  case R2: Rvalue = 1.1;  case R3: Rvalue = 1.1; case R4: Rvalue = 1.2;  
@@ -9858,14 +10085,14 @@ Else If Hlog06_FramingDepth == 5_5In
 Switch (Hlog07_CavityInsulationNR) 
 case R0: Rvalue = 1.3; case R1: Rvalue = 1.4;  case R2: Rvalue = 2.1;  case R3: Rvalue = 2.8; case R4: Rvalue = 3.3;  case R5: Rvalue = 3.8;  case R6: Rvalue = 4.2; case R7: Rvalue = 4.6; case R8: Rvalue = 4.9;  case R9:  Rvalue = 5.2; case R10: Rvalue =5.4; case  R11: Rvalue = 5.7; case R12: Rvalue = 5.9;  case R13: Rvalue =6.1; case R14: Rvalue = 6.3;  case R15: Rvalue = 6.4; case R16: Rvalue = 6.6;  case R17: Rvalue = 6.7; case R18: Rvalue = 6.8; case R19:  Rvalue = 7.0; case R20: Rvalue = 7.1;  case R21: Rvalue = 7.2;
 End Switch
-End If
 End If</xsd:documentation>
                                                                      </xsd:annotation>
                                                                   </xsd:element>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Other" type="comp:UfactorJA4314Other">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">Adjusted result for JA4 U-factor = 1/ (1/(result from Hlog09a_ UfactorJA4311 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == NoFraming Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hlog09a_ UfactorJA4311 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+ 
 If Hlog06_PartitionFramingMaterial == NoFraming 
 Switch (Hlog07_CavityInsulationNR) 
 case R0: Rvalue = 0.5; case R1: Rvalue = 1.5;  case R2: Rvalue = 2.5;  case R3: Rvalue = 3.5; case R4: Rvalue = 4.5;  case R5: Rvalue = 5.5;  case R6: Rvalue = 6.5; case R7: Rvalue = 7.5; case R8: Rvalue = 8.5; case R9:  Rvalue = 9.5; case R10: Rvalue = 10.5; case  R11: Rvalue = 11.5; case R12: Rvalue = 12.5; case R13: Rvalue = 13.5; case R14: Rvalue = 14.5;  case R15: Rvalue = 15.5; case R16: Rvalue = 16.5;  case R17: Rvalue = 17.5; case R18: Rvalue = 18.5; case R19:  Rvalue = 19.5; case R20: Rvalue = 20.5;  case R21: Rvalue = 21.5; 
@@ -10281,8 +10508,11 @@ End If</xsd:documentation>
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Insulation Type</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from customized list:  
-If HICF05_TypeICF == Flat list: ExpandedPolystyrene display term EPS,  ExtrudedPolystyrene display term XPS,  Polyurethane,  
-Else   If HICF05_TypeICF == GridWaffle Or GridScreen list: ExpandedPolystyrene display term EPS,
+If HICF05_TypeICF == Flat 
+list: ExpandedPolystyrene display term EPS,  ExtrudedPolystyrene display term XPS,  Polyurethane 
+ 
+Else   If HICF05_TypeICF == GridWaffle Or GridScreen 
+list: ExpandedPolystyrene display term EPS, CementEPScompound display term Cement EPS compound
 End If</xsd:documentation>
                                                    <xsd:appinfo source="displayterm">
                                                       <dtyp:displayterm value="ExpandedPolystyrene">EPS</dtyp:displayterm>
@@ -10291,6 +10521,7 @@ End If</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="env:InsulationType">
+                                                      <xsd:enumeration value="CementEPScompound"/>
                                                       <xsd:enumeration value="ExpandedPolystyrene"/>
                                                       <xsd:enumeration value="ExtrudedPolystyrene"/>
                                                       <xsd:enumeration value="Polyurethane"/>
@@ -10305,7 +10536,8 @@ If HICF07_InsulationType == ExpandedPolystyrene list: 2icf display term 2 in., 2
  
 Else If HICF07_InsulationType == ExtrudedPolystyrene list: 2icf display term 2 in., 2_5icf display term 2.5 in., 2_625icf display term 2.625 in., 2_75icf display term 2.75 in., 3icf display term 3 in., 3icf display term 3 in., 4icf display term 4 in.; 
  
-Else If HICF07_InsulationType == Polyurethane list: 1_5icf display term 1.5 in., 2icf display term 2 in., 4_5icf display term 4.5 in.;  Else If HICF07_InsulationType == CementEPScompound list: 2icf display term 2 in., 3icf display term 3 in., 4icf display term 4 in.;
+Else If HICF07_InsulationType == Polyurethane list: 1_5icf display term 1.5 in., 2icf display term 2 in., 4_5icf display term 4.5 in.;  
+Else If HICF07_InsulationType == CementEPScompound list: 2icf display term 2 in., 3icf display term 3 in., 4icf display term 4 in.;
 End If
 End If</xsd:documentation>
                                                 </xsd:annotation>
@@ -10399,7 +10631,7 @@ Switch (HICF06_CoreICF)
 case 4core: result = 0.058; case 6core: result = 0.057; case 8core: result = 0.056; case 10core: result = 0.055; case 12core: result = 0.055; 
 End Switch
 Else If HICF08_InsulationICF == 2_25icf 
-(HICF06_CoreICF) 
+Switch (HICF06_CoreICF) 
 case 4core: result = 0.052; case 6core: result = 0.051; case 8core: result = 0.051; case 10core: result = 0.050; case 12core: result = 0.050;  
 End Switch
 Else If HICF08_InsulationICF == 2_5icf 
@@ -10482,7 +10714,7 @@ Switch (HICF06_CoreICF)
 case 4core: result = 0.045; case 6core: result = 0.045; case 8core: result = 0.045; case 10core: result = 0.044; case 12core: result = 0.044; 
 End Switch
 Else If HICF08_InsulationICF == 2_5icf 
-(HICF06_CoreICF) 
+Switch (HICF06_CoreICF) 
 case 4core: result = 0.037; case 6core: result = 0.037; case 8core: result = 0.036; case 10core: result = 0.036; case 12core: result = 0.036;  
 End Swittch
 Else If HICF08_InsulationICF == 2_625icf 
@@ -10844,11 +11076,16 @@ If required this subsection is displayed in the pdf as the first row.
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="HCalc2UF01Light_WallMass" type="env:WallMass">
+                                    <xsd:element name="HCalc2UF01Light_WallMass">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Wall Type</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">result = Light display term Light Mass</xsd:documentation>
                                        </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="env:WallMass">
+                                             <xsd:enumeration value="Light"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
                                     </xsd:element>
                                     <xsd:element name="HCalc2UF02Light_AreaWeightAvgTotalArea" type="comp:AreaWeightAvgTotalArea">
                                        <xsd:annotation>
@@ -10923,11 +11160,16 @@ If required this subsection is displayed in the pdf as the second row.</xsd:docu
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
-                                    <xsd:element name="HCalc2UF01Heavy_WallMass" type="env:WallMass">
+                                    <xsd:element name="HCalc2UF01Heavy_WallMass">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Wall Type</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">result = Heavy display term Heavy Mass</xsd:documentation>
                                        </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="env:WallMass">
+                                             <xsd:enumeration value="Heavy"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
                                     </xsd:element>
                                     <xsd:element name="HCalc2UF02Heavy_AreaWeightAvgTotalArea" type="comp:AreaWeightAvgTotalArea">
                                        <xsd:annotation>
@@ -11218,7 +11460,7 @@ End If</xsd:documentation>
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Compliance Results Using Area-Weighted Calculation Option</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If HCalc4UF03_AreaWeightAvgUfactorRequired GTE HCalc4UF04_AreaWeightAvgUfactor result = true display term COMPLIES; 
+If HCalc4UF03_AreaWeightAvgRequiredUfactor GTE HCalc4UF04_AreaWeightAvgUfactor result = true display term COMPLIES; 
 Else result = false display term DOES NOT COMPLY
 End If</xsd:documentation>
                               </xsd:annotation>

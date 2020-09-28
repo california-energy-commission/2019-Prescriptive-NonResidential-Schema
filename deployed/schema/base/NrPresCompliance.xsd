@@ -1251,6 +1251,7 @@
          <xsd:element name="FieldTechnicianNRCA" type="comp:FieldTechnicianNRCA"/>
          <xsd:element name="Footer" type="comp:Footer"/>
          <xsd:element name="FooterNRCC" type="comp:FooterNRCC"/>
+         <xsd:element name="FooterNRCCPRF" type="comp:FooterNRCCPRF"/>
          <xsd:element name="HeaderNRCA" type="comp:HeaderNRCA"/>
          <xsd:element name="HeaderNRCC" type="comp:HeaderNRCC"/>
          <xsd:element name="HeaderNRCCPRF" type="comp:HeaderNRCCPRF"/>
@@ -1267,6 +1268,12 @@
    </xsd:simpleType>
    <xsd:simpleType name="ComplianceDocumentSchemaVersion">
       <xsd:restriction base="xsd:string"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ComplianceDocumentStandardsTitle">
+      <xsd:annotation>
+         <xsd:documentation>This is the title that appears in the footer of every compliance document defining the year and the standards that apply</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:token"/>
    </xsd:simpleType>
    <xsd:simpleType name="ComplianceDocumentT24P6Coverage">
       <xsd:annotation>
@@ -2613,7 +2620,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:element name="documentAuthor04SignatureDate" type="comp:SignatureDate" minOccurs="0"/>
          <xsd:element name="documentAuthor05Address" type="comp:StreetAddress" minOccurs="0"/>
          <xsd:element name="documentAuthor06Certification" type="comp:CertificationNumber" minOccurs="0"/>
-         <xsd:element name="documentAuthor07CityDA" type="comp:DocumentationAuthorCity" minOccurs="0"/>
          <xsd:element name="documentAuthor08State" type="comp:State" minOccurs="0"/>
          <xsd:element name="documentAuthor09Zipcode" type="comp:Zipcode" minOccurs="0"/>
          <xsd:element name="documentAuthor10Phone" type="comp:PhoneNumber" minOccurs="0"/>
@@ -3631,6 +3637,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:Decimal"/>
    </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseImprovementIAQ_Ventilation">
+      <xsd:annotation>
+         <xsd:documentation>Units: percent</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal1Place"/>
+   </xsd:simpleType>
    <xsd:simpleType name="EnergyUseImprovementSpaceCooling">
       <xsd:annotation>
          <xsd:documentation>Units: percent</xsd:documentation>
@@ -3664,6 +3676,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:restriction base="xsd:token"/>
    </xsd:simpleType>
    <xsd:simpleType name="EnergyUseMarginHR">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseMarginIAQ_Ventilation">
       <xsd:annotation>
          <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
       </xsd:annotation>
@@ -3753,6 +3771,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:Decimal"/>
    </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseProposedIAQ_Ventilation">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="EnergyUseProposedIndoorLighting">
       <xsd:annotation>
          <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
@@ -3830,6 +3854,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:Decimal"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnergyUseStandardIAQ_Ventilation">
+      <xsd:annotation>
+         <xsd:documentation>Units: kTDV per ft2 per yr</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="EnergyUseStandardIndoorLighting">
       <xsd:annotation>
@@ -4410,6 +4440,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:complexType name="FooterNRCC">
       <xsd:sequence>
          <xsd:element name="footer01_RevisionDateNRCC" type="comp:Revision"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="FooterNRCCPRF">
+      <xsd:sequence>
+         <xsd:element name="complianceDocumentStandardsTitle" type="comp:ComplianceDocumentStandardsTitle"/>
+         <xsd:element name="performanceReportVersion" type="comp:PerformanceReportVersion"/>
+         <xsd:element name="reportGenerationDateTime" type="comp:ReportGenerationDateTime"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:simpleType name="FunctionalPerformanceTestingActivities">
@@ -6560,12 +6597,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:attribute name="revision" type="comp:Revision" use="required"/>
       <xsd:attribute name="validates" type="comp:Validates" use="required"/>
    </xsd:complexType>
-   <xsd:simpleType name="PercentImprovementSpaceHeatingNorth">
-      <xsd:annotation>
-         <xsd:documentation>The percentage of improvement  is the compliance margin represented as a percentage of the total energy use of the  Standard Design which may be negative indicating a lack of improvement between the standard and proposed design.  Units: percent</xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:DecimalNonnegative"/>
-   </xsd:simpleType>
    <xsd:simpleType name="PerfComputerPRC">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -6649,6 +6680,14 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="PerfComplies"/>
          <xsd:enumeration value="PerfFailsUMLD"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="PerformanceReportVersion">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Report Version:</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string"/>
    </xsd:simpleType>
    <xsd:simpleType name="PermitDay">
       <xsd:annotation>
@@ -7504,6 +7543,15 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ReportGenerationDateTime">
+      <xsd:annotation>
+         <xsd:documentation>This value is an xsd:dateTime data type recording when compliance report was generated.  The format is yyyy-mm-ddThh:mm:ss.sss The T indicates the beginning of the time part of the value and all parts are required except the second decimals which are optional.   For example 2013-12-17T15:03:00 is valid XML entry.  For display purposes the T is usually stripped off  Units: none</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Report Generated At:</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:dateTime"/>
    </xsd:simpleType>
    <xsd:simpleType name="ReportRequestor">
       <xsd:restriction base="xsd:token"/>
@@ -8441,7 +8489,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    </xsd:simpleType>
    <xsd:simpleType name="RunDateTime">
       <xsd:annotation>
-         <xsd:documentation>In performance compliance, this is the date that the compliance analysis was performed  Units: none</xsd:documentation>
+         <xsd:documentation>In performance compliance, this is the date that the compliance analysis was performed.  This value is an xsd:dateTime data type recording when compliance report was generated.  The format is yyyy-mm-ddThh:mm:ss.sss The T indicates the beginning of the time part of the value and all parts are required except the second decimals which are optional.   For example 2013-12-17T15:03:00 is valid XML entry.  Units: none</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:dateTime"/>
    </xsd:simpleType>
@@ -9660,6 +9708,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA4311NoFraming">
+      <xsd:annotation>
+         <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="UfactorJA4312">
       <xsd:annotation>
          <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
@@ -9762,13 +9816,31 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA435NoFraming">
+      <xsd:annotation>
+         <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="UfactorJA436">
       <xsd:annotation>
          <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA436NoFraming">
+      <xsd:annotation>
+         <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="UfactorJA437">
+      <xsd:annotation>
+         <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="UfactorJA437NoFraming">
       <xsd:annotation>
          <xsd:documentation>Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>

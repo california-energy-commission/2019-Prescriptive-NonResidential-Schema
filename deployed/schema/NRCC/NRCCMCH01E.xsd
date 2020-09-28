@@ -3607,7 +3607,7 @@ case GTE150ToLT300:
 If Fd05_ChillerExceptionPathB == NoExceptionTaken result1 = LTE0_680; 
 Else result1 = LTE0_660; 
 End if
-case GTE300ToLT600: 
+case GTE300ToLT400: case GTE400ToLT600: 
 If Fd05_ChillerExceptionPathB == NoExceptionTaken result1 = LTE0_625; 
 Else result1 =LTE0_610; 
 End if
@@ -5223,6 +5223,8 @@ End If
 Else  If VentilationSpaceFunction == LectureHall
 IIf J16a_DemandControlVent == ProvidedDCV  
 result = Largest (( 0.15 x J10_SpaceFloorArea), (J12_OccupantCount x 15.0));
+result = J12_OccupantCount x 15.0; 
+ 
 End If
  
 End If</xsd:documentation>
@@ -5484,7 +5486,7 @@ End If</xsd:documentation>
                                  <xsd:sequence>
                                     <xsd:element name="J19a_IsVentSystemContinuous" type="comp:IsVentSystemContinuous">
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Check the box if the system is using continuous ventilation to meet the ventilatiion requirements per 
+                                          <xsd:documentation source="FieldText">Check the box if the system is using continuous ventilation to meet the ventilation requirements per 
                                              <d:t24ref h="120.1(b)2Aivb"/>
                                           </xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true; Else result = false.
@@ -6702,7 +6704,7 @@ End If</xsd:documentation>
                   <xsd:element name="O01_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch02A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch02A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O01a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6720,7 +6722,7 @@ End If</xsd:documentation>
                   <xsd:element name="O02_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch03A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch03A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O02a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6742,7 +6744,7 @@ End If</xsd:documentation>
                   <xsd:element name="O03_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch04A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch04A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O03a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6762,7 +6764,7 @@ If H00b_FanSystemEconomizerType  == FixedTemperature, FixedEnthalpy, Differentia
                   <xsd:element name="O04_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch05A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch05A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O04a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6784,7 +6786,7 @@ End If</xsd:documentation>
                   <xsd:element name="O05_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch06A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch06A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O05a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6805,7 +6807,7 @@ End If</xsd:documentation>
                   <xsd:element name="O06_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch07A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch07A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O06a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6826,7 +6828,7 @@ End If</xsd:documentation>
                   <xsd:element name="O07_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch08A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch08A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O07a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6847,7 +6849,7 @@ End If</xsd:documentation>
                   <xsd:element name="O08_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch09A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch09A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O08a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6868,7 +6870,7 @@ End If</xsd:documentation>
                   <xsd:element name="O09_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch10A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch10A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O09a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6889,7 +6891,7 @@ End If</xsd:documentation>
                   <xsd:element name="O10_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch11A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch11A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O10a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6910,7 +6912,7 @@ End If</xsd:documentation>
                   <xsd:element name="O11_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch12A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch12A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O11a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6931,7 +6933,7 @@ End If</xsd:documentation>
                   <xsd:element name="O12_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch13A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch13A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O12a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6949,7 +6951,7 @@ End If</xsd:documentation>
                   <xsd:element name="O13_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch14A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch14A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O13a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6967,7 +6969,7 @@ End If</xsd:documentation>
                   <xsd:element name="O14_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch15A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch15A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O14a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -6988,7 +6990,7 @@ End If</xsd:documentation>
                   <xsd:element name="O15_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch16A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch16A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O15a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -7009,7 +7011,7 @@ End If</xsd:documentation>
                   <xsd:element name="O16_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch17A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch17A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O16a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -7030,7 +7032,7 @@ End If</xsd:documentation>
                   <xsd:element name="O17_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch18A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch18A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O17a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -7051,7 +7053,7 @@ End If</xsd:documentation>
                   <xsd:element name="O18_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch19A == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch19A == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O18a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -7073,7 +7075,7 @@ End If</xsd:documentation>
                   <xsd:element name="O19_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch20 == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch20 == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O19a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -7094,7 +7096,7 @@ End If</xsd:documentation>
                   <xsd:element name="O20_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch21 == true; this field is required.  User enters or selected one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If O01_RequireNRCAMch21 == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="O20a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
