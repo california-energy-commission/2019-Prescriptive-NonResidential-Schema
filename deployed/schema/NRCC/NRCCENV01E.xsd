@@ -5394,7 +5394,10 @@ WoodFrameLTEU034 display term NA: Wood Frame Roof U :
                                              <xsd:documentation source="FieldText">Compliance Method</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">For any of these conditions result = BlankGrayedOut; 
  
-Condition: G05_RoofSlope == SteepSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New Or ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16; 
+Condition: G05_RoofSlope == SteepSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New And A03_ClimateZoneNumber == 1 Or 16; 
+ 
+Condition: G05_RoofSlope == SteepSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16; 
+ 
  
 Condition:  G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR And G03_Status == New And A03_ClimateZoneNumber == 12, 16 Or InRange(1,8); 
  
@@ -5415,17 +5418,22 @@ Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR 
  
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
-If G05_RoofSlope == LowSlope result = 0.63; 
-Else If G05_RoofSlope == SteepSlope result = 0.20; 
+If G05_RoofSlope == LowSlope 
+result = 0.63; 
+Else If G05_RoofSlope == SteepSlope  A03_ClimateZoneNumber InRange (2,15) 
+result = 0.20; 
 End If
  
 case ResidentialNR:  
 If G05_RoofSlope == LowSlope 
-If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15 result = 0.55; 
-Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13, 14 Or 15 result = 0.55; 
+If G03_Status == New And A03_ClimateZoneNumber == 9, 10, 11, 13, 14 Or 15 
+result = 0.55; 
+Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13, 14 Or 15 
+result = 0.55; 
 End If
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) result = 0.20; 
- 
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+result = 0.20; 
+End If 
  
 case RelocableSchoolBuildingAllZones:
  If G05_RoofSlope == LowSlope result = 0.63; 
@@ -5479,7 +5487,8 @@ Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR 
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
 If G05_RoofSlope == LowSlope result = 0.75; 
-Else If G05_RoofSlope == SteepSlope result = 0.75; 
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+result = 0.75; 
 End If
  
 case ResidentialNR:  
@@ -5490,7 +5499,6 @@ Else If G03_Status == ExistingAlteration And A03_ClimateZoneNumber == 10, 11, 13
 End If
 Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
 result = 0.75; 
- 
 End If
  
 case RelocableSchoolBuildingAllZones: 
@@ -5534,7 +5542,7 @@ Switch ( G04_TopLevelOccupancy)
 case Nonresidential: 
 If G05_RoofSlope == LowSlope 
 result = 75; 
-Else If G05_RoofSlope == SteepSlope 
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
 result = 16; 
 End if
  
@@ -6908,26 +6916,38 @@ End If</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">Calculated value:  
 If Hmass06_MasonryGrout == NoGrout (solid unit) values from JA Table 4.3.6 as follows: 
 If Hmass05_MasonryType == ClayBrick Then 
-If Hmass07_ MassThickness == 3Mass result = LT7; 
-Else If Hmass07_ MassThickness == 4Mass Or 5Mass  result = GTE7LT15; 
+If Hmass07_ MassThickness == 3mass result = LT7; 
+Else If Hmass07_ MassThickness == 4mass Or 5mass  result = GTE7LT15; 
 End If
 Else  Hmass05_MasonryType == Concrete Then  
-If Hmass07_ MassThickness == 3Mass, 4Mass, 5Mass Or 6Mass  result = GTE7LT15; 
-Else If Hmass07_ MassThickness == 7Mass, 8Mass, 9Mass, 10Mass, 11Mass Or 12Mass  result = GTE15;  
+If Hmass07_ MassThickness == 3mass, 4mass, 5mass Or 6mass  result = GTE7LT15; 
+Else If Hmass07_ MassThickness == 7mass, 8mass, 9mass, 10mass, 11mass Or 12mass  result = GTE15;  
+End If
+Else  Hmass05_MasonryType == CMULightWeight  Then  
+If Hmass07_ MassThickness == 3mass result = LT7  
+Else If Hmass07_ MassThickness == 4mass, 5mass, 6mass, 7mass, Or 8mass,  result = GTE7LT15; 
+Else If Hmass07_ MassThickness ==  9mass, 10mass, 11mass Or 12mass  result = GTE15;  
+End If
+Else  Hmass05_MasonryType == CMUMediumWeight Or CMUNormalWeight Then  
+If Hmass07_ MassThickness == 3mass result = LT7  
+Else If Hmass07_ MassThickness == 4mass, 5mass, 6mass, Or 7mass,  result = GTE7LT15; 
+Else If Hmass07_ MassThickness ==    8mass, 9mass, 10mass, 11mass Or 12mass  result = GTE15;  
 End If
 End If
  
 Else If Hmass06_MasonryGrout != NoGrout (solid unit) values from JA Table 4.3.5 as follows: 
 Switch (Hmass06_MasonryGrout) 
 case SolidGrout: 
-If Hmass07_MassThickness == 6Mass  result = GTE7LT15; 
+If Hmass07_MassThickness == 6mass  result = GTE7LT15; 
 Else result = GTE15; 
 End If
  
 case PartialGrout and case PartialInsulatedGrout:  
-If Hmass07_MassThickness == 6Mass, 8Mass, Or 10Mass  result = GTE7LT15; 
-Else If Hmass07_MassThickness == 12Mass And Hmass05_MasonryType == CMULightWeight result = GTE7LT15; 
+If Hmass07_MassThickness == 6mass, 8mass, Or 10mass  result = GTE7LT15; 
+Else If Hmass07_MassThickness == 12mass Then
+If  Hmass05_MasonryType == CMULightWeight result = GTE7LT15; 
 Else result = GTE15;
+End If
 End If
 End Switch
 End If</xsd:documentation>
@@ -6957,24 +6977,24 @@ If Hmass08_NotApplicableMessage != FramingNA  And If Hmass06_ Hmass06_MasonryGro
  
 If Hmass06_MasonryGrout == SolidGrout: 
 Switch (Hmass07_MassThickness) 
-case 6Mass: 
+case 6mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.68; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.72; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.76; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.65; 
 End If
-case 8Mass: 
+case 8mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.62; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.65; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.69; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.57;   
 End If
-case 10Mass: 
+case 10mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.55; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.59; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.62; 
 End If
-case 12Mass: 
+case 12mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.51; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.54; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.57;  
@@ -6983,24 +7003,24 @@ End Switch
  
 Else If Hmass06_MasonryGrout == PartialGrout  
 Switch (Hmass07_MassThickness) 
-case 6Mass: 
+case 6mass: 
 If Hmass05_MasonryType == CMULightWeight result = 0.54; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.58; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.61; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.52; 
 End If
-case 8Mass: 
+case 8mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.50; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.53; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.56; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.47;   
 End If
-case 10Mass: 
+case 10mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.46; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.49; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.52; 
 End If
-case 12Mass: 
+case 12mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.43; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.46; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.49;     
@@ -7009,24 +7029,24 @@ End Switch
  
 Else If Hmass06_MasonryGrout == PartialInsulatedGrout 
 Switch (Hmass07_MassThickness) 
-case 6Mass: 
+case 6mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.44; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.48; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.52; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.45; 
 End If
-case 8Mass: 
+case 8mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.37; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.41; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.44; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.39;   
 End If
-case 10Mass: 
+case 10mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.34; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.37; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.41; 
 End If
-case 12Mass: 
+case 12mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.30; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.33; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.36;
@@ -7044,28 +7064,28 @@ If Hmass08_NotApplicableMessage != FramingNA  And If Hmass06_MasonryGrout == NoG
  
 If Hmass05_MasonryType == CMULightWeight 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.79; case 4Mass: result = 0.71; case 5Mass: result = 0.65; case 6Mass: result = 0.59; case 7Mass: result = 0.54; case 8Mass: result = 0.51; case 9Mass: result = 0.47; case 10Mass: result = 0.44; case11Mass: result = 0.42; case 12Mass: result = 0.39; 
+case 3mass: result = 0.79; case 4mass: result = 0.71; case 5mass: result = 0.65; case 6mass: result = 0.59; case 7mass: result = 0.54; case 8mass: result = 0.51; case 9mass: result = 0.47; case 10mass: result = 0.44; case11mass: result = 0.42; case 12mass: result = 0.39; 
 End Switch
  
 Else If Hmass05_MasonryType == CMUMediumWeight 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.84; case 4Mass: result = 0.77; case 5Mass: result = 0.70; case 6Mass: result = 0.65; case 7Mass: result = 0.61; case 8Mass: result = 0.57; case 9Mass: result = 0.53; case 10Mass: result = 0.50; case11Mass: result = 0.48; case 12Mass: result = 0.45;  
+case 3mass: result = 0.84; case 4mass: result = 0.77; case 5mass: result = 0.70; case 6mass: result = 0.65; case 7mass: result = 0.61; case 8mass: result = 0.57; case 9mass: result = 0.53; case 10mass: result = 0.50; case11mass: result = 0.48; case 12mass: result = 0.45;  
 End Switch
  
 Else If Hmass05_MasonryType == CMUNormalWeight 
 Switch (Hmass07_MassThickness) 
  
-case 3Mass: result = 0.88; case 4Mass: result = 0.82; case 5Mass: result = 0.76; case 6Mass: result = 0.71; case 7Mass: result = 0.67; case 8Mass: result = 0.63; case 9Mass: result = 0.60; case 10Mass: result = 0.56; case11Mass: result = 0.53; case 12Mass: result = 0.51; 
+case 3mass: result = 0.88; case 4mass: result = 0.82; case 5mass: result = 0.76; case 6mass: result = 0.71; case 7mass: result = 0.67; case 8mass: result = 0.63; case 9mass: result = 0.60; case 10mass: result = 0.56; case11mass: result = 0.53; case 12mass: result = 0.51; 
 End Switch
  
 Else If Hmass05_MasonryType == ClayBrick 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.80; case 4Mass: result = 0.72; case 5Mass: result = 0.66; 
+case 3mass: result = 0.80; case 4mass: result = 0.72; case 5mass: result = 0.66; 
 End Switch
  
 If Hmass05_MasonryType == Concrete 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.96; case 4Mass: result = 0.91; case 5Mass: result = 0.86; case 6Mass: result = 0.82; case 7Mass: result = 0.78; case 8Mass: result = 0.74; case 9Mass: result = 0.71; case 10Mass: result = 0.68; case11Mass: result = 0.65; case 12Mass: result = 0.63;
+case 3mass: result = 0.96; case 4mass: result = 0.91; case 5mass: result = 0.86; case 6mass: result = 0.82; case 7mass: result = 0.78; case 8mass: result = 0.74; case 9mass: result = 0.71; case 10mass: result = 0.68; case11mass: result = 0.65; case 12mass: result = 0.63;
 End Switch
 End If
 End If</xsd:documentation>
@@ -7094,24 +7114,24 @@ If Hmass06_ Hmass06_MasonryGrout != NoGrout use this choice for reported data fr
  
 If Hmass06_MasonryGrout == SolidGrout: 
 Switch (Hmass07_MassThickness) 
-case 6Mass: 
+case 6mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.68; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.72; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.76; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.65; 
 End If
-case 8Mass: 
+case 8mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.62; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.65; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.69; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.57;   
 End If
-case 10Mass: 
+case 10mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.55; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.59; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.62; 
 End If
-case 12Mass: 
+case 12mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.51; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.54; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.57;  
@@ -7120,24 +7140,24 @@ End Switch
  
 Else If Hmass06_MasonryGrout == PartialGrout  
 Switch (Hmass07_MassThickness) 
-case 6Mass: 
+case 6mass: 
 If Hmass05_MasonryType == CMULightWeight result = 0.54; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.58; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.61; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.52; 
 End If
-case 8Mass: 
+case 8mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.50; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.53; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.56; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.47;   
 End If
-case 10Mass: 
+case 10mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.46; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.49; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.52; 
 End If
-case 12Mass: 
+case 12mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.43; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.46; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.49;     
@@ -7146,24 +7166,24 @@ End Switch
  
 Else If Hmass06_MasonryGrout == PartialInsulatedGrout 
 Switch (Hmass07_MassThickness) 
-case 6Mass: 
+case 6mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.44; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.48; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.52; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.45; 
 End If
-case 8Mass: 
+case 8mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.37; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.41; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.44; 
 Else If Hmass05_MasonryType == ClayHollowUnit result = 0.39;   
 End If
-case 10Mass: 
+case 10mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.34; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.37; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.41; 
 End If
-case 12Mass: 
+case 12mass: 
 If  Hmass05_MasonryType == CMULightWeight result = 0.30; 
 Else If Hmass05_MasonryType == CMUMediumWeight result = 0.33; 
 Else If Hmass05_MasonryType == CMUNormalWeight result = 0.36;
@@ -7180,28 +7200,28 @@ End If</xsd:documentation>
 If Hmass06_ Hmass06_MasonryGrout == NoGrout use this choice for reported data from JA Table 4.3.6 as follows: 
 If Hmass05_MasonryType == CMULightWeight 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.79; case 4Mass: result = 0.71; case 5Mass: result = 0.65; case 6Mass: result = 0.59; case 7Mass: result = 0.54; case 8Mass: result = 0.51; case 9Mass: result = 0.47; case 10Mass: result = 0.44; case11Mass: result = 0.42; case 12Mass: result = 0.39; 
+case 3mass: result = 0.79; case 4mass: result = 0.71; case 5mass: result = 0.65; case 6mass: result = 0.59; case 7mass: result = 0.54; case 8mass: result = 0.51; case 9mass: result = 0.47; case 10mass: result = 0.44; case11mass: result = 0.42; case 12mass: result = 0.39; 
 End Switch
  
 Else If Hmass05_MasonryType == CMUMediumWeight 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.84; case 4Mass: result = 0.77; case 5Mass: result = 0.70; case 6Mass: result = 0.65; case 7Mass: result = 0.61; case 8Mass: result = 0.57; case 9Mass: result = 0.53; case 10Mass: result = 0.50; case11Mass: result = 0.48; case 12Mass: result = 0.45;  
+case 3mass: result = 0.84; case 4mass: result = 0.77; case 5mass: result = 0.70; case 6mass: result = 0.65; case 7mass: result = 0.61; case 8mass: result = 0.57; case 9mass: result = 0.53; case 10mass: result = 0.50; case11mass: result = 0.48; case 12mass: result = 0.45;  
 End Switch
  
 Else If Hmass05_MasonryType == CMUNormalWeight 
 Switch (Hmass07_MassThickness) 
  
-case 3Mass: result = 0.88; case 4Mass: result = 0.82; case 5Mass: result = 0.76; case 6Mass: result = 0.71; case 7Mass: result = 0.67; case 8Mass: result = 0.63; case 9Mass: result = 0.60; case 10Mass: result = 0.56; case11Mass: result = 0.53; case 12Mass: result = 0.51; 
+case 3mass: result = 0.88; case 4mass: result = 0.82; case 5mass: result = 0.76; case 6mass: result = 0.71; case 7mass: result = 0.67; case 8mass: result = 0.63; case 9mass: result = 0.60; case 10mass: result = 0.56; case11mass: result = 0.53; case 12mass: result = 0.51; 
 End Switch
  
 Else If Hmass05_MasonryType == ClayBrick 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.80; case 4Mass: result = 0.72; case 5Mass: result = 0.66; 
+case 3mass: result = 0.80; case 4mass: result = 0.72; case 5mass: result = 0.66; 
 End Switch
  
 If Hmass05_MasonryType == Concrete 
 Switch (Hmass07_MassThickness) 
-case 3Mass: result = 0.96; case 4Mass: result = 0.91; case 5Mass: result = 0.86; case 6Mass: result = 0.82; case 7Mass: result = 0.78; case 8Mass: result = 0.74; case 9Mass: result = 0.71; case 10Mass: result = 0.68; case11Mass: result = 0.65; case 12Mass: result = 0.63;
+case 3mass: result = 0.96; case 4mass: result = 0.91; case 5mass: result = 0.86; case 6mass: result = 0.82; case 7mass: result = 0.78; case 8mass: result = 0.74; case 9mass: result = 0.71; case 10mass: result = 0.68; case11mass: result = 0.65; case 12mass: result = 0.63;
 End Switch
 End If
 End If</xsd:documentation>
@@ -9306,8 +9326,10 @@ Else If A03_ClimateZoneNumber ==  InRange (11, 16) result = 0.057;
 End if
  
 case RelocableSchoolBuildingAllZones:  result = 0.057; 
-case OtherOccupancy: result = 0.113;
 End Switch
+ 
+Else If Hmetalb03b_Status == ExistingAlteration
+result = 0.113;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -9315,8 +9337,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Thermal Performance</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hmetalb03b_Status == ExistingAlteration And Hmetalb08_ConstructionSpecificationMethod == RValue 
-If Hmetalb03a_TopLevelOccupancy == OtherOccupancy  result = R13;
-End If
+result = R13;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -9965,7 +9986,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hlog09_UfactorJA4311NoFraming" type="comp:UfactorJA4311NoFraming">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage == FramingNA, use this choice for reported data from JA Table 4311
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog09_NotApplicableMessage == FramingNA, use this choice for reported data from JA Table 4311
  
 If Hlog05_LogDiameter == 6Log  result = 0.132; 
 Else If Hlog05_LogDiameter == 8Log result = 0.102; 
@@ -10321,7 +10342,7 @@ End If
 case RelocableSchoolBuildingAllZones:  result = 0.059; 
 End Switch
  
-Else If Hstraw04b_Status == ExistingAlteration And Hstraw05_ConstructionSpecificationMethod  == UFactor  result = 0.110;
+Else If Hstraw04b_Status == ExistingAlteration And Hstraw07_ConstructionSpecificationMethod  == UFactor  result = 0.110;
 End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -11760,7 +11781,9 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Cavity Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Iframed04_UfactorSpecSource == JA4Tables, this row is grayed out; 
-Else If Iframed04_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters text
+Else If Iframed04_UfactorSpecSource == JA4Other Or ApprovedSoftware 
+Or If Iframed09_ConstructionSpecificationMethod == RValue
+user enters text
 End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -12939,8 +12962,10 @@ End If</xsd:documentation>
                                                 <xsd:element name="Imass07_ContinuousInsulationOther" type="env:ContinuousInsulationOther">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Continuous Insulation per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Imass05_UfactorSpecSource == JA4Tables, this row is grayed out; 
-Else If  Imass05_UfactorSpecSource == JA4Other Or ApprovedSoftware user enters text
+                                                      <xsd:documentation source="CalculationsAndRules">If Imass05_UfactorSpecSource == JA4Tables, this row is grayed out
+Else If Imass05_UfactorSpecSource ==  JA4Other Or ApprovedSoftware 
+Or If Imass08_ConstructionSpecificationMethod == RValue
+user enters text
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -12960,7 +12985,7 @@ End If</xsd:documentation>
                                                       </xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If Imass08_ConstructionSpecificationMethod == UFactor 
-Switch ( Imass04b_TopLevelOccupancy) 
+Switch ( Imass04a_TopLevelOccupancy) 
 case AlteredOccupancy:
 If Imass04b_Status == ExistingAlteration result = 0.111; 
 End If
@@ -13113,7 +13138,8 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Area ft<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == RValue result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If  Imass08_ConstructionSpecificationMethod == RValue Or If Imass01_UseInAreaWeightedAveUfactor  == false
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -13358,7 +13384,7 @@ Ufactor for row is the property that IsPresent: Imass10_UfactorJA4Other Or Imass
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Compliance Results Using Area-Weighted Calculation Option</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If ICalc1UF03_AreaWeightAvgUfactorRequired GTE ICalc1UF04_AreaWeightAvgUfactor result = true display term COMPLIES; 
+If ICalc1UF03_AreaWeightAvgRequiredUfactor GTE ICalc1UF04_AreaWeightAvgUfactor result = true display term COMPLIES; 
 Else result = false display term DOES NOT COMPLY
 End If</xsd:documentation>
                               </xsd:annotation>
