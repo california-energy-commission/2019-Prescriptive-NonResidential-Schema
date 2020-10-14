@@ -5256,9 +5256,9 @@ Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR 
  
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
-If G05_RoofSlope == LowSlope 
+If G05_RoofSlope == LowSlope And A03_ClimateZoneNumber InRange (1,16)  
 result = 0.63; 
-Else If G05_RoofSlope == SteepSlope  A03_ClimateZoneNumber InRange (2,15) 
+Else If G05_RoofSlope == SteepSlope  And A03_ClimateZoneNumber InRange (1,16) 
 result = 0.20; 
 End If
  
@@ -5324,8 +5324,9 @@ Condition: G05_RoofSlope == LowSlope And G04_TopLevelOccupancy == ResidentialNR 
                                              <xsd:documentation source="CalculationsAndRules">Calculated field: 
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
-If G05_RoofSlope == LowSlope result = 0.75; 
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+If G05_RoofSlope == LowSlope And A03_ClimateZoneNumber InRange (1,16)  
+result = 0.75; 
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (1,16) 
 result = 0.75; 
 End If
  
@@ -5378,9 +5379,9 @@ If  G07_CoolRoofComplianceMethod == SolarReflectanceIndex Or If G04_TopLevelOccu
  
 Switch ( G04_TopLevelOccupancy) 
 case Nonresidential: 
-If G05_RoofSlope == LowSlope 
+If G05_RoofSlope == LowSlope And A03_ClimateZoneNumber InRange (1,16)  
 result = 75; 
-Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (2,15) 
+Else If G05_RoofSlope == SteepSlope And A03_ClimateZoneNumber InRange (1,16) 
 result = 16; 
 End if
  
@@ -5407,7 +5408,7 @@ If  G07_CoolRoofComplianceMethod != SolarReflectanceIndex Or If G04_TopLevelOccu
 result = BlankGrayedOut stored in NotApplicableMessage
 End If
 Or 
-If G04_TopLevelOccupancy ==  ResidentialNR
+If G04_TopLevelOccupancy ==  ResidentialNR 
 If G05_RoofSlope == SteepSlope And G03_Status == New Or ExistingAlteration And A03_ClimateZoneNumber == 1 Or 16
 result = BlankGrayedOut stored in NotApplicableMessage
  
@@ -5991,8 +5992,8 @@ End If
  
 Else If Hframed04b_Status == New Then 
 If Hframed06_WallType == DemisingWall 
-If Hframed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum result = 0.151; 
-Else If Hframed07_PartitionFramingMaterial == Metal result = 0.099;
+If Hframed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum result = 0.099; 
+Else If Hframed07_PartitionFramingMaterial == Metal result = 0.151;
 End if  
  
 Else If Hframed06_WallType == ExteriorWall 
@@ -7041,7 +7042,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hmass11_UfactorJA4314Wood" type="comp:UfactorJA4314Wood" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == WoodFraming,  use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == WoodFraming,  use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436)) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hmass08_FramingDepth == 0_5In 
 Switch (Hmass09_CavityInsulationNR) 
@@ -7108,7 +7109,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hmass11_UfactorJA4314Metal" type="comp:UfactorJA4314Metal" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436)) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hmass08_FramingDepth == 0_5In 
 Switch (Hmass09_CavityInsulationNR) 
@@ -7175,7 +7176,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hmass11_UfactorJA4314Other" type="comp:UfactorJA4314Other" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == NoFraming  Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hmass08_NotApplicableMessage != FramingNA And If Hmass08_PartitionFramingMaterial == NoFraming  Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/(result from Hmass11_ UfactorJA435 Or Hmass11_ UfactorJA436)) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hmass08_PartitionFramingMaterial == NoFraming  
 Switch (Hmass09_CavityInsulationNR) 
@@ -7608,7 +7609,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hconcrete11_UfactorJA4314Wood" type="comp:UfactorJA4314Wood" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == WoodFraming, use this choice to adjust reported data.   Adjusted result for JA4 U-factor = 1/ (1/(result from Hconcrete11_ UfactorJA437 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == WoodFraming, use this choice to adjust reported data.   Adjusted result for JA4 U-factor = 1/ ((1/result from Hconcrete11_ UfactorJA437) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hconcrete08_FramingDepth == 0_5In 
 Switch (Hconcrete09_CavityInsulationNR) 
@@ -7675,7 +7676,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hconcrete11_UfactorJA4314Metal" type="comp:UfactorJA4314Metal" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == Metal, use this choice  to adjust reported data..  Adjusted result for JA4 U-factor = 1/ (1/( result from Hconcrete11_ UfactorJA437 + Rvalue))  where Rvalue is assigned as follows using JA4 table 4.3.14 
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == Metal, use this choice  to adjust reported data..  Adjusted result for JA4 U-factor = 1/ ((1/ result from Hconcrete11_ UfactorJA437) + Rvalue)  where Rvalue is assigned as follows using JA4 table 4.3.14 
  
 If Hconcrete08_FramingDepth == 0_5In 
 Switch (Hconcrete09_CavityInsulationNR) 
@@ -7742,7 +7743,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hconcrete11_UfactorJA4314Other" type="comp:UfactorJA4314Other" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == NoFraming Or EIFS, use this choice  to adjust reported data..    Adjusted result for JA4 U-factor = 1/ (1/(result from Hconcrete11_ UfactorJA437 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hconcrete08_NotAplicableMessge != FramingNA And Hconcrete08_PartitionFramingMaterial == NoFraming Or EIFS, use this choice  to adjust reported data..    Adjusted result for JA4 U-factor = 1/ ((1/result from Hconcrete11_ UfactorJA437) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
 If Hconcrete08_PartitionFramingMaterial == NoFraming 
 Switch (Hconcrete09_CavityInsulationNR) 
 case R0: Rvalue = 0.5; case R1: Rvalue = 1.5;  case R2: Rvalue = 2.5;  case R3: Rvalue = 3.5; case R4: Rvalue = 4.5;  case R5: Rvalue = 5.5;  case R6: Rvalue = 6.5; case R7: Rvalue = 7.5; case R8: Rvalue = 8.5; case R9:  Rvalue = 9.5; case R10: Rvalue = 10.5; case  R11: Rvalue = 11.5; case R12: Rvalue = 12.5; case R13: Rvalue = 13.5; case R14: Rvalue = 14.5;  case R15: Rvalue = 15.5; case R16: Rvalue = 16.5;  case R17: Rvalue = 17.5; case R18: Rvalue = 18.5; case R19:  Rvalue = 19.5; case R20: Rvalue = 20.5;  case R21: Rvalue = 21.5; 
@@ -9739,7 +9740,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Wood" type="comp:UfactorJA4314Wood" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == WoodFraming, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hlog09a_ UfactorJA4311 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == WoodFraming, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/result from Hlog09a_ UfactorJA4311) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hlog06_FramingDepth == 0_5In 
 Switch (Hlog07_CavityInsulationNR) 
@@ -9795,7 +9796,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Metal" type="comp:UfactorJA4314Metal" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/( result from Hlog09a_ UfactorJA4311 + Rvalue))  where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/ result from Hlog09a_ UfactorJA4311) + Rvalue)  where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hlog06_FramingDepth == 0_5In 
 Switch (Hlog07_CavityInsulationNR) 
@@ -9851,7 +9852,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Other" type="comp:UfactorJA4314Other" >
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == NoFraming Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ (1/(result from Hlog09a_ UfactorJA4311 + Rvalue)) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == NoFraming Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/result from Hlog09a_ UfactorJA4311) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hlog06_PartitionFramingMaterial == NoFraming 
 Switch (Hlog07_CavityInsulationNR) 
@@ -10031,7 +10032,9 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Insulation per Design</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Hstraw05_UfactorSpecSource == JA4Tables this row is grayed out; 
-Else user enters text
+Else If Hstraw05_UfactorSpecSource == JA4Other Or ApprovedSoftware 
+Or If Hstraw07_ConstructionSpecificationMethod == RValue
+user enters text
 End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -10329,13 +10332,13 @@ End If</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">Calculated value:  values from JA Table 4.3.13 as follows:  
 If HICF06_CoreICF == 4core Or 
 If HICF06_CoreICF == 6core And HICF05_TypeICF != Flat And HICF07_InsulationType != CementEPScompound Or 
-HICF06_CoreICF == 6core And HICF07_InsulationType == CementEPScompound And HICF05_TypeICF == GridScreen And  HICF07_InsulationICF == 2icf  
+HICF06_CoreICF == 6core And HICF07_InsulationType == CementEPScompound And HICF05_TypeICF == GridScreen And  HICF08_InsulationICF == 2icf  
 result = GTE7LT15;  
  
 Else If HICF05_TypeICF == Flat And HICF06_CoreICF != 4core And HICF07_InsulationType != CementEPScompound Or 
 If HICF05_TypeICF ==GridWaffle And HICF06_CoreICF == 8core And HICF07_InsulationType == ExpandedPolystyrene   Or 
 If HICF07_InsulationType == CementEPScompound And HICF05_TypeICF == GridWaffle Or 
-HICF07_InsulationType == CementEPScompound And HICF05_TypeICF ==GridScreen And  HICF07_InsulationICF != 2icf  
+HICF07_InsulationType == CementEPScompound And HICF05_TypeICF ==GridScreen And  HICF08_InsulationICF != 2icf  
 result = GTE15;
  
 End If</xsd:documentation>
@@ -13241,9 +13244,15 @@ InsulatedSingleLayerSectionalMetal display term Insulated single layer metal sec
                                     <xsd:element name="J06_UFactorLimit" type="com:UFactorLimit" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Maximum Allowed U-factor</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated field:  
-If J04_DoorOpertation == Swinging result = 0.70; 
+                                          <xsd:documentation source="CalculationsAndRules">Calculated field: 
+If J03_TopLevelOccupancy ==   Nonresidential Or ResidentialNR
+If J04_DoorOperation == Swinging result = 0.70; 
 Else If A03_ClimateZoneNumber == 1 Or 16 result = 0.50; Else result = 1.45;
+End If
+Else If J03_TopLevelOccupancy ==  RelocableSchoolBuildingAllZones
+If J04_DoorOperation == Swinging result = 0.70; 
+Else result = 0.50
+End If
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -13792,7 +13801,7 @@ case Storefront:  case CurtainWall: result = 0.46;
 End Switch
 End If
  
-Else  If Kvertperf08_ComplianceMethodSHGC_VT == Equation140_3B result = Smallest ( Kvert07_TotalGlazingAreaAllOrientations / SUM ALL (Kverticalnew03_ExteriorSurfaceGrossArea),   0.40);
+Else  If Kvertperf08_ComplianceMethodSHGC_VT == Equation140_3B result = Smallest ( Kvert07_TotalGlazingAreaAllOrientations / SUM ALL (Kvert03_ExteriorSurfaceGrossArea),   0.40);
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
