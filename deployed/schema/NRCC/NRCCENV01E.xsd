@@ -892,6 +892,11 @@ End If
 End If
 If result == true continue evaluation: 
  
+If Kvertperf33b_DoesNA6AreaComply == true
+result = true
+Else result = false;
+End If
+If result == true continue evaluation:  
  
 If  K01Skylights_FenestrationTypeApplies  ==  true
   
@@ -5166,7 +5171,7 @@ End If</xsd:documentation>
                         </xsd:sequence>
                      </xsd:complexType>
                   </xsd:element>
-                  <xsd:element name="FCalc2UF">
+                  <xsd:element name="FCalc2UF" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">
                            <d:b>Area-Weighted Average U-factor Compliance Calculation for  Metal Building Roof</d:b>
@@ -13004,6 +13009,7 @@ If A03_ClimateZoneNumber ==  1, 2,Or 14 result = 0.045;
 Else If A03_ClimateZoneNumber == InRange(3, 5) Or InRange(11, 13) Or 15  result = 0.058; 
 Else If A03_ClimateZoneNumber == 6 Or 10  result = 0.069;  
 Else If A03_ClimateZoneNumber == 16 result = 0.037; 
+Else If A03_ClimateZoneNumber == InRange(7,9) result = 0.092
 End if
  
 case RelocableSchoolBuildingAllZones: result = 0.048;
@@ -13271,7 +13277,7 @@ End if</xsd:documentation>
                                                 <xsd:element name="Iheated05b_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Min. R-value required</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">Calculated field: This value is assigned for Iheated04b_SlabInsulationOrientation == Horizontal: 
+                                                      <xsd:documentation source="CalculationsAndRules">Calculated field: This value is assigned for Horizontal orientation: 
 If A03_ClimateZoneNumber == 16 And Iheated03_InsulationPlacement == BetweenSlab result = R7; 
 Else If A03_ClimateZoneNumber == InRange(1, 15)  Or   Iheated03_InsulationPlacement == OutsideEdge   result = BlankGrayedOut stored in NotApplicablemessage;
 End If</xsd:documentation>
@@ -13963,14 +13969,17 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">(R)SHGC Compliance Method</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: 
-If B01New_ScopeIncludeNew == true Or If B01Add_ScopeIncludesAddition == true list: 
+If B01New_ScopeIncludeNew == true Or If B01Add_ScopeIncludesAddition == true Or
+Kvertperf06_FenestrationModification == AllNew  Or
+Kvertperf05_FenestrationProductType == GlazedDoor  list: 
 Table140_3BCD display term Table 140.3-B/C/D 
 NoOverHang display term 1st flr display perimeter- no overhang; 
  
 Else If Kvertperf06_FenestrationModification == AddGT50ft2 list: 
 Table140_3BCD display term Table 140.3-B/C/D; 
  
-Else If Kvertperf06_FenestrationModification == ReplaceGT150ft2 list Table141_0A display term Table141.0-A
+Else If Kvertperf06_FenestrationModification == ReplaceGT150ft2 list 
+Table141_0A display term Table141.0-A
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -14019,7 +14028,16 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf08_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">VT Compliance Method</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or 
+ 
+If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or 
+ 
+If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones And  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  Or
+ 
+If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones And  
+Kvertperf05_FenestrationProductType == GlazedDoor
+ 
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -14199,10 +14217,14 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf11c_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen 
-Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  
-Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  
-Or If Kvertperf05_FenestrationProductType == GlazedDoor And  If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones 
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or
+ 
+If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or
+ 
+Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  Or
+ 
+If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones And  
+Kvertperf05_FenestrationProductType == GlazedDoor
  result = BlankGrayedOutresult = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -14240,7 +14262,11 @@ end If</xsd:documentation>
                                                 <xsd:element name="Kvertperf12b_SHGC" type="com:SHGC">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Kvertperf09_FenestrationComplianceCalc == NFRC_Certified  user input; 
+                                                      <xsd:documentation source="CalculationsAndRules">If  Kvertperf09_FenestrationComplianceCalc == NFRC_Certified  
+If Kvertperf09a_OverhangeForRSHGC == false
+user input; 
+Else
+result = Kvertperf32_ RSHGC; 
  
 Else If Kvertperf09_FenestrationComplianceCalc == NA6DefaultCOG  
 If Kvertperf09a_OverhangeForRSHGC == true result = Kvertperf32_ RSHGC; 
@@ -14279,7 +14305,9 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf12c_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2   result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2   Or 
+Or If Kvertperf05_FenestrationProductType == GlazedDoor And  If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones 
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -14365,46 +14393,128 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="FieldText">VT</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Kvertperf18a_UFactorCenterOfGlass" type="com:UFactorCenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kvertperf18b_SHGC_CenterOfGlass" type="com:SHGC_CenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kvertperf18c_VT_CenterOfGlass" type="com:VT_CenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kvertperf19a_UfactorNA6" type="env:UfactorNA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf18a_UFactorCenterOfGlass" type="com:UFactorCenterOfGlass">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf18a_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+If Kvertperf05_FenestrationProductType == ChromogenicFen result = BlankGrayedOut
+end If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf18b_SHGC_CenterOfGlass" type="com:SHGC_CenterOfGlass">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf18b_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf18c_VT_CenterOfGlass" type="com:VT_CenterOfGlass">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf18c_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
+If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or
+ 
+If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or
+ 
+Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  Or
+ 
+If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones And  
+Kvertperf05_FenestrationProductType == GlazedDoor
+ result = BlankGrayedOutresult = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf19a_UfactorNA6" type="env:UfactorNA6">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
 Switch (Kvertperf15_FenestrationFramingNR) 
 case MetalFraming:  result = 0.311 + (0.872 x Kvertperf18aUFactorCenterOfGlass); 
  
 case MetalFramingWithThermalBreak: case NonMetalFraming:  result = 0.202 + (0.867 x UFactorCenterOfGlass);
  
 End Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kvertperf19b_SHGC_NA6" type="com:SHGC_NA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: result = 0.08 + (0.86 x Kvertperf18b_SHGC_CenterOfGlass)</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kvertperf19c_VT_NA6" type="env:VT_NA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf19a_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+If Kvertperf05_FenestrationProductType == ChromogenicFen result = BlankGrayedOut
+end If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf19b_SHGC_NA6" type="com:SHGC_NA6">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: result = 0.08 + (0.86 x Kvertperf18b_SHGC_CenterOfGlass)</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf19b_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf19c_VT_NA6" type="env:VT_NA6">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If Kvertperf14_WindowProjecting == true result = 0.53 x Kvertperf18c_VT_CenterOfGlass; 
  
 Else If Kvertperf05_FenestrationProductType == OperableWindow result = 0.67 x Kvertperf18c_VT_CenterOfGlass; 
@@ -14413,8 +14523,30 @@ Else If Kvertperf05_FenestrationProductType == FixedWindow Or GlazedDoor result 
  
 Else If Kvertperf05_FenestrationProductType == Storefront Or  CurtainWall  result = 0.88 x Kvertperf18c_VT_CenterOfGlass;
 End If</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf19c_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
+If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or
+ 
+If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or
+ 
+Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  Or
+ 
+If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones And  
+Kvertperf05_FenestrationProductType == GlazedDoor
+ result = BlankGrayedOutresult = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -14516,10 +14648,11 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="FieldText">Product Performance per   Default 110.6 Tables</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Kvertperf25a_Ufactor110Default" type="env:Ufactor110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">U-factor</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf25a_Ufactor110Default" type="env:Ufactor110Default">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">U-factor</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
  If Kvertperf05_FenestrationProductType == GlazedDoor
 Switch (Kvertperf15_FenestrationFramingNR) 
 case MetalFraming:  
@@ -14586,12 +14719,38 @@ Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.55;
 End If
 End If
 End Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kvertperf25b_SHGC_110Default" type="com:SHGC_110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">SHGC</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf25a_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">U-factor</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
+ 
+If Kvertperf05_FenestrationProductType == ChromogenicFen 
+result = BlankGrayedOut
+Else 
+If Kvertperf15_FenestrationFramingNR ==  MetalFramingWithThermalBreak: 
+And  Kvertperf23_FenestrationPanes == SinglePane  Or GlassBlock
+result = NotApplicable stored in NotApplicableMessage;  :
+Else
+If Kvertperf15_FenestrationFramingNR ==  MetalFraming Or NonMetalFraming 
+And Kvertperf05_FenestrationProductType == GlazedDoor Or If Kvertperf20_GreenhouseGardenWindow == true
+result = NotApplicable stored in NotApplicableMessage; 
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                                  <xsd:enumeration value="NotApplicable"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf25b_SHGC_110Default" type="com:SHGC_110Default">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">SHGC</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
  
 Switch (Kvertperf15_FenestrationFramingNR) 
 case MetalFraming:  
@@ -14664,19 +14823,67 @@ End If
 End If
 End If
 End Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kvertperf25c_VT_110Default" type="env:VT_110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">VT</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf25b_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">SHGC</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
+If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  result = BlankGrayedOut
+Else
+If Kvertperf15_FenestrationFramingNR ==  MetalFramingWithThermalBreak: 
+And  Kvertperf23_FenestrationPanes == SinglePane  Or GlassBlock
+result = NotApplicable stored in NotApplicableMessage
+Else
+If Kvertperf15_FenestrationFramingNR ==  MetalFraming Or NonMetalFraming 
+And  If Kvertperf24_GlazingTint == TintedGlazing
+And If Kvertperf23_FenestrationPanes == GlassBlock
+result = NotApplicable stored in NotApplicableMessage
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                                  <xsd:enumeration value="NotApplicable"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kvertperf25c_VT_110Default" type="env:VT_110Default">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">VT</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If Kvertperf14_WindowProjecting == true result = 0.53; 
 Else If Kvertperf05_FenestrationProductType == OperableWindow result = 0.67; 
 Else If Kvertperf05_FenestrationProductType == FixedWindow Or GlazedDoor
  result = 0.77; 
-Else If Kvertperf05_FenestrationProductType == Storefront Or  CurtainWall  result = 0.88;</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
+Else If Kvertperf05_FenestrationProductType == Storefront Or  CurtainWall  result = 0.88;
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kvertperf25c_NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">VT</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
+If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or
+ 
+If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or
+ 
+Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2  Or
+ 
+If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones And  
+Kvertperf05_FenestrationProductType == GlazedDoor
+ result = BlankGrayedOutresult = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -15098,7 +15305,8 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kskyperf10a_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Kskyperf05_FenestrationProductType == ChromogenicFen result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If  Kskyperf05_FenestrationProductType == ChromogenicFen 
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -15135,7 +15343,9 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kskyperf10b_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or If Kskyperf06_FenestrationModification == AddLTE50ft2  result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -15210,7 +15420,9 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kskyperf11b_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen Or SkylightPlasticCurb  Or If Kskyperf06_FenestrationModification ==  AddLTE50ft2  result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen Or SkylightPlasticCurb Or SkylightTubular
+Or If Kskyperf06_FenestrationModification ==  AddLTE50ft2  
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -15300,28 +15512,63 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="FieldText">VT</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Kskyperf15a_UFactorCenterOfGlass" type="com:UFactorCenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kskyperf15b_SHGC_CenterOfGlass" type="com:SHGC_CenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kskyperf15c_VT_CenterOfGlass" type="com:VT_CenterOfGlass">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kskyperf16a_UfactorNA6" type="env:UfactorNA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf15a_UFactorCenterOfGlass" type="com:UFactorCenterOfGlass">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf15a_NotApplicableMessage" type="comp:NotApplicableMessage" fixed="BlankGrayedOut">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+If  Kskyperf05_FenestrationProductType == ChromogenicFen 
+result = BankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf15b_SHGC_CenterOfGlass" type="com:SHGC_CenterOfGlass">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf15b_NotApplicableMessage" type="comp:NotApplicableMessage" fixed="BlankGrayedOut">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+ If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+ 
+result = BankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf15c_VT_CenterOfGlass" type="com:VT_CenterOfGlass">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">User input value</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf15c_NotApplicableMessage" type="comp:NotApplicableMessage" fixed="BlankGrayedOut">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+If Kskyperf05_FenestrationProductType == ChromogenicFen Or If Kskyperf06_FenestrationModification == AddLTE50ft2  Or If Kskyperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones  result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf16a_UfactorNA6" type="env:UfactorNA6">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
 Switch (Kskyperf13_FenestrationFramingNR) case MetalFraming: 
 If Kskyperf05_FenestrationProductType == SkylightGlassCurb Or SkylightPlasticCurb Or SkylightTubular result = 0.711 + (1.065 x Kskyperf15a_UFactorCenterOfGlass); 
  
@@ -15334,23 +15581,57 @@ If Kskyperf05_FenestrationProductType == SkylightGlassCurb Or SkylightPlasticCur
 Else Kskyperf05_FenestrationProductType == SkylightGlassDeck result =  result = 0.310 + (0.878 x Kskyperf15a_UFactorCenterOfGlass);
 End If
 End Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kskyperf16b_SHGC_NA6" type="com:SHGC_NA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: result = 0.08 + (0.86 x Kskyperf15b_SHGC_CenterOfGlass)</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kskyperf16c_VT_NA6" type="env:VT_NA6">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field:  
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf16a_NotApplicableMessage" type="comp:NotApplicableMessage" fixed="BlankGrayedOut">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+If  Kskyperf05_FenestrationProductType == ChromogenicFen 
+ 
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf16b_SHGC_NA6" type="com:SHGC_NA6">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: result = 0.08 + (0.86 x Kskyperf15b_SHGC_CenterOfGlass)</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf16b_NotApplicableMessage" type="comp:NotApplicableMessage" fixed="BlankGrayedOut">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+ If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+ 
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf16c_VT_NA6" type="env:VT_NA6">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:  
 If Kskyperf05_FenestrationProductType == SkylightGlassCurb Or SkylightPlasticCurb Or SkylightTubular  result = 1.00 x Kskyperf15c_VT_CenterOfGlass;
  Else If Kskyperf05_FenestrationProductType == SkylightGlassDeck  result = 0.88 x Kskyperf15c_VT_CenterOfGlass;
 End If</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf16c_NotApplicableMessage" type="comp:NotApplicableMessage" fixed="BlankGrayedOut">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:
+If Kskyperf05_FenestrationProductType == ChromogenicFen Or If Kskyperf06_FenestrationModification == AddLTE50ft2  Or If Kskyperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones  result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -15386,7 +15667,7 @@ End If</xsd:documentation>
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Glazing Type</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User selects from customized list: 
-If Kskyperf18_FenestrationFramingNR == MetalFramingWithThermalBreak list SinglePane display term Single Pane; 
+If Kskyperf18_FenestrationFramingNR == MetalFramingWithThermalBreak list DoublePane display term Double Pane
  
 Else list SinglePane display term Single Pane, DoublePane display term Double Pane
 End If</xsd:documentation>
@@ -15413,10 +15694,11 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="FieldText">Product Performance per Default 110.6 Tables</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Kskyperf21a_Ufactor110Default" type="env:Ufactor110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">U-factor</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf21a_Ufactor110Default" type="env:Ufactor110Default">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">U-factor</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
 Switch (Kskyperf18_FenestrationFramingNR) 
 case MetalFraming:  
 If Kskyperf19_FenestrationPanes == SinglePane result = 1.98; 
@@ -15432,12 +15714,25 @@ If Kskyperf19_FenestrationPanes == SinglePane result =1.47;
 Else If Kskyperf19_FenestrationPanes == DoublePane result = 0.84;
 End If
 End Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kskyperf21b_SHGC_110Default" type="com:SHGC_110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">SHGC</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field: 
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf21a_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">U-factor</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
+If Kskyperf05_FenestrationProductType == ChromogenicFen result = BlankGrayedOut
+Else If Kskyperf18_FenestrationFramingNR == MetalFramingWithThermalBreak 
+and If Kskyperf19_FenestrationPanes == SinglePane 
+result = NotApplicable
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf21b_SHGC_110Default" type="com:SHGC_110Default">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">SHGC</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
 Switch (Kskyperf18_FenestrationFramingNR) 
 case MetalFraming:  
 If Kskyperf17_FenestrationProductType == OperableSkylight  Then 
@@ -15505,17 +15800,38 @@ End If
 End If
 End If
 end Switch</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
-                                                      <xsd:element name="Kskyperf21c_VT_110Default" type="env:VT_110Default">
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">VT</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">Calculated field:  
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf21b_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">SHGC</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field: 
+  If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Kskyperf21c_VT_110Default" type="env:VT_110Default">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">VT</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:  
 If Kskyperf05_FenestrationProductType == SkylightGlassCurb Or SkylightPlasticCurb Or SkylightTubular result = 1.00  
 Else If Kskyperf05_FenestrationProductType == SkylightGlassDeck  result = 0.88;
 End If</xsd:documentation>
-                                                         </xsd:annotation>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Kskyperf21c_NotApplicableMessage" type="comp:NotApplicableMessage">
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">VT</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">Calculated field:  
+If Kskyperf05_FenestrationProductType == ChromogenicFen Or If Kskyperf06_FenestrationModification == AddLTE50ft2  Or If Kskyperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones  result = BlankGrayedOut
+End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -15638,7 +15954,7 @@ End If</xsd:documentation>
                            <xsd:element name="KCalcVertSHGC" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveSHGC  == true; Else this row is grayed out.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf02_ UseInAreaWeightedAveSHGC  == true; Else this row is grayed out.</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -15650,7 +15966,7 @@ End If</xsd:documentation>
                                     <xsd:element name="KCalcVertSHGC02_TotalFenestrationVerticalArea" type="env:TotalFenestrationVerticalArea">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Total Area of Fenestration (ft<d:sup>2</d:sup>)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated field: If Kvertperf01_ UseInAreaWeightedAveSHGC == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);  
+                                          <xsd:documentation source="CalculationsAndRules">Calculated field: If Kvertperf02_ UseInAreaWeightedAveSHGC == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15659,7 +15975,7 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Required</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
  
-If Kvertperf01_ UseInAreaWeightedAveSHGC == true  result = (SUM ALL (Kvertperf11b_SHGC_Limit  x Kvertperf13_FenestrationVerticalArea)  / KCalcVertSHGC02_TotalFenestrationVerticalArea;  
+If Kvertperf02_ UseInAreaWeightedAveSHGC == true  result = (SUM ALL (Kvertperf11b_SHGC_Limit  x Kvertperf13_FenestrationVerticalArea)  / KCalcVertSHGC02_TotalFenestrationVerticalArea;  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15668,7 +15984,7 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Designed</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
  
- if Kvertperf01_ UseInAreaWeightedAveSHGC == true result = (SUM ALL (Kvertperf12b_SHGC  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertSHGC02_TotalFenestrationVerticalArea;   
+ if Kvertperf02_ UseInAreaWeightedAveSHGC == true result = (SUM ALL (Kvertperf12b_SHGC  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertSHGC02_TotalFenestrationVerticalArea;   
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15688,7 +16004,7 @@ End If</xsd:documentation>
                            <xsd:element name="KCalcVertVT" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf01_ UseInAreaWeightedAveVT == true; Else this row is grayed out.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kvertperf03_ UseInAreaWeightedAveVT == true; Else this row is grayed out.</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -15700,7 +16016,7 @@ End If</xsd:documentation>
                                     <xsd:element name="KCalcVertVT02_TotalFenestrationVerticalArea" type="env:TotalFenestrationVerticalArea">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Total Area of Fenestration (ft<d:sup>2</d:sup>)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated field: Kvertperf01_ UseInAreaWeightedAveVT == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated field: Kvertperf03_ UseInAreaWeightedAveVT == true result = SUM ALL (Kvertperf13_FenestrationVerticalArea);</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="KCalcVertVT03_AreaWeightAvgRequiredVT" type="comp:AreaWeightAvgRequiredVT">
@@ -15708,7 +16024,7 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Required</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
  
-If Kvertperf01_ UseInAreaWeightedAveVT == true result = (SUM ALL (Kvertperf11c_VT_Limit  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea  
+If Kvertperf03_ UseInAreaWeightedAveVT == true result = (SUM ALL (Kvertperf11c_VT_Limit  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15717,7 +16033,7 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Designed</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated field: 
  
-If Kvertperf01_ UseInAreaWeightedAveUfactor == true result = (SUM ALL (Kvertperf12c_VisibleTransmittance  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea;  
+If Kvertperf03_ UseInAreaWeightedAveVT == true result = (SUM ALL (Kvertperf12c_VisibleTransmittance  x Kvertperf13_FenestrationVerticalArea)) / KCalcVertVT02_TotalFenestrationVerticalArea;  
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -15801,7 +16117,7 @@ End If</xsd:documentation>
                            <xsd:element name="KCalcSkySHGC" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kskyperf01_UseInAreaWeightedAveSHGC == true; Else row is grayed out;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kskyperf02_UseInAreaWeightedAveSHGC == true; Else row is grayed out;</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -15845,7 +16161,7 @@ End If</xsd:documentation>
                            <xsd:element name="KCalcSkyVT" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kskyperf01_UseInAreaWeightedAveVT == true; Else row is grayed out;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is required If Kskyperf03_UseInAreaWeightedAveVT == true; Else row is grayed out;</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
@@ -15869,7 +16185,7 @@ End If</xsd:documentation>
                                     <xsd:element name="KCalcSkyVT04_AreaWeightAvgVT" type="comp:AreaWeightAvgVT">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Designed</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Calculated field: result = (SUM ALL (Kskyperf11c_VisibleTransmittance  x Kskyperf12_SkylightArea)) / KCalcSkyVT02_TotalSkylightArea</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Calculated field: result = (SUM ALL (Kskyperf11c_VT  x Kskyperf12_SkylightArea)) / KCalcSkyVT02_TotalSkylightArea</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="KCalcSkyVT05_DoesAreaWeightAvgComplyVT" type="comp:DoesAreaWeightAvgComplyVT">
