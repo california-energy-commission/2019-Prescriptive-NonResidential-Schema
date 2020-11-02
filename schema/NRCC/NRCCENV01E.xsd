@@ -1138,7 +1138,11 @@ MechanicalEquipmentOnRoof display term Mechanical equipment will not be lifted a
  
 NoExceptionApplies display term None of these exceptions apply, 
  
-R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089</xsd:documentation>
+R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089
+ 
+If Result == R7OrUfactorLT0_089 Or MechanicalEquipmentOnRoof Or InsulationReducesFlashingHeightLT8In 
+D03_ExceptionalConditionMessageNRCCENVE += RoofAlterationExceptionInF
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fframed05_NotApplicableMessage" >
@@ -13546,17 +13550,32 @@ TopLevelOccupancy value OtherOccupancy is listed once for FenestrationModificati
                                                                      </xsd:restriction>
                                                                   </xsd:simpleType>
                                                                </xsd:element>
-                                                               <xsd:element name="Kvertperf06_FenestrationModification" type="env:FenestrationModification" >
-                                                                  <xsd:annotation>
-                                                                     <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User selects status value with the appropriate occupancy type from list:  
+                                                               <xsd:choice maxOccurs="1">
+                                                                  <xsd:element name="Kvertperf06_FenestrationModification" type="env:FenestrationModification" >
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText"></xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">User selects status value with the appropriate occupancy type from list:  
 AllNew display term New 
 ReplaceGT150ft2 display term Alt. (Replacement [d:gt/] 150ft[d:sup]2[/d:sup]), 
 ReplaceLTE150ft2 display term Alt. (Replacement [d:lte/] 150ft[d:sup]2[/d:sup]), 
 AddGT50ft2 display term Alt. (Adding New [d:gt/] 50ft[d:sup]2[/d:sup]) 
 AddLTE50ft2 display term Alt. (Adding New [d:lte/] 50ft[d:sup]2[/d:sup]);</xsd:documentation>
-                                                                  </xsd:annotation>
-                                                               </xsd:element>
+                                                                     </xsd:annotation>
+                                                                  </xsd:element>
+                                                                  <xsd:element name="Kvertperf06mod_NotApplicableMessage" >
+                                                                     <xsd:annotation>
+                                                                        <xsd:documentation source="FieldText"></xsd:documentation>
+                                                                        <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == GlazedDoor
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                                     </xsd:annotation>
+                                                                     <xsd:simpleType>
+                                                                        <xsd:restriction base="comp:NotApplicableMessage">
+                                                                           <xsd:enumeration value="BlankGrayedOut"/>
+                                                                        </xsd:restriction>
+                                                                     </xsd:simpleType>
+                                                                  </xsd:element>
+                                                               </xsd:choice>
                                                             </xsd:sequence>
                                                          </xsd:complexType>
                                                       </xsd:element>
@@ -13690,13 +13709,19 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf09a_OverhangForRSHGC" type="comp:OverhangForRSHGC" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Overhang used for RSHGC</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">User input If checked result = true;  Else result = false</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">User input If checked result = true;  Else result = false;
+ 
+If result == true
+D03_ExceptionalConditionMessageNRCCENVE +=  VerticalFenestrationOverhangsInK
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Kvertperf09a_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Overhang used for RSHGC</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen
+Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2   
+ result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -13767,8 +13792,9 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf11b_SHGC_Limit" type="com:SHGC_Limit" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == GlazedDoor
-result = 0.45 
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf07_ComplianceMethodSHGC_VT == NoOverHang result = 0.56;
+Else If Kvertperf05_FenestrationProductType == GlazedDoor
+result = 0.23; 
 Else If Kvertperf07_ComplianceMethodSHGC_VT == Table140_3BCD  
 If Kvertperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 Switch (Kvertperf05_FenestrationProductType) 
@@ -13784,8 +13810,6 @@ Else  If Kvertperf07_ComplianceMethodSHGC_VT == Table141_0A
 If A03_ClimateZoneNumber == 1, 3, 5 Or 16 result = 0.41; 
 Else If A03_ClimateZoneNumber == 2, 4 Or InRange (6,15) result = 0.31;  
 End If
- 
-Else  If Kvertperf07_ComplianceMethodSHGC_VT == NoOverHang result = 0.56;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -14260,15 +14284,18 @@ Switch (Kvertperf15_FenestrationFramingNR)
 case MetalFraming:  
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.25; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.77; 
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.82
 End If
  
 case MetalFramingWithThermalBreak: 
 If Kvertperf23_FenestrationPanes == DoublePane result = 0.59;  
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.63;
 End If
  
 case NonMetalFraming:  
 If Kvertperf23_FenestrationPanes == SinglePane result =0.99; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.53;
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.58
 End If
 End Switch
 Else
@@ -14279,26 +14306,37 @@ case MetalFraming:
 If Kvertperf20_GreenhouseGardenWindow == true Then 
 If Kvertperf23_FenestrationPanes == SinglePane result = 2.26; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 1.40; 
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result =1.45;
 End If
  
 Else If Kvertperf05_FenestrationProductType == OperableWindow  Then 
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.28; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.79; 
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.84;
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.87; 
 End If
  
 Else If Kvertperf05_FenestrationProductType == FixedWindow  Then 
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.19; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.71; 
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.76;
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.72; 
 End If
 End If
  
 case MetalFramingWithThermalBreak: 
-If Kvertperf20_GreenhouseGardenWindow == true result = 1.12;  
+If Kvertperf20_GreenhouseGardenWindow == true  
+ If Kvertperf23_FenestrationPanes == DoublePane  result = 1.12; 
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 1.17;
+End If
+ 
 Else If Kvertperf23_FenestrationPanes == DoublePane 
 If Kvertperf05_FenestrationProductType == OperableWindow result = 0.66; 
 Else If Kvertperf05_FenestrationProductType == FixedWindow result = 0.55;  
+End If
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided
+If Kvertperf05_FenestrationProductType == OperableWindow result = 0.71; 
+Else If Kvertperf05_FenestrationProductType == FixedWindow result = 0.60;  
 End If
 End If
  
@@ -14306,18 +14344,21 @@ case NonMetalFraming:
 If Kvertperf20_GreenhouseGardenWindow == true Then 
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.94; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 1.06;  
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 1.11;
 End If
  
 Else If Kvertperf05_FenestrationProductType == OperableWindow  Then 
 If Kvertperf23_FenestrationPanes == SinglePane result =0.99; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.58; 
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.58;
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.63;
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.60; 
 End If
  
 Else If Kvertperf05_FenestrationProductType == FixedWindow  Then 
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.04; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.55;
- Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.57;
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 60;
+Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.57;
 End If
 End If
 End Switch</xsd:documentation>
@@ -14334,10 +14375,6 @@ Else
 If Kvertperf15_FenestrationFramingNR ==  MetalFramingWithThermalBreak: 
 And  Kvertperf23_FenestrationPanes == SinglePane  Or GlassBlock
 result = NotApplicable stored in NotApplicableMessage;  :
-Else
-If Kvertperf15_FenestrationFramingNR ==  MetalFraming Or NonMetalFraming 
-And Kvertperf05_FenestrationProductType == GlazedDoor Or If Kvertperf20_GreenhouseGardenWindow == true
-result = NotApplicable stored in NotApplicableMessage; 
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -14726,7 +14763,11 @@ End If</xsd:documentation>
                                                                <xsd:element name="Kskyperf06_TopLevelOccupancy" >
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User selects occupancy type with the appropriate status value from list:  Nonresidential display term Nonresidential/ Relocatable 1 CZ,  ResidentialNR display term High-rise Res/Hotel/ Motel, RelocableSchoolBuildingAllZones display term Relocatable all CZ</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User selects occupancy type with the appropriate status value from list:  
+If Kskyperf05_FenestrationProductType == SkylightTubular list Nonresidential display term Nonresidential/ Relocatable 1 CZ
+Else list: 
+Nonresidential display term Nonresidential/ Relocatable 1 CZ,  ResidentialNR display term High-rise Res/Hotel/ Motel, RelocableSchoolBuildingAllZones display term Relocatable all CZ
+End If</xsd:documentation>
                                                                      <xsd:appinfo source="displayterm">
                                                                         <dtyp:displayterm value="ResidentialNR">= High-rise Res/Hotel/ Motel</dtyp:displayterm>
                                                                         <dtyp:displayterm value="Nonresidential">Nonresidential/ Relocatable 1 CZ</dtyp:displayterm>
@@ -14907,6 +14948,11 @@ case SkylightGlassCurb:  case SkylightGlassDeck:
 If  Ksky04_TotalSkylightArea /  Ksky02_ExteriorSurfaceGrossArea LTE 0.02 result = 0.46; 
 Else If Ksky04_TotalSkylightArea  /  Ksky02_ExteriorSurfaceGrossArea == InRange(0.021, 0.05) result = 0.36;
 End If
+case SkylightPlasticCurb
+If  Ksky04_TotalSkylightArea /  Ksky02_ExteriorSurfaceGrossArea LTE 0.02 result = 0.69; 
+Else If Ksky04_TotalSkylightArea  /  Ksky02_ExteriorSurfaceGrossArea == InRange(0.021, 0.05) result = 0.57;
+End If
+ 
 End Switch
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -14914,8 +14960,11 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kskyperf10b_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Required Product Performance</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+                                                      <xsd:documentation source="CalculationsAndRules">If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightTubular 
 Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+result = BlankGrayedOut
+ 
+Else  If  Kskyperf05_FenestrationProductType == SkylightPlasticCurb And  Kskyperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -14991,8 +15040,11 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kskyperf11b_NotApplicableMessage" >
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen Or SkylightPlasticCurb Or SkylightTubular
+                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen Or SkylightTubular
 Or If Kskyperf06_FenestrationModification ==  AddLTE50ft2  
+result = BlankGrayedOut
+ 
+Else  If  Kskyperf05_FenestrationProductType == SkylightPlasticCurb And  Kskyperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -15136,14 +15188,15 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field: 
-Switch (Kskyperf13_FenestrationFramingNR) case MetalFraming: 
+Switch (Kskyperf13_FenestrationFramingNR) 
+case MetalFraming: 
 If Kskyperf05_FenestrationProductType == SkylightGlassCurb Or SkylightPlasticCurb Or SkylightTubular result = 0.711 + (1.065 x Kskyperf15a_UFactorCenterOfGlass); 
  
 Else If If Kskyperf05_FenestrationProductType == SkylightGlassDeck result =  0.195 + (0.882 x Kskyperf15a_UFactorCenterOfGlass);   
 End If
  
 case MetalFramingWithThermalBreak: case NonMetalFraming: 
-If Kskyperf05_FenestrationProductType == SkylightGlassCurb Or SkylightPlasticCurb Or SkylightTubular result =  result = 0.437 + (1.229 x Kskyperf15a_UFactorCenterOfGlass);  
+If Kskyperf05_FenestrationProductType == SkylightGlassCurb Or SkylightPlasticCurb Or SkylightTubular result =  0.437 + (1.229 x Kskyperf15a_UFactorCenterOfGlass);  
  
 Else Kskyperf05_FenestrationProductType == SkylightGlassDeck result =  result = 0.310 + (0.878 x Kskyperf15a_UFactorCenterOfGlass);
 End If
