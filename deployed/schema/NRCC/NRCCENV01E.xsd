@@ -602,7 +602,7 @@ If fields beginning with Hframed03, Hframed04a, Hframed04b, Hframed05, Hframed06
 If Hframed01_UseInAreaWeightedAveUfactor == false Or Hframed02_UseInAreaWeightedAveUfactor == false 
 If Hframed10_ConstructionSpecificationMethod == RValue And Hframed08_CavityInsulationNR GTE Hframed11_ InsulationRValueLimit  result = true; Else result = false; If result == true continue evaluation: 
  
-Else If Hframed11_ConstructionSpecificationMethod == UFactor If field beginning with Hframed12_UfactorJA4 that IsPresent is LTE Hframed11_InsulationUFactorLimit result = true; Else result = false;  If result == true continue evaluation: 
+Else If Hframed10_ConstructionSpecificationMethod == UFactor If field beginning with Hframed12_UfactorJA4 that IsPresent is LTE Hframed11_InsulationUFactorLimit result = true; Else result = false;  If result == true continue evaluation: 
  
  
 Else If Hframed01_UseInAreaWeightedAveUfactor == true  If HCalc1UF05_DoesAreaWeightAvgComplyUfactor == true result = true; Else result = false;  If result == true continue evaluation: 
@@ -6158,13 +6158,19 @@ End If</xsd:documentation>
                                                    </xsd:simpleType>
                                                 </xsd:element>
                                              </xsd:choice>
-                                             <xsd:element name="Hframed10_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
+                                             <xsd:element name="Hframed10_ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAlteration  And Hframed01_UseInAreaWeightedAveUfactor  == false And Hframed02_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="env:ConstructionSpecificationMethod">
+                                                      <xsd:enumeration value="RValue"/>
+                                                      <xsd:enumeration value="UFactor"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
                                              </xsd:element>
                                              <xsd:choice maxOccurs="1">
                                                 <xsd:element name="Hframed11_InsulationUFactorLimit" type="env:InsulationUFactorLimit">
@@ -6743,7 +6749,7 @@ End If</xsd:documentation>
                                                                <xsd:element name="Hmass08_PartitionFramingMaterial">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">User picks from dropdown list NoFraming display term No frame type- any Thick, WoodFraming display term Wood - is listed with each value for FramingDepth appended, Metal display term Metal - is listed with each value for FramingDepth appended, EIFS display term EIFS</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">User picks from dropdown list NoFraming display term No frame type- any Thick, WoodFraming display term Wood - is listed with each value for FramingDepth appended, Metal display term Metal - is listed with each value for FramingDepth appended, and EIFS display term EIFS.</xsd:documentation>
                                                                      <xsd:appinfo source="displayterm">
                                                                         <dtyp:displayterm value="WoodFraming">Wood-</dtyp:displayterm>
                                                                         <dtyp:displayterm value="Metal">Metal-</dtyp:displayterm>
@@ -6759,10 +6765,13 @@ End If</xsd:documentation>
                                                                      </xsd:restriction>
                                                                   </xsd:simpleType>
                                                                </xsd:element>
-                                                               <xsd:element name="Hmass08_FramingDepth" type="env:FramingDepth">
+                                                               <xsd:element name="Hmass08_FramingDepth" type="env:FramingDepth" minOccurs="0">
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Frame Material &amp;amp; Thickness</xsd:documentation>
-                                                                     <xsd:documentation source="CalculationsAndRules">For Hmass08_PartitionFramingmaterial == WoodFraming Or Metal dropdown list is formed by prepending  Wood- to all these values And prepending Metal- to the display term for all these values: 0_5In display term 0.50 in, 0_75In display term 0.75 in, 1_0In display term I in, 1_5In display term 1.50 in, 2_5In display term 2.5 in, 2In display term 2 in, 3_5In display term 3.5 in, 3In display term 3 in, 4_5In display term 4.5 in, 4In display term 4 in, 5_5In display term 5.5 in, 5In display term 5 in</xsd:documentation>
+                                                                     <xsd:documentation source="CalculationsAndRules">If Hmass08_PartitionFramingmaterial == EIFS Or NoFraming data for this element is NOT required 
+Else If Hmass08_PartitionFramingmaterial == WoodFraming Or Metal 
+the dropdown list is formed by listing each display term with Wood- prepended followed by each display term with Metal- prepended:  
+0_5In display term 0.50 in, 0_75In display term 0.75 in, 1_0In display term I in, 1_5In display term 1.50 in, 2_5In display term 2.5 in, 2In display term 2 in, 3_5In display term 3.5 in, 3In display term 3 in, 4_5In display term 4.5 in, 4In display term 4 in, 5_5In display term 5.5 in, 5In display term 5 in</xsd:documentation>
                                                                   </xsd:annotation>
                                                                </xsd:element>
                                                             </xsd:sequence>
@@ -8761,10 +8770,13 @@ End If</xsd:documentation>
                                                    </xsd:simpleType>
                                                 </xsd:element>
                                              </xsd:choice>
-                                             <xsd:element name="Hspandrel05a_GlassWallType" type="env:GlassWallType">
+                                             <xsd:element name="Hspandrel05a_GlassWallType" type="env:GlassWallType" minOccurs="0">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">Calculated value used in assigning U-factors from JA4.3.8 table: 
+If Hspandrel05_NotApplicableMessage IsPresent this field is not required
+Else
+ 
 If Hspandrel05_SpandrelCurtainType IsPresent Then If Hspandrel05_SpandrelCurtainType == AluminumNoThermalBreak, AluminumThermalBreak, NoFrameContinuousInsul Or StructuralGlazing  result = Spandrel; 
 Else result = Curtain
 End If</xsd:documentation>
@@ -9310,13 +9322,19 @@ end If</xsd:documentation>
                                                    </xsd:simpleType>
                                                 </xsd:element>
                                              </xsd:choice>
-                                             <xsd:element name="Hmetalb08_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
+                                             <xsd:element name="Hmetalb08_ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">If Hmetalb03b_Status == ExistingAlteration And Hmetalb01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="env:ConstructionSpecificationMethod">
+                                                      <xsd:enumeration value="RValue"/>
+                                                      <xsd:enumeration value="UFactor"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
                                              </xsd:element>
                                              <xsd:choice maxOccurs="1">
                                                 <xsd:element name="Hmetalb09_InsulationUFactorLimit" type="env:InsulationUFactorLimit">
@@ -10322,13 +10340,19 @@ End if</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                              </xsd:choice>
-                                             <xsd:element name="Hstraw07_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
+                                             <xsd:element name="Hstraw07_ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">If Hstraw04b_Status == ExistingAlteration And Hstraw01_UseInAreaWeightedAveUfactor  == false list RValue display term R-value, UFactor display term U-factor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="env:ConstructionSpecificationMethod">
+                                                      <xsd:enumeration value="RValue"/>
+                                                      <xsd:enumeration value="UFactor"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
                                              </xsd:element>
                                              <xsd:choice maxOccurs="1">
                                                 <xsd:element name="Hstraw08_InsulationUFactorLimit" type="env:InsulationUFactorLimit">
@@ -10951,7 +10975,7 @@ End If</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
-                           <xsd:element name="TableHCalc2UF">
+                           <xsd:element name="TableHCalc2UF" minOccurs="0">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">This table is NOT REPORTED IN PDF, but data is required to aggregate the different mass wall types into light and heavy totals for reporting</xsd:documentation>
@@ -11842,13 +11866,19 @@ End If</xsd:documentation>
                                                    </xsd:simpleType>
                                                 </xsd:element>
                                              </xsd:choice>
-                                             <xsd:element name="Iframed09_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
+                                             <xsd:element name="Iframed09_ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">If  Iframed03b_Status == ExistingAlteration  And Iframed01_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="env:ConstructionSpecificationMethod">
+                                                      <xsd:enumeration value="RValue"/>
+                                                      <xsd:enumeration value="UFactor"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
                                              </xsd:element>
                                              <xsd:choice maxOccurs="1">
                                                 <xsd:element name="Iframed10_InsulationUFactorLimit" type="env:InsulationUFactorLimit">
@@ -12982,13 +13012,19 @@ End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                              </xsd:choice>
-                                             <xsd:element name="Imass08_ConstructionSpecificationMethod" type="env:ConstructionSpecificationMethod">
+                                             <xsd:element name="Imass08_ConstructionSpecificationMethod">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Thermal Performance Unit</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">If Imass04b_Status == ExistingAlteration  And Imass01_UseInAreaWeightedAveUfactor  == false list RValue, UFactor ; 
 Else result = UFactor and cannot be changed by user
 End If</xsd:documentation>
                                                 </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="env:ConstructionSpecificationMethod">
+                                                      <xsd:enumeration value="RValue"/>
+                                                      <xsd:enumeration value="UFactor"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
                                              </xsd:element>
                                              <xsd:choice maxOccurs="1">
                                                 <xsd:element name="Imass09_InsulationUFactorLimit" type="env:InsulationUFactorLimit">
@@ -13988,8 +14024,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">(R)SHGC Compliance Method</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: 
-If B01New_ScopeIncludeNew == true Or If B01Add_ScopeIncludesAddition == true Or
-Kvertperf06_FenestrationModification == AllNew  Or
+If Kvertperf06_FenestrationModification == AllNew  Or
 Kvertperf05_FenestrationProductType == GlazedDoor  list: 
 Table140_3BCD display term Table 140.3-B/C/D 
 NoOverHang display term 1st flr display perimeter- no overhang; 
@@ -14630,9 +14665,21 @@ End If</xsd:documentation>
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Glazing Type</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User selects from customized list as follows: 
-If Kvertperf22_FenestrationTypeNR == NonMetalFraming Or MetalFraming 
+If  If Kvertperf22_FenestrationFramingNR == MetalFramingWithThermalBreak list: 
+DoublePane display term Double Pane, 
+DoubleWithSpacers display term Double Pane- w/ spacers, 
+DoublePaneDivided display term Double Pane- divided lite;
  
-If Kvertperf20_GreenhouseGardenWindow == false list: 
+Else If Kvertperf22_FenestrationFramingNR == NonMetalFraming Or MetalFraming 
+If Kvertperf05_FenestrationProductType == GlazedDoor 
+list: 
+SinglePane display term Single Pane, 
+DoublePane display term Double Pane, 
+DoubleWithSpacers display term Double Pane- w/ spacers, 
+DoublePaneDivided display term Double Pane- divided lite, 
+ 
+Else If Kvertperf20_GreenhouseGardenWindow == false 
+ list: 
 SinglePane display term Single Pane, 
 DoublePane display term Double Pane, 
 DoubleWithSpacers display term Double Pane- w/ spacers, 
@@ -14645,11 +14692,7 @@ DoublePane display term Double Pane,
 DoubleWithSpacers display term Double Pane- w/ spacers, 
 DoublePaneDivided display term Double Pane- divided lite;  
 End If
- 
-Else If Kvertperf22_FenestrationTypeNR == MetalFramingWithThermalBreak list: 
-DoublePane display term Double Pane, 
-DoubleWithSpacers display term Double Pane- w/ spacers, 
-DoublePaneDivided display term Double Pane- divided lite;</xsd:documentation>
+ End If</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
                                                       <xsd:element name="Kvertperf24_GlazingTint" type="env:GlazingTint">
@@ -14678,7 +14721,7 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="FieldText">U-factor</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field: 
  If Kvertperf05_FenestrationProductType == GlazedDoor
-Switch (Kvertperf15_FenestrationFramingNR) 
+Switch (Kvertperf22_FenestrationFramingNR) 
 case MetalFraming:  
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.25; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.77; 
@@ -14687,7 +14730,7 @@ End If
  
 case MetalFramingWithThermalBreak: 
 If Kvertperf23_FenestrationPanes == DoublePane result = 0.59;  
-Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.63;
+Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.64;
 End If
  
 case NonMetalFraming:  
@@ -14696,9 +14739,10 @@ Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.53;
 Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.58
 End If
 End Switch
+ 
 Else
  
-Switch (Kvertperf15_FenestrationFramingNR) 
+Switch (Kvertperf22_FenestrationFramingNR) 
 case MetalFraming: 
  
 If Kvertperf20_GreenhouseGardenWindow == true Then 
@@ -14714,7 +14758,7 @@ Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided 
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.87; 
 End If
  
-Else If Kvertperf05_FenestrationProductType == FixedWindow  Then 
+Else If Kvertperf05_FenestrationProductType == FixedWindow Or StoreFront Or DemisingWallFen Or CurtainWall  Then 
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.19; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.71; 
 Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.76;
@@ -14730,11 +14774,11 @@ End If
  
 Else If Kvertperf23_FenestrationPanes == DoublePane 
 If Kvertperf05_FenestrationProductType == OperableWindow result = 0.66; 
-Else If Kvertperf05_FenestrationProductType == FixedWindow result = 0.55;  
+Else If Kvertperf05_FenestrationProductType == FixedWindow Or StoreFront Or DemisingWallFen Or CurtainWall result = 0.55;  
 End If
 Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided
 If Kvertperf05_FenestrationProductType == OperableWindow result = 0.71; 
-Else If Kvertperf05_FenestrationProductType == FixedWindow result = 0.60;  
+Else If Kvertperf05_FenestrationProductType == FixedWindow Or StoreFront Or DemisingWallFen Or CurtainWall result = 0.60;  
 End If
 End If
  
@@ -14752,7 +14796,7 @@ Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided 
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.60; 
 End If
  
-Else If Kvertperf05_FenestrationProductType == FixedWindow  Then 
+Else If Kvertperf05_FenestrationProductType == FixedWindow Or StoreFront Or DemisingWallFen Or CurtainWall  Then 
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.04; 
 Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.55;
 Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 60;
@@ -14769,10 +14813,7 @@ End Switch</xsd:documentation>
  
 If Kvertperf05_FenestrationProductType == ChromogenicFen 
 result = BlankGrayedOut
-Else 
-If Kvertperf15_FenestrationFramingNR ==  MetalFramingWithThermalBreak: 
-And  Kvertperf23_FenestrationPanes == SinglePane  Or GlassBlock
-result = NotApplicable stored in NotApplicableMessage;  :
+ 
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -14789,38 +14830,43 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="FieldText">SHGC</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field: 
  
-Switch (Kvertperf15_FenestrationFramingNR) 
+Switch (Kvertperf22_FenestrationFramingNR) 
 case MetalFraming:  
 If Kvertperf05_FenestrationProductType == OperableWindow  Then 
  
 If Kvertperf24_GlazingTint == ClearGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.80; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.70; 
+Else If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ result = 0.70; 
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.70 
 End If
  
 Else If Kvertperf24_GlazingTint == TintedGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.67; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.59; 
+Else If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ result = 0.59; 
 End If
 End If
  
 Else If Kvertperf05_FenestrationProductType == FixedWindow, GlazedDoor, CurtainWall, Or StoreFront Then 
 If Kvertperf24_GlazingTint == ClearGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.83; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.73; 
+Else If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+result = 0.73; 
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.73; 
 End If
  
 Else If Kvertperf24_GlazingTint == TintedGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.68; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.60;  
+Else If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ result = 0.60;  
 End If
 End If
 End If
  
 case MetalFramingWithThermalBreak: 
-If Kvertperf23_FenestrationPanes == DoublePane Then 
+If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ Then 
 If Kvertperf05_FenestrationProductType == OperableWindow  
 If Kvertperf24_GlazingTint == ClearGlazing result = 0.63; 
 Else If Kvertperf24_GlazingTint == TintedGlazing result = 0.53; 
@@ -14837,25 +14883,29 @@ case NonMetalFraming:
 If Kvertperf05_FenestrationProductType == OperableWindow  Then 
 If Kvertperf24_GlazingTint == ClearGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result =0.74; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.65; 
+Else If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ result = 0.65; 
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.70; 
 End If
  
 Else If Kvertperf24_GlazingTint == TintedGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result =0.60; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.53; 
+Else If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ result = 0.53; 
 End If
  
 Else If Kvertperf05_FenestrationProductType ==  FixedWindow, GlazedDoor, CurtainWall, Or StoreFront  Then 
 If Kvertperf24_GlazingTint == ClearGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result = 0.76; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.67; 
+Else If Kvertperf23_FenestrationPanes == DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ result = 0.67; 
 Else If Kvertperf23_FenestrationPanes == GlassBlock result = 0.67; 
 End If
  
 Else If Kvertperf24_GlazingTint == TintedGlazing 
 If Kvertperf23_FenestrationPanes == SinglePane result =0.63; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.55;
+Else If Kvertperf23_FenestrationPanes ==DoublePane,  DoubleWithSpacers Or DoublePaneDivided
+ result = 0.55;
 End If
 End If
 End If
@@ -14866,13 +14916,14 @@ End Switch</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">SHGC</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  result = BlankGrayedOut
+If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  
+result = BlankGrayedOut
 Else
-If Kvertperf15_FenestrationFramingNR ==  MetalFramingWithThermalBreak: 
+If Kvertperf22_FenestrationFramingNR ==  MetalFramingWithThermalBreak: 
 And  Kvertperf23_FenestrationPanes == SinglePane  Or GlassBlock
 result = NotApplicable stored in NotApplicableMessage
 Else
-If Kvertperf15_FenestrationFramingNR ==  MetalFraming Or NonMetalFraming 
+If Kvertperf22_FenestrationFramingNR ==  MetalFraming Or NonMetalFraming 
 And  If Kvertperf24_GlazingTint == TintedGlazing
 And If Kvertperf23_FenestrationPanes == GlassBlock
 result = NotApplicable stored in NotApplicableMessage
@@ -14891,7 +14942,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">VT</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field: 
-If Kvertperf14_WindowProjecting == true result = 0.53; 
+If Kvertperf21_WindowProjecting == true result = 0.53; 
 Else If Kvertperf05_FenestrationProductType == OperableWindow result = 0.67; 
 Else If Kvertperf05_FenestrationProductType == FixedWindow Or GlazedDoor
  result = 0.77; 
@@ -15446,7 +15497,8 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kskyperf11a_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen 
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -15475,6 +15527,9 @@ result = BlankGrayedOut
  
 Else  If  Kskyperf05_FenestrationProductType == SkylightPlasticCurb And  Kskyperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 result = BlankGrayedOut
+ 
+Else If Kskyperf07_FenestrationComplianceCalc == Table110_6Defaults And Kskyperf21b_NotApplicableMessage == NotApplicable result = NotApplicable
+ 
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -15576,7 +15631,7 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field:
 If  Kskyperf05_FenestrationProductType == ChromogenicFen 
-result = BankGrayedOut
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
@@ -15595,7 +15650,7 @@ End If</xsd:documentation>
  If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
 Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
  
-result = BankGrayedOut
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
@@ -15774,9 +15829,6 @@ End Switch</xsd:documentation>
                                                                <xsd:documentation source="FieldText">U-factor</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field: 
 If Kskyperf05_FenestrationProductType == ChromogenicFen result = BlankGrayedOut
-Else If Kskyperf18_FenestrationFramingNR == MetalFramingWithThermalBreak 
-and If Kskyperf19_FenestrationPanes == SinglePane 
-result = NotApplicable
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>

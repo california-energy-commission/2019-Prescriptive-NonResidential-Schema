@@ -2565,6 +2565,12 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:ObjectNamePermissive"/>
    </xsd:simpleType>
+   <xsd:simpleType name="FluidSystemTotalStorage">
+      <xsd:annotation>
+         <xsd:documentation>Units: gal</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="FluidSystemType">
       <xsd:annotation>
          <xsd:documentation>FluidSystemType</xsd:documentation>
@@ -3458,6 +3464,21 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ModelingMethod">
+      <xsd:annotation>
+         <xsd:documentation>Defines how the FanSystem is modeled.</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="BrakeHorsePower">Brake Horse Power</dtyp:displayterm>
+            <dtyp:displayterm value="PowerPerUnitFlow">Power Per Unit Flow</dtyp:displayterm>
+            <dtyp:displayterm value="StaticPressure">Static Pressure</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="BrakeHorsePower"/>
+         <xsd:enumeration value="PowerPerUnitFlow"/>
+         <xsd:enumeration value="StaticPressure"/>
+      </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MotorBHP">
       <xsd:annotation>
@@ -5309,6 +5330,18 @@
          <xsd:enumeration value="WaterToWaterHP"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="UnmetCoolingLoadHours">
+      <xsd:annotation>
+         <xsd:documentation>The number of hours during the year when the space temperature is below the heating set point temperature or greater than the cooling set point temperature.  UnmetLoadHours are used to determine if resizing is required.  If greater than 300 there are rules for adjusting the baseline model to decrease the UnmetLoadHours  Units: h</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="UnmetHeatingLoadHours">
+      <xsd:annotation>
+         <xsd:documentation>The number of hours during the year when the space temperature is below the heating set point temperature or greater than the cooling set point temperature.  UnmetLoadHours are used to determine if resizing is required.  If greater than 300 there are rules for adjusting the baseline model to decrease the UnmetLoadHours  Units: h</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="VariableRefrigerantFlow">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -5862,5 +5895,17 @@
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Inlet"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ZoneUnmetCoolingLoadHours">
+      <xsd:annotation>
+         <xsd:documentation>The number of hours during the year when the space temperature is below the heating set point temperature or greater than the cooling set point temperature.  UnmetLoadHours are used to determine if resizing is required.  If greater than 300 there are rules for adjusting the baseline model to decrease the UnmetLoadHours  Units: h</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ZoneUnmetHeatingLoadHours">
+      <xsd:annotation>
+         <xsd:documentation>The number of hours during the year when the space temperature is below the heating set point temperature or greater than the cooling set point temperature.  UnmetLoadHours are used to determine if resizing is required.  If greater than 300 there are rules for adjusting the baseline model to decrease the UnmetLoadHours  Units: h</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
 </xsd:schema>
