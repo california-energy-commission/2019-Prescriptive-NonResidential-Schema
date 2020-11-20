@@ -10028,7 +10028,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Wood" type="comp:UfactorJA4314Wood">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == WoodFraming, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/result from Hlog09a_ UfactorJA4311) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == WoodFraming, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/result from Hlog09_ UfactorJA4311) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hlog06_FramingDepth == 0_5In 
 Switch (Hlog07_CavityInsulationNR) 
@@ -10084,7 +10084,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Metal" type="comp:UfactorJA4314Metal">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/ result from Hlog09a_ UfactorJA4311) + Rvalue)  where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == Metal, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/ result from Hlog09_ UfactorJA4311) + Rvalue)  where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hlog06_FramingDepth == 0_5In 
 Switch (Hlog07_CavityInsulationNR) 
@@ -10140,7 +10140,7 @@ End If</xsd:documentation>
                                                                   <xsd:element name="Hlog09_UfactorJA4314Other" type="comp:UfactorJA4314Other">
                                                                      <xsd:annotation>
                                                                         <xsd:documentation source="FieldText"/>
-                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == NoFraming Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/result from Hlog09a_ UfactorJA4311) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
+                                                                        <xsd:documentation source="CalculationsAndRules">If Hlog06_NotApplicableMessage != FramingNA And Hlog06_PartitionFramingMaterial == NoFraming Or EIFS, use this choice to adjust data to be reported.  Adjusted result for JA4 U-factor = 1/ ((1/result from Hlog09_ UfactorJA4311) + Rvalue) where Rvalue is assigned as follows using JA4 table 4.3.14  
  
 If Hlog06_PartitionFramingMaterial == NoFraming 
 Switch (Hlog07_CavityInsulationNR) 
@@ -14062,7 +14062,7 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">VT Compliance Method</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">User selects from list customized as follows: 
-If B01New_ScopeIncludeNew == true Or If B01Add_ScopeIncludesAddition == true list: 
+If Kvertperf06_FenestrationModification == AllNew  list: 
 Table140_3BCD display term Table 140.3-B/C/D,  
 Equation140_3B display term Equation 140.3-B, 
 NA_SkylitOverlap display term NA: Skylit &amp;amp; Sidelit Daylit zones overlap;  
@@ -14364,8 +14364,14 @@ End If</xsd:documentation>
                                                 <xsd:element name="Kvertperf12c_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Product Performance per Design</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2   Or 
-Or If Kvertperf05_FenestrationProductType == GlazedDoor And  If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones 
+                                                      <xsd:documentation source="CalculationsAndRules">If Kvertperf05_FenestrationProductType == ChromogenicFen Or DemisingWallFen Or 
+ 
+If Kvertperf06_FenestrationModification == ReplaceLTE150ft2 Or AddLTE50ft2  Or 
+ 
+If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones and  Kvertperf06_FenestrationModification == AllNew Or AddGT50ft2   Or 
+ 
+If Kvertperf05_FenestrationProductType == GlazedDoor And  If Kvertperf06_TopLevelOccupancy == RelocableSchoolBuildingAllZones 
+ 
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -15528,7 +15534,6 @@ result = BlankGrayedOut
 Else  If  Kskyperf05_FenestrationProductType == SkylightPlasticCurb And  Kskyperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 result = BlankGrayedOut
  
-Else If Kskyperf07_FenestrationComplianceCalc == Table110_6Defaults And Kskyperf21b_NotApplicableMessage == NotApplicable result = NotApplicable
  
 End If</xsd:documentation>
                                                    </xsd:annotation>
@@ -15574,7 +15579,9 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Area ft<d:sup>2</d:sup>
                                                       </xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen And If Kskyperf01_UseInAreaWeightedAveUfactor And Kskyperf02_UseInAreaWeightedAveSHGC  And Kskyperf02_UseInAreaWeightedAveVT  == false  result = BlankGrayedOut
+                                                      <xsd:documentation source="CalculationsAndRules">If Kskyperf05_FenestrationProductType == ChromogenicFen Or
+ If Kskyperf01_UseInAreaWeightedAveUfactor And Kskyperf02_UseInAreaWeightedAveSHGC  And Kskyperf02_UseInAreaWeightedAveVT  == false  
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -15647,9 +15654,11 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Center of Glass (COG) Product Performance</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field:
- If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+ If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightTubular 
 Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+result = BlankGrayedOut
  
+Else  If  Kskyperf05_FenestrationProductType == SkylightPlasticCurb And  Kskyperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -15713,9 +15722,11 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Product Performance per  NA6</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field:
- If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+ If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightTubular 
 Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+result = BlankGrayedOut
  
+Else  If  Kskyperf05_FenestrationProductType == SkylightPlasticCurb And  Kskyperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -15911,8 +15922,11 @@ end Switch</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">SHGC</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated field: 
-  If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightPlasticCurb Or SkylightTubular 
+ If  Kskyperf05_FenestrationProductType == ChromogenicFen Or  SkylightTubular 
 Or If Kskyperf06_FenestrationModification == AddLTE50ft2  
+result = BlankGrayedOut
+ 
+Else  If  Kskyperf05_FenestrationProductType == SkylightPlasticCurb And  Kskyperf06_TopLevelOccupancy == Nonresidential Or ResidentialNR 
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                             </xsd:annotation>

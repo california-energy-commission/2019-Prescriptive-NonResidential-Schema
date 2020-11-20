@@ -707,7 +707,7 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
             <dtyp:displayterm value="HighRiseResidential">High-Rise Residential</dtyp:displayterm>
             <dtyp:displayterm value="LodgingAssembly">Multipurpose assembly</dtyp:displayterm>
             <dtyp:displayterm value="Laboratory">Laboratory</dtyp:displayterm>
-            <dtyp:displayterm value="LightManufacturing">Light Manufacturing</dtyp:displayterm>
+            <dtyp:displayterm value="Manufacturing">Light Manufacturing</dtyp:displayterm>
             <dtyp:displayterm value="Office">Office</dtyp:displayterm>
             <dtyp:displayterm value="Parking">Parking</dtyp:displayterm>
             <dtyp:displayterm value="ResidentialCommon">Residential Common Space</dtyp:displayterm>
@@ -725,7 +725,7 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="HighRiseResidential"/>
          <xsd:enumeration value="LodgingAssembly"/>
          <xsd:enumeration value="Laboratory"/>
-         <xsd:enumeration value="LightManufacturing"/>
+         <xsd:enumeration value="Manufacturing"/>
          <xsd:enumeration value="Office"/>
          <xsd:enumeration value="Parking"/>
          <xsd:enumeration value="ResidentialCommon"/>
@@ -914,6 +914,7 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
             <dtyp:displayterm value="BackshelfPassover">Backshelf / Passover</dtyp:displayterm>
             <dtyp:displayterm value="DoubleIsland">Double Island</dtyp:displayterm>
             <dtyp:displayterm value="Eyebrow">Eyebrow</dtyp:displayterm>
+            <dtyp:displayterm value="None">None</dtyp:displayterm>
             <dtyp:displayterm value="SingleIsland">Single Island</dtyp:displayterm>
             <dtyp:displayterm value="WallMountedCanopy">Wall-mounted Canopy</dtyp:displayterm>
          </xsd:appinfo>
@@ -922,6 +923,7 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="BackshelfPassover"/>
          <xsd:enumeration value="DoubleIsland"/>
          <xsd:enumeration value="Eyebrow"/>
+         <xsd:enumeration value="None"/>
          <xsd:enumeration value="SingleIsland"/>
          <xsd:enumeration value="WallMountedCanopy"/>
       </xsd:restriction>
@@ -937,6 +939,24 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="Type1"/>
          <xsd:enumeration value="Type2HeatSteam"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="LaboratoryFumeHoodLength">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="LaboratoryFumeHoodVerticalAutomaticSashControlFraction">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="LaboratoryFumeHoodVerticalSashExhaustFlow">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="LampType">
       <xsd:annotation>
@@ -1109,7 +1129,7 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
    </xsd:simpleType>
    <xsd:simpleType name="OccupantDensity">
       <xsd:annotation>
-         <xsd:documentation>The areal density of people associated with a space expressed in people per 1000 square feet.  Units: person per thousand ft2</xsd:documentation>
+         <xsd:documentation>The areal density of people associated with a space expressed in people per 1000 square feet.  Units: person per area or fixed seating</xsd:documentation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
          <xsd:appinfo source="displaytermType">
             <dtyp:displayterm>Occupant Density</dtyp:displayterm>
@@ -1482,7 +1502,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="CorridorArea">Corridor Area</dtyp:displayterm>
             <dtyp:displayterm value="CorridorRestroomStairsSupportArea">Corridor, Restroom, Stairs or Support Area</dtyp:displayterm>
             <dtyp:displayterm value="DiningArea">Dining Area</dtyp:displayterm>
-            <dtyp:displayterm value="LaundryCoinOperated">Coin-operated Laundry</dtyp:displayterm>
             <dtyp:displayterm value="ElectricalMechancialTelephoneRoom">Electrical Mechancial Telephone Room</dtyp:displayterm>
             <dtyp:displayterm value="ExerciseCenterGymnasiumArea">Exercise/Fitness Center GymnasiumArea</dtyp:displayterm>
             <dtyp:displayterm value="ExhibitMuseumArea">Museum Area Exhibit/Display</dtyp:displayterm>
@@ -1507,6 +1526,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="KitchenCommercialFoodPreparation">Kitchen/ Food Preparation Area</dtyp:displayterm>
             <dtyp:displayterm value="LaboratoryScientific">Scientific Laboratory Area</dtyp:displayterm>
             <dtyp:displayterm value="Laundry">Laundry Area</dtyp:displayterm>
+            <dtyp:displayterm value="LaundryCoinOperated">Coin-operated Laundry</dtyp:displayterm>
             <dtyp:displayterm value="LibraryReadingArea">Library Reading Area</dtyp:displayterm>
             <dtyp:displayterm value="LibraryStacks">Library Stacks</dtyp:displayterm>
             <dtyp:displayterm value="LobbyMainEntry">Main Entry Lobby</dtyp:displayterm>
@@ -1569,7 +1589,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="CorridorArea"/>
          <xsd:enumeration value="CorridorRestroomStairsSupportArea"/>
          <xsd:enumeration value="DiningArea"/>
-         <xsd:enumeration value="LaundryCoinOperated"/>
          <xsd:enumeration value="ElectricalMechancialTelephoneRoom"/>
          <xsd:enumeration value="ExerciseCenterGymnasiumArea"/>
          <xsd:enumeration value="ExhibitMuseumArea"/>
@@ -1594,6 +1613,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="KitchenCommercialFoodPreparation"/>
          <xsd:enumeration value="LaboratoryScientific"/>
          <xsd:enumeration value="Laundry"/>
+         <xsd:enumeration value="LaundryCoinOperated"/>
          <xsd:enumeration value="LibraryReadingArea"/>
          <xsd:enumeration value="LibraryStacks"/>
          <xsd:enumeration value="LobbyMainEntry"/>
@@ -1984,6 +2004,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="AssemblyLobby">Lobbies</dtyp:displayterm>
             <dtyp:displayterm value="AudienceSeatingArea">Auditorium seating</dtyp:displayterm>
             <dtyp:displayterm value="AutoRepairVent">Auto-repair room</dtyp:displayterm>
+            <dtyp:displayterm value="BankLobby">Bank or bank lobby</dtyp:displayterm>
             <dtyp:displayterm value="BankVault">Bank Vault/safe deposit</dtyp:displayterm>
             <dtyp:displayterm value="BarberShop">Barbershop</dtyp:displayterm>
             <dtyp:displayterm value="BarCocktailLounge">Bar/ cocktail lounge</dtyp:displayterm>
@@ -2073,6 +2094,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="AssemblyLobby"/>
          <xsd:enumeration value="AudienceSeatingArea"/>
          <xsd:enumeration value="AutoRepairVent"/>
+         <xsd:enumeration value="BankLobby"/>
          <xsd:enumeration value="BankVault"/>
          <xsd:enumeration value="BarberShop"/>
          <xsd:enumeration value="BarCocktailLounge"/>
