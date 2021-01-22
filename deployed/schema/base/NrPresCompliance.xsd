@@ -4408,10 +4408,10 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="DaylightingControlsNotModeled">The project uses the Simplified Geometry Performance Modeling Approach which is not capable of modeling daylighting controls and assumes the prescriptive Secondary Daylit Control requirements are met.  PRESCRIPTIVE COMPLIANCE documentation (form NRCC-LTI-02-E) for the requirements of section 140.6(d) Automatic Daylighting Controls in Secondary Daylit Zones is required.</dtyp:displayterm>
             <dtyp:displayterm value="EnclosedParkingMandatoryRequirements">The project includes mechanical ventilation systems for enclosed parking garages having total design exhaust rate greater than or equal to 10,000 cfm.  Please verify the design meets the Mandatory Requirements for Enclosed Parking Garages as per Section 120.6(c).</dtyp:displayterm>
             <dtyp:displayterm value="EquipmentDifferFromPlans">The compliance model includes HVAC equipment with capacities that differ from the building plans, presumably to meet unmet load hour requirements.  Verify that the equipment in the design provides adequate cooling and heating capacity for the spaces served.</dtyp:displayterm>
-            <dtyp:displayterm value="FacadeDisplayPerimeter">Verify that the display perimeter for any facades where is is used matches the display perimeter as indicated on the building plans.</dtyp:displayterm>
+            <dtyp:displayterm value="FacadeDisplayPerimeter">Verify that the display perimeter for any facades where it is used matches the display perimeter as indicated on the building plans.</dtyp:displayterm>
             <dtyp:displayterm value="GeneralLightingExceptionalMethod">The general lighting exceptional method is employed for one or more spaces.  Verify that the lighting allowances match the lighting installed on the plans and serve the areas within each space as identified in the compliance model.</dtyp:displayterm>
-            <dtyp:displayterm value="IlluminanceSetpointBelowRange">Verify that the spaces with design illuminance setpoint below the range specified in the ACM Appendix 5.4 have acceptable inerior lighting levels.</dtyp:displayterm>
-            <dtyp:displayterm value="InsufficientCoolingEquipment">The user model includes space(s) without sufficient cooling equipement.  Cooling eqipment has been added to the model to meet cooling loads.</dtyp:displayterm>
+            <dtyp:displayterm value="IlluminanceSetpointBelowRange">Verify that the spaces with design illuminance setpoint below the range specified in the ACM Appendix 5.4 have acceptable interior lighting levels.</dtyp:displayterm>
+            <dtyp:displayterm value="InsufficientCoolingEquipment">The user model includes space(s) without sufficient cooling equipment.  Cooling equipment has been added to the model to meet cooling loads.</dtyp:displayterm>
             <dtyp:displayterm value="ModelingApproximations">Significant modeling approximations have been used to represent the building design.  Such approximations are common and an expected part of energy modeling.  However, such approximations should have thermodynamically similar results in the model and in the completed building.  Ensure that a narrative has been provided.  Review the narrative and ensure the modeling approximations are appropriate.  Some approximations may not be appropriate.  In such cases, the Exceptional Design Compliance procedure should be used.  An example would be modeling of thermal storage by modifying the efficiency of heating and cooling equipment.</dtyp:displayterm>
             <dtyp:displayterm value="NonMandatoryLightingControlCredit">The proposed building claims credit for non-mandatory lighting control credits via Power Adjustment Factors (PAFs) as outlined in Standards Table 140.6-A.  Review NRCC-PRF-LTI DETAILS Table A to ensure that credit is not claimed for mandatory controls.</dtyp:displayterm>
             <dtyp:displayterm value="NoServiceWaterHeating">The building does not include service water heating.  Verify that service water heating is not required and is not included in the design.</dtyp:displayterm>
@@ -4829,10 +4829,10 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="HERS_VerificationMeasure">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="CompactHotWaterDistributionHRR">Highrise residential compact hot water  distribution system expanded credit</dtyp:displayterm>
+            <dtyp:displayterm value="CompactHotWaterDistributionHRR">Highrise residential compact hot water distribution system expanded credit</dtyp:displayterm>
             <dtyp:displayterm value="DemandControlPushButtonHRR">Highrise residential recirculating with demand control, push button</dtyp:displayterm>
             <dtyp:displayterm value="DemandControlSensorsHRR">Highrise residential recirculating with demand control, occupancy/motion sensor</dtyp:displayterm>
-            <dtyp:displayterm value="DuctLeakageTesting">Duct eakage testing</dtyp:displayterm>
+            <dtyp:displayterm value="DuctLeakageTesting">Duct Leakage testing</dtyp:displayterm>
             <dtyp:displayterm value="DwellingUnitAirLeakage">Highrise residential dwelling unit envelope air leakage</dtyp:displayterm>
             <dtyp:displayterm value="KitchenHoodRatedHRR">Highrise residential kitchen hood rated by HVI</dtyp:displayterm>
             <dtyp:displayterm value="ParallelPipingHRR">Highrise residential central parallel piping</dtyp:displayterm>
@@ -6966,11 +6966,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="PerfComplies">COMPLIES</dtyp:displayterm>
+            <dtyp:displayterm value="PerfFails">DOES NOT COMPLY</dtyp:displayterm>
             <dtyp:displayterm value="PerfFailsUMLD">DOES NOT COMPLY - EXCESSIVE UMLH</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="PerfComplies"/>
+         <xsd:enumeration value="PerfFails"/>
          <xsd:enumeration value="PerfFailsUMLD"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -7134,6 +7136,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="PowerAllowedSpecialFunctionAreas">
+      <xsd:annotation>
+         <xsd:documentation>Units: W</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="PowerAllowedUseLoseTotal">
       <xsd:annotation>
          <xsd:documentation>Units: W</xsd:documentation>
       </xsd:annotation>
@@ -7848,6 +7856,9 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    </xsd:simpleType>
    <xsd:simpleType name="ReportRequestorIP_Address">
       <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="RequestedMMB">
+      <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="RequireNRCAEnv02F">
       <xsd:annotation>
@@ -9806,6 +9817,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="Compliance2016">Compliance 2016</dtyp:displayterm>
             <dtyp:displayterm value="Compliance2017">Compliance 2017</dtyp:displayterm>
             <dtyp:displayterm value="Compliance2019">Compliance 2019</dtyp:displayterm>
+            <dtyp:displayterm value="Compliance2022">Compliance 2022</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -9815,6 +9827,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="Compliance2016"/>
          <xsd:enumeration value="Compliance2017"/>
          <xsd:enumeration value="Compliance2019"/>
+         <xsd:enumeration value="Compliance2022"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="TotalPAF_AllowedAllAreas">

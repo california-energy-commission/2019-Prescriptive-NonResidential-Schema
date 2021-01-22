@@ -86,6 +86,13 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
+   <xsd:simpleType name="CavityInsulation">
+      <xsd:annotation>
+         <xsd:documentation>Units: h ft2 F per Btu</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="CavityInsulationNR">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -1538,6 +1545,35 @@
          <xsd:enumeration value="WoodSiding0_5In"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="CompatibleSurfaceType">
+      <xsd:annotation>
+         <xsd:documentation>Identifies the valid surface object type that the ConstructionAssembly can be assigned to.</xsd:documentation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Compatible Surface Type</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Ceiling">Ceiling</dtyp:displayterm>
+            <dtyp:displayterm value="ExteriorFloor">Exterior Floor</dtyp:displayterm>
+            <dtyp:displayterm value="ExteriorWall">Exterior Wall</dtyp:displayterm>
+            <dtyp:displayterm value="InteriorFloor">Interior Floor</dtyp:displayterm>
+            <dtyp:displayterm value="InteriorWall">Interior Wall</dtyp:displayterm>
+            <dtyp:displayterm value="Roof">Roof</dtyp:displayterm>
+            <dtyp:displayterm value="UndergroundFloor">Underground Floor</dtyp:displayterm>
+            <dtyp:displayterm value="UndergroundWall">Underground Wall</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Ceiling"/>
+         <xsd:enumeration value="ExteriorFloor"/>
+         <xsd:enumeration value="ExteriorWall"/>
+         <xsd:enumeration value="InteriorFloor"/>
+         <xsd:enumeration value="InteriorWall"/>
+         <xsd:enumeration value="Roof"/>
+         <xsd:enumeration value="UndergroundFloor"/>
+         <xsd:enumeration value="UndergroundWall"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ConcreteSandwichInsulation">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -1954,6 +1990,16 @@
          <xsd:enumeration value="Swinging"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="DynamicGlazing">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Uses Dynamic Glazing</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="DynamicGlazingType">
       <xsd:annotation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
@@ -2083,12 +2129,14 @@
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="CECDefaultPerformance">Default 110.6</dtyp:displayterm>
+            <dtyp:displayterm value="COGEquations">COG Equations</dtyp:displayterm>
             <dtyp:displayterm value="NA6Equations">Equatio NA 6-1 and NA 6 -2</dtyp:displayterm>
             <dtyp:displayterm value="NFRCRated">NFRC</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="CECDefaultPerformance"/>
+         <xsd:enumeration value="COGEquations"/>
          <xsd:enumeration value="NA6Equations"/>
          <xsd:enumeration value="NFRCRated"/>
       </xsd:restriction>
@@ -2219,6 +2267,7 @@
             <dtyp:displayterm value="GlazedDoor">Glazed door</dtyp:displayterm>
             <dtyp:displayterm value="OperableSkylight">Operable</dtyp:displayterm>
             <dtyp:displayterm value="OperableWindow">Operable window</dtyp:displayterm>
+            <dtyp:displayterm value="Skylight">Operable or fixed skylight</dtyp:displayterm>
             <dtyp:displayterm value="SkylightGlassCurb">Glass, curb mounted</dtyp:displayterm>
             <dtyp:displayterm value="SkylightGlassDeck">Glass, deck mounted</dtyp:displayterm>
             <dtyp:displayterm value="SkylightPlasticCurb">Plastic, curb mounted</dtyp:displayterm>
@@ -2235,6 +2284,7 @@
          <xsd:enumeration value="GlazedDoor"/>
          <xsd:enumeration value="OperableSkylight"/>
          <xsd:enumeration value="OperableWindow"/>
+         <xsd:enumeration value="Skylight"/>
          <xsd:enumeration value="SkylightGlassCurb"/>
          <xsd:enumeration value="SkylightGlassDeck"/>
          <xsd:enumeration value="SkylightPlasticCurb"/>
@@ -3103,6 +3153,7 @@ Used by the compliance software user interface to narrow list of material select
             <dtyp:displayterm value="InteriorFloor">Interior Floors</dtyp:displayterm>
             <dtyp:displayterm value="InteriorWall">Interior Walls</dtyp:displayterm>
             <dtyp:displayterm value="Roof">Roof</dtyp:displayterm>
+            <dtyp:displayterm value="UndergroundFloor">Underground Floors</dtyp:displayterm>
             <dtyp:displayterm value="UndergroundWall">Underground Walls</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -3117,6 +3168,7 @@ Used by the compliance software user interface to narrow list of material select
          <xsd:enumeration value="InteriorFloor"/>
          <xsd:enumeration value="InteriorWall"/>
          <xsd:enumeration value="Roof"/>
+         <xsd:enumeration value="UndergroundFloor"/>
          <xsd:enumeration value="UndergroundWall"/>
       </xsd:restriction>
    </xsd:simpleType>
