@@ -60,10 +60,13 @@
                                     <xsd:documentation source="AdditionalRequirements">ANY SPACE CONDITIONING EQUIPMENT LISTED IN 
                                        <d:t24ref h="110.2"/> SHALL ONLY BE INSTALLED IF CERTIFIED TO THE ENERGY COMMISSION TO MEET ALL APPLICABLE 
                                        <d:t24ref h="110.2"/> REQUIREMENTS.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because any of the following values == true: 
+B01aProjectHasHeatingAirSystem,  B01b_ProjectHasCoolingAirSystem,  B02a_ProjectHasWaterEconomizer, B02d_ProjectHasCoolingTowers, B02e_ProjectHasChillers, B02f_ProjectHasBoilers, B03b_ProjectHasElectricHeat 
+ 
+result = true  and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
                               <xsd:element name="MM110_2a_MeasureApplies" type="comp:MeasureApplies">
@@ -75,9 +78,9 @@ End if</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">EQUIPMENT SHALL MEET APPLICABLE EFFICIENCY REQUIREMENTS IN 
                                        <d:b>TABLE 110.2-A</d:b> THROUGH 
                                        <d:b>TABLE 110.2-K</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_2_MeasureApplies == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -88,9 +91,9 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.2(b) HEAT PUMPS WITH SUPPLEMENTARY ELECTRIC RESISTANCE HEAT</d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">HEAT PUMPS WITH SUPPLEMENTARY ELECTRIC RESISTANCE HEATERS SHALL HAVE CONTROLS THAT PREVENT SUPPLEMENTARY HEATER OPERATION WHEN THE HEATING LOAD CAN BE MET BY THE HEAT PUMP ALONE.  CUT-ON TEMPERATURE FOR COMPRESSION HEATING SHALL BE HIGHER THAN THAT FOR SUPPLEMENTARY HEATING.  CUT-OFF TEMPERATURE FOR COMPRESSION HEATING SHALL BE HIGHER THAN THAT FOR SUPPLEMENTARY HEATING.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  F02_HvacSystemType == UnitaryHeatPumps
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -101,9 +104,9 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.2(c) SETBACK THERMOSTATS</d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">ALL HEATING OR COOLING SYSTEMS NOT CONTROLLED BY A CENTRAL ENERGY MANAGEMENT CONTROL SYSTEM (EMCS) SHALL HAVE A SETBACK THERMOSTAT WITH CLOCK MECHANISM THAT ALLOWS THE BUILDING OCCUPANT TO PROGRAM THE TEMPERATURE SETPOINTS FOR AT LEAST FOUR PERIODS WITHIN 24 HOURS.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  I04_ThermostatType == SetbackThermostat
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -122,9 +125,10 @@ End if</xsd:documentation>
                                              <d:lte/> 0.75% OF THE INPUT RATING. </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  F02_HvacSystemType == FurnaceUnitHeater  And 
+And F06_HeatingRatedCapacity GTE 225,000
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -143,9 +147,11 @@ End if</xsd:documentation>
                                           <d:list>EFFICIENT DRIFT ELIMINATORS THAT ACHIEVE DRIFT REDUCTION TO 0.002% OF THE CIRCULATED WATER VOLUME FOR COUNTER-FLOW TOWERS AND 0.005% FOR CROSS-FLOW TOWERS. </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Fe02_HeatRejectionType == OpenTowerAxialFan Or OpenTowerAxialGTE900gpm Or 
+OpenTowerReplacementAxialGTE900gpm Or ClosedTowerAxialFan Or  OpenTowerCentrifugalFan Or ClosedTowerCentrifugalFan  
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -173,10 +179,8 @@ End if</xsd:documentation>
                                           </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">Result = false and nothing is displayed in the report
+because this measure only applies to the performance path and does not apply to prescriptive projects submitting the NRCC-MCH-E</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
                               <xsd:element name="MM110_5_MeasureApplies" type="comp:MeasureApplies">
@@ -186,10 +190,9 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.5 PILOT LIGHTS PROHIBITED FOR NATURAL GAS EQUIPMENT </d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">PILOT LIGHTS ARE PROHIBITED ON NATURAL GAS FAN-TYPE CENTRAL FURNACES, POOL HEATERS, SPA HEATERS, AND FIREPLACES.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If project scope requires submitting the NRCC-MCH-E  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
                               <xsd:element name="MM110_8a_MeasureApplies" type="comp:MeasureApplies">
@@ -199,9 +202,10 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.8(a) INSULATION CERTIFICATION </d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">INSTALLED INSULATION SHALL BE CERTIFIED BY THE DEPARTMENT OF CONSUMER AFFAIRS PER TITLE 24, PART 12, CHAPTERS 12-13, ARTICLE 3 "STANDARDS FOR INSULATING MATERIAL."</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Section L is required because B02c_ProjectHasSystemPiping == true Or B03d_ProjectHasDuctwork == true
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -212,9 +216,10 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.8(b) UREA FORMALDEHYDE INSULATION  </d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">UREA FORMALDEHYDE INSULATION SHALL NOT BE INSTALLED UNLESS IN EXTERIOR SIDE WALLS WITH A FOUR-MIL-THICK PLASTIC POLYETHYLENE VAPOR RETARDER OR EQUIVALENT PLASTIC SHEATHING VAPOR RETARDER INSTALLED BETWEEN THE UREA FORMALDEHYDE FOAM INSULATION AND THE INTERIOR SPACE.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Section L is required because B02c_ProjectHasSystemPiping == true Or B03d_ProjectHasDuctwork == true
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -225,9 +230,10 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.8(c) INSULATING MATERIAL </d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">ALL INSULATING MATERIALS SHALL BE INSTALLED IN COMPLIANCE WITH THE FLAME SPREAD RATING AND SMOKE DENSITY REQUIREMENTS OF THE CALIFORNIA BUILDING CODE.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Section L is required because B02c_ProjectHasSystemPiping == true Or B03d_ProjectHasDuctwork == true
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -238,9 +244,10 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.8(d) DUCTS </d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">IF INSULATION IS INSTALLED ON AN EXISTING SPACE-CONDITIONING DUCT, IT SHALL COMPLY WITH SECTION 604.0 OF THE CMC.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Section L is required because B02c_ProjectHasSystemPiping == true Or B03d_ProjectHasDuctwork == true
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -252,9 +259,9 @@ End if</xsd:documentation>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">ALL OCCUPIABLE SPACES IN HIGH-RISE RESIDENTIAL, HOTEL/MOTEL, AND NONRESIDENTIAL BUILDINGS OTHER THAN HEALTHCARE SHALL COMPLY WITH APPLICABLE REQUIREMENTS OF 
                                        <d:t24ref h="120.1(a)"/> THROUGH (g).  THE REQUIRED OUTDOOR AIR VENTILATION RATE AND AIR-DISTRIBUTION SYSTEM DESIGN SHALL BE  CLEARLY IDENTIFIED ON THE PLANS.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -281,9 +288,9 @@ End if</xsd:documentation>
                                        <d:line1/>C. SYSTEM AIR FILTERS SHALL BE EITHER 
                                        <d:line1/>i. NOMINAL 2 INCH MINIMUM DEPTH, OR 
                                        <d:line1/>ii NOMINAL 1 INCH MINIMUM DEPTH, IF SIZED PER EQUATION 120.1-A BASED ON A MAXIMUM FACE VELOCITY OF 150 FT/MIN</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If J07_AirFiltrationRequirements Or J27_AirFiltrationRequirements == ProvidedNR Or ProvidedAlteration
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -300,9 +307,9 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>120.1(c)2C</d:b> AND INCLUDE A MECHANICAL VENTILATION SYSTEMS DESIGNED IN ACCORDANCE WITH 
                                        <d:b>
                                           <d:t24refnolink/>120.1(c)3</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -316,9 +323,9 @@ End if</xsd:documentation>
                                        <d:b>
                                           <d:t24refnolink/>120.1(c)3A OR  
                                           <d:t24refnolink/>120.1(c)3B</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -330,9 +337,10 @@ End if</xsd:documentation>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">DESIGN EXHAUST AIRFLOW SHALL BE DETERMINED BY 
                                        <d:b>TABLE 120.1-D</d:b>. EXHAUST MAKEUP AIR SHALL BE PERMITTED TO BE ANY COMBINATION OF OUTDOOR, RECIRCULATED, OR TRANSFER AIR.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If J09_VentilationSpaceFunction == ClassroomArt, AutoRepairVent, BarberShop, BeautyNailSalon, CellWithToiletVent, CopyPrintRoom, DarkRoom, ArenasVent, JanitorRoom, FoodServiceKitchen, KitchenetteVent, SoiledLaundryStorage, LockerAllOthers, LockerAthleticIndustrial, StorageOccupiableLiquids,  ParkingGarageVent, PetShop, ScienceLab, ShowerRoom, ShowerContExhaust, RestroomPrivateContExhaust, RestroomPublicContExhaust, RestroomPrivate, RestroomPublic, SportsSpectatorAreaVent, TrashRecyclingRoom, CollegeLab Or WoodMetalShop 
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -345,9 +353,9 @@ End if</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">MINIMUM OUTDOOR AIR RATE SHALL BE MET AT TIMES WHEN THE SPACE IS USUALLY OCCUPIED IN ACCORDANCE WITH 
                                        <d:b>
                                           <d:t24refnolink/>120.1(c)</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -358,14 +366,30 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>120.1(d)2 PRE-OCCUPANCY </d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">THE LESSER OF THE MINIMUM RATE OF OUTDOOR AIR REQUIRED BY SECTION 120.1(c) OR THREE COMPLETE AIR CHANGES SHALL BE SUPPLIED TO THE ENTIRE BUILDING DURING THE 1-HOUR PERIOD IMMEDIATELY BEFORE THE BUILDING IS NORMALLY OCCUPIED.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.1d_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_1d3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.1(d)3 REQUIRED DEMAND CONTROL VENTILATION</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">DCV CONTROLS ARE REQUIRED FOR A SPACE WITH A DESIGN OCCUPANCY DENSITY 
+                                       <d:gte/> 25 PEOPLE/1,000 FT2 IF THE SYSTEM SERVING THE SPACE HAS ONE OR MORE OF THE FOLLOWING 
+                                       <d:l t="*">
+                                          <d:list>AN AIR ECONOMIZER </d:list>
+                                          <d:list>MODULATING OUTSIDE AIR CONTROL </d:list>
+                                          <d:list>DESIGN OUTDOOR AIRFLOW RATE 
+                                             <d:gt/> 3,000 CFM </d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If J16a_DemandControlVent != NotREquiredDCV
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -381,18 +405,13 @@ End if</xsd:documentation>
                                        <d:line2/>B. CO<d:sub>2</d:sub> SENSORS SHALL BE BETWEEN 3 AND 6 FT ABOVE THE FLOOR.  
                                        <d:line2/>C. DCV CONTROLS SHALL MAINTAIN CO<d:sub>2</d:sub> CONCENTRATIONS 
                                        <d:lte/> 600 PPM PLUS THE OA CO<d:sub>2</d:sub> CONCENTRATION IN ALL ROOMS WITH CO<d:sub>2</d:sub> SENSORS.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.1d_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If J16a_DemandControlVent == ProvidedDCV
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_1d4DEFG" minOccurs="0">
+                              <xsd:element name="MM120_1d4DEFG_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText"/>
                                     <xsd:documentation source="AdditionalRequirements">D. OUTDOOR AIR CO<d:sub>2</d:sub> CONCENTRATION SHALL BE ASSUMED TO BE 400 PPM IF NO DIRECT MEASUREMENT, OR SHALL BE DYNAMICALLY MEASURED USING A CO<d:sub>2</d:sub> SENSOR LOCATED WITHIN 4 FT OF THE OUTDOOR AIR INTAKE.  
@@ -406,9 +425,9 @@ End if</xsd:documentation>
                                        <d:b>
                                           <d:t24refnolink/>120.1(d)4F</d:b>. 
                                        <d:line2/>G. THE CO<d:sub>2</d:sub> SENSOR READING FOR EACH ZONE SHALL BE DISPLAYED CONTINUOUSLY AND SHALL BE RECORDED ON SYSTEMS WITH DDC TO THE ZONE LEVEL.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.1d_MeasureApplies == true, 
-FieldText and any AdditionalRequirements static text is displayed in the report
-Else  nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_1d4_MeasureApplies == true, 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else  result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -432,14 +451,9 @@ End if</xsd:documentation>
                                        <d:line2/>B. ALLOW PRE-OCCUPANCY PURGE ONE HOUR PRIOR TO NORMAL SCHEDULED OCCUPANCY AS DESCRIBED IN 
                                        <d:b>
                                           <d:t24refnolink/>120.1(d)2</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.1d_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If J16b_OccupantSensorVent ==  ProvidedOccSensors 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else  result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -457,9 +471,9 @@ End if</xsd:documentation>
                                           <d:list>WITHIN 15 FEET OF THE UNIT, SUBSTANTIALLY TOWARD THE UNIT, AND AT A VELOCITY NOT LESS THAN 500 FEET PER MINUTE.</d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true   And B03f_ProjectHasZonalSystems == true
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else  result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -472,16 +486,36 @@ End if</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">
                                        <d:b>
                                           <d:t24refnolink/>120.1(f)1</d:b> ALL MECHANICAL VENTILATION AND SPACE-CONDITIONING SYSTEMS SHALL BE DESIGNED WITH AND HAVE INSTALLED DUCTWORK, DAMPERS, AND CONTROLS TO ALLOW OA RATES TO BE OPERATED AT THE LARGER OF: 
-                                       <d:b>120.1(c)3</d:b> MINIMUMS OR THE RATE REQUIRED FOR MAKE-UP OF EXHAUST SYSTEMS FOR AN EXEMPT OR COVERED PROCESS, CONTROL OF ODORS, OR CONTAMINANT REMOVAL IN A SPACE. 
-                                       <d:line2/>
+                                       <d:b>120.1(c)3</d:b> MINIMUMS OR THE RATE REQUIRED FOR MAKE-UP OF EXHAUST SYSTEMS FOR AN EXEMPT OR COVERED PROCESS, CONTROL OF ODORS, OR CONTAMINANT REMOVAL IN A SPACE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_1f2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
                                        <d:b>
-                                          <d:t24refnolink/>120.1(f)2</d:b> ALL VAV SYSTEMS SHALL INCLUDE DYNAMIC CONTROLS THAT MAINTAIN OA VENTILATION RATES WITHIN 10% OF THE REQUIRED OA VENTILATION RATE AT BOTH FULL AND REDUCED SUPPLY AIRFLOW CONDITIONS.  FIXED MINIMUM DAMPER POSITION IS NOT AN ALLOWED STRATEGY.  
-                                       <d:line2/>
+                                          <d:t24refnolink/>120.1(f)2</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL VAV SYSTEMS SHALL INCLUDE DYNAMIC CONTROLS THAT MAINTAIN OA VENTILATION RATES WITHIN 10% OF THE REQUIRED OA VENTILATION RATE AT BOTH FULL AND REDUCED SUPPLY AIRFLOW CONDITIONS.  FIXED MINIMUM DAMPER POSITION IS NOT AN ALLOWED STRATEGY.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H00d_FanFlowType ==VariableFlow  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_1f3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
                                        <d:b>
-                                          <d:t24refnolink/>120.1(f)3</d:b> MEASURED OA RATES OF CONSTANT VOLUME SYSTEMS SHALL BE WITHIN 10% OF THE REQUIRED OUTSIDE AIR RATE.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                          <d:t24refnolink/>120.1(f)3</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">MEASURED OA RATES OF CONSTANT VOLUME SYSTEMS SHALL BE WITHIN 10% OF THE REQUIRED OUTSIDE AIR RATE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H00d_FanFlowType ==FixedFlow   
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -497,9 +531,9 @@ End if</xsd:documentation>
                                        <d:b>
                                           <d:t24refnolink/>120.1(g)1</d:b> THROUGH 
                                        <d:b>4</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  Section J is required because B03e_ProjectHasVentilation == true 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -512,9 +546,9 @@ End if</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">HEATING AND COOLING SUPPLY TO EACH SPACE-CONDITIONING ZONE OR DWELLING UNIT SHALL BE CONTROLLED BY AN INDIVIDUAL THERMOSTATIC CONTROL THAT RESPONDS TO TEMPERATURE IN THE ZONE AND MEETS 
                                        <d:b>
                                           <d:t24refnolink/>120.2(b)</d:b> REQUIREMENTS.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Section I is required because B01a_ProjectHasHeatingAirSystem, B01b_ProjectHasCoolingAirSystem Or B01c_ProjectHasControls == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -539,13 +573,13 @@ End if</xsd:documentation>
                                        <d:b>
                                           <d:t24refnolink/>120.2(b)3</d:b> PROVIDING A TEMPERATURE RANGE, OR DEAD BAND OF AT LEAST 5
                                        <d:deg/>F WITHIN WHICH HEATING AND COOLING TO THE ZONE IS SHUT OFF OR REDUCED TO A MINIMUM.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I02_SystemZoning == MultiZone Or MultiZoneDDC
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_2b4" minOccurs="0">
+                              <xsd:element name="MM120_2b4_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -558,9 +592,9 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.12(a)</d:b>  AND, IF EQUIPPED WITH DDC TO THE ZONE LEVEL WITH THE AUTOMATIC DEMAND SHED CONTROLS OF  
                                        <d:b>
                                           <d:t24refnolink/>110.12(b)</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.2b_MeasureApplies == true, 
-FieldText and any AdditionalRequirements static text is displayed in the report
-Else  nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I02_SystemZoning == SingleZone 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -573,9 +607,9 @@ End if</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">ALL HEAT PUMPS WITH SUPPLEMENTAL ELECTRIC RESISTANCE HEATERS SHALL BE INSTALLED WITH CONTROLS THAT MEET 
                                        <d:b>
                                           <d:t24refnolink/>110.2(b)</d:b> REQUIREMENTS.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  F02_HvacSystemType == UnitaryHeatPumps
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -594,9 +628,9 @@ End if</xsd:documentation>
                                           <d:list>A 4-HOUR TIMER THAT CAN BE MANUALLY OPERATED. </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I05_ControlSystemShutOff ==  AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or EMCS Or CardKeyShutOff Or OtherControl Or 24x7OperationNA
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -616,9 +650,9 @@ End if</xsd:documentation>
                                                 <d:t24refnolink/>120.2(e)2B</d:b> A SETUP COOLING THERMOSTAT SETPOINT IF THE SYSTEM PROVIDES MECHANICAL COOLING.</d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I05_ControlSystemShutOff ==  AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or EMCS Or CardKeyShutOff Or OtherControl
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -646,9 +680,9 @@ End if</xsd:documentation>
                                           <d:list>ALL AIRFLOW TO THE ZONE SHALL BE SHUT OFF WHENEVER THE SPACE TEMPERATURE IS BETWEEN THE ACTIVE HEATING AND COOLING SETPOINTS.</d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If J16b_OccupantSensorVent  == ProvidedOccSensors
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -659,9 +693,9 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>120.2(f) DAMPERS FOR AIR SUPPLY AND EXHAUST EQUIPMENT </d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">OUTDOOR AIR SUPPLY AND EXHAUST EQUIPMENT SHALL BE INSTALLED WITH DAMPERS THAT AUTOMATICALLY CLOSE UPON FAN SHUTDOWN.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Section I is required because B01a_ProjectHasHeatingAirSystem, B01b_ProjectHasCoolingAirSystem Or B01c_ProjectHasControls == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -682,9 +716,9 @@ End if</xsd:documentation>
                                           </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I06_ControlSystemZone == AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or OtherControl
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -725,9 +759,9 @@ End if</xsd:documentation>
                                           </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I07_ControlSystemDR = EMCS Or ThermostatDR Or OtherControl
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -766,9 +800,11 @@ End if</xsd:documentation>
                                           </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If H00b_FanSystemEconomizerType == FixedTemperature Or FixedEnthalpy Or DifferentialTemperature Or DifferentialEnthalpy
+Or If  H00b_FanSystemEconomizerException == HasWatersideEconomizer 
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -795,9 +831,9 @@ End if</xsd:documentation>
                                                 <d:t24refnolink/>120.2(h)</d:b>. </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If Section I is required because B01a_ProjectHasHeatingAirSystem, B01b_ProjectHasCoolingAirSystem Or B01c_ProjectHasControls == true  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -809,9 +845,9 @@ End if</xsd:documentation>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">SPACE-CONDITIONING SYSTEMS WITH DDC TO THE ZONE SHALL HAVE OPTIMUM START/STOP CONTROLS. CONTROL ALGORITHM SHALL, AS A MINIMUM, BE A FUNCTION OF THE DIFFERENCE BETWEEN SPACE TEMPERATURE AND OCCUPIED SETPOINT, OUTDOOR AIR TEMP, AND AMOUNT OF TIME PRIOR TO SCHEDULED OCCUPANCY.  
                                        <d:line2/>MASS RADIANT FLOOR SLAB SYSTEMS SHALL INCORPORATE FLOOR TEMPERATURE ONTO THE OPTIMUM START ALGORITHM.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I05_ControlSystemShutOff ==   AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or EMCS Or CardKeyShutOff Or OtherControl
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -836,9 +872,9 @@ End if</xsd:documentation>
                                           <d:list>PIPE INSULATION BURIED BELOW GRADE MUST BE INSTALLED IN A WATER PROOF AND NON-CRUSHABLE CASING OR SLEEVE.</d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If L10_PipeInsulationException == NoException
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -857,9 +893,9 @@ End if</xsd:documentation>
                                        </d:l>PORTIONS OF SUPPLY-AIR DUCTS THAT ARE NOT IN ONE OF THESE SPACES, INCLUDING DUCTS BURIED IN CONCRETE SLAB, SHALL BE INSULATED TO A MINIMUM INSTALLED LEVEL OF R-4.2 (OR ANY HIGHER LEVEL REQUIRED BY 
                                        <d:b>CMC 
                                           <d:t24refnolink/>605.0</d:b>), OR BE ENCLOSED IN DIRECTLY CONDITIONED SPACE.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If B03d_ProjectHasDuctwork == true
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -907,13 +943,8 @@ End if</xsd:documentation>
                                        </d:l>
                                     </xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If MM120.4_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -928,13 +959,8 @@ End if</xsd:documentation>
                                           <d:t24ref h="110.8"/>
                                        </d:b>.</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If MM120.4_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -952,13 +978,8 @@ End if</xsd:documentation>
                                        </d:l>
                                     </xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If MM120.4_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -974,13 +995,8 @@ End if</xsd:documentation>
                                        <d:b>
                                           <d:t24refnolink/>120.4(d)3</d:b>.</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If MM120.4_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -992,13 +1008,8 @@ End if</xsd:documentation>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">INSULATION SHALL BE PROTECTED FROM DAMAGE BY SUNLIGHT, MOISTURE, EQUIPMENT MAINTENANCE AND WIND. CELLULAR FOAM INSULATION SHALL BE PROTECTED, OR BE PAINTED WITH A WATER RETARDANT COATING THAT PROVIDES SHIELDING FROM SOLAR RADIATION.</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If MM120.4_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -1029,9 +1040,9 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>120.9(c)</d:b>: BOILERS WITH INPUT CAPACITY 
                                        <d:gte/> 5,000,000 BTU/HR SHALL MAINTAIN EXCESS (STACK GAS) OXYGEN CONCENTRATIONS 
                                        <d:lte/> 5% BY VOLUME ON A DRY BASIS OVER FIRING RATES OF 20% TO 100%. COMBUSTION AIR VOLUME SHALL BE CONTROLLED WITH RESPECT TO FIRING RATE OR FLUE GAS OXYGEN CONCENTRATION. USE OF A COMMON GAS AND COMBUSTION AIR LINKAGE OR JACK SHAFT IS PROHIBITED.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If B02f_ProjectHasBoilers == true
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -1049,7 +1060,7 @@ End if</xsd:documentation>
                         </xsd:annotation>
                         <xsd:complexType>
                            <xsd:sequence>
-                              <xsd:element name="DuMM_BeforeNote1" minOccurs="0">
+                              <xsd:element name="DUMM_BeforeNote1" minOccurs="0">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1058,27 +1069,26 @@ End if</xsd:documentation>
                                     </xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="DuMM_BeginNote1" minOccurs="0">
+                              <xsd:element name="DUMM_BeginNote1" minOccurs="0">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
                                     </xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM110_5_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM110_5_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
                                           <d:t24refnolink/>110.5  PILOT LIGHTS PROHIBITED FOR NATURAL GAS EQUIPMENT</d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">PILOT LIGHTS ARE PROHIBITED ON NATURAL GAS FAN-TYPE CENTRAL FURNACES, HOUSEHOLD COOKING APPLIANCES, POOL HEATERS, SPA HEATERS, AND FIREPLACES.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If project scope requires submitting the NRCC-MCH-E  
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_1b1_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_1b1_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1104,13 +1114,13 @@ End if</xsd:documentation>
                                        <d:gte/> MERV 13 WHEN TESTED PER ASHRAE STANDARD 52.2 OR A PARTICLE SIZE EFFICIENCY RATING PER 
                                        <d:b>
                                           <d:t24refnolink/>120.1(c)1B</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If J27_AirFiltrationRequirements == ProvidedHiRiseRes Or ProvidedAlteration
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_1b2A_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_1b2A_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1124,42 +1134,61 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>120.1(b)2Aiv</d:b> OR 
                                        <d:b>v</d:b>
                                        <d:line2/>ii. CONTINUOUS OPERATION OF CENTRAL FORCED AIR SYSTEM AIR HANDLERS USED IN CENTRAL FAN INTEGRATED VENTILATION SYSTEMS IS NOT A PERMISSIBLE METHOD FOR PROVIDING DWELLING UNIT VENTILATION REQUIRED IN SECTION 4 OF ASHRAE 62.2.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If J27_AirFiltrationRequirements == ProvidedHiRiseRes Or ProvidedAlteration
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_1b2AiiiTovi" minOccurs="0">
+                              <xsd:element name="DUMM120_1b2Aiii_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText"/>
                                     <xsd:documentation source="AdditionalRequirements">iii. AIR FILTRATION SHALL CONFORM TO 
                                        <d:b>
-                                          <d:t24refnolink/>120.1(b)1</d:b>. COMPLIANCE WITH ASHRAE 62.2 SECTIONS 6.7 (MINIMUM FILTRATION) AND 6.7.1 (FILTER PRESSURE DROP) IS NOT REQUIRED.  
-                                       <d:line2/>iv. MULTIFAMILY ATTACHED DWELLING UNITS SHALL COMPLY WITH 
+                                          <d:t24refnolink/>120.1(b)1</d:b>. COMPLIANCE WITH ASHRAE 62.2 SECTIONS 6.7 (MINIMUM FILTRATION) AND 6.7.1 (FILTER PRESSURE DROP) IS NOT REQUIRED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If J27_AirFiltrationRequirements == ProvidedHiRiseRes Or ProvidedAlteration
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM120_1b2AivTov_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">iv. MULTIFAMILY ATTACHED DWELLING UNITS SHALL COMPLY WITH 
                                        <d:b>
                                           <d:t24refnolink/>120.1(b)2Aiv VENTILATION AIRFLOW</d:b> AND 
                                        <d:b>
                                           <d:t24refnolink/>120.1(b)2Biv SYSTEM TYPES</d:b>.  
                                        <d:line2/>v. MULTIFAMILY BUILDING CENTRAL VENTILATION SYSTEMS SERVING MULTIPLE DWELLING UNITS SHALL BE BALANCED TO PROVIDE VENTILATION AIRFLOW TO EACH DWELLING UNIT SERVED. THE VENTILATION AIRFLOW RATE SHALL BE EQUAL TO, OR UP TO 20% GREATER THAN, THAT SPECIFIED IN 
-                                       <d:b>EQUATION 120.1-B</d:b>. SYSTEMS SHALL USE BALANCING MEANS SUCH AS CONSTANT AIR REGULATION DEVICES, ORIFICE PLATES, VARIABLE SPEED CONTROL FANS, OR OTHER METHODS TO MEET THIS BALANCING REQUIREMENT.  
-                                       <d:line2/>vi. KITCHEN RANGE HOODS SHALL BE RATED FOR SOUND IN ACCORDANCE WITH ASHRAE 62.2 SECTION 7.2.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.1b2A_MeasureApplies == true,  FieldText and any AdditionalRequirements static text is displayed in the report
-Else nothing is displayed in the report
+                                       <d:b>EQUATION 120.1-B</d:b>. SYSTEMS SHALL USE BALANCING MEANS SUCH AS CONSTANT AIR REGULATION DEVICES, ORIFICE PLATES, VARIABLE SPEED CONTROL FANS, OR OTHER METHODS TO MEET THIS BALANCING REQUIREMENT.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If J23_OA_SpaceRequiredMin   GT 0
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_1b2AviiToviii" minOccurs="0">
+                              <xsd:element name="DUMM120_1b2Avi_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText"/>
-                                    <xsd:documentation source="AdditionalRequirements">vii. COMPLIANCE WITH ASHRAE 62.2 SECTION 6.5.2 (SPACE CONDITIONING SYSTEM DUCTS) SHALL NOT BE REQUIRED.   
-                                       <d:line2/>viii. MANUAL SWITCHES ASSOCIATED WITH DWELLING UNIT VENTILATION SYSTEMS SHALL BE CLEARLY LABELED WITH THE FOLLOWING OR EQUIVALENT TEXT: "THIS SWITCH CONTROLS THE INDOOR AIR QUALITY VENTILATION FOR THE HOME. LEAVE IT ON UNLESS THE OUTDOOR AIR QUALITY IS VERY POOR."</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.1b2A_MeasureApplies == true,  FieldText and any AdditionalRequirements static text is displayed in the report
-Else nothing is displayed in the report
+                                    <xsd:documentation source="AdditionalRequirements">vi. KITCHEN RANGE HOODS SHALL BE RATED FOR SOUND IN ACCORDANCE WITH ASHRAE 62.2 SECTION 7.2.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If J26c_KitchenRangeHood == true
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_1b2B_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_1b2Aviii_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">viii. MANUAL SWITCHES ASSOCIATED WITH DWELLING UNIT VENTILATION SYSTEMS SHALL BE CLEARLY LABELED WITH THE FOLLOWING OR EQUIVALENT TEXT: "THIS SWITCH CONTROLS THE INDOOR AIR QUALITY VENTILATION FOR THE HOME. LEAVE IT ON UNLESS THE OUTDOOR AIR QUALITY IS VERY POOR."</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If TableHiRiseResVent  in Section J is required 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM120_1b2B_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1177,13 +1206,13 @@ End if</xsd:documentation>
                                        <d:line2/>b. MAXIMUM SOUND RATING PER 
                                        <d:b>
                                           <d:t24refnolink/>120.1(b)2Avi</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If  O19_RequireNRCAMch20 == true
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_2c1_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_2c1_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1204,13 +1233,14 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.2(c)</d:b>: ALL HEATING OR COOLING SYSTEMS NOT CONTROLLED BY A CENTRAL ENERGY MANAGEMENT CONTROL SYSTEM (EMCS) SHALL HAVE A SETBACK THERMOSTAT WITH CLOCK MECHANISM THAT ALLOWS BUILDING OCCUPANT TO PROGRAM THE TEMPERATURE SETPOINTS FOR AT LEAST FOUR PERIODS WITHIN 24 HOURS. THERMOSTATS FOR HEAT PUMPS SHALL MEET REQUIREMENTS OF 
                                        <d:b>
                                           <d:t24refnolink/>110.2(b)</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If   A03Guest_OccupancyApplies == true  And I04_ThermostatType  == SetbackThermostat Or EnergyManagementSystem Or SetbackPlusDR  
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_2c2_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_2c2_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1221,13 +1251,14 @@ End if</xsd:documentation>
                                           <d:t24refnolink/>110.2(c)</d:b>: ALL HEATING OR COOLING SYSTEMS NOT CONTROLLED BY A CENTRAL ENERGY MANAGEMENT CONTROL SYSTEM (EMCS) SHALL HAVE A SETBACK THERMOSTAT WITH CLOCK MECHANISM THAT ALLOWS BUILDING OCCUPANT TO PROGRAM THE TEMPERATURE SETPOINTS FOR AT LEAST FOUR PERIODS WITHIN 24 HOURS. THERMOSTATS FOR HEAT PUMPS SHALL MEET REQUIREMENTS OF 
                                        <d:b>
                                           <d:t24refnolink/>110.2(b)</d:b>.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If   A03HRR_OccupancyApplies == true  And I04_ThermostatType  == SetbackThermostat Or EnergyManagementSystem Or SetbackPlusDR  
+ 
+result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false and nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_2e1_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_2e1_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1242,13 +1273,13 @@ End if</xsd:documentation>
                                           <d:list>A 4-HOUR TIMER THAT CAN BE MANUALLY OPERATED. </d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I05_ControlSystemShutOff ==  4HrTimer Or AutomaticTimerSwitch Or OccupancySensor Or EMCS
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_2e2_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_2e2_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1260,13 +1291,13 @@ End if</xsd:documentation>
                                           <d:list>A SETUP COOLING THERMOSTAT SETPOINT IF THE SYSTEM PROVIDES MECHANICAL COOLING.</d:list>
                                        </d:l>
                                     </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If I05_ControlSystemShutOff ==  4HrTimer Or AutomaticTimerSwitch Or OccupancySensor Or EMCS
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:element name="MM120_2e4_MeasureApplies" type="comp:MeasureApplies">
+                              <xsd:element name="DUMM120_2e4_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
@@ -1277,9 +1308,9 @@ End if</xsd:documentation>
                                        <d:deg/>C) IN COOLING MODE AND SET-DOWN AT LEAST +5
                                        <d:deg/>F (+3
                                        <d:deg/>C) IN HEATING MODE.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
+                                    <xsd:documentation source="CalculationsAndRules">If A03Guest_OccupancyApplies == true  And  I05_ControlSystemShutOff ==  CardKeyShutOff Or OccupancySensor Or EMCS
+ result = true and FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
 End if</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -1357,6 +1388,15 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Hotel/ Motel Guest Rooms (R-1)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  
 If result == true A03_WholeBuildingOccupancy +=  HotelMotel
+End If
+ 
+Mandatory Measure Triggers:
+If result == true And I04_ThermostatType  == SetbackThermostat Or EnergyManagementSystem Or SetbackPlusDR  
+DUMM120_2c1_MeasureApplies = true and is displayed 
+End If
+ 
+If result == true And I05_ControlSystemShutOff == CardKeyShutOff Or EMCS Or OccupancySensor
+DUMM120_2e4_MeasureApplies = true and is displayed
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1365,6 +1405,11 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">High-Rise Residential (R-2/R-3)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  
 If result == true A03_WholeBuildingOccupancy += HighRiseResidential;  
+End If
+ 
+Mandatory Measure Triggers:
+If result == true And I04_ThermostatType  == SetbackThermostat Or EnergyManagementSystem Or SetbackPlusDR  
+DUMM120_2c2_MeasureApplies = true and is displayed 
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1540,7 +1585,12 @@ End If</xsd:documentation>
                   <xsd:element name="B02f_ProjectHasBoilers" type="comp:ProjectHasBoilers">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Boilers</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false
+ 
+Mandatory Measure Triggers:
+If result == true
+MM120_9_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B03_Label" minOccurs="0">
@@ -1569,7 +1619,12 @@ End If</xsd:documentation>
                   <xsd:element name="B03d_ProjectHasDuctwork" type="comp:ProjectHasDuctwork">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Ductwork (existing to remain, altered or new)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false
+ 
+Mandatory Measure Triggers:
+If result == true
+MM120_4_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B03e_ProjectHasVentilation" type="comp:ProjectHasVentilation">
@@ -1581,7 +1636,12 @@ End If</xsd:documentation>
                   <xsd:element name="B03f_ProjectHasZonalSystems" type="comp:ProjectHasZonalSystems">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Zonal Systems/ Terminal Boxes</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input.  If checked result = true, Else If unchecked result = false
+ 
+Mandatory Measure Triggers:
+If result == true And Section J is required
+MM120_1e_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B_Alert1" minOccurs="0">
@@ -2210,7 +2270,12 @@ End If</xsd:documentation>
                   <d:b>F. HVAC SYSTEM SUMMARY (DRY &amp;amp; WET SYSTEMS)</d:b>
                </xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">This section is required if any of the following values == true: 
-B01aProjectHasHeatingAirSystem,  B01b_ProjectHasCoolingAirSystem,  B02a_ProjectHasWaterEconomizer, B02d_ProjectHasCoolingTowers, B02e_ProjectHasChillers, B02f_ProjectHasBoilers, B03b_ProjectHasElectricHeat</xsd:documentation>
+B01aProjectHasHeatingAirSystem,  B01b_ProjectHasCoolingAirSystem,  B02a_ProjectHasWaterEconomizer, B02d_ProjectHasCoolingTowers, B02e_ProjectHasChillers, B02f_ProjectHasBoilers, B03b_ProjectHasElectricHeat
+ 
+Mandatory Measure Triggers:
+If this section is required
+MM110_2_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -2250,7 +2315,16 @@ B01aProjectHasHeatingAirSystem,  B01b_ProjectHasCoolingAirSystem,  B02a_ProjectH
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Equipment Category per 
                                              <d:t24table/>Tables 110.2</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from main equipment categories: ComputerRoomAC, FurnaceAC, FurnaceUnitHeater, HeatPumpAC, PTAC_PTHP, RoomAC_HP, SPV_ACHP, UnitaryCondensersAC, UnitaryHeatPumps, UnitaryCondensersAC_NoElectR, UnitaryHeatPumpsNoElectR, VariableRefrigerantFlow</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from main equipment categories: ComputerRoomAC, FurnaceAC, FurnaceUnitHeater, HeatPumpAC, PTAC_PTHP, RoomAC_HP, SPV_ACHP, UnitaryCondensersAC, UnitaryHeatPumps, UnitaryCondensersAC_NoElectR, UnitaryHeatPumpsNoElectR, VariableRefrigerantFlow
+ 
+Mandatory Measure Triggers:
+If result == UnitaryHeatPumps
+MM110_2b_MeasureApplies = true and is displayed And 
+MM120_2d_MeasureApplies = true and is displayed
+ 
+Else If result == FurnaceUnitHeater And F06_HeatingRatedCapacity GTE 225,000
+MM110_2d_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
@@ -2408,8 +2482,11 @@ Or If F03_PTAC_PTHP == NewSpacePTHP Or ReplacementsPTHP Or If F03_SPV_ACHP == No
 Or If F03_VariableRefrigerantFlow == AirCooledHP_VRF, GroundSourceVRF, GroundWaterSourceVRF Or WaterSourceVRF 
 user input in this field is required; 
  
-Else result = BlankGrayedOut stored in teh NotApplicableMessage and field is blank and grayed out
-End If</xsd:documentation>
+Else result = BlankGrayedOut stored in the NotApplicableMessage and field is blank and grayed out
+End If
+ 
+Mandatory Measure Triggers: 
+Multi-field triggers: See F02_HvacSystemType CalculationsAndRules for trigger values from this field</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F06_NotApplicableMessage">
@@ -5073,7 +5150,13 @@ EvaporativeCondenserCentrifugalFan display term Centrifugal fan evaporative cond
  
 AirCooledCondenser display term Air cooled condensers, 
  
-WatersideEconomizer display term Air Waterside Economizer</xsd:documentation>
+WatersideEconomizer display term Air Waterside Economizer
+ 
+Mandatory Measure Triggers:
+If result == OpenTowerAxialFan Or OpenTowerAxialGTE900gpm Or 
+OpenTowerReplacementAxialGTE900gpm Or ClosedTowerAxialFan Or  OpenTowerCentrifugalFan Or ClosedTowerCentrifugalFan  
+MM110_2e_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
@@ -5669,7 +5752,13 @@ This choice has the  FanSystemEconomizerType:
 FixedTemperature display term Fixed Temperature, 
 FixedEnthalpy display term Fixed Enthalpy, 
 DifferentialTemperature display term Differential Temperature, 
-DifferentialEnthalpy display term Differential Enthalpy.</xsd:documentation>
+DifferentialEnthalpy display term Differential Enthalpy.  
+ 
+ 
+Mandatory Measure Triggers:
+If result == FixedTemperature Or FixedEnthalpy Or DifferentialTemperature Or DifferentialEnthalpy
+MM120_2i_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="H00b_FanSystemEconomizerException" type="comp:FanSystemEconomizerException">
@@ -5690,7 +5779,12 @@ MeetsEfficiencyTable140_4A display term NA: Efficiency per Table 140.4-D,
 System100PercentOSA display term NA: System operates @ 100% OSA, 
 ServingComputerRoom display term See NRCC-PRC for details.  
  
-If user selects an exception result is stored in  FanSystemEconomizerException</xsd:documentation>
+If user selects an exception result is stored in  FanSystemEconomizerException
+ 
+Mandatory Measure Triggers::
+If result == HasWatersideEconomizer
+MM120_2i_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="ServingComputerRoom">See NRCC-PRC for details<d:sup>1</d:sup>
                                                 </dtyp:displayterm>
@@ -5732,7 +5826,14 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">
                                              <d:b>System Fan Type:</d:b>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from list: FixedFlow display term Constant Volume, VariableFlow display term Variable Air Volume</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from list: FixedFlow display term Constant Volume, VariableFlow display term Variable Air Volume
+ 
+Mandatory Measure Triggers:
+If result == VariableFlow 
+MM120_1f2_MeasureApplies = true and is displayed
+Else If result == FixedFlow 
+MM120_1f3_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="FixedFlow">Constant Volume</dtyp:displayterm>
                                              <dtyp:displayterm value="VariableFlow">Variable Air Volume</dtyp:displayterm>
@@ -6026,7 +6127,13 @@ result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>I. SYSTEM CONTROLS</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required If B01a_ProjectHasHeatingAirSystem, B01b_ProjectHasCoolingAirSystem Or B01c_ProjectHasControls == true</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If B01a_ProjectHasHeatingAirSystem, B01b_ProjectHasCoolingAirSystem Or B01c_ProjectHasControls == true
+ 
+Mandatory Measure Triggers:If this section is required 
+MM120_2a_MeasureApplies = true and is displayed And
+MM120_2f_MeasureApplies = true and is displayed And 
+MM120_2j_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -6060,7 +6167,14 @@ result = BlankGrayedOut stored in NotApplicableMessage;</xsd:documentation>
                                     <xsd:element name="I02_SystemZoning" type="hvac:SystemZoning">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">System Zoning</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from list: SingleZone display term Single zone, MultiZone display term Multi-zone, MultiZoneDDC display term Multi-zone w/ DDC to zone</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from list: SingleZone display term Single zone, MultiZone display term Multi-zone, MultiZoneDDC display term Multi-zone w/ DDC to zone
+ 
+Mandatory Measure Triggers:
+If result == MultiZone Or MultiZoneDDC
+MM120_2b_MeasureApplies = true and is displayed
+Else If result == SingleZone
+MM120_2b4_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="I03_ConditionedFloorAreaRangeNR">
@@ -6090,7 +6204,13 @@ SetbackThermostat display term Setback,
 EnergyManagementSystem display term EMCS, 
 SetbackPlusDR display term Setback + DR Tstat per 110.12, 
 EquipmentException display term NA: Eq. type per 110.2(c) exception<d:sup>1</d:sup>
-                                          </xsd:documentation>
+ 
+Mandatory Measure Triggers:
+If result == SetbackThermostat
+MM110_2c_MeasureApplies = true and is displayed
+End If
+ 
+Multi-field triggers: See A03Guest_OccupancyApplies  CalculationsAndRules for trigger values from this field And See A03HRR_OccupancyApplies  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="EnergyManagementSystem">EMCS</dtyp:displayterm>
                                              <dtyp:displayterm value="EquipmentException">NA: Eq. type per 110.2(c) exception<d:sup>1</d:sup>
@@ -6122,7 +6242,22 @@ OtherControl display term Other*,
 24x7OperationNA display term NA: 7 day per 120.2(e)1, 
 AlteredNA display term NA: Altered per 141.0(b)2E, 
 HealthcareNA display term NA: Healthcare only, 
-HighriseResNA display term NA: HRR dwelling unit</xsd:documentation>
+HighriseResNA display term NA: HRR dwelling unit
+ 
+Mandatory Measure Triggers:
+If result ==  AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or EMCS Or CardKeyShutOff Or OtherControl Or 24x7OperationNA 
+MM120_2e1_MeasureApplies = true and is displayed
+ 
+Else If result ==  AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or EMCS Or CardKeyShutOff Or OtherControl
+MM120_2e2_MeasureApplies = true and is displayed And 
+MM120_2k_MeasureApplies = true and is displayed 
+ 
+Else If result ==  AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or EMCS
+DUMM120_2e1_MeasureApplies = true and is displayed And 
+DUMM120_2e2_MeasureApplies = true and is displayed 
+End If
+ 
+Multi-field triggers: See A03Guest_OccupancyApplies  CalculationsAndRules for trigger values from this field for a multi-field trigger</xsd:documentation>
                                           <xsd:appinfo source="displayterm"/>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -6143,7 +6278,11 @@ AlteredNA display term NA: Altered per 141.0(b)2E,
 SingleZoneNA display term NA: Single Zone, 
 LT25000ft2NA display term NA: Serves 
                                              <d:lt/> 25k ft<d:sup>2</d:sup>
-                                          </xsd:documentation>
+ 
+Mandatory Measure Triggers:
+If result ==  AutomaticTimerSwitch Or OccupancySensor Or 4HrTimer Or EMCS Or OtherControl
+MM120_2g_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="I07_ControlSystemDR" type="hvac:ControlSystemDR">
@@ -6158,7 +6297,12 @@ EMCS display term EMCS,
 ThermostatDR display term DR Tstat per 110.12,
 OtherControl display term Other*, 
 EquipmentNA display term NA: PTAC, PTHP, Rm AC, HP 
-HealthcareNA display term NA: Healthcare only</xsd:documentation>
+HealthcareNA display term NA: Healthcare only
+ 
+Mandatory Measure Triggers:
+If result == EMCS Or ThermostatDR Or OtherControl
+MM120_2h_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="I08_ControlSystemTempReset" type="hvac:ControlSystemTempReset">
@@ -6249,7 +6393,19 @@ HighriseResNA display term NA: HRR dwelling unit</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>J. VENTILATION AND INDOOR AIR QUALITY</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required If B03e_ProjectHasVentilation == true,but only J01, J02a, J02b and J03 are displayed initially</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If B03e_ProjectHasVentilation == true,but only J01, J02a, J02b and J03 are displayed initially.
+ 
+Mandatory Measure Triggers:
+If this section is required 
+MM120_1a_MeasureApplies = true and is displayed And
+MM120_1c2_MeasureApplies = true and is displayed And
+MM120_1c3_MeasureApplies = true and is displayed And
+MM120_1d_MeasureApplies = true and is displayed And
+MM120_1d2_MeasureApplies = true and is displayed And
+MM120_1g_MeasureApplies = true and is displayed
+End If
+ 
+Multi-field triggers: If this section is required See B03f_ProjectHasZonalSystems for full rule of this multi-field trigger</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -6386,7 +6542,12 @@ ProvidedNR display term Provided per
                                              <d:t24ref h="120.1(c)"/> (NR and Hotel/Motel), 
 ProvidedAlteration display term Provided per 
                                              <d:t24ref h="141.0(b)2c"/> (alteration), 
-ProvidedNA display term NA: Not system type specified in Table J footnote 2</xsd:documentation>
+ProvidedNA display term NA: Not system type specified in Table J footnote 2
+ 
+Mandatory Measure Triggers:
+If result == ProvidedNR Or ProvidedAlteration
+MM120_1c1_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                        <xsd:simpleType>
                                           <xsd:restriction base="comp:AirFiltrationRequirements">
@@ -6572,7 +6733,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Required Min CFM</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">Calculated Field: 
-Switch (VentilationSpaceFunction) 
+Switch (J09_VentilationSpaceFunction) 
 case ClassroomArt, FoodServiceKitchen: 
 result = 0.7 x J10_SpaceFloorArea; 
  
@@ -6610,7 +6771,12 @@ result = 25 x J11_ExhaustNumberFixtures;
  
 case   RestroomPublic: 
 result = 70 x J11_ExhaustNumberFixtures;
-End Switch</xsd:documentation>
+End Switch
+ 
+Mandatory Measure Triggers:
+If result GT 0  
+MM120_1c4_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                          <xsd:element name="J14_NotApplicableMessage">
@@ -6665,7 +6831,17 @@ ProvidedDCV display term Provided per 120.1(d)4,
 NotRequiredDCV display term NA: Not required per 120.1(d)3, 
 SpaceExhaustNA display term NA: Space exhaust is greater than design ventilation rate exception, 
 AreaOccupancyNA display term NA: Area less than 150ft2 or design occupancy less than 10 people, 
-NoLocalExhaustNA display term NA: Processes that generate dust, fumes, etc. and no local exhaust</xsd:documentation>
+NoLocalExhaustNA display term NA: Processes that generate dust, fumes, etc. and no local exhaust
+ 
+Mandatory Measure Triggers:
+If result != NotRequiredDCV
+MM120_1d3_MeasureApplies = true and is displayed
+End If
+ 
+If result == ProvidedDCV
+MM120_1d4_MeasureApplies = true and is displayed And 
+MM120_1d4DEFG_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
                                                       <xsd:element name="J16b_OccupantSensorVent" type="comp:OccupantSensorVent">
@@ -6677,7 +6853,13 @@ ContinuousOperationNA display term NA:
 Continuously operated per 120.2(e)3 exception, 
 LowPowerNA display term NA: System less than 2kW demand + manual shutoff per 120.2(e)3 exception, 
 HotelMotelNA display term NA: Hotel/ Motel + manual shutoff per 120.2(e)3 exception, 
-SpaceTypeNA display term NA: Not required space type</xsd:documentation>
+SpaceTypeNA display term NA: Not required space type
+ 
+Mandatory Measure Triggers:
+If result == ProvidedOccSensors
+MM120_1d5_MeasureApplies = true and is displayed And 
+MM120_2e3_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                                             <xsd:appinfo source="displayterm">
                                                                <dtyp:displayterm value="ContinuousOperationNA">NA: Continuously operated per 
                                                                   <d:t24ref h="120.2(e)3"/> exception<d:sup>5</d:sup>
@@ -6817,6 +6999,11 @@ If result == true D03_ExceptionalConditionMessageNRCCMCHE  += HRRContinuousVentI
                         <xsd:documentation source="CalculationsAndRules">If J01_VentCalculationsAttached  == false And  If J02b_HiRiseDwellingUnitsIncluded == true
 this table is required and displayed
 Else this table is minimized
+End If
+ 
+Mandatory Measure Triggers:
+If this table is required 
+DUMM120_1b2Aviii_MeasureApplies = true and is displayed
 End If</xsd:documentation>
                      </xsd:annotation>
                      <xsd:complexType>
@@ -6860,7 +7047,12 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Required Min OA CFM<d:sup>1</d:sup>
                                           </xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">Calculated value: 
-result = J22_DwellingUnitsCount x ((0.03 x J20_SpaceFloorArea) + (7.5 x (J21_BedroomCount + 1)))</xsd:documentation>
+result = J22_DwellingUnitsCount x ((0.03 x J20_SpaceFloorArea) + (7.5 x (J21_BedroomCount + 1)))
+ 
+Mandatory Measure Triggers:
+If result GT 0
+DUMM120_1b2AivTov_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="J24To25ColumnHeading" minOccurs="0">
@@ -6901,7 +7093,12 @@ result = J22_DwellingUnitsCount x ((0.03 x J20_SpaceFloorArea) + (7.5 x (J21_Bed
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Kitchen Range Hood<d:sup>2</d:sup>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input
+ 
+Mandatory Measure Triggers:
+If result == true
+DUMM120_1b2Avi_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="J27_AirFiltrationRequirements">
@@ -6915,7 +7112,17 @@ ProvidedHiRiseRes display term Provided per
 ProvidedAlteration display term 
 Provided per 
                                              <d:t24ref h="141.0(b)2c"/> (alteration), 
-EvaporativeCoolerNA display term NA: Evaporative Cooler</xsd:documentation>
+EvaporativeCoolerNA display term NA: Evaporative Cooler
+ 
+Mandatory Measure Triggers::
+If result == ProvidedNR Or ProvidedAlteration
+MM120_1c1_MeasureApplies = true and is displayed
+ 
+Else If result == ProvidedHiRiseRes Or ProvidedAlteration 
+DUMM120_1b1_MeasureApplies = true and is displayed And
+DUMM120_1b2A_MeasureApplies = true and is displayed And  
+DUMM120_1b2Aiii_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                        </xsd:annotation>
                                        <xsd:simpleType>
                                           <xsd:restriction base="comp:AirFiltrationRequirements">
@@ -7331,7 +7538,15 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>L. DISTRIBUTION (DUCTWORK and PIPING)</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required if B02c_ProjectHasSystemPiping == true Or B03d_ProjectHasDuctwork == true</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If B02c_ProjectHasSystemPiping == true Or B03d_ProjectHasDuctwork == true
+ 
+Mandatory Measure Triggers:
+If this section is required 
+MM110_8a_MeasureApplies = true and is displayed And 
+MM110_8b_MeasureApplies = true and is displayed And 
+MM110_8c_MeasureApplies = true and is displayed And 
+MM110_8d_MeasureApplies = true and is displayed And 
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -7571,7 +7786,12 @@ NoException display term No exception taken,
 FactoryInstalledPiping display term Factory installed piping within certified equip.
  FluidTempRange display term Fluid design operating temp 60-105
                                              <d:deg/>F, 
-NoIncreaseEnergyUse display term Lack of insulation will not increase energy use</xsd:documentation>
+NoIncreaseEnergyUse display term Lack of insulation will not increase energy use
+ 
+Mandatory Measure Triggers:
+If result == NoException
+MM120_3_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
@@ -8399,6 +8619,12 @@ End If</xsd:documentation>
  
 If B03e_ProjectHasVentilation == true AND A03HHR_OccupancyApplies == true 
 result = true display term selected Yes radio button
+End If
+ 
+ 
+Mandatory Measure Triggers:
+If result == true
+DUMM120_1b2B_MeasureApplies = true and is displayed
 End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
