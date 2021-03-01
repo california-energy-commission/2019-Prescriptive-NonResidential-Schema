@@ -24,14 +24,112 @@
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCCXR01E"/>
                      <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Building Commissioning Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-CXR-E is included in scope And 
+A07_RequestedMMB == true
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="MM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6 Ch.1)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_8_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.8 BUILDING COMMISSIONING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>NONRESIDENTIAL BUILDINGS, OTHER THAN HEALTHCARE FACILITIES, WITH CONDITIONED SPACE 
+                                          <d:gte/> 10,000 FT2 OR COMPLEX MECHANICAL SYSTEMS, OR 
+                                          <d:line1/>HIGH-RISE RESIDENTIAL 
+                                          <d:gte/> 4 STORIES, HOTEL/MOTEL, AND MIXED-USE BUILDINGS WITH NONRESIDENTIAL CONDITIONED SPACES 
+                                          <d:gte/> 10,000 FT2</d:b>
+                                       <d:line1/> NOTE: MECHANICAL SYSTEMS OTHER THAN UNITARY OR PACKAGED EQUIPMENT EACH SERVING ONE ZONE, OR TWO-PIPE HEATING ONLY SYSTEMS ARE CONSIDERED COMPLEX AND MUST MEET ALL REQUIREMENTS OUTLINED BELOW. 
+                                       <d:line1/>COMMISSIONING SHALL INCLUDE COMPLETION OF THE FOLLOWING:
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(b) OWNER'S PROJECT REQUIREMENTS (OPR) SHALL BE DOCUMENTED BEFORE THE DESIGN PHASE BEGINS.  THE OPR SHALL INCLUDE THE OWNER'S GOALS, REQUIREMENTS AND EXPECTATIONS FOR EVERYTHING RELATED TO ENERGY CONSUMPTION AND OPERATION. 
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(c) THE BASIS OF DESIGN (BOD) SHALL BE DOCUMENTED AT THE DESIGN PHASE AND UPDATED THROUGHOUT DESIGN AND CONSTRUCTION AS NEEDED. THE BOD SHALL DOCUMENT THE DESIGN ELEMENTS SUCH AS CALCULATIONS AND PRODUCT SELECTIONS THAT MEET THE OWNER'S PROJECT REQUIREMENTS AND APPLICABLE REGULATORY REQUIREMENTS.
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(d) DURING SCHEMATIC DESIGN A DESIGN REVIEW KICKOFF MEETING SHALL BE HELD TO ESTABLISH WHO WILL PLAY THE ROLE OF THE DESIGN REVIEWER, THE PROJECT SCHEDULE, AND IDENTIFY THE OWNER'S REQUIREMENTS. DURING THE DESIGN PHASE, THE DESIGN REVIEWER(S) SHALL REVIEW THE CONSTRUCTION DOCUMENTS FOR CLARITY, COMPLETENESS, AND ADHERENCE TO THE OWNER'S GOALS. 
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(e) COMMISSIONING MEASURES MUST BE INCLUDED IN THE CONSTRUCTION DOCUMENTS TO FACILITATE THE DESIGN REVIEW AND COMMISSIONING PROCESS. 
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(f) A COMMISSIONING PLAN SHALL BE DEVELOPED BY THE COMMISSIONING PROVIDER WITH INPUT FROM THE DESIGNER AND SHALL DEFINE THE SCOPE OF THE COMMISSIONING PROJECT.  THIS SHALL BE DRAFTED DURING DESIGN AND COMPLETED DURING EARLY CONSTRUCTION.  
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(g) FUNCTIONAL PERFORMANCE TESTING SHALL BE CONDUCTED ON BUILDING SYSTEMS TO DEMONSTRATE CORRECT INSTALLATION AND OPERATION.  
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(h) DOCUMENTATION OF THE OPERATIONAL ASPECTS OF THE BUILDING SHALL BE COMPLETED WITHIN THE SYSTEMS MANUAL AND DELIVERED TO THE BUILDING OWNER OR REPRESENTATIVE AND FACILITIES OPERATOR. TRAINING OF APPROPRIATE MAINTENANCE STAFF SHALL BE DOCUMENTED IN THE COMMISSIONING REPORT. 
+                                       <d:line2/>
+                                       <d:t24refnolink/>120.8(i) A COMPLETE REPORT OF COMMISSIONING PROCESS ACTIVITIES UNDERTAKEN THROUGH THE DESIGN, CONSTRUCTION AND REPORTING RECOMMENDATIONS FOR POST-CONSTRUCTION PHASES OF THE BUILDING PROJECT SHALL BE COMPLETED AND PROVIDED TO THE OWNER OR REPRESENTATIVE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR ==  10000To49999Ft2 Or GTE50000Ft2
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_8_LT10K_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.8 BUILDING COMMISSIONING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>NONRESIDENTIAL BUILDINGS, OTHER THAN HEALTHCARE FACILITIES, WITH CONDITIONED SPACE 
+                                          <d:lt/> 10,000 FT2 AND SIMPLE MECHANICAL SYSTEMS, OR 
+                                          <d:line1/>HIGH-RISE RESIDENTIAL 
+                                          <d:gte/> 4 STORIES, HOTEL/MOTEL, AND MIXED-USE BUILDINGS WITH NONRESIDENTIAL CONDITIONED SPACES 
+                                          <d:lt/> 10,000 FT2</d:b>
+                                       <d:line1/>NOTE: UNITARY OR PACKAGED EQUIPMENT EACH SERVING ONE ZONE AND TWO-PIPE HEATING ONLY SYSTEMS ARE SIMPLE MECHANICAL SYSTEMS.  ALL OTHER HVAC SYSTEM TYPES ARE COMPLEX AND PROJECTS MUST MEET ALL REQUIREMENTS OF 
+                                       <d:t24refnolink/>120.8. 
+                                       <d:line1/>COMMISSIONING SHALL INCLUDE COMPLETION OF THE FOLLOWING:
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(d) DURING SCHEMATIC DESIGN A DESIGN REVIEW KICKOFF MEETING SHALL BE HELD TO ESTABLISH WHO WILL PLAY THE ROLE OF THE DESIGN REVIEWER, THE PROJECT SCHEDULE, AND IDENTIFY THE OWNER'S REQUIREMENTS. DURING THE DESIGN PHASE, THE DESIGN REVIEWER(S) SHALL REVIEW THE CONSTRUCTION DOCUMENTS FOR CLARITY, COMPLETENESS, AND ADHERENCE TO THE OWNER'S GOALS. 
+                                       <d:line1/>
+                                       <d:t24refnolink/>120.8(e) COMMISSIONING MEASURES MUST BE INCLUDED IN THE CONSTRUCTION DOCUMENTS TO FACILITATE THE DESIGN REVIEW AND COMMISSIONING PROCESS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A05_ConditionedFloorAreaRangeNR == LT10000Ft2 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
             </xsd:element>
             <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+            <xsd:element name="ReportMMB" type="xsd:base64Binary" minOccurs="0"/>
          </xsd:sequence>
-         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20190401"/>
-         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCCXRE"/>
+         <xsd:attribute name="revision" type="xsd:string" use="required" fixed="rev 20200601"/>
+         <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" use="required" fixed="NRCCCXRE"/>
       </xsd:complexType>
    </xsd:element>
    <xsd:complexType name="NRCCCXR01E">
@@ -90,11 +188,25 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A05_ConditionedFloorAreaRangeNR" type="env:ConditionedFloorAreaRangeNR">
+                  <xsd:element name="A05_ConditionedFloorAreaRangeNR">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Nonresidential Conditioned Floor Area  (ft<d:sup>2</d:sup>)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input selected from list of floor area ranges:  LT10000Ft2, 10000To49999Ft2 and GTE50000Ft2</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input selected from list of floor area ranges:  LT10000Ft2, 10000To49999Ft2 and GTE50000Ft2
+ 
+Mandatory Measure Triggers:
+If result == 10000To49999Ft2 Or GTE50000Ft2
+MM120_8_MeasureApplies = true and is displayed 
+Else If result == LT10000Ft2
+MM120_8_LT10K_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                      </xsd:annotation>
+                     <xsd:simpleType>
+                        <xsd:restriction base="env:ConditionedFloorAreaRangeNR">
+                           <xsd:enumeration value="10000To49999Ft2"/>
+                           <xsd:enumeration value="GTE50000Ft2"/>
+                           <xsd:enumeration value="LT10000Ft2"/>
+                        </xsd:restriction>
+                     </xsd:simpleType>
                   </xsd:element>
                   <xsd:element name="A06_CommissioningHvacSystem" type="hvac:CommissioningHvacSystem">
                      <xsd:annotation>
@@ -121,6 +233,12 @@ End If</xsd:documentation>
                               <d:i>STOP! Healthcare facilities are not required to comply with the Commissioning requirements in Part 6, but must comply with the applicable requirements in Chapter 7 of Title 24 Part 1 (OSHPD).</d:i>
                            </d:b>
                         </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A07_RequestedMMB" type="comp:RequestedMMB" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>

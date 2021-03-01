@@ -31,6 +31,12 @@
                                  <d:i>Envelope Mandatory Measures:</d:i>
                               </d:b>
                            </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-ENV-E is included in scope And 
+A09_RequestedMMB == true
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
                            <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
                         </xsd:annotation>
                         <xsd:complexType>
@@ -58,8 +64,13 @@
                                           <d:t24refnolink/>110.6(a)1 MANUFACTURED FENESTRATION PRODUCT AND EXTERIOR DOOR AIR LEAKAGE</d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">MANUFACTURED FENESTRATION PRODUCTS AND EXTERIOR DOORS SHALL HAVE AIR INFILTRATION RATES CERTIFIED BY THE MANUFACTURER NOT EXCEEDING 0.3 CFM/FT<d:sup>2</d:sup> OF WINDOW AREA,  0.3 CFM/FT<d:sup>2</d:sup> OF DOOR AREA FOR NONRESIDENTIAL SINGLE DOORS (SWINGING AND SLIDING), AND 1.0  CFM/FT<d:sup>2</d:sup> FOR NONRESIDENTIAL DOUBLE DOORS (SWINGING), WHEN TESTED ACCORDING TO NFRC-400 OR ASTM E283 AT A PRESSURE DIFFERENTIAL OF 75 PASCALS.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If B02NewDoor_ComponentApplies == true Or B02NewFen_ComponentApplies == true Or 
-B02AddDoor_ComponentApplies == true Or B02AddFen_ComponentApplies == true Or 
+                                    <xsd:documentation source="CalculationsAndRules">If section J is required because  
+B02NewDoor_ComponentApplies == true Or 
+B02AddDoor_ComponentApplies == true 
+Or 
+If section K is required because 
+B02NewFen_ComponentApplies == true Or 
+B02AddFen_ComponentApplies == true Or 
 B02AltFen_ComponentApplies == true 
  
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
@@ -77,8 +88,13 @@ End If</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">ALL MANUFACTURED FENESTRATION PRODUCTS AND EXTERIOR DOORS SHALL BE RATED FOR U-FACTOR ACCORDING TO NFRC PROCEDURES OR USE THE DEFAULT FENESTRATION VALUES IN TABLE 110.6-A AND DOOR VALUES IN JA4.5. 
                                        <d:line2/> ALL MANUFACTURED FENESTRATION PRODUCTS AND EXTERIOR DOORS SHALL BE RATED FOR SHGC ACCORDING TO NFRC PROCEDURES OR USE THE DEFAULT VALUES IN TABLE 110.6-B.
                                        <d:line2/>ALL MANUFACTURED FENESTRATION PRODUCTS SHALL BE RATED FOR VT ACCORDING TO NFRC PROCEDURES.</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If B02NewDoor_ComponentApplies == true Or B02NewFen_ComponentApplies == true Or 
-B02AddDoor_ComponentApplies == true Or B02AddFen_ComponentApplies == true Or 
+                                    <xsd:documentation source="CalculationsAndRules">If section J is required because  
+B02NewDoor_ComponentApplies == true Or 
+B02AddDoor_ComponentApplies == true 
+Or 
+If section K is required because 
+B02NewFen_ComponentApplies == true Or 
+B02AddFen_ComponentApplies == true Or 
 B02AltFen_ComponentApplies == true 
  
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
@@ -229,7 +245,11 @@ End If</xsd:documentation>
                                        <d:line1/>ASPHALT SHINGLES: 0.08/0.75
                                        <d:line1/>ALL OTHERS: 0.10/0.75
                                        <d:line1/>LIQUID APPLIED ROOF COATING FOR LOW SLOPE ROOF SHALL MEET COVERAGE, THICKNESS, AND PERFORMANCE VALUES PER 110.8-C</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Section G is required because B02NewRoof_ComponentApplies, B02AddRoof_ComponentApplies,  Or B02AltRoofmat_ComponentApplies  == true  
+                                    <xsd:documentation source="CalculationsAndRules">If Section G is required because 
+B02NewRoof_ComponentApplies == true Or  
+B02AddRoof_ComponentApplies == true  Or 
+B02AltRoofmat_ComponentApplies  == true  
+ 
 result = true  and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
@@ -243,12 +263,14 @@ End If</xsd:documentation>
                                           <d:t24refnolink/>110.8(j) RADIANT BARRIER</d:b>:</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">RADIANT BARRIERS SHALL HAVE EMITTANCE 
                                        <d:lte/> .05, TESTED ACCCORDING WITH ASTM C1371 OR ASTM E408, CERTIFIED BY TITLE 24 PART 12</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">User input: 
-If result == true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if
- 
-No trigger defined</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because 
+B02NewRoof_ComponentApplies == true Or 
+B02AddRoof_ComponentApplies == true Or 
+B02AltRoof_ComponentApplies == true  
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
                               <xsd:element name="MM120_7a_MeasureApplies" type="comp:MeasureApplies">
@@ -264,18 +286,16 @@ No trigger defined</xsd:documentation>
                                        <d:line2/>INSULATION PLACEMENT SHALL BE PER 
                                        <d:t24ref h="120.7(a)3"/> REQUIREMENTS: 
                                        <d:line1/>
-                                       <d:b>
-                                          <d:t24refnolink/>120.7(a)3A </d:b> SHALL BE IN DIRECT CONTACT WITH ROOF OR CEILING SEALED TO LIMIT INFILTRATION AND EXFILTRATION. 
+                                       <d:t24refnolink/>120.7(a)3A  SHALL BE IN DIRECT CONTACT WITH ROOF OR CEILING SEALED TO LIMIT INFILTRATION AND EXFILTRATION. 
                                        <d:line1/>
-                                       <d:b>
-                                          <d:t24refnolink/>120.7(a)3B </d:b> WHEN INSULTATION IS INSTALLED AT ROOF, FIXED VENTS SHALL NOT BE INSTALLED, UNLESS IT IS CONSIDERED ATTIC SPACE. 
+                                       <d:t24refnolink/>120.7(a)3B  WHEN INSULTATION IS INSTALLED AT ROOF, FIXED VENTS SHALL NOT BE INSTALLED, UNLESS IT IS CONSIDERED ATTIC SPACE. 
                                        <d:line1/>
-                                       <d:b>
-                                          <d:t24refnolink/>120.7(a)3C </d:b> SHALL NOT BE INSTALLED ON SUSPENDED CEILINGS UNLESS ITS 2000 FT2 OR LESS AND THERE IS MORE THAN 12 FT BETWEEN ROOF AND CEILING.   
-                                       <d:line1/>
-                                       <d:i>NOTE: ASSEMBLY OPTIONS CAN BE FOUND IN REFERENCE JOINT APPENDIX JA4</d:i>
-                                    </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because B02NewRoof_ComponentApplies, B02AddRoof_ComponentApplies Or B02AltRoof_ComponentApplies == true  
+                                       <d:t24refnolink/>120.7(a)3C SHALL NOT BE INSTALLED ON SUSPENDED CEILINGS UNLESS ITS 2000 FT2 OR LESS AND THERE IS MORE THAN 12 FT BETWEEN ROOF AND CEILING.   
+                                       <d:line1/>NOTE: ASSEMBLY OPTIONS CAN BE FOUND IN REFERENCE JOINT APPENDIX JA4</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because 
+B02NewRoof_ComponentApplies == true Or 
+B02AddRoof_ComponentApplies == true Or 
+B02AltRoof_ComponentApplies == true  
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
@@ -300,10 +320,11 @@ End If</xsd:documentation>
                                        <d:lte/>0.110 
                                        <d:line1/>SPANDREL PANELS AND CURTAIN WALLS: WEIGHTED AVERAGE U-FACTOR OF WALL ASSEMBLY 
                                        <d:lte/>0.280 
-                                       <d:line1/>
-                                       <d:i>NOTE: ASSEMBLY OPTIONS CAN BE FOUND IN REFERENCE JOINT APPENDIX JA4</d:i>
-                                    </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If section H because B02NewWall_ComponentApplies, B02AddWall_ComponentApplies Or B02AltWall_ComponentApplies == true  
+                                       <d:line1/>NOTE: ASSEMBLY OPTIONS CAN BE FOUND IN REFERENCE JOINT APPENDIX JA4</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If section H because 
+B02NewWall_ComponentApplies == true Or 
+B02AddWall_ComponentApplies == true Or 
+B02AltWall_ComponentApplies == true  
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
@@ -315,9 +336,7 @@ End If</xsd:documentation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
                                           <d:t24refnolink/>120.7(b)7B DEMISING WALL INSULATION - METAL FRAME</d:b>:</xsd:documentation>
-                                    <xsd:documentation source="AdditionalRequirements">METAL FRAME WALLS SHALL HAVE A MAXIMUM U-FACTOR OF 0.151.  THIS PROJECT COMPLIES WITH MINIMUM INSULATION SHOWN FOR THE FOLLOWING FRAMING OPTIONS FROM 
-                                       <d:b>REFERENCE JOINT APPENDIX JA4</d:b>
-                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">METAL FRAME WALLS SHALL HAVE A MAXIMUM U-FACTOR OF 0.151.  THIS PROJECT COMPLIES WITH MINIMUM INSULATION SHOWN FOR THE FOLLOWING FRAMING OPTIONS FROM REFERENCE JOINT APPENDIX JA4:</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
@@ -325,54 +344,58 @@ result = false and nothing is displayed in the report
 End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:choice>
-                                 <xsd:element name="MM120_7b7B1_MeasureApplies" type="comp:MeasureApplies">
-                                    <xsd:annotation>
-                                       <xsd:documentation source="FieldText">4" STUDS, 16" OR 24" O.C.: R-13 CAVITY. R-2 CONTINUOUS INSULATION REQUIRED</xsd:documentation>
-                                       <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal And HFramed07_FramingSize == 2x4
+                              <xsd:element name="MM120_7b7B1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">4" STUDS, 16" OR 24" O.C.: R-13 CAVITY. R-2 CONTINUOUS INSULATION REQUIRED</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal And HFramed07_FramingSize == 2x4
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
 End If</xsd:documentation>
-                                    </xsd:annotation>
-                                 </xsd:element>
-                                 <xsd:element name="MM120_7b7B2_MeasureApplies" type="comp:MeasureApplies">
-                                    <xsd:annotation>
-                                       <xsd:documentation source="FieldText">6" STUDS, 16" OR 24" O.C.: R-19 CAVITY. R-2 CONTINUOUS INSULATION REQUIRED</xsd:documentation>
-                                       <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal And HFramed07_FramingSize == 2x6
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_7b7B2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">6" STUDS, 16" OR 24" O.C.: R-19 CAVITY. R-2 CONTINUOUS INSULATION REQUIRED</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal And HFramed07_FramingSize == 2x6
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
 End If</xsd:documentation>
-                                    </xsd:annotation>
-                                 </xsd:element>
-                                 <xsd:element name="MM120_7b7B3_MeasureApplies" type="comp:MeasureApplies">
-                                    <xsd:annotation>
-                                       <xsd:documentation source="FieldText">8" STUDS, 24" O.C.: R-22 BATT. NO CONTINUOUS INSULATION REQUIRED</xsd:documentation>
-                                       <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal And HFramed07_FramingSize == 2x8
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_7b7B3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">8" STUDS, 24" O.C.: R-22 BATT. NO CONTINUOUS INSULATION REQUIRED</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal And HFramed07_FramingSize == 2x8
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
 End If</xsd:documentation>
-                                    </xsd:annotation>
-                                 </xsd:element>
-                                 <xsd:element name="MM120_7b7B4_MeasureApplies" type="comp:MeasureApplies">
-                                    <xsd:annotation>
-                                       <xsd:documentation source="FieldText">OTHER: PROVIDE SUBMITTER NOTES</xsd:documentation>
-                                       <xsd:documentation source="CalculationsAndRules">If MM120.7b7B_MeasureApplies == true, FieldText  is displayed in the report
-Else FieldText  is not displayed in the report
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_7b7B4_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">OTHER: PROVIDE SUBMITTER NOTES</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal  
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
 End If</xsd:documentation>
-                                    </xsd:annotation>
-                                 </xsd:element>
-                              </xsd:choice>
+                                 </xsd:annotation>
+                              </xsd:element>
                               <xsd:element name="MM120_7b7BNote" minOccurs="0">
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">
-                                       <d:i>NOTE: CLOSER STUD SPACING AND/OR LOWER BATT R-VALUE AND/OR SMALLER STUDS REQUIRES CONTINUOUS INSULATION SHEATHING.  
-                                          <d:line1/> NOTE: INSULATION IS NOT REQUIRED FOR NON-FRAMED DEMISING WALLS.  </d:i>
-                                    </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.7b7B_MeasureApplies == true, FieldText  is displayed in the report
-Else FieldText  is not displayed in the report
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">NOTE: CLOSER STUD SPACING AND/OR LOWER BATT R-VALUE AND/OR SMALLER STUDS REQUIRES CONTINUOUS INSULATION SHEATHING.  
+                                       <d:line1/> NOTE: INSULATION IS NOT REQUIRED FOR NON-FRAMED DEMISING WALLS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == Metal  
+static text  is displayed in the report
+Else FieldText and AdditionalRequirements static text  is not displayed in the report
 End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -381,8 +404,7 @@ End If</xsd:documentation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
                                           <d:t24refnolink/>120.7(b)7A DEMISING WALL INSULATION - WOOD FRAME</d:b>:</xsd:documentation>
-                                    <xsd:documentation source="AdditionalRequirements">WOOD FRAME WALLS SHALL HAVE A MAXIMUM U-FACTOR OF 0.099.  THIS PROJECT COMPLIES WITH MINIMUM INSULATION SHOWN FOR THE FOLLOWING FRAMING OPTIONS FROM 
-                                       <d:b>REFERENCE JOINT APPENDIX JA4</d:b> (CHOOSE ONE):</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">WOOD FRAME WALLS SHALL HAVE A MAXIMUM U-FACTOR OF 0.099.  THIS PROJECT COMPLIES WITH MINIMUM INSULATION SHOWN FOR THE FOLLOWING FRAMING OPTIONS FROM REFERENCE JOINT APPENDIX JA4:</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
@@ -390,45 +412,46 @@ result = false and nothing is displayed in the report
 End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
-                              <xsd:choice>
-                                 <xsd:element name="MM120_7b7A1_MeasureApplies" type="comp:MeasureApplies">
-                                    <xsd:annotation>
-                                       <xsd:documentation source="FieldText">2X4, 24" O.C.: R-13 BATT</xsd:documentation>
-                                       <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum And HFramed07_FramingSize == 2x4 And  HFramed07_FramingSpacing == 24InchOC
+                              <xsd:element name="MM120_7b7A1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">2X4, 24" O.C.: R-13 BATT</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum And HFramed07_FramingSize == 2x4 And  HFramed07_FramingSpacing == 24InchOC
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
 End If</xsd:documentation>
-                                    </xsd:annotation>
-                                 </xsd:element>
-                                 <xsd:element name="MM120_7b7A2_MeasureApplies" type="comp:MeasureApplies">
-                                    <xsd:annotation>
-                                       <xsd:documentation source="FieldText">2X4, 16" O.C.: R-15 BATT</xsd:documentation>
-                                       <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum And HFramed07_FramingSize == 2x4 And  HFramed07_FramingSpacing == 16InchOC
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_7b7A2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">2X4, 16" O.C.: R-15 BATT</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum And HFramed07_FramingSize == 2x4 And  HFramed07_FramingSpacing == 16InchOC
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
 End If</xsd:documentation>
-                                    </xsd:annotation>
-                                 </xsd:element>
-                                 <xsd:element name="MM120_7b7A3_MeasureApplies" type="comp:MeasureApplies">
-                                    <xsd:annotation>
-                                       <xsd:documentation source="FieldText">2X6 OR GREATER, ANY SPACING: R-19 BATT</xsd:documentation>
-                                       <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum And HFramed07_FramingSize == 2x6 Or 2x8 
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_7b7A3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">2X6 OR GREATER, ANY SPACING: R-19 BATT</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum And HFramed07_FramingSize == 2x6 Or 2x8 
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
 End If</xsd:documentation>
-                                    </xsd:annotation>
-                                 </xsd:element>
-                              </xsd:choice>
+                                 </xsd:annotation>
+                              </xsd:element>
                               <xsd:element name="MM120_7b7ANote" minOccurs="0">
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">
-                                       <d:i>NOTE: INSULATION IS NOT REQUIRED FOR NON-FRAMED DEMISING WALLS.  </d:i>
-                                    </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.7b7A_MeasureApplies == true, FieldText  is displayed in the report
-Else FieldText  is not displayed in the report
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">NOTE: INSULATION IS NOT REQUIRED FOR NON-FRAMED DEMISING WALLS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Hframed06_WallType == DemisingWall And HFramed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum
+FieldText and AdditionalRequirements static text  are displayed in the report
+Else FieldText and AdditionalRequirements static text  are not displayed in the report
 End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -438,7 +461,9 @@ End If</xsd:documentation>
                                        <d:b>
                                           <d:t24refnolink/>120.7(c) FLOOR/SOFFIT INSULATION </d:b>:</xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">OPAQUE PORTIONS OF FLOORS AND SOFFITS SEPARATING CONDITIONED SPACE FROM UNCONDITIONED SPACES OR AMBIENT AIR SHALL MEET THE FOLLOWING (AS APPLICABLE):</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If Section I is required because B02NewFloor_ComponentApplies, B02AddFloor_ComponentApplies Or B02AltFloor_ComponentApplies == true   
+                                    <xsd:documentation source="CalculationsAndRules">If Section I is required because B02NewFloor_ComponentApplies == true Or 
+B02AddFloor_ComponentApplies == true Or
+B02AltFloor_ComponentApplies == true   
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
@@ -447,7 +472,8 @@ End If</xsd:documentation>
                               </xsd:element>
                               <xsd:element name="MM120_7c1_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">RAISED MASS FLOORS: SHALL HAVE MINIMUM OF 3" OF LIGHTWEIGHT CONCRETE OVER A METAL DECK, OR WEIGHTED AVERAGE U-FACTOR OF FLOOR ASSEMBLY 
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">RAISED MASS FLOORS: SHALL HAVE MINIMUM OF 3" OF LIGHTWEIGHT CONCRETE OVER A METAL DECK, OR WEIGHTED AVERAGE U-FACTOR OF FLOOR ASSEMBLY 
                                        <d:lte/> 0.269</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If I01Mass_FloorTypeApplies == true 
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
@@ -458,9 +484,11 @@ End If</xsd:documentation>
                               </xsd:element>
                               <xsd:element name="MM120_7c2_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">OTHER FLOORS:  WEIGHTED AVERAGE U-FACTOR OF FLOOR ASSEMBLY 
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">OTHER FLOORS:  WEIGHTED AVERAGE U-FACTOR OF FLOOR ASSEMBLY 
                                        <d:lte/> 0.071</xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If I01Framed_FloorTypeApplies == true Or I01SIPS_FloorTypeApplies == true
+                                    <xsd:documentation source="CalculationsAndRules">If I01Framed_FloorTypeApplies == true Or 
+I01SIPS_FloorTypeApplies == true
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
 Else
 result = false and nothing is displayed in the report
@@ -469,7 +497,8 @@ End If</xsd:documentation>
                               </xsd:element>
                               <xsd:element name="MM120_7c3_MeasureApplies" type="comp:MeasureApplies">
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">HEATED SLAB ON GRADE FLOORS SHALL BE INSULATED PER 
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">HEATED SLAB ON GRADE FLOORS SHALL BE INSULATED PER 
                                        <d:t24refnolink/>110.8(g) AND TABLE 110.8-A.</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If I01Heated_FloorTypeApplies == true
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
@@ -480,11 +509,13 @@ End If</xsd:documentation>
                               </xsd:element>
                               <xsd:element name="MM120_7cNote" minOccurs="0">
                                  <xsd:annotation>
-                                    <xsd:documentation source="FieldText">
-                                       <d:i>NOTE: ASSEMBLY OPTIONS CAN BE FOUND IN REFERENCE JOINT APPENDIX JA4  </d:i>
-                                    </xsd:documentation>
-                                    <xsd:documentation source="CalculationsAndRules">If MM120.7c_MeasureApplies == true, FieldText  is displayed in the report
-Else FieldText  is not displayed in the report
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">NOTE: ASSEMBLY OPTIONS CAN BE FOUND IN REFERENCE JOINT APPENDIX JA4</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section I is required because B02NewFloor_ComponentApplies == true Or 
+B02AddFloor_ComponentApplies == true Or
+B02AltFloor_ComponentApplies == true   
+FieldText and AdditionalRequirements static text  are displayed in the report
+Else FieldText and AdditionalRequirements static text  are not displayed in the report
 End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
@@ -618,7 +649,7 @@ End If</xsd:documentation>
                         </xsd:simpleType>
                      </xsd:element>
                   </xsd:choice>
-                  <xsd:element name="A09_RequestedMMB" type="comp:RequestedMMB" minOccurs="0" maxOccurs="0">
+                  <xsd:element name="A09_RequestedMMB" type="comp:RequestedMMB" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
@@ -1679,6 +1710,7 @@ Else result = DoesNotComply  display term DOES NOT COMPLY</xsd:documentation>
  
 Mandatory Measure Triggers:
 If this section is required 
+MM110_8j_MeasureApplies = true = true and is displayed And
 MM120_7a_MeasureApplies = true = true and is displayed 
 End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
@@ -17319,7 +17351,13 @@ End If</xsd:documentation>
                   <xsd:element name="N01_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If N01_RequireNRCAEnv02F == true; this field is displayed. User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If N01_RequireNRCAEnv02F == true; this field is displayed  and loaded with systems that satisfy this condition:
+ If B02NewFen_ComponentApplies, Or B02AddFen_ComponentApplies Or B02AltFen_ComponentApplies == true
+ 
+Values may come these field: Kvertperf04_FenestrationName Or Kskyperf04_SKylightName
+ 
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance that satisfy this logic:</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="N01a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">

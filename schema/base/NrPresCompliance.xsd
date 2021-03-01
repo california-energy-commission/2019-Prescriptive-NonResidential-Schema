@@ -1702,6 +1702,13 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="CompMgrVersion">
+      <xsd:annotation>
+         <xsd:documentation>This is the version of the Compliance Manager component of the Title 24 residential performance compliance software used for  generating compliance results in a CF1R-PRF.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ComponentApplies">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -4615,6 +4622,17 @@
    <xsd:simpleType name="ExceptionApplies">
       <xsd:annotation>
          <xsd:documentation>If true Mandatory Measure Exception applies to the project</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExceptionAppliesNotExcluded">
+      <xsd:annotation>
+         <xsd:documentation>If true Mandatory Measure Exception applies to the project and is not excluded from the report pdf</xsd:documentation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
             <dtyp:displayterm value="false">No</dtyp:displayterm>
@@ -11492,6 +11510,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    </xsd:complexType>
    <xsd:complexType name="Payload">
       <xsd:sequence>
+         <xsd:element name="compMgrVersion" type="comp:CompMgrVersion" minOccurs="0" ></xsd:element>
       </xsd:sequence>
       <xsd:attribute name="complianceDocumentGUID" type="comp:ComplianceDocumentGUID" use="required"></xsd:attribute>
       <xsd:attribute name="complianceDocumentSchemaVersion" type="comp:ComplianceDocumentSchemaVersion" use="required"></xsd:attribute>

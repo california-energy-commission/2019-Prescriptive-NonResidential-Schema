@@ -24,14 +24,979 @@
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCPRC01E"/>
                      <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Covered Process Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-PRC-E is included in scope And 
+A07_RequestedMMB == true
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="MM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch. 1)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a) REFRIGERATED SPACES 
+                                          <d:lt/>THAN 3,000 FT2</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">REFRIGERATED SPACES 
+                                       <d:lt/> 3,000 FT2 SHALL MEET THE REQUIREMENTS OF THE APPLIANCE EFFICIENCY REGULATIONS FOR WALK-IN COOLERS OR FREEZERS CONTAINED IN THE APPLIANCE EFFICIENCY REGULATIONS (CALIFORNIA CODE OF REGULATIONS, TITLE 20, SECTIONS 1601 THROUGH 1608).</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_ProjectHasRefrigSpaceLT3kFt2 == true
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a) REFRIGERATED WAREHOUSES 
+                                          <d:gte/> 3,000 FT2 AND SPACES WITH A SUM TOTAL OF 
+                                          <d:gte/>3,000 FT2 SERVED BY THE SAME REFRIGERATION SYSTEM</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)1 EXTERIOR SURFACES OF REFRIGERATED WAREHOUSES SHALL BE INSULATED TO THE FOLLOWING MINIMUM R-VALUES FROM TABLE 120.6-A: 
+                                       <d:line2/>FREEZERS:
+                                       <d:line1/>ROOF CEILING: R-40
+                                       <d:line1/>WALL: R-36
+                                       <d:line1/>FLOOR: R-35
+                                       <d:line1/>FLOOR WITH ALL HEATING FROM PRODUCTION REFRIGERATION CAPACITY: R-20
+                                       <d:line1/>COOLERS:
+                                       <d:line1/>ROOF/CEILING: R-28
+                                       <d:line1/>WALL: R-28</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01b_ProjectHasRefrigSpace == true
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a)2 UNDERSLAB HEATING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ELECTRIC RESISTANCE HEAT SHALL NOT BE USED FOR UNDERSLAB HEATING.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fslab02_SlabHeatingType == HeatElecResist Or HeatNotElecResist 
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a2Exc_ExceptionAppliesNotExcluded" type="comp:ExceptionAppliesNotExcluded">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b> EXCEPTION TO 
+                                          <d:t24refnolink/>120.6(a)2</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">UNDERSLAB HEATING SYSTEMS WHEN ELECTRIC RESISTANCE HEAT IS THERMOSTATICALLY CONTROLLED AND DISABLED DURING THE SUMMER ON-PEAK PERIOD DEFINED BY ELECTRIC UTILITY.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fslab02_SlabHeatingType == HeatElecResist
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a3" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a)3EVAPORATORS IN COOLERS AND FREEZERS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6a3A_MeasureApplies Or MM120_6a3B_MeasureApplies Or MM120_6a3C_MeasureApplies == true  
+this static text is displayed once in the report as a heading for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a3A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)3A  SINGLE PHASE FAN MOTORS 
+                                       <d:lt/>1 HP AND 
+                                       <d:lt/>460 VOLTS SHALL BE ELECTRONICALLY COMMUTATED MOTORS OR HAVE A MINIMUM MOTOR EFFICIENCY OF 70% WHEN RATED IN ACCORDANCE WITH NEMA STANDARD MG 1-2006 AT FULL LOAD RATING CONDITIONS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Ffan03_FanPhase == SinglePhase
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a3B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)3B EVAPORATOR FANS SERVED BY EITHER A SUCTION GROUP WITH MULTIPLE COMPRESSORS, OR BY A SINGLE COMPRESSOR WITH VARIABLE CAPACITY CAPABILITY SHALL BE VARIABLE SPEED AND SPEED SHALL BE CONTROLLED IN RESPONSE TO SPACE TEMPERATURE OR HUMIDITY.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Ffan05_EvapFanCompressor  ==  MultipleCompressors Or SingleCompressorVarCapacity 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a3C_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)3C  EVAPORATOR FANS SERVED BY A SINGLE COMPRESSOR THAT DOES NOT HAVE VARIABLE CAPACITY SHALL UTILIZE CONTROLS TO REDUCE AIRFLOW BY AT LEAST 40% FOR AT LEAST 75% OF THE TIME WHEN THE COMPRESSOR IS NOT RUNNING.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Ffan05_EvapFanCompressor  == SingleCompressor 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a)4  CONDENSERS ON  REFRIGERATION SYSTEMS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6a4A_MeasureApplies Or MM120_6a4B_MeasureApplies Or MM120_6a4C_MeasureApplies Or MM120_6a4D_MeasureApplies Or MM120_6a4E_MeasureApplies  Or MM120_6a4F_MeasureApplies Or MM120_6a4G_MeasureApplies Or Or MM120_6a4H_MeasureApplies  == true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4A DESIGN SATURATED CONDENSING TEMPERATURES FOR EVAPORATIVE-COOLED CONDENSERS AND WATER-COOLED CONDENSERS SERVED BY FLUID COOLERS OR COOLING TOWERS SHALL BE 
+                                       <d:lte/> THE DESIGN WETBULB TEMPERATURE: 
+                                       <d:l t="*">
+                                          <d:list>PLUS 20
+                                             <d:deg/>F IN LOCATIONS WHERE THE DESIGN WETBULB TEMPERATURE IS 
+                                             <d:lte/> 76
+                                             <d:deg/>F; OR </d:list>
+                                          <d:list>PLUS 19
+                                             <d:deg/>F IN LOCATIONS WHERE THE DESIGN WETBULB TEMPERATURE IS BETWEEN 76
+                                             <d:deg/>F AND 78
+                                             <d:deg/>F; OR </d:list>
+                                          <d:list>PLUS 18
+                                             <d:deg/>F IN LOCATIONS WHERE THE DESIGN WETBULB TEMPERATURE IS 
+                                             <d:gte/>78
+                                             <d:deg/>F </d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fcon01Evap_CondenserTypeApplies == true Or   Fcon01Water_CondenserTypeApplies == true 
+Then If Fconwater06_CondenserTemps  == TempsWaterComply 
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4B DESIGN SATURATED CONDENSING TEMPERATURES FOR AIR-COOLED CONDENSERS SHALL BE 
+                                       <d:lte/> THE DESIGN DRYBULB TEMPERATURE: 
+                                       <d:l t="*">
+                                          <d:list>PLUS 10
+                                             <d:deg/>F FOR SYSTEMS SERVING FREEZERS</d:list>
+                                          <d:list>PLUS 15
+                                             <d:deg/>F FOR SYSTEMS SERVING COOLERS </d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fcon01Air_CondenserTypeApplies == true And 
+If Fconair06_CondenserTemps  == TempsAirComply 
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4C_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4C SATURATED CONDENSING TEMPERATURES NECESSARY FOR ADIABATIC CONDENSERS TO REJECT THE DESIGN TOTAL HEAT OF REJECTION OF A REFRIGERATION SYSTEM ASSUMING DRY MODE PERFORMANCE SHALL BE 
+                                       <d:lte/> THE DESIGN DRYBULB TEMPERATURE: 
+                                       <d:l t="*">
+                                          <d:list>PLUS 20
+                                             <d:deg/>F FOR SYSTEMS SERVING FREEZERS</d:list>
+                                          <d:list>PLUS 30
+                                             <d:deg/>F FOR SYSTEMS SERVING COOLERS </d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fcon01Air_CondenserTypeApplies == true And 
+If Fconadia05_CondenserTemps  == TempsAdiabaticComply 
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4D_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4D ALL CONDENSER FANS FOR AIR-COOLED, EVAPORATIVE-COOLED, AND ADIABATIC CONDENSERS, GAS COOLERS, AIR OR WATER FLUID COOLERS, OR COOLING TOWERS SHALL BE CONTINUOUSLY VARIABLE SPEED. THE SPEED OF ALL FANS SERVING A COMMON CONDENSER HIGH SIDE SHALL BE CONTROLLED IN UNISON.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because B01b_ProjectHasRefrigSpace == true
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4E_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4E THE MINIMUM CONDENSING TEMPERATURE SET POINT SHALL BE 
+                                       <d:lte/> 70
+                                       <d:deg/>F FOR AIR-COOLED, EVAPORATIVE-COOLED, AND ADIABATIC CONDENSERS, GAS COOLERS, AIR OR WATER-COOLED FLUID COOLERS, OR COOLING TOWERS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fconair05_CondenserTempControls == SetpointLTE70db Or  Fconwater05_CondenserTempControls  == SetpointLTE70wb Or
+Fconadia04_CondenserTempControls  == SetpointLTE70db
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4F_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4F THE CONDENSING TEMPERATURE SET POINT OF SYSTEMS SERVED BY AIR-COOLED CONDENSERS SHALL BE RESET IN RESPONSE TO AMBIENT DRYBULB TEMPERATURE AND FOR EVAPORATIVE-COOLED CONDENSERS OR WATER-COOLED CONDENSERS (VIA COOLING TOWERS OR FLUID COOLERS) SHALL BE RESET IN RESPONSE TO AMBIENT WETBULB TEMPERATURES. THE CONDENSING TEMPERATURE SETPOINT FOR SYSTEMS SERVED BY ADIABATIC CONDENSERS SHALL BE RESET IN RESPONSE TO AMBIENT DRYBULB TEMPERATURE WHILE OPERATING IN DRY MODE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A02_ClimateZone == 2 Or 4 Or 6 Or 7 Or 8 Or 9 Or 10 Or 11 Or 13 Or 15 And 
+Fcon01Adiabatic _CondenserTypeApplies == false
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4G_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4G FAN-POWERED CONDENSERS SHALL MEET THE CONDENSER EFFICIENCY REQUIREMENTS LISTED IN TABLE 120.6-B:
+                                       <d:line2/>OUTDOOR EVAPORATIVE COOLED:
+                                       <d:line1/>THR CAPACITY 
+                                       <d:gt/> 8,000 MBH: 350 BTUH/WATT
+                                       <d:line1/>THR CAPACITY 
+                                       <d:lt/> 8,000 MBH: 160 BTUH/WATT 
+                                       <d:line1/>OUTDOOR AIR-COOLED:
+                                       <d:line1/>WITH AMMONIA REFRIGERANT: 75 BTUH/WATT
+                                       <d:line1/>WITH HALOCARBON REFRIGERANT: 65 BTUH/WATT 
+                                       <d:line1/>INDOOR AIR-COOLED: EXEMPT 
+                                       <d:line1/> CONDENSER EFFICIENCY = TOTAL HEAT OF REJECTION (THR) CAPACITY / ALL ELECTRICAL INPUT POWER INCLUDING FAN POWER AT 100% FAN SPEED, AND POWER OF SPRAY PUMPS FOR EVAPORATIVE CONDENSERS</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fconair08_CondenserMinEfficiency GT 0 And Fconair09_CondenserEfficiency GT 0   Or 
+If Fconwater08_CondenserMinEfficiency GT 0 And Fconwater09_CondenserEfficiency GT 0   Or 
+If Fconadia07_CondenserminEfficiency GT 0 And Fconadia08_CondenserEfficiency GT 0 
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a4H_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)4H AIR-COOLED CONDENSERS SHALL HAVE A FIN DENSITY 
+                                       <d:lte/> 10 FINS PER INCH.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Fconair10_CondenserFins == FinsLTE10PerIn
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a5" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a)5COMPRESSOR SYSTEMS IN REFRIGERATED WAREHOUSES </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6a5A_MeasureApplies Or MM120_6a5B_MeasureApplies Or MM120_6a5C_MeasureApplies== true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a5A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)5A DESIGNED TO OPERATE AT CONDENSING TEMPERATURE OF 
+                                       <d:lte/> 70
+                                       <d:deg/>F.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because B01b_ProjectHasRefrigSpace == true 
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a5B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)5B NEW OPEN-DRIVE SCREW COMPRESSORS IN NEW REFRIGERATION SYSTEMS WITH AN SST OF 
+                                       <d:lte/> 28
+                                       <d:deg/>F THAT DISCHARGES TO THE SYSTEM CONDENSER PRESSURE SHALL CONTROL COMPRESSOR SPEED IN RESPONSE TO THE REFRIGERATION LOAD.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Fcom04_CompressorVariableSpeed == CompressorSpeedControlled
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a5C_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(a)5C NEW SCREW COMPRESSORS WITH NOMINAL ELECTRIC MOTOR POWER 
+                                       <d:gt/> 150 HP SHALL INCLUDE THE ABILITY TO AUTOMATICALLY VARY THE COMPRESSOR VOLUME RATIO IN RESPONSE TO OPERATING PRESSURES.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Fcom05_VariableVolRatioStatus == AutoVaryVolRatio
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a6_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a)6 INFILTRATION BARRIERS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">PASSAGEWAYS BETWEEN FREEZERS AND HIGHER-TEMPERATURE SPACES, AND BETWEEN COOLERS AND NONREFRIGERATED SPACES, SHALL HAVE INFILTRATION BARRIER CONSISTING OF STRIP CURTAINS, AUTOMATICALLY-CLOSING DOOR, OR AN AIR CURTAIN DESIGNED FOR USE IN THE PASSAGEWAY AND TEMPERATURE FOR WHICH IT IS APPLIED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Fbar02_InfiltrationBarrierMethod ==  InfiltrationBarriersComply
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6a7_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(a)7 REFRIGERATION SYSTEM ACCEPTANCE</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">BEFORE AN OCCUPANCY PERMIT IS GRANTED FOR A NEW REFRIGERATED WAREHOUSE, OR BEFORE A NEW REFRIGERATION SYSTEM SERVING A REFRIGERATED WAREHOUSE IS OPERATED FOR NORMAL USE, THE FOLLOWING  SHALL BE CERTIFIED AS MEETING THE ACCEPTANCE REQUIREMENTS PER THE REFERENCE NONRESIDENTIAL APPENDIX NA7: 
+                                       <d:l t="A">
+                                          <d:list>ELECTRIC RESISTANCE UNDERSLAB HEATING SYSTEMS </d:list>
+                                          <d:list>EVAPORATORS FAN MOTOR CONTROLS </d:list>
+                                          <d:list>EVAPORATIVE CONDENSERS</d:list>
+                                          <d:list>AIR-COOLED CONDENSERS</d:list>
+                                          <d:list>ADIABATIC CONDENSERS</d:list>
+                                          <d:list>VARIABLE SPEED COMPRESSORS </d:list>
+                                       </d:l>
+                                       <d:line2/>NOTE: A CERTIFICATE OF ACCEPTANCE SHALL BE SUBMITTED TO THE ENFORCEMENT AGENCY.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because B01b_ProjectHasRefrigSpace == true 
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(b)1 FAN-POWERED CONDENSERS SERVING REFRIGERATION SYSTEMS: </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6b1A_MeasureApplies Or MM120_6b1BCD_MeasureApplies Or MM120_6b1EF_MeasureApplies Or MM120_6b1G_MeasureApplies== true
+ 
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b1A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">A. ALL CONDENSER FANS FOR AIR-COOLED, EVAPORATIVE-COOLED AND ADIABATIC CONDENSERS, GAS COOLERS, AIR OR WATER-COOLED FLUID COOLERS OR COOLING TOWERS SHALL BE CONTINUOUSLY VARIABLE SPEED, WITH THE SPEED OF ALL FANS SERVING A COMMON CONDENSER HIGH SIDE CONTROLLED IN UNISON.
+                                       <d:line2/>REFRIGERATION SYSTEM CONDENSER CONTROLS SHALL USE VARIABLE-SETPOINT CONTROL LOGIC TO RESET THE CONDENSING TEMPERATURE SETPOINT IN RESPONSE TO:</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section G is required because B01c_ProjectHasFoodStores == true 
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b1BCD_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">B. AMBIENT DRYBULB TEMPERATURE FOR AIR-COOLED CONDENSERS, AND 
+                                       <d:line2/>C. AMBIENT WETBULB TEMPERATURE FOR EVAPORATIVE-COOLED CONDENSERS. 
+                                       <d:line2/>D. REFRIGERATION SYSTEM CONDENSER CONTROLS FOR SYSTEMS WITH ADIABATIC CONDENSERS SHALL USE VARIABLE SETPOINT CONTROL LOGIC TO RESET THE CONDENSING TEMPERATURE SETPOINT IN RESPONSE TO AMBIENT DRYBULB TEMPERATURE WHILE OPERATING IN DRY MODE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Gcon06_CondenserTempControls ==  SetpointLTE70db Or SetpointLTE70wb Or AdiabaticLTE70db
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b1EF_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">E. THE SATURATED CONDENSING TEMPERATURE NECESSARY FOR ADIABATIC CONDENSERS TO REJECT THE DESIGN TOTAL HEAT OF REJECTION OF A REFRIGERATION SYSTEM ASSUMING DRY MODE PERFORMANCE SHALL BE 
+                                       <d:lte/> DESIGN DRYBULB TEMPERATURE:
+                                       <d:l t="*">
+                                          <d:list>  PLUS 20
+                                             <d:deg/>F FOR SYSTEMS SERVING FREEZERS</d:list>
+                                          <d:list>  PLUS 30
+                                             <d:deg/>F FOR SYSTEMS SERVING COOLERS</d:list>
+                                       </d:l>
+                                       <d:line2/>F. THE MINIMUM CONDENSING TEMPERATURE SETPOINT SHALL BE 
+                                       <d:lte/> 70
+                                       <d:deg/>F</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Gcon06_CondenserTempControls ==  SetpointLTE70db Or SetpointLTE70wb Or AdiabaticLTE70db
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b1G_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">G. FAN-POWERED CONDENSERS SHALL MEET THE SPECIFIC EFFICIENCY REQUIREMENTS LISTED IN TABLE 120.6-C:
+                                       <d:line2/>EVAPORATIVE-COOLED: 160 BTU/W  
+                                       <d:line2/>AIR-COOLED: 65 BTU/W  
+                                       <d:line2/>ADIABATIC DRY MODE: 45 BTU/W (HALOCARBON)</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Gcon07_CondenserEfficiencyMethod == EfficiencyNoExceptions 
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b2" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(b)2 COMPRESSOR SYSTEMS IN REFRIGERATION SYSTEMS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6b2A_MeasureApplies Or MM120_6b2B_MeasureApplies  == true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b2A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">A. COMPRESSORS AND MULTIPLE-COMPRESSOR SUCTION GROUPS SHALL INCLUDE CONTROL SYSTEMS THAT USE FLOATING SUCTION PRESSURE LOGIC TO RESET THE TARGET SATURATED SUCTION TEMPERATURE BASED ON THE TEMPERATURE REQUIREMENTS OF THE ATTACHED REFRIGERATION DISPLAY CASES OR WALK-INS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Gcom03_CompressorTempControls  ==  SST_Control
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b2B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">B. LIQUID SUBCOOLING SHALL BE PROVIDED FOR ALL LOW TEMPERATURE COMPRESSOR SYSTEMS WITH A DESIGN COOLING CAPACITY EQUAL OR GREATER THAN 100,000 BTU/HR WITH A DESIGN SATURATED SUCTION TEMPERATURE OF -10
+                                       <d:deg/>F OR LOWER, WITH THE SUBCOOLED LIQUID TEMPERATURE MAINTAINED CONTINUOUSLY AT 50
+                                       <d:deg/>F OR LESS AT THE EXIT OF THE SUBCOOLER, USING COMPRESSOR ECONOMIZER PORT(S) OR A SEPARATE MEDIUM OR HIGH TEMPERATURE SUCTION GROUP OPERATING AT A SATURATED SUCTION TEMPERATURE OF 18
+                                       <d:deg/>F OR HIGHER.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Gcom04_CompressorCoolingMethod  == CoolingNoException
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b3" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(b)3 REFRIGERATED DISPLAY CASES</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">LIGHTING IN REFRIGERATED DISPLAY CASES, AND LIGHTS ON GLASS DOORS INSTALLED ON WALK-IN COOLERS AND FREEZERS SHALL BE CONTROLLED BY ONE OF THE FOLLOWING:</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6b3A_MeasureApplies Or MM120_6b3B_MeasureApplies  == true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b3A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">A. AUTOMATIC TIME SWITCH CONTROLS TO TURN OFF LIGHTS DURING NONBUSINESS HOURS. TIMED OVERRIDES FOR ANY LINE-UP OR WALK-IN CASE MAY ONLY BE USED TO TURN THE LIGHTS ON FOR UP TO ONE HOUR. MANUAL OVERRIDES SHALL TIME-OUT AUTOMATICALLY TO TURN THE LIGHTS OFF AFTER ONE HOUR.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Gcase02_RefrigCaseTimer   ==  true
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b3B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">B. MOTION SENSOR CONTROLS ON EACH CASE THAT REDUCE DISPLAY CASE LIGHTING POWER BY AT LEAST 50% WITHIN 30 MINUTES AFTER THE AREA NEAR THE CASE IS VACATED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  Gcase03_RefrigCaseSensor  ==  true
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b4" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(b)4 REFRIGERATION HEAT RECOVERY</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6b4A_MeasureApplies Or MM120_6b4B_MeasureApplies  == true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b4A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">A. HVAC SYSTEMS SHALL UTILIZE HEAT RECOVERY FROM REFRIGERATION SYSTEM(S) FOR SPACE HEATING, USING NO LESS THAN 25% OF THE SUM OF THE DESIGN TOTAL HEAT OF REJECTION OF ALL REFRIGERATION SYSTEMS THAT HAVE INDIVIDUAL TOTAL HEAT OF REJECTION VALUES OF 150,000 BTU/H OR GREATER AT DESIGN CONDITIONS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If   Gheat02_HeatRecoveryMethod  ==  HeatRecoveryProvided
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6b4B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">B. THE INCREASE IN HYDROFLUOROCARBON REFRIGERANT CHARGE ASSOCIATED WITH REFRIGERATION HEAT RECOVERY EQUIPMENT AND PIPING SHALL BE NO GREATER THAN 0.35 LBS PER 1,000 BTU/H OF HEAT RECOVERY HEATING CAPACITY.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If   Gheat02_HeatRecoveryMethod  ==  HeatRecoveryProvided
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(c) ENCLOSED PARKING GARAGES </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">MECHANICAL VENTILATION SYSTEMS FOR ENCLOSED PARKING GARAGES WHERE THE TOTAL DESIGN EXHAUST RATE FOR THE GARAGE IS 
+                                       <d:gte/> 10,000 CFM SHALL:</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6c1_MeasureApplies Or MM120_6c2_MeasureAppliesOr MM120_6c3_MeasureApplies Or MM120_6c4_MeasureApplies Or MM120_6c5_MeasureApplies  Or MM120_6c6_MeasureApplies Or MM120_6c7_MeasureApplies  == true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">1. AUTOMATICALLY DETECT CONTAMINANT LEVELS AND STAGE FANS OR MODULATE FAN AIRFLOW RATES TO 50% OR LESS OF DESIGN CAPACITY</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H03_FanControlContaminantLevels == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">2. HAVE CONTROLS/ DEVICES THAT WILL RESULT IN FAN MOTOR DEMAND OF NO MORE THAN 30% OF DESIGN WATTAGE AT 50% DESIGN AIRFLOW.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H04_FanControlMotorDemand  == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">3. MONITOR CO WITH AT LEAST ONE SENSOR PER 5,000 FT2 LOCATED IN THE HIGHEST EXPECTED CONCENTRATION LOCATIONS WITH AT LEAST TWO SENSORS PER PROXIMITY ZONE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H05_MonitoringCO  == true And H06_SensorLocationCO  == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c4_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">4. MAINTAIN CO CONCENTRATION AT 25 PPM OR LESS AT ALL TIMES.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H07_SensorSetpointCO  == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c5_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">5. MAINTAIN VENTILATION RATE AT AT LEAST 0.15 CFM/FT2 WHEN THE GARAGE IS SCHEDULED TO BE OCCUPIED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H09_GarageTotalVentRate  == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c6_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">6. MAINTAIN NEGATIVE OR NEUTRAL PRESSURE RELATIVE TO OTHER OCCUPIABLE SPACES WHEN THE GARAGE IS SCHEDULED TO B OCCUPIED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H08_GarageNegativePressurization  == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c7_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">7. CO SENSORS SHALL BE: 
+                                       <d:l t="*">
+                                          <d:list>CERTIFIED BY THE MANUFACTURER TO BE ACCURATE WITHIN PLUS OR MINUS 5%  </d:list>
+                                          <d:list>DRIFT NO MORE THAN 5% PER YEAR AND REQUIRE CALIBRATION NO MORE THAN ONCE PER YEAR, AND </d:list>
+                                          <d:list>BE FACTORY CALIBRATED  </d:list>
+                                          <d:list>MONITORED BY A CONTROL SYSTEM WITH LOGIC THAT AUTOMATICALLY CHECKS FOR SENSOR FAILURE. UPON DETECTION OF A FAILURE, SYSTEM SHALL RESET TO DESIGN VENTILATION RATES AND TRANSMIT AN ALARM TO THE FACILITY OPERATORS</d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H05_MonitoringCO  == true And H06_SensorLocationCO  == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6c8_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(c)8 PARKING GARAGE VENTILATION SYSTEM ACCEPTANCE </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">BEFORE AN OCCUPANCY PERMIT IS GRANTED FOR A PARKING GARAGE SYSTEM A CERTIFICATE OF ACCEPTANCE SHALL BE SUBMITTED TO THE ENFORCEMENT AGENCY THAT CERTIFIES THAT THE EQUIPMENT AND SYSTEMS MEET THE ACCEPTANCE REQUIREMENTS SPECIFIED IN NONRESIDENTIAL REFERENCE APPENDICES NA7.12.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01d_ProjectHasEnclosedParking  == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6d" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(d) MANDATORY REQUIREMENTS FOR PROCESS BOILERS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6d1_MeasureApplies Or Or MM120_6d2A_MeasureApplies Or MM120_6d2B_MeasureApplies  Or MM120_6d3_MeasureApplies== true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6d1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">120.6(d)1 COMBUSTION AIR POSITIVE SHUT-OFF SHALL BE PROVIDED ON ALL NEWLY INSTALLED PROCESS BOILERS WITH AN INPUT CAPACITY OF 2.5 MMBTU/H AND ABOVE, IN WHICH THE BOILER IS DESIGNED TO OPERATE WITH A NON-POSITIVE VENT STATIC PRESSURE, AND/OR  ALL PROCESS BOILERS WHERE ONE STACK SERVES TWO OR MORE BOILERS WITH A TOTAL COMBINED INPUT CAPACITY PER STACK OF 2.5 MMBTU/H.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If I03_CombustionAirShutOff  == ShutOffProvided
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6d2" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:t24refnolink/>120.6(d)2  PROCESS BOILER COMBUSTION AIR FANS WITH MOTORS 10 HP OR LARGER SHALL:</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6d2A_MeasureApplies Or MM120_6d2B_MeasureApplies  == true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6d2A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">A. FAN MOTORS SHALL BE DRIVEN BY A VARIABLE SPEED DRIVE;</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If I04_BoilerFanControl  == FanVarSpeedDrive
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6d2B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">B. FAN MOTOR SHALL INCLUDE CONTROLS THAT LIMIT THE FAN MOTOR DEMAND TO NO MORE THAN 30% OF TOTAL DESIGN WATTAGE AT 50% OF DESIGN AIR VOLUME.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If I04_BoilerFanControl  == ControlFanMotorDemand
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6d3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(d)3  NEWLY INSTALLED PROCESS BOILERS:: 
+                                       <d:l t="*">
+                                          <d:list>INPUT CAPACITY OF 5 MMBTU/H (5,000,000 BTU/H) TO 10 MMBTU/H (10,000,000 BTU/H) SHALL MAINTAIN EXCESS (STACK-GAS) OXYGEN CONCENTRATION AT LESS THAN OR EQUAL TO 5% BY VOLUME ON A DRY BASIS OVER FIRING RATES OF 20-100%. </d:list>
+                                          <d:list>INPUT CAPACITY GREATER THAN 10 MMBTU/H (10,000,000 BTU/H) SHALL MAINTAIN EXCESS (STACK-GAS) OXYGEN CONCENTRATIONS AT LESS THAN OR EQUAL TO 3.0 PERCENT BY VOLUME ON A DRY BASIS OVER FIRING RATES OF 20 PERCENT TO 100 PERCENT.</d:list>
+                                       </d:l>
+                                       <d:line1/>IN BOTH CASES, COMBUSTION AIR VOLUME SHALL BE CONTROLLED WITH RESPECT TO FIRING RATE OR MEASURED FLUE GAS OXYGEN CONCENTRATION. USE OF A COMMON GAS AND COMBUSTION AIR CONTROL LINKAGE OR JACK SHAFT IS PROHIBITED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If I05_BoilerStackControl == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6e_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(e) COMPRESSED AIR SYSTEMS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL NEW COMPRESSED AIR SYSTEMS, AND ALL ADDITIONS OR ALTERATIONS OF COMPRESSED AIR SYSTEMS WITH TOTAL COMBINED ONLINE HP OF THE COMPRESSOR(S) IS 25 HP OR MORE SHALL MEET THE FOLLOWING:</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section J is required because  B01f_ProjectHasCompressedAir == true.
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6e1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(e)1 COMPRESSED AIR SYSTEMS SHALL BE EQUIPPED WITH AN APPROPRIATELY SIZED TRIM COMPRESSOR AND PRIMARY STORAGE TO PROVIDE ACCEPTABLE PERFORMANCE ACROSS THE RANGE OF THE SYSTEM AND TO AVOID CONTROL GAPS. THE COMPRESSED AIR SYSTEM SHALL COMPLY WITH ONE OF THE FOLLOWING: 
+                                       <d:line1/>A. INCLUDE ONE OR MORE VARIABLE SPEED DRIVE (VSD) COMPRESSORS  
+                                       <d:line1/>B. INCLUDE A COMPRESSOR OR SET OF COMPRESSORS WITH TOTAL EFFECTIVE TRIM CAPACITY AT LEAST THE SIZE OF THE LARGEST NET CAPACITY INCREMENT BETWEEN COMBINATIONS OF COMPRESSORS, OR THE SIZE OF THE SMALLEST COMPRESSOR, WHICHEVER IS LARGER.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If J02_CompressorTrimMethod  == VarSpeedDriveCompressor Or DedicatedTrimCompressor
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6e2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(e)2  COMPRESSED AIR SYSTEMS WITH MORE THAN ONE COMPRESSOR ONLINE, HAVING A COMBINED HP RATING OF MORE THAN 100 HP, MUST OPERATE WITH A CONTROLLER THAT IS ABLE TO CHOOSE THE MOST ENERGY EFFICIENT COMBINATION OF COMPRESSORS WITHIN THE SYSTEM BASED ON THE CURRENT AIR DEMAND AS MEASURED BY A SENSOR.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If J03_CompressorControls  ==  SensorControllerProvided
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6e3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:t24refnolink/>120.6(e)3  BEFORE AN OCCUPANCY PERMIT IS GRANTED FOR A COMPRESSED AIR SYSTEM, A CERTIFICATE OF ACCEPTANCE SHALL BE SUBMITTED TO THE ENFORCEMENT AGENCY THAT CERTIFIES THAT THE EQUIPMENT AND SYSTEMS MEET THE ACCEPTANCE REQUIREMENTS SPECIFIED IN NONRESIDENTIAL REFERENCE APPENDICES NA7.13.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section J is required because  B01f_ProjectHasCompressedAir == true.
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6f_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(f) MANDATORY REQUIREMENTS FOR ELEVATORS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_6f1_MeasureApplies Or MM120_6f2_MeasureApplies Or MM120_6f3to5_MeasureApplies == true
+ 
+this static text is displayed in the report once as a heading  for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6f1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">1. THE LIGHT POWER DENSITY FOR THE LUMINAIRES INSIDE THE ELEVATOR CAB SHALL BE NO GREATER THAN 0.6 WATTS PER SQUARE FOOT.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section K is required because B02a_ProjectHasElevatorControls == true. == true.
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6f2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">2. ELEVATOR CAB VENTILATION FANS FOR CABS WITHOUT SPACE CONDITIONING SHALL NOT EXCEED 0.33 WATTS PER CFM AS MEASURED AT MAXIMUM SPEED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If K10_IsSpaceConditioned   ==  true 
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6f3to5_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">3. WHEN STOPPED AND UNOCCUPIED WITH DOORS CLOSED FOR OVER 15 MINUTES, THE CAB INTERIOR LIGHTING AND VENTILATION FANS SHALL BE SWITCHED OFF.  
+                                       <d:line1/>4. LIGHTING AND VENTILATION SHALL REMAIN OPERATIONAL IN THE EVENT THAT THE ELEVATOR CABIN GETS STUCK WHEN PASSENGERS ARE IN THE CABIN.  
+                                       <d:line1/>5. BEFORE AN OCCUPANCY PERMIT IS GRANTED FOR ELEVATORS, A CERTIFICATE OF ACCEPTANCE SHALL BE SUBMITTED TO THE ENFORCEMENT AGENCY THAT CERTIFIES THAT THE EQUIPMENT AND SYSTEMS MEET THE ACCEPTANCE REQUIREMENTS SPECIFIED IN NONRESIDENTIAL REFERENCE APPENDICES NA7.14.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section K is required because B02a_ProjectHasElevatorControls == true
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_6g_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.6(g) MANDATORY REQUIREMENTS FOR ESCALATORS AND MOVING WALKWAYS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">1. ESCALATORS AND MOVING WALKWAYS LOCATED IN AIRPORTS, HOTELS, AND TRANSPORTATION FUNCTION AREAS SHALL AUTOMATICALLY SLOW TO THE MINIMUM PERMITTED SPEED IN ACCORDANCE WITH ASME A17.1/CSA B44 WHEN NOT CONVEYING PASSENGERS.  
+                                       <d:line1/>2. BEFORE AN OCCUPANCY PERMIT IS GRANTED FOR ESCALATORS AND MOVING WALKWAYS, A CERTIFICATE OF ACCEPTANCE SHALL BE SUBMITTED TO THE ENFORCEMENT AGENCY THAT CERTIFIES THAT THE EQUIPMENT AND SYSTEMS MEET THE ACCEPTANCE REQUIREMENTS SPECIFIED IN NONRESIDENTIAL REFERENCE APPENDICES NA7.15.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section L is required because B02b_ProjectHasEscalatorControls == true.
+ 
+result = true and FieldText and AdditionalRequirements static text is 
+displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
             </xsd:element>
             <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+            <xsd:element name="ReportMMB" type="xsd:base64Binary" minOccurs="0"/>
          </xsd:sequence>
-         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20200601"/>
-         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCPRCE"/>
+         <xsd:attribute name="revision" type="xsd:string" use="required" fixed="rev 20200601"/>
+         <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" use="required" fixed="NRCCPRCE"/>
       </xsd:complexType>
    </xsd:element>
    <xsd:complexType name="NRCCPRC01E">
@@ -68,7 +1033,13 @@
                   <xsd:element name="A02_ClimateZone" type="com:ClimateZone">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Climate Zone</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+ 
+Mandatory Measure Triggers:
+If result == 2 Or 4 Or 6 Or 7 Or 8 Or 9 Or 10 Or 11 Or 13 Or 15 And 
+If Fcon01Adiabatic _CondenserTypeApplies == false 
+MM120_6a4F_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A03" minOccurs="0">
@@ -153,6 +1124,12 @@
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="A07_RequestedMMB" type="comp:RequestedMMB" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="AEndNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Alert</xsd:documentation>
@@ -197,6 +1174,15 @@
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Refrigerated Spaces 
                            <d:lt/>3,000 ft<d:sup>2</d:sup> Total (no Title 24, Pt6 requirements)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If
+ 
+Mandatory Measure Triggers:
+If result == true
+MM120_6a_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B01b_ProjectHasRefrigSpace" type="comp:ProjectHasRefrigSpace">
@@ -204,6 +1190,15 @@
                         <xsd:documentation source="FieldText">Refrigerated Spaces 
                            <d:gte/>3,000 ft<d:sup>2</d:sup> Total (mandatory 
                            <d:t24ref h="120.6(a)"/>)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If
+ 
+Mandatory Measure Triggers:
+If result == true
+MM120_6a1_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B01c_ProjectHasFoodStores" type="comp:ProjectHasFoodStores">
@@ -211,6 +1206,10 @@
                         <xsd:documentation source="FieldText">Food Stores 
                            <d:gt/>8,000 ft<d:sup>2</d:sup> cfa (mandatory 
                            <d:t24ref h="120.6(b)"/>)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B01d_ProjectHasEnclosedParking" type="comp:ProjectHasEnclosedParking">
@@ -218,12 +1217,25 @@
                         <xsd:documentation source="FieldText">Enclosed Parking Garage Exhaust 
                            <d:gte/>10,000 cfm (mandatory 
                            <d:t24ref h="120.6(c)"/>)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6c8_MeasureApplies = true and is displayed    
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B01e_ProjectHasBoilers" type="comp:ProjectHasBoilers">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Newly Installed Process Boilers (mandatory 
                            <d:t24ref h="120.6(d)"/>)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B01f_ProjectHasCompressedAir" type="comp:ProjectHasCompressedAir">
@@ -231,18 +1243,30 @@
                         <xsd:documentation source="FieldText">Compressed Air Systems Combined HP 
                            <d:gte/> 25 (mandatory 
                            <d:t24ref h="120.6(e)"/>)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B02a_ProjectHasElevatorControls" type="comp:ProjectHasElevatorControls">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Elevator Lighting &amp;amp; Ventilation Controls (mandatory 
                            <d:t24ref h="120.6(f)"/>)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B02b_ProjectHasEscalatorControls" type="comp:ProjectHasEscalatorControls">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Escalator &amp;amp; Moving Walkway Speed Controls (mandatory 
                            <d:t24ref h="120.6(g)"/>)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B02c_ProjectHasComputerRoom" type="comp:ProjectHasComputerRoom">
@@ -251,6 +1275,10 @@
                            <d:gt/>20 W/ ft<d:sup>2</d:sup> Power Density (prescriptive 
                            <d:t24ref h="140.9(a)"/>)<d:sup>1</d:sup>
                         </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B02d_ProjectHasCommercialKitchen" type="comp:ProjectHasCommercialKitchen">
@@ -258,6 +1286,10 @@
                         <xsd:documentation source="FieldText">Commercial Kitchen Ventilation/Exhaust (prescriptive 
                            <d:t24ref h="140.9(b)"/>)<d:sup>1</d:sup>
                         </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B02e_ProjectHasLabExhaust" type="comp:ProjectHasLabExhaust">
@@ -265,6 +1297,10 @@
                         <xsd:documentation source="FieldText">Laboratory Exhaust/Factory Exhaust &amp;amp; Fume Hood  (prescriptive 
                            <d:t24ref h="140.9(c)"/>)<d:sup>1</d:sup>
                         </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input
+If checked result = true
+Else result = false
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="BEndNote1" minOccurs="0">
@@ -798,7 +1834,14 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>F. REFRIGERATED WAREHOUSES/SPACES</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is  required If B01b_ProjectHasRefrigSpace == true</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is  required If B01b_ProjectHasRefrigSpace == true
+ 
+Mandatory Measure Triggers:
+If this section is required 
+MM120_6a4D_MeasureApplies = true and is displayed and 
+MM120_6a5A_MeasureApplies = true and is displayed and 
+MM120_6a7_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -826,7 +1869,7 @@ End If</xsd:documentation>
                            <xsd:element name="Fins01_DoesRefrigeratedAreaInsulationComply" type="comp:DoesRefrigeratedAreaInsulationComply">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Exterior surfaces of refrigerated warehouse/spaces are specified to be insulated at least to the R-values in 
-                                    <d:t24table>TABLE 120.6-A</d:t24table> (see below) per 
+                                    <d:t24table/>TABLE 120.6-A (see below) per 
                                     <d:t24ref h="120.6"/>:</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else If unchecked result = false</xsd:documentation>
                               </xsd:annotation>
@@ -959,7 +2002,15 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Compliance Method per 
                                              <d:t24ref h="120.6(a)2"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: HeatElecResist display term Using electric resistance with thermostatic control to be off during summer on-peak time periods, HeatNotElecResist display term NA: not using electric resistance heat for underslab heating, HeatNone display term NA: no underslab heating.</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: HeatElecResist display term Using electric resistance with thermostatic control to be off during summer on-peak time periods, HeatNotElecResist display term NA: not using electric resistance heat for underslab heating, HeatNone display term NA: no underslab heating.
+ 
+Mandatory Measure Triggers:
+If result == HeatElecResist
+MM120_6a2_MeasureApplies = true and is displayed And
+MM120_6a2Exc_ExceptionAppliesNotExcluded = true and is displayed
+Else If result == HeatNotElecResist 
+MM120_6a2_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
@@ -1019,7 +2070,12 @@ End If</xsd:documentation>
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Phase</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If Ffan02_FanMotorHP == GT1HP result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list; SinglePhase display term Single Phase 
-                                                         <d:lt/> 460V, ThreePhase display term Three Phase</xsd:documentation>
+                                                         <d:lt/> 460V, ThreePhase display term Three Phase
+ 
+Mandatory Measure Triggers:
+If result == SinglePhase
+MM120_6a3A_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Ffan03_NotApplicableMessage">
@@ -1057,7 +2113,15 @@ End If</xsd:documentation>
                                              <xsd:element name="Ffan05_EvapFanCompressor" type="hvac:EvapFanCompressor">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Evaporator Fans Served By</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from list: MultipleCompressors display term Suction group with multiple compressors, SingleCompressorVarCapacity display term Single compressor with variable capacity capability, SingleCompressor display term Single compressor without variable capacity, ExistEvapNoControlNA display term NA: Not altering/ replacing all of the evaporators in an existing refrigerated space that do not have fan speed-controls., ConstantOperRequiredNA display term NA: Products stored require constant operation at 100% of the design airflow certified by licensed engineer., QuickChillOnlyNA display term NA: Areas designed solely for quick chilling/freezing of products.</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects from list: MultipleCompressors display term Suction group with multiple compressors, SingleCompressorVarCapacity display term Single compressor with variable capacity capability, SingleCompressor display term Single compressor without variable capacity, ExistEvapNoControlNA display term NA: Not altering/ replacing all of the evaporators in an existing refrigerated space that do not have fan speed-controls., ConstantOperRequiredNA display term NA: Products stored require constant operation at 100% of the design airflow certified by licensed engineer., QuickChillOnlyNA display term NA: Areas designed solely for quick chilling/freezing of products.
+ 
+ 
+Mandatory Measure Triggers:
+If result == MultipleCompressors Or SingleCompressorVarCapacity
+MM120_6a3B_MeasureApplies = true and is displayed 
+Else If result ==  SingleCompressor 
+MM120_6a3C_MeasureApplies = true and is displayed
+End I</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:choice maxOccurs="1">
@@ -1108,25 +2172,47 @@ End If</xsd:documentation>
                            <xsd:element name="Fcon01Air_CondenserTypeApplies" type="comp:CondenserTypeApplies">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Air-cooled (new only)</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false
+ 
+Mandatory Measure Triggers:
+If result == true 
+If Fconair06_CondenserTemps  == TempsAirComply 
+MM120_6a4B_MeasureApplies = true and is displayed 
+Else If Fconadia05_CondenserTemps  == TempsAdiabaticComply
+MM120_6a4C_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Fcon01Evap_CondenserTypeApplies" type="comp:CondenserTypeApplies">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Evaporative-cooled (new only)</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false
+ 
+Mandatory Measure Triggers:
+If result == true And Fconwater06_CondenserTemps  == TempsWaterComply 
+MM120_6a4A_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Fcon01Water_CondenserTypeApplies" type="comp:CondenserTypeApplies">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Water-cooled (new only)</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false
+ 
+ 
+Mandatory Measure Triggers:
+If result == true And Fconwater06_CondenserTemps  == TempsWaterComply 
+MM120_6a4A_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Fcon01Adiabatic_CondenserTypeApplies" type="comp:CondenserTypeApplies">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Adiabatic (new only)</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; If unchecked result = false
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See A02_ClimateZone CalculationsAndRules for trigger values from this field</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Fcon01Altered_CondenserTypeApplies" type="comp:CondenserTypeApplies">
@@ -1186,7 +2272,13 @@ End If</xsd:documentation>
                                                       <d:t24ref h="120.6(a)4E"/>
                                                    </xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; SetpointLTE70db display term Designed to 
-                                                      <d:lte/> 70 @ ambient db temp, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub>  refrigeration</xsd:documentation>
+                                                      <d:lte/> 70 @ ambient db temp, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub>  refrigeration
+ 
+ 
+Mandatory Measure Triggers:
+If result == SetpointLTE70db
+MM120_6a4E_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="comp:CondenserTempControls">
@@ -1203,7 +2295,10 @@ End If</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; TempsAirComply display term Designed per 
                                                       <d:t24ref h="120.6(a)4B"/>, HP_LT100NA display term NA: Total HP 
                                                       <d:lt/> 100, GT20pctQuickChillNA display term NA:  
-                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space, TempsNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration</xsd:documentation>
+                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space, TempsNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See Fcon01Air_CondenserTypeApplies  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="comp:CondenserTemps">
@@ -1244,7 +2339,12 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fconair08_CondenserMinEfficiency" type="hvac:CondenserMinEfficiency">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Minimum Efficiency Required (Btuh/W)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fconair03_CondenserLocation == Indoor Or If Fconair07_RefrigerantType == RefrigerantNA  result = BlankGrayedOut stored in NotApplicableMessage; Else calculated field: If Fconair07_RefrigerantType == Ammonia result = 75; Else If  Fconair07_RefrigerantType == Halocarbon result = 65;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fconair03_CondenserLocation == Indoor Or If Fconair07_RefrigerantType == RefrigerantNA  result = BlankGrayedOut stored in NotApplicableMessage; Else calculated field: If Fconair07_RefrigerantType == Ammonia result = 75; Else If  Fconair07_RefrigerantType == Halocarbon result = 65;
+ 
+Mandatory Measure Triggers:
+If result GT 0 And Fconair09_CondenserEfficiency GT 0
+MM120_6a4G_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fconair08_NotApplicableMessage">
@@ -1263,7 +2363,10 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fconair09_CondenserEfficiency" type="hvac:CondenserEfficiency">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Efficiency per Design (Btuh/W)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fconair03_CondenserLocation == Indoor Or If Fconair07_RefrigerantType == RefrigerantNA  result = BlankGrayedOut stored in NotApplicableMessage; Else user input</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fconair03_CondenserLocation == Indoor Or If Fconair07_RefrigerantType == RefrigerantNA  result = BlankGrayedOut stored in NotApplicableMessage; Else user input
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See Fconair08_CondenserMinEfficiency  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fconair09_NotApplicableMessage">
@@ -1284,7 +2387,12 @@ End If</xsd:documentation>
                                                       <d:t24ref h="120.6(a)4H"/>
                                                    </xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; FinsLTE10PerIn display term 
-                                                      <d:lte/> 10 fins/in, FinsNA display term NA: Using microchannel condenser</xsd:documentation>
+                                                      <d:lte/> 10 fins/in, FinsNA display term NA: Using microchannel condenser
+ 
+Mandatory Measure Triggers:
+If result  == FinsLTE10PerIn
+MM120_6a4H_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Fconair11_DoesCondenserComply" type="comp:DoesCondenserComply">
@@ -1342,7 +2450,12 @@ End If</xsd:documentation>
                                                       <d:t24ref h="120.6(a)4E"/>
                                                    </xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; SetpointLTE70wb display term Designed to 
-                                                      <d:lte/> 70 @ ambient wb temp, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub>  refrigeration</xsd:documentation>
+                                                      <d:lte/> 70 @ ambient wb temp, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub>  refrigeration
+ 
+Mandatory Measure Triggers:
+If result == SetpointLTE70wb
+MM120_6a4E_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="comp:CondenserTempControls">
@@ -1358,7 +2471,10 @@ End If</xsd:documentation>
                                                    </xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; TempsWaterComply display term Designed per 
                                                       <d:t24ref h="120.6(a)4A"/>, GT20pctQuickChillNA display term NA:  
-                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space, TempsNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration</xsd:documentation>
+                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space, TempsNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See Fcon01Evap_CondenserTypeApplies And Fcon01Water_CondenserTypeApplies  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="comp:CondenserTemps">
@@ -1400,7 +2516,12 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fconwater08_CondenserMinEfficiency" type="hvac:CondenserMinEfficiency">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Minimum Efficiency Required (Btuh/W)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fconwater07_CondenserCapTHR == Cap_NA result = BlankGrayedOut stored in NotApplicableMessage;  Else calculated field: If Fconwater03_CondenserLocation == Indoor Or  Fconwater07_CondenserCapTHR == LT8000MBH result = 160; Else If Fconwater07_CondenserCapTHR == GT8000MBH result = 350;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fconwater07_CondenserCapTHR == Cap_NA result = BlankGrayedOut stored in NotApplicableMessage;  Else calculated field: If Fconwater03_CondenserLocation == Indoor Or  Fconwater07_CondenserCapTHR == LT8000MBH result = 160; Else If Fconwater07_CondenserCapTHR == GT8000MBH result = 350;
+ 
+Mandatory Measure Triggers:
+If result GT 0 And Fconwater09_CondenserEfficiency GT 0
+MM120_6a4G_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fconwater08_NotApplicableMessage">
@@ -1419,7 +2540,10 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fconwater09_CondenserEfficiency" type="hvac:CondenserEfficiency">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Efficiency per Design (Btuh/W)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fconwater07_CondenserCapTHR == Cap_NA result = BlankGrayedOut stored in NotApplicableMessage; Else user input</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fconwater07_CondenserCapTHR == Cap_NA result = BlankGrayedOut stored in NotApplicableMessage; Else user input
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See Fconwater08_CondenserMinEfficiency  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fconwater09_NotApplicableMessage">
@@ -1478,7 +2602,12 @@ End If</xsd:documentation>
                                                       <d:t24ref h="120.6(a)4E"/>
                                                    </xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; SetpointLTE70db display term Designed to 
-                                                      <d:lte/> 70 @ ambient db temp, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub>  refrigeration</xsd:documentation>
+                                                      <d:lte/> 70 @ ambient db temp, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub>  refrigeration
+ 
+Mandatory Measure Triggers:
+If result == SetpointLTE70db
+MM120_6a4E_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="comp:CondenserTempControls">
@@ -1495,7 +2624,10 @@ End If</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; TempsAdiabaticComply display term Designed per 
                                                       <d:t24ref h="120.6(a)4C"/>, HPLT100NA display term NA: Total HP 
                                                       <d:lt/> 100, GT20pctQuickChillNA display term NA:  
-                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space, TempsNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration</xsd:documentation>
+                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space, TempsNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See Fcon01Air_CondenserTypeApplies  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
                                                    <xsd:restriction base="comp:CondenserTemps">
@@ -1522,7 +2654,12 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fconadia07_CondenserMinEfficiency" type="hvac:CondenserMinEfficiency">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Minimum Efficiency Required (Btuh/W)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fconadia06_RefrigerantType == Ammonia Or RefrigerantNA result = BlankGrayedOut stored in NotApplicableMessage; Else If Fconadia06_RefrigerantType == Halocarbon result = 45;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fconadia06_RefrigerantType == Ammonia Or RefrigerantNA result = BlankGrayedOut stored in NotApplicableMessage; Else If Fconadia06_RefrigerantType == Halocarbon result = 45;
+ 
+Mandatory Measure Triggers:
+If result GT 0 And Fconadia08_CondenserEfficiency GT 0
+MM120_6a4G_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fconadia07_NotApplicableMessage">
@@ -1541,7 +2678,10 @@ End If</xsd:documentation>
                                                 <xsd:element name="Fconadia08_CondenserEfficiency" type="hvac:CondenserEfficiency">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Efficiency per Design (Btuh/W)</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Fconadia06_RefrigerantType == Ammonia Or RefrigerantNA result = BlankGrayedOut stored in NotApplicableMessage; Else user input;</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fconadia06_RefrigerantType == Ammonia Or RefrigerantNA result = BlankGrayedOut stored in NotApplicableMessage; Else user input;
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See Fconadia07_CondenserMinEfficiency  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fconadia08_NotApplicableMessage">
@@ -1630,7 +2770,12 @@ End If</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; CompressorSpeedControlled display term Controls compressor speed in response to refrigeration load, NotNewScrewCompressorNA display term NA: Not new open-drive screw compressor w SST 
                                                       <d:lte/> 28 deg, GT1DedicatedCompressorNA display term NA: 
                                                       <d:gt/>1 dedicated compressor per suction group, GT20pctQuickChillNA display term NA:  
-                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space</xsd:documentation>
+                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space
+ 
+Mandatory Measure Triggers:
+If result == CompressorSpeedControlled
+MM120_6a5B_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:element name="Fcom05_VariableVolRatioStatus" type="comp:VariableVolRatioStatus">
@@ -1639,7 +2784,12 @@ End If</xsd:documentation>
                                                       <d:t24ref h="120.6(a)5C"/>
                                                    </xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects from list; AutoVaryVolRatio display term Auto vary volume ratio in response to operating pressure, GT1DedicatedCompressorNA display term NA: Not screw compressor w 
-                                                      <d:gt/>150 HP motor</xsd:documentation>
+                                                      <d:gt/>150 HP motor
+ 
+Mandatory Measure Triggers:
+If result == AutoVaryVolRatio
+MM120_6a5C_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                                 </xsd:annotation>
                                              </xsd:element>
                                           </xsd:sequence>
@@ -1683,7 +2833,12 @@ End If</xsd:documentation>
                                           </xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list: InfiltrationBarriersComply display term Passageway between freezers and non-refrigerated spaces shall include infiltration barriers per 
                                              <d:t24ref h="120.6(a)6"/>, InfiltrationBarriersNA display term NA: Room doesn't incude passageways between freezers and non-refrigerated spaces, OpeningsLT16ft2NA display term NA: openings 
-                                             <d:lt/> 16 ft<d:sup>2</d:sup>, DockForTrailersNA display term NA: Dock doorway for trailers</xsd:documentation>
+                                             <d:lt/> 16 ft<d:sup>2</d:sup>, DockForTrailersNA display term NA: Dock doorway for trailers
+ 
+Mandatory Measure Triggers:
+If result == InfiltrationBarriersComply
+MM120_6a6_MeasureApplies = true and is displayed 
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
@@ -1700,7 +2855,12 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>G. COMMERCIAL REFRIGERATION</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required If B01c_ProjectHasFoodStores == true</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required If B01c_ProjectHasFoodStores == true
+ 
+Mandatory Measure Triggers:
+If this section is required 
+MM120_6b1A_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -1829,7 +2989,13 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User selects from list; SetpointLTE70db display term Air cooled: designed to 
                                                                <d:lte/> 70 @ ambient db temp, SetpointLTE70wb display term Evap cooled: designed to 
                                                                <d:lte/> 70 @ ambient wb temp, AdiabaticLTE70db display term Adiabatic: designed to 
-                                                               <d:lte/> 70 @ ambient db temp, AdiabaticCZ16NA display term NA: Adiabatic in Climate Zone 16, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration</xsd:documentation>
+                                                               <d:lte/> 70 @ ambient db temp, AdiabaticCZ16NA display term NA: Adiabatic in Climate Zone 16, SetpointTempNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration
+ 
+Mandatory Measure Triggers:
+If  result == SetpointLTE70db Or SetpointLTE70wb Or AdiabaticLTE70db
+MM120_6b1BCD_MeasureApplies = true and is displayed  And
+MM120_6b1EF_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                                                             <xsd:appinfo source="displayterm">
                                                                <dtyp:displayterm value="SetpointLTE70db">Air cooled: designed to 
                                                                   <d:lte/> 70 @ ambient db temp</dtyp:displayterm>
@@ -1849,7 +3015,12 @@ End If</xsd:documentation>
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Specific Efficiency Compliance Method</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User selects from list; EfficiencyNoExceptions display term No exceptions apply, EfficiencyLT150kBtuhNA display term NA: Total Heat Rejection Capacity 
-                                                               <d:lt/>150kBtuh, EfficiencyCZ1NA display term NA: Located in CZ 1, EfficiencyExistingNA display term NA: Existing condenser being reused, EfficiencyNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration</xsd:documentation>
+                                                               <d:lt/>150kBtuh, EfficiencyCZ1NA display term NA: Located in CZ 1, EfficiencyExistingNA display term NA: Existing condenser being reused, EfficiencyNA display term NA: Transcritical CO<d:sub>2</d:sub> refrigeration
+ 
+Mandatory Measure Triggers:
+If  result == EfficiencyNoExceptions
+MM120_6b1G_MeasureApplies = true and is displayed     
+End If</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
                                                       <xsd:choice maxOccurs="1">
@@ -1995,7 +3166,12 @@ End If</xsd:documentation>
                                                             </xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User selects from list: SST_Control display term Floating suction pressure logic used to reset target SST, NoVariableCapNA display term NA: Single compressor system with no variable capacity capability, TempGTE30degNA display term NA: Suction group with design SST 
                                                                <d:gte/>30
-                                                               <d:deg/>F, CascadeSystemNA display term NA: Suction group comprises of the high stage of a two-stage or a cascade system, SecondaryCoolingNA display term NA: Suction group serves the secondary cooling fluid chiller</xsd:documentation>
+                                                               <d:deg/>F, CascadeSystemNA display term NA: Suction group comprises of the high stage of a two-stage or a cascade system, SecondaryCoolingNA display term NA: Suction group serves the secondary cooling fluid chiller
+ 
+Mandatory Measure Triggers:
+If  result == SST_Control
+MM120_6b2A_MeasureApplies = true and is displayed     
+End If</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
                                                       <xsd:element name="Gcom04_CompressorCoolingMethod" type="comp:CompressorCoolingMethod">
@@ -2006,7 +3182,12 @@ End If</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">User selects from list: CoolingNoExceptions display term No exceptions apply, CoolingLT100kBtuhNA display term NA: Design cooling 
                                                                <d:lt/>100kBtuh per 
                                                                <d:t24ref h="120.6(b)2B"/>, CoolingCascadeNA display term NA: Cascade system per Exception 
-                                                               <d:t24ref h="120.6(b)2B"/>, CoolingNotLowTempNA display term NA: Not low temp compressor</xsd:documentation>
+                                                               <d:t24ref h="120.6(b)2B"/>, CoolingNotLowTempNA display term NA: Not low temp compressor
+ 
+Mandatory Measure Triggers:
+If  result == CoolingNoExceptions
+MM120_6b2B_MeasureApplies = true and is displayed     
+End If</xsd:documentation>
                                                          </xsd:annotation>
                                                       </xsd:element>
                                                    </xsd:sequence>
@@ -2039,13 +3220,23 @@ End If</xsd:documentation>
                            <xsd:element name="Gcase02_RefrigCaseTimer" type="comp:RefrigCaseTimer">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Timeclock: Turn off lighting power automatically during non-business hours</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6b3A_MeasureApplies = true and is displayed     
+End If</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Gcase03_RefrigCaseSensor" type="comp:RefrigCaseSensor">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Motion Sensor: Reduce lighting power by at least 50% within 30 minutes after the nearby area is vacated.</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6b3B_MeasureApplies = true and is displayed     
+End If</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                         </xsd:sequence>
@@ -2074,7 +3265,13 @@ End If</xsd:documentation>
                                     </xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If Gheat01_ReusedEquipment == true result = BlankGrayedOut stored in NotApplicableMessage; Else user selects from list: HeatRecoveryProvided display term Heat recovery provided using 25% or more of Total Heat of Rejection and will not increase HFC refrigerant charge more than 0.35lb/kBtuh of heat recovery capacity per 
                                        <d:t24ref h="120.6(b)4"/>,  NoSysGT150kBtuhNA display term NA: No individual refrigeration systems 
-                                       <d:gt/> 150kBtuh, CZ15NA display term NA: Located in CZ 15</xsd:documentation>
+                                       <d:gt/> 150kBtuh, CZ15NA display term NA: Located in CZ 15
+ 
+Mandatory Measure Triggers:
+If  result == HeatRecoveryProvided
+MM120_6b4A_MeasureApplies = true and is displayed   And
+MM120_6b4B_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                                  </xsd:annotation>
                               </xsd:element>
                               <xsd:element name="Gheat02_NotApplicableMessage">
@@ -2183,7 +3380,12 @@ End If</xsd:documentation>
                                              <d:lte/> 50% design capacity when contaminant levels are maintained per 
                                              <d:t24ref h="120.6(c)1"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6c1_MeasureApplies = true and is displayed    
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H04_FanControlMotorDemand" type="comp:FanControlMotorDemand">
@@ -2192,7 +3394,12 @@ End If</xsd:documentation>
                                              <d:lte/> 30% design wattages at  50% of design airflow per 
                                              <d:t24ref h="120.6(c)2"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6c2_MeasureApplies = true and is displayed    
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H05_MonitoringCO" type="comp:MonitoringCO">
@@ -2201,7 +3408,13 @@ End If</xsd:documentation>
                                              <d:gte/> 1 per 5,000 ft<d:sup>2</d:sup>per 
                                              <d:t24ref h="120.6(c)3"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true And H06_SensorLocationCO == true
+MM120_6c3_MeasureApplies = true and is displayed  And
+MM120_6c7_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H06_SensorLocationCO" type="comp:SensorLocationCO">
@@ -2209,7 +3422,10 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">CO sensors are located in the highest expected concentration locations, with at least two per proximity zone per 
                                              <d:t24ref h="120.6(c)3"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false
+ 
+Mandatory Measure Triggers:  
+Multi-field triggers: See H05_MonitoringCO  CalculationsAndRules for trigger values from this field</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H07_SensorSetpointCO" type="comp:SensorSetpointCO">
@@ -2218,7 +3434,12 @@ End If</xsd:documentation>
                                              <d:lte/> 25 ppm per 
                                              <d:t24ref h="120.6(c)4"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6c4_MeasureApplies = true and is displayed    
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H08_GarageNegativePressurization" type="comp:GarageNegativePressurization">
@@ -2226,7 +3447,12 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Occupied garage design maintains negative pressurization per 
                                              <d:t24ref h="120.6(c)6"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6c6_MeasureApplies = true and is displayed    
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H09_GarageTotalVentRate" type="comp:GarageTotalVentRate">
@@ -2235,7 +3461,12 @@ End If</xsd:documentation>
                                              <d:gte/> 0.15 CFM/ ft<d:sup>2</d:sup>per 
                                              <d:t24ref h="120.6(c)5"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input: If checked result = true; else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6c5_MeasureApplies = true and is displayed    
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="TableHFans">
@@ -2349,7 +3580,12 @@ End If</xsd:documentation>
                                              <d:t24ref h="120.6(d)1"/>
                                           </xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list: ShutOffProvided display term Combustion air positive shut-off provided, InputLT2_5MMBtuhNA display term NA: combined rated input of all boilers per stack 
-                                             <d:lt/>2.5  MMBtuh</xsd:documentation>
+                                             <d:lt/>2.5  MMBtuh
+ 
+Mandatory Measure Triggers:
+If  result == ShutOffProvided
+MM120_6d1_MeasureApplies = true and is displayed    
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
@@ -2360,7 +3596,15 @@ End If</xsd:documentation>
                                              </xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If I03_CombustionAirShutOff == InputLT2_5MMBtuhNA  result = BlankGrayedOut stored in the NotApplicableMessage; Else user selects from list: FanVarSpeedDrive display term Variable speed drive provided, ControlFanMotorDemand display term Controls limit fan motor demand to 
                                                 <d:lte/> 30% of the total design wattage at 50% of design air volume provided, FanLT10HP_NA display term NA: Combustion air fan 
-                                                <d:lt/>10 HP</xsd:documentation>
+                                                <d:lt/>10 HP
+ 
+Mandatory Measure Triggers:
+If  result == FanVarSpeedDrive
+MM120_6d2A_MeasureApplies = true and is displayed  
+Else If  result == ControlFanMotorDemand
+MM120_6d2B_BMeasureApplies = true and is displayed  
+   
+End If</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="I04_NotApplicableMessage">
@@ -2385,7 +3629,13 @@ End If</xsd:documentation>
                                                 <d:t24ref h="120.6(d)4"/>
                                              </xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If I03_CombustionAirShutOff == InputLT2_5MMBtuhNA Or I02_ProcessBoilerInputRange == LT2_5MMBtuh Or GTE2_5ToLT5MMBtuh  result = BlankGrayedOut; NotApplicableMessage Else If user selects only item, Designed and controlled per 
-                                                <d:t24ref h="120.6(d)"/> result = true; else result = false</xsd:documentation>
+                                                <d:t24ref h="120.6(d)"/> result = true; else result = false
+ 
+Mandatory Measure Triggers:
+If  result == true
+MM120_6d3_MeasureApplies = true and is displayed  
+   
+End If</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="I05_NotApplicableMessage">
@@ -2417,7 +3667,13 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>J. COMPRESSED AIR SYSTEMS</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section applies if B01f_ProjectHasCompressedAir == true.</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section applies if B01f_ProjectHasCompressedAir == true.
+ 
+Mandatory Measure Triggers:
+If  Section J is required
+MM120_6e_MeasureApplies = true and is displayed  And 
+MM120_6e3_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -2454,7 +3710,12 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list: VarSpeedDriveCompressor display term Variable Speed Drive Compressor provided per 
                                              <d:t24ref h="120.6(e)1A"/>, DedicatedTrimCompressor display term Dedicated trim compressor provided per 
                                              <d:t24ref h="120.6(e)1B"/>, Only50PctCapChangeNA display term NA: Not adding or replacing 
-                                             <d:gt/> 50% of online system capacity</xsd:documentation>
+                                             <d:gt/> 50% of online system capacity
+ 
+Mandatory Measure Triggers:
+If  result == VarSpeedDriveCompressor Or DedicatedTrimCompressor
+MM120_6e1_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="J03_CompressorControls" type="comp:CompressorControls">
@@ -2464,7 +3725,12 @@ End If</xsd:documentation>
                                           </xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from list; SensorControllerProvided display term Design includes sensor/ controller capable of using most efficient combination of compressors to meet load, Only1CompressorNA display term NA: Do not have 
                                              <d:gt/> 1 compressor online, LT100HP_NA display term NA: 
-                                             <d:lt/> 100 combined HP rating</xsd:documentation>
+                                             <d:lt/> 100 combined HP rating
+ 
+Mandatory Measure Triggers:
+If  result == SensorControllerProvided
+MM120_6e2_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
@@ -2481,7 +3747,13 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>K. ELEVATOR LIGHTING AND VENTILATION</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section applies if B02a_ProjectHasElevatorControls == true.</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section applies If B02a_ProjectHasElevatorControls == true.
+ 
+Mandatory Measure Triggers:
+If  Section K is required
+MM120_6f_MeasureApplies = true and is displayed  And 
+MM120_6f3to5_MeasureApplies = true and is displayed
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -2616,7 +3888,12 @@ End If</xsd:documentation>
                                           <xsd:documentation source="AdditionalRequirements">
                                              <d:i><d:sup>1</d:sup>FOOTNOTES: For luminaires indicated in Table F as linear, wattage in column 06 is W/lf instead of Watts/luminaire.  Total linear feet should be indicated in column 07 instead of number of luminaires. </d:i>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from list: If Yes is selected result = true; Else result = false</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from list: If Yes is selected result = true; Else result = false
+ 
+Mandatory Measure Triggers:
+If  result == false
+MM120_6f2_MeasureApplies = true and is displayed  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="K11ToK15ColLabel" minOccurs="0">
@@ -2746,7 +4023,12 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>L. ESCALATORS AND MOVING WALKWAYS SPEED CONTROLS</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section applies if B02b_ProjectHasEscalatorControls == true.</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section applies if B02b_ProjectHasEscalatorControls == true.
+ 
+Mandatory Measure Triggers:
+If  Section L is required
+MM120_6g_MeasureApplies = true and is displayed   
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
@@ -3360,6 +4642,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01f_ProjectHasCompressedAir == true and Table J is triggered result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="Q01_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q01_RequireNRCAPrc01F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01f_ProjectHasCompressedAir == true and Table J is required,  
+ load value in J01_SystemDescription
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="Q01a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -3369,7 +4663,20 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-PRC-02-F Kitchen Exhaust</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Default result = false;  If B02d_ProjectHasCommercialKitchen == true And Table N is triggered And Nv01_HoodsNotReplaced  == false result = true</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Default result = false;  If B02d_ProjectHasCommercialKitchen == true And Table N is triggered And Nv01_HoodsNotReplaced  == false 
+result = true</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Q02_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q02_RequireNRCAPrc02F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+If B02d_ProjectHasCommercialKitchen == true And Table N is triggered And Nv01_HoodsNotReplaced  == false 
+load systems
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q02a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -3384,6 +4691,19 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01d_ProjectHasEnclosedParking == true and Table H is triggered result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="Q03_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q03_RequireNRCAPrc03F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01d_ProjectHasEnclosedParking == true and Table H is triggered   
+load values in H10_FanName
+End If
+ 
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="Q03a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -3394,6 +4714,20 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-PRC-04-F Refrigerated Warehouses - Evaporator Fan Motor Controls</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Ffan06_EvapFanControl NotNull  result = true</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Q04_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q04_RequireNRCAPrc04F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Ffan06_EvapFanControl NotNull 
+load values in Ffan01_FanName
+End If
+ 
+ 
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q04a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -3408,6 +4742,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcon01Evap_CondenserTypeApplies == true  result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="Q05_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q05_RequireNRCAPrc05F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcon01Evap_CondenserTypeApplies == true
+load values in Fconwater02_ComponentName
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="Q05a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -3418,6 +4764,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-PRC-06-F Refrigerated Warehouses - Air Cooled Condenser Controls</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcon01Air_CondenserTypeApplies == true  result = true</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Q06_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q06_RequireNRCAPrc06F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcon01Air_CondenserTypeApplies == true  
+load values in Fconair02_ComponentName
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q06a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -3432,6 +4790,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcon01Adiabatic_CondenserTypeApplies == true  result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="Q07_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q07_RequireNRCAPrc16F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcon01Adiabatic_CondenserTypeApplies == true  
+load values in Fconadia02_ComponentName
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="Q07a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -3442,6 +4812,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-PRC-07-F Refrigerated Warehouses - Variable Speed Compressor</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcom04_CompressorVariableSpeed == CompressorSpeedControlled result = true</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Q08_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q08_RequireNRCAPrc07F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fcom04_CompressorVariableSpeed == CompressorSpeedControlled
+load values in Fcom02_ComponentName
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q08a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -3456,6 +4838,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false;  If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And Fslab02_SlabHeatingType == HeatElecResist  result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="Q09_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q09_RequireNRCAPrc08F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B01b_ProjectHasRefrigSpace == true and Table F is triggered  And  Fslab02_SlabHeatingType == HeatElecResist 
+load values in Fslab01_SpaceName
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="Q09a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -3466,6 +4860,20 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-PRC-12-F Elevator Lighting &amp;amp; Ventilation Controls</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false; If  B02a_ProjectHasElevatorControls == true  result = true</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Q10_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q10_RequireNRCAPrc12F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B02a_ProjectHasElevatorControls and section K is required 
+load values in K01_ComponentName
+End If
+ 
+ 
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q10a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -3480,6 +4888,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false; If  B02b_ProjectHasEscalatorControls == true result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="Q11_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q11_RequireNRCAPrc13F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B02b_ProjectHasEscalatorControls and section L is required 
+load values representing the system
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="Q11a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -3492,6 +4912,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false; If  B02e_ProjectHasLabExhaust == true and O04b_LabFanPowerMethod == StackControlAnemometer  Or StackControlSensor  result = true</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
+                  <xsd:element name="Q12_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q12_RequireNRCAPrc14F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B02b_ProjectHasLabExhaust  and O04b_LabFanPowerMethod == StackControlAnemometer  Or StackControlSensor 
+load values in O01SystemDescription
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
                   <xsd:element name="Q12a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
@@ -3502,6 +4934,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-PRC-15-F Fume Hood Automatic Sash Closure Systems</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Default result = false; If  B02e_ProjectHasLabExhaust == true and O05_LabHoodSashMethod== HoodSashMeetsReq  result = true</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Q13_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q13_RequireNRCAPrc15F == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+ If B02b_ProjectHasLabExhaust  and O05_LabHoodSashMethod== HoodSashMeetsReq 
+load values in O01SystemDescription
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q13a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">

@@ -24,14 +24,323 @@
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCLTO01E"/>
                      <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Outdoor Lighting Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-ELC-E is included in scope And 
+A05_RequestedMMB == true
+this Mandatory Measures Noteblock is required 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="MM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_9_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.9 OUTDOOR LIGHTING CONTROLS AND COMPONENTS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL LIGHTING CONTROL DEVICES AND SYSTEMS, AND ALL LIGHT SOURCES SHALL MEET THE APPLICABLE REQUIREMENTS OF 
+                                       <d:t24refnolink/>110.9.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">Result = true for all projects that include outdoor lighting requiring the NRCC-LTO and FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_0_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.0 GENERAL LUMINAIRE REQUIREMENTS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL LUMINAIRES SHALL BE FACTORY-LABELLED PER 
+                                       <d:t24refnolink/>130.0(c).  
+                                       <d:line1/>ENERGY MANAGEMENT CONTROL SYSTEMS (EMCS) SHALL MEET REQUIREMENTS OF 
+                                       <d:t24refnolink/>130.0(e).</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">Result = true for all projects that include outdoor lighting requiring the NRCC-LTO and FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_2b_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.2(b) LUMINAIRE CUTOFF REQUIREMENTS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL OUTDOOR LUMINAIRES WITH INITIAL LUMINAIRE LUMENS 
+                                       <d:gte/>6,200 SHALL COMPLY WITH THE BACKLIGHT, UPLIGHT AND GLARE (BUG) REQUIREMENTS OF TITLE 24, PART 11, SECTION 5.106.8.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  any row has F09_LuminairePowerCutoffCompliance == CutoffGTE6200Lumens 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_2c_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.2(c) CONTROLS FOR OUTDOOR LIGHTING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL OUTDOOR LIGHTING SHALL BE INDEPENDENTLY CONTROLLED FROM OTHER ELECTRICAL LOADS AND SHALL HAVE THE FOLLOWING FEATURES:</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_2c1_MeasureApplies Or MM130_2c2_MeasureApplies Or MM130_2c3_MeasureApplies == true  
+this static text is displayed once in the report as a heading for these measures
+Else
+this static text is not displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_2c1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">1. AUTOMATICALLY TURNS OFF OUTDOOR LIGHTING WHEN DAYLIGHT IS AVAILABLE</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  any row has H02_ShutOffControlsOutdoors == AstronomicalTimer Or Photocontrol 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_2c2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">2. AUTOMATIC SCHEDULING CONTROLS 
+                                       <d:l t="A">
+                                          <d:list>CAPABLE OF REDUCING LIGHTING POWER AT LEAST 50% AND NO MORE THAN 90% AND SEPARATELY CAPABLE OF TURNING LIGHTING OFF DURING UNOCCUPIED PERIODS</d:list>
+                                          <d:list>THAT ALLOW SCHEDULING OF AT LEAST TWO NIGHTTIME PERIODS WITH INDEPENDENT LIGHTING LEVELS (MAY INCLUDE OVERRIDE FOR NO MORE THAN 2 HOURS)</d:list>
+                                          <d:list>ACCEPTANCE TESTS SHALL VERIFY SCHEDULED OCCUPIED AND UNOCCUPIED</d:list>
+                                          <d:list>AUTOMATIC SCHEDULING CONTROLS SHALL BE INSTALLED FOR ALL OUTDOOR LIGHTING. </d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  any row has H03_AutoScheduleControlsOutdoors == AutoSchedule Or EMCS
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_2c3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">3. MOTION SENSING CONTROLS 
+                                       <d:l t="A">
+                                          <d:list>CAPABLE OF REDUCING LIGHTING POWER AT LEAST 50% AND NO MORE THAN 90% AND SEPARATELY CAPABLE OF TURNING LIGHTING OFF DURING UNOCCUPIED PERIODS</d:list>
+                                          <d:list> CAPABLE OF DIMMING OR TURNING OFF LIGHTING NO LONGER THAN 15 MINUTES AFTER AREA IS VACATED AND TURNING LIGHTING ON WHEN AREA BECOMES OCCUPIED </d:list>
+                                          <d:list> SINGLE SENSORS CAN CONTROL NO MORE THAN 1,500 WATTS OF LIGHTING POWER</d:list>
+                                          <d:list>SHALL BE INSTALLED FOR THE FOLLOWING AND MAY BE INSTALLED FOR OTHER OUTDOOR LIGHTING AND IN COMBINATION WITH OTHER OUTDOOR LIGHTING CONTROLS: </d:list>
+                                       </d:l>
+                                       <d:line2/>
+                                       <d:tab1/>(i) OUTDOOR LUMINAIRES OTHER THAN BUILDING FACADE, ORNAMENTAL HARDSCAPE, OUTDOOR DINING OR OUTDOOR SALES FRONTAGE LIGHTING, WHERE THE BOTTOM OF THE LUMINAIRE IS MOUNTED 24 FEET OR LESS ABOVE GRADE 
+                                       <d:line1/>(ii)WALL MOUNTED LUMINAIRES INSTALLED FOR BUILDING FACADE, ORNAMENTAL HARDSCAPE, OUTDOOR DINING LIGHTING THAT HAVE A BILATERALLY SYMMETRIC DISTRIBUTION (AS DESCRIBED IN THE IES HANDBOOK) MOUNTED 24 FEET OR LESS ABOVE GRADE</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  any row has H04_MotionSensorCompliance == MotionSensorCompliant
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="Section_DwellUnitMandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Dwelling Unit and Guest Room Outdoor Lighting Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-LTIOE is included in scope And 
+A05_RequestedMMB == true And 
+If A06_WholeBuildingOccupancy == HighRiseResidential Or HotelMotel 
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="DuMM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch.1)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DuMM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM130_0b_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.0(b) AREAS REQUIRING RESIDENTIAL LIGHTING STANDARDS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">LIGHTING FOR HIGH-RISE RESIDENTIAL DWELLING UNITS, HOTEL/MOTEL GUEST ROOMS, DORMITORY AND SENIOR HOUSING DWELLING ACCOMMODATIONS, AND FIRE STATION DWELLING AREAS SHALL MEET REQUIREMENTS OF 
+                                       <d:t24refnolink/>150.0(k). THIS INCLUDES OUTDOOR LIGHTING ATTACHED TO HIGH-RISE RESIDENTIAL OR HOTEL/MOTEL BUILDINGS AND SEPARATELY CONTROLLED FROM INSIDE A DWELLING UNIT OR GUEST ROOM.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A06_WholeBuildingOccupancy == HighRiseResidential Or 
+A06_WholeBuildingOccupancy == HotelMotel 
+If result = true  FieldText and AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM150_0k1A_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>150.0(k)1A LUMINAIRE EFFICACY </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL INSTALLED LUMINARIES SHALL MEET THE REQUIREMENTS IN TABLE 150.0-A.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A06_WholeBuildingOccupancy == HighRiseResidential Or 
+A06_WholeBuildingOccupancy == HotelMotel 
+If result = true  FieldText and AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM150_0k1D_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>150.0(k)1D ELECTRONIC BALLASTS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">BALLASTS FOR FLUORESCENT LAMPS RATED 
+                                       <d:gte/> 13 WATTS MUST BE ELECTRONIC AND HAVE AN OUTPUT FREQUENCY 
+                                       <d:gte/> 20KHZ.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A06_WholeBuildingOccupancy == HighRiseResidential Or 
+A06_WholeBuildingOccupancy == HotelMotel 
+If result = true  FieldText and AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM150_0k1E_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>150.0(k)1E NIGHT LIGHTS, STEP LIGHTS, AND PATH LIGHTS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">NIGHT LIGHTS. STEP LIGHTS, AND PATH LIGHTS RATED AT 5 WATTS OR LESS AND 150 LUMENS OR LESS ARE NOT REQUIRED TO COMPLY WITH TABLE 150.0-A OR B CONTROLLED BY VACANCY SENSORS.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A06_WholeBuildingOccupancy == HighRiseResidential Or 
+A06_WholeBuildingOccupancy == HotelMotel 
+If result = true  FieldText and AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM150_0k1G_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>150.0(k)1G SCREW BASED LUMINAIRES </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">SCREW BASED LUMINAIRES SHALL CONTAIN LAMPS THAT COMPLY WITH REFERENCE JOINT APPENDIX JA8.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A06_WholeBuildingOccupancy == HighRiseResidential Or 
+A06_WholeBuildingOccupancy == HotelMotel 
+If result = true  FieldText and AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM150_0k1H_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>150.0(k)1H ENCLOSED OR RECESSED LUMINAIRES </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">SEPARABLE LIGHT SOURCES INSTALLED IN ENCLOSED OR RECESSED LUMINAIRES MUST COMPLY WITH JA8 ELEVATED TEMPERATURE REQUIREMENTS AND MUST BE MARKED WITH "JA8-2019-E.".</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A06_WholeBuildingOccupancy == HighRiseResidential Or 
+A06_WholeBuildingOccupancy == HotelMotel 
+If result = true  FieldText and AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM150_0k3B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>150.0(k)3B RESIDENTIAL OUTDOOR LIGHTING </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">OUTDOOR LIGHTING (CONTROLLED FROM WITHIN UNIT) FOR PRIVATE PATIOS, ENTRANCES, BALCONIES AND PORCHES, AND RESIDENTIAL PARKING LOTS AND CARPORTS WITH 
+                                       <d:lt/> 8 VEHICLES PER SITE SHALL MEET THE REQUIREMENTS IN 
+                                       <d:t24ref h="150.0(k)3Ai"/> (ON AND OFF SWITCH) AND THE REQUIREMENTS IN EITHER 
+                                       <d:t24refnolink/>150.0(k)3Aii (PHOTOCELL AND MOTION SENSOR) OR 
+                                       <d:t24refnolink/>150.0(k)3Aiii (PHOTO CONTROL AND AUTOMATIC TIME SWITCH CONTROL, ASTRONOMICAL TIME CLOCK, OR EMCS), OR MEET THE NONRESIDENTIAL REQUIREMENTS IN 
+                                       <d:t24refnolink/>110.9, 
+                                       <d:t24refnolink/>130.0, 
+                                       <d:t24refnolink/>130.2, 
+                                       <d:t24refnolink/>130.4, 
+                                       <d:t24refnolink/>140.7, AND 
+                                       <d:t24refnolink/>141.0. 
+                                       <d:line1/>OUTDOOR LIGHTING FOR RESIDENTIAL PARKING LOTS AND CARPORTS WITH 
+                                       <d:gte/> 8 VEHICLES PER SITE SHALL MEET THE NONRESIDENTIAL REQUIREMENTS IN 
+                                       <d:t24refnolink/>110.9, 
+                                       <d:t24refnolink/>130.0, 
+                                       <d:t24refnolink/>130.2, 
+                                       <d:t24refnolink/>130.4, 
+                                       <d:t24refnolink/>140.7, AND 
+                                       <d:t24refnolink/>141.0.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If A06_WholeBuildingOccupancy == HighRiseResidential Or 
+A06_WholeBuildingOccupancy == HotelMotel 
+If result = true  FieldText and AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM130_2b_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.2(b) LUMINAIRE CUTOFF REQUIREMENTS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL OUTDOOR LUMINAIRES WITH INITIAL LUMINAIRE LUMENS 
+                                       <d:gte/>6,200 SHALL COMPLY WITH THE BACKLIGHT, UPLIGHT AND GLARE (BUG) REQUIREMENTS OF TITLE 24, PART 11, SECTION 5.106.8</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  any row has F09_LuminairePowerCutoffCompliance == CutoffGTE6200Lumens 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
             </xsd:element>
             <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+            <xsd:element name="ReportMMB" type="xsd:base64Binary" minOccurs="0"/>
          </xsd:sequence>
-         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20200601"/>
-         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCLTOE"/>
+         <xsd:attribute name="revision" type="xsd:string" use="required" fixed="rev 20200601"/>
+         <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" use="required" fixed="NRCCLTOE"/>
       </xsd:complexType>
    </xsd:element>
    <xsd:complexType name="NRCCLTO01E">
@@ -71,6 +380,29 @@
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Total Illuminated Hardscape Area (ft<d:sup>2</d:sup>)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A05_RequestedMMB" type="comp:RequestedMMB" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A06_WholeBuildingOccupancy" type="com:WholeBuildingOccupancy" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Mandatory Measures Triggers:
+ 
+If result == HighRiseResidential Or HotelMotel 
+DwellUnitMandatoryMeasureBlock is required And 
+DUMM130_0b_MeasureApplies == true and is displayed And
+DUMM150_0k1A_MeasureApplies == true and is displayed And
+DUMM150_0k1D_MeasureApplies == true and is displayed And
+DUMM150_0k1E_MeasureApplies == true and is displayed And
+DUMM150_0k1G_MeasureApplies == true and is displayed And
+DUMM150_0k1H_MeasureApplies == true and is displayed And
+DUMM150_0k3B_MeasureApplies == true and is displayed
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="AErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
@@ -755,7 +1087,13 @@ End If</xsd:documentation>
                                                 <d:t24ref h="130.2(b)"/><d:sup>4</d:sup>
                                              </xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If F06_LuminaireStatus == ExistingReinstalled Or ExistingUnchanged result = BlankGrayedOut stored in NotApplicableMessage and field is blank and grayed out;
- Else user selects from list.  If result == Exempt*, user must enter note in Exception Conditions field;</xsd:documentation>
+ Else user selects from list.  If result == Exempt*, user must enter note in Exception Conditions field;
+ 
+Mandatory Measure Triggers:
+If result == CutoffGTE6200Lumens Then in MM Block
+MM130_2b_MeasureApplies  = true and text is displayed and 
+DUMM130_2b_MeasureApplies  = true and text is displayed 
+End If</xsd:documentation>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="F09_NotApplicableMessage">
@@ -1090,7 +1428,17 @@ End If</xsd:documentation>
                                              <d:line1/>
                                              <d:t24ref h="130.2(c)1"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: AstronomicalTimer display term Astronomical Timer, Exempt display term Exempt*, Other display term Other*, Photocontrol display term Photocontrol   If an option with an asterisk * is selected, the user must add a note in the textbox provided after the table explaining how compliance is achieved.</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: 
+AstronomicalTimer display term Astronomical Timer, 
+Exempt display term Exempt*, 
+Other display term Other*, 
+Photocontrol display term Photocontrol   
+If an option with an asterisk * is selected, the user must add a note in the textbox provided after the table explaining how compliance is achieved.
+ 
+Mandatory Measure Triggers:
+If result == AstronomicalTimer Or Photocontrol 
+MM130_2c1_MeasureApplies  = true and text is displayed 
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H03_AutoScheduleControlsOutdoors" type="comp:AutoScheduleControlsOutdoors">
@@ -1099,7 +1447,16 @@ End If</xsd:documentation>
                                              <d:line1/>
                                              <d:t24ref h="130.2(c)2"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: AutoSchedule display term Yes, EMCS display term Yes - EMCS, Exempt display term Exempt*  If an option with an asterisk * is selected, the user must add a note in the textbox provided after the table explaining how compliance is achieved.</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: 
+AutoSchedule display term Yes, 
+EMCS display term Yes - EMCS, 
+Exempt display term Exempt*  
+If an option with an asterisk * is selected, the user must add a note in the textbox provided after the table explaining how compliance is achieved. 
+ 
+Mandatory Measure Triggers:
+If result == AutoSchedule Or EMCS 
+MM130_2c2_MeasureApplies  = true and text is displayed 
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H04_MotionSensorCompliance" type="comp:MotionSensorCompliance">
@@ -1108,9 +1465,19 @@ End If</xsd:documentation>
                                              <d:line1/>
                                              <d:t24ref h="130.2(c)3"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: MotionSensorCompliant  display term Yes, FacadeGTE24Ft display term NA: Facade, etc. 
-                                             <d:gte/>24 ft, WallGTE24Ft display term NA: Wall 
-                                             <d:gte/>24 ft, Exempt display term Exempt*.   If an option with an asterisk * is selected, the user must add a note in the textbox provided after the table explaining how compliance is achieved.</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: 
+MotionSensorCompliant  display term Yes, 
+FacadeGTE24Ft display term NA: Facade, etc. 
+                                             <d:gte/>24 ft, 
+WallGTE24Ft display term NA: Wall 
+                                             <d:gte/>24 ft, 
+Exempt display term Exempt*.  
+ If an option with an asterisk * is selected, the user must add a note in the textbox provided after the table explaining how compliance is achieved.
+ 
+Mandatory Measure Triggers:
+If result == MotionSensorCompliant 
+MM130_2c3_MeasureApplies  = true and text is displayed 
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="H05_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -1188,8 +1555,8 @@ End If</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i>This table includes areas using allowance calculations per 
                               <d:t24ref h="140.7"/>. General Hardscape Allowance is per 
-                              <d:t24table>Table 140.7-A</d:t24table> while "Use it or lose it" Allowances are per 
-                              <d:t24table> Table 140.7-B</d:t24table> .  Indicate which allowances are being used to expand sections for user input.  Luminaires  that qualify for one of the "Use it or lose it" allowances shall not qualify for another "Use it or lose it" allowance.</d:i>
+                              <d:t24table/>Table 140.7-A while "Use it or lose it" Allowances are per 
+                              <d:t24table/> Table 140.7-B .  Indicate which allowances are being used to expand sections for user input.  Luminaires  that qualify for one of the "Use it or lose it" allowances shall not qualify for another "Use it or lose it" allowance.</d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1547,7 +1914,7 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i>This table includes areas using the wattage allowance per application from 
-                              <d:t24table> Table 140.7-B</d:t24table> .</d:i>
+                              <d:t24table/> Table 140.7-B .</d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1585,7 +1952,7 @@ End If</xsd:documentation>
                                     <xsd:element name="J02_UseOrLoseApplicationType" type="comp:UseOrLoseApplicationType">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Application per 
-                                             <d:t24table> Table 140.7-B</d:t24table><d:sup>1</d:sup>
+                                             <d:t24table/> Table 140.7-B<d:sup>1</d:sup>
                                           </xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list of application types: ATM display term ATM Machine, DriveupWindow display term Drive up Window, EntranceExit display term Building Entrance/Exit, FuelDispenser display term Uncovered Fuel Dispenser, PrimaryEntrance display term Primary Entrance (Special)</xsd:documentation>
                                        </xsd:annotation>
@@ -1703,7 +2070,7 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i><d:sup>2</d:sup> The Allowance per Location for ATMs is 100W for the first ATM and 35W for each additional per 
-                              <d:t24table> Table 140.7-B</d:t24table> .</d:i>
+                              <d:t24table/> Table 140.7-B .</d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -1902,7 +2269,7 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i>This table includes all ornamental luminaires within the scope of the permit application to calculate the allowance per 
-                              <d:t24table> Table-140.7-B</d:t24table>. </d:i>
+                              <d:t24table/> Table-140.7-B. </d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -2062,7 +2429,7 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i>This table includes areas using the wattage allowance per specific area from 
-                              <d:t24table> Table 140.7-B</d:t24table> .  More than one specific area allowance may be taken in a single project, if applicable.  However, multiple specific area allowances may not be taken for the exact same area on the site.</d:i>
+                              <d:t24table/> Table 140.7-B .  More than one specific area allowance may be taken in a single project, if applicable.  However, multiple specific area allowances may not be taken for the exact same area on the site.</d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -2100,8 +2467,7 @@ End If</xsd:documentation>
                                     <xsd:element name="M02_UseOrLoseSpecificAreaType" type="comp:UseOrLoseSpecificAreaType">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Specific Area Type per 
-                                             <d:t24table> Table 140.7-B</d:t24table>
-                                          </xsd:documentation>
+                                             <d:t24table/> Table 140.7-B</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list options based on A03_OutdoorLightingZoneType values:  If A03_OutdoorLightingZoneType == OutdoorLZ1, display GuardStation, NonSalesCanopy, SalesLot, ServiceStationCanopy, ServiceStationHardscape, OutdoorDining, ParkingPedestrianSecurity; Else If A03_OutdoorLightingZoneType == OutdoorLZ4, display BuildingFacade, GuardStation, NonSalesCanopy, SalesCanopy, SalesLot, ServiceStationCanopy, ServiceStationHardscape, OutdoorDining; Elsedisplay all values for UseOrLoseSpecificAreaType: BuildingFacade, GuardStation, NonSalesCanopy, SalesCanopy, SalesLot, ServiceStationCanopy, ServiceStationHardscape, OutdoorDining, ParkingPedestrianSecurity, StudentDropOffPlace</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -2210,7 +2576,7 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i><d:sup>1</d:sup> FOOTNOTES: See 
-                              <d:t24table> Table 140.7-B</d:t24table>  for rules for calculating the specific areas (ft<d:sup>2</d:sup> for these additional lighting allowances.</d:i>
+                              <d:t24table/> Table 140.7-B  for rules for calculating the specific areas (ft<d:sup>2</d:sup> for these additional lighting allowances.</d:i>
                         </xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -2496,6 +2862,18 @@ End If</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCA-LTO-02-A - Must be submitted for all outdoor lighting controls except for alterations where controls are added to 
                            <d:lte/> 20 luminaires.</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = true display term Yes represented as a radio button.  If user changes this value to false display term No represented as a radio button, an explanation is required in Section E Additional Remarks.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="P01_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If P01_RequireNRCALto02A == true; this field is displayed and loaded with systems that satisfy this condition:
+ 
+If Section H is required,  
+ load value in H01_SpaceDescription
+End If
+ 
+User enters or selects one or more systems to be field verified for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="P01a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
