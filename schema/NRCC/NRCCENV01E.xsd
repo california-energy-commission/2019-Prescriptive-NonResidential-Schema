@@ -67,6 +67,23 @@ result = false and nothing is displayed in the report
 End If</xsd:documentation>
 											</xsd:annotation>
 										</xsd:element>
+										<xsd:element name="MM110_6a1Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+												<xsd:documentation source="AdditionalRequirements">[d:b]EXCEPTION[/d:b] TO [d:t24refnolink/]110.6(a)1 [d:b]APPLIES[/d:b]: 
+
+FIELD FABRICATED FENESTRATION AND EXTERIOR DOORS DO NOT NEED TO DEMONSTRATE COMPL;IANCE WITH [d:t24refnolink/]110.6(a)1</xsd:documentation>
+												<xsd:documentation source="CalculationsAndRules">If MM110.6a1_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
 										<xsd:element name="MM110_6a2to4_MeasureApplies" type="comp:MeasureApplies">
 											<xsd:annotation>
 												<xsd:documentation source="FieldText">[d:b][d:t24refnolink/]110.6(a)2-4 MANUFACTURED FENESTRATION PRODUCT AND EXTERIOR DOOR RATING[/d:b]</xsd:documentation>
@@ -84,6 +101,23 @@ result = true and FieldText and AdditionalRequirements static text is displayed 
 Else
 result = false and nothing is displayed in the report
 End If</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="MM110_6a2to4Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+												<xsd:documentation source="AdditionalRequirements">[d:b]EXCEPTIONS[/d:b] TO [d:t24refnolink/]110.6(a)2-4 [d:b]APPLIES[/d:b]: 
+
+U-FACTOR, SHGC AND VT FOR NEW OR REPLACEMENT SITE-BUILT FENESTRATION [d:lt/]200 FT2 MAY BE CALCULATED ACCORDING TO REFERENCE NONRESIDENTIAL APPENDIX NA6. [d:line1/]U-FACTOR, SHGC AND VT FOR GLASS ONLY REPLACEMENT SITE-BUILT FENESTRATION MAY BE CALCULATED ACCORDING TO NA6 FOR ANY AREA.</xsd:documentation>
+												<xsd:documentation source="CalculationsAndRules">If MM110.6a2to4_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
 											</xsd:annotation>
 										</xsd:element>
 										<xsd:element name="MM110_6a5_MeasureApplies" type="comp:MeasureApplies">
@@ -16713,16 +16747,16 @@ If user changes to false,  user needs to add an explanation in section E and D03
 End If</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-						<xsd:element name="N01_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+						<xsd:element name="N01_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="15">
 							<xsd:annotation>
-								<xsd:documentation source="FieldText">Systems To Be Field Verified</xsd:documentation>
-								<xsd:documentation source="CalculationsAndRules">If N01_RequireNRCAEnv02F == true; this field is displayed  and loaded with systems that satisfy this condition:
+								<xsd:documentation source="FieldText">Systems/Spaces To Be Field Verified</xsd:documentation>
+								<xsd:documentation source="AdditionalRequirements">Please refer to Section K  for the remainder of applicable systems/spaces</xsd:documentation>
+								<xsd:documentation source="CalculationsAndRules">If N01_RequireNRCAEnv02F == true; this field is displayed  and loaded with systems/spaces that satisfy this condition:
  If B02NewFen_ComponentApplies, Or B02AddFen_ComponentApplies Or B02AltFen_ComponentApplies == true
  
 Values may come these field: Kvertperf04_FenestrationName Or Kskyperf04_SKylightName
  
- 
-User enters or selects one or more systems to be field verified for this Certificate of Acceptance that satisfy this logic:</xsd:documentation>
+If number of applicable systems/spaces exceeds maximum allowed, display static text after the last system/space in the list.</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="N01a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">

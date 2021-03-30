@@ -1226,6 +1226,20 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:ObjectNamePermissive"/>
    </xsd:simpleType>
+   <xsd:simpleType name="CompletionStatus">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Complete">Complete</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="NotComplete">Not Complete</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Complete"/>
+         <xsd:enumeration value="NA"/>
+         <xsd:enumeration value="NotComplete"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ComplianceApplicationDate">
       <xsd:annotation>
          <xsd:documentation>Units: none</xsd:documentation>
@@ -1258,6 +1272,7 @@
          <xsd:element name="Footer" type="comp:Footer"/>
          <xsd:element name="FooterNRCC" type="comp:FooterNRCC"/>
          <xsd:element name="FooterNRCCPRF" type="comp:FooterNRCCPRF"/>
+         <xsd:element name="FooterNRPSR" type="comp:FooterNRPSR"/>
          <xsd:element name="HeaderNRCA" type="comp:HeaderNRCA"/>
          <xsd:element name="HeaderNRCC" type="comp:HeaderNRCC"/>
          <xsd:element name="HeaderNRCCPRF" type="comp:HeaderNRCCPRF"/>
@@ -1309,6 +1324,7 @@
             <dtyp:displayterm value="NRCVPLB21H">NRCVPLB21H</dtyp:displayterm>
             <dtyp:displayterm value="NRCVPLB22H">NRCVPLB22H</dtyp:displayterm>
             <dtyp:displayterm value="NRGPDE">NRG-PD-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRPSRE">NR-PSR-E</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstantPermissive">
@@ -1330,6 +1346,7 @@
          <xsd:enumeration value="NRCVPLB21H"/>
          <xsd:enumeration value="NRCVPLB22H"/>
          <xsd:enumeration value="NRGPDE"/>
+         <xsd:enumeration value="NRPSRE"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ComplianceDocumentTitleNR">
@@ -1342,7 +1359,8 @@
             <dtyp:displayterm value="Indoor Lighting">Indoor Lighting</dtyp:displayterm>
             <dtyp:displayterm value="Mechanical Systems">Mechanical Systems</dtyp:displayterm>
             <dtyp:displayterm value="Nonresidential Building Commissioning">Nonresidential Building Commissioning</dtyp:displayterm>
-            <dtyp:displayterm value="NonResidentialPerformanceCompliance">Residential Performance Compliance Method</dtyp:displayterm>
+            <dtyp:displayterm value="NonResidentialPerformanceCompliance">Nonresidential Performance Compliance Method</dtyp:displayterm>
+            <dtyp:displayterm value="ProjectSummaryReportNR">Nonresidential Project Summary Report</dtyp:displayterm>
             <dtyp:displayterm value="Outdoor Air Acceptance">Outdoor Air Acceptance</dtyp:displayterm>
             <dtyp:displayterm value="Outdoor Lighting">Outdoor Lighting</dtyp:displayterm>
             <dtyp:displayterm value="Process Systems">Process Systems</dtyp:displayterm>
@@ -1359,6 +1377,7 @@
          <xsd:enumeration value="Mechanical Systems"/>
          <xsd:enumeration value="Nonresidential Building Commissioning"/>
          <xsd:enumeration value="NonResidentialPerformanceCompliance"/>
+         <xsd:enumeration value="ProjectSummaryReportNR"/>
          <xsd:enumeration value="Outdoor Air Acceptance"/>
          <xsd:enumeration value="Outdoor Lighting"/>
          <xsd:enumeration value="Process Systems"/>
@@ -1374,7 +1393,7 @@
             <dtyp:displayterm value="CERTIFICATE OF COMPLIANCE NR">CERTIFICATE OF COMPLIANCE</dtyp:displayterm>
             <dtyp:displayterm value="CERTIFICATE OF VERIFICATION NR">CERTIFICATE OF VERIFICATION</dtyp:displayterm>
             <dtyp:displayterm value="CertificateComplianceNonResPerformance">CERTIFICATE OF COMPLIANCE -  NONRESIDENTIAL PERFORMANCE COMPLIANCE METHOD</dtyp:displayterm>
-            <dtyp:displayterm value="PROJECT REPORT NR">PROJECT REPORT</dtyp:displayterm>
+            <dtyp:displayterm value="ProjectReportNR">PROJECT REPORT</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstantPhrase">
@@ -1382,7 +1401,7 @@
          <xsd:enumeration value="CERTIFICATE OF COMPLIANCE NR"/>
          <xsd:enumeration value="CERTIFICATE OF VERIFICATION NR"/>
          <xsd:enumeration value="CertificateComplianceNonResPerformance"/>
-         <xsd:enumeration value="PROJECT REPORT NR"/>
+         <xsd:enumeration value="ProjectReportNR"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ComplianceDocumentVariant">
@@ -2460,6 +2479,7 @@
             <dtyp:displayterm value="NRCC-PRC-E">NRCC-PRC-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-PRF-E">NRCC-PRF-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCC-SRA-E">NRCC-SRA-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRPSR01E">NR-PSR-01-E</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstantPermissive">
@@ -2474,6 +2494,185 @@
          <xsd:enumeration value="NRCC-PRC-E"/>
          <xsd:enumeration value="NRCC-PRF-E"/>
          <xsd:enumeration value="NRCC-SRA-E"/>
+         <xsd:enumeration value="NRPSR01E"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DisplayTagNRCA">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NRCAENV02F">NRCA-ENV-02-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAENV03F">NRCA-ENV-03-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCALTI02A">NRCA-LTI-02-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCALTI03A">NRCA-LTI-03-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCALTI04A">NRCA-LTI-04-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCALTI05A">NRCA-LTI-05-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCALTO02A">NRCA-LTO-02-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH02A">NRCA-MCH-02-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH04A">NRCA-MCH-04-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH05A">NRCA-MCH-05-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH06A">NRCA-MCH-06-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH07A">NRCA-MCH-07-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH08A">NRCA-MCH-08-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH09A">NRCA-MCH-09-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH10A">NRCA-MCH-10-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH11A">NRCA-MCH-11-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH12A">NRCA-MCH-12-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH13A">NRCA-MCH-13-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH14A">NRCA-MCH-14-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH15A">NRCA-MCH-15-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH16A">NRCA-MCH-16-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH17A">NRCA-MCH-17-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH18A">NRCA-MCH-18-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH19A">NRCA-MCH-19-A</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH20">NRCA-MCH-20</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAMCH21">NRCA-MCH-21</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC01F">NRCA-PRC-01-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC02F">NRCA-PRC-02-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC03F">NRCA-PRC-03-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC04F">NRCA-PRC-04-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC05F">NRCA-PRC-05-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC06F">NRCA-PRC-06-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC07F">NRCA-PRC-07-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC08F">NRCA-PRC-08-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC12F">NRCA-PRC-12-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC13F">NRCA-PRC-13-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC14F">NRCA-PRC-14-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC15F">NRCA-PRC-15-F</dtyp:displayterm>
+            <dtyp:displayterm value="NRCAPRC16F">NRCA-PRC-16-F</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstantPermissive">
+         <xsd:enumeration value="NRCAENV02F"/>
+         <xsd:enumeration value="NRCAENV03F"/>
+         <xsd:enumeration value="NRCALTI02A"/>
+         <xsd:enumeration value="NRCALTI03A"/>
+         <xsd:enumeration value="NRCALTI04A"/>
+         <xsd:enumeration value="NRCALTI05A"/>
+         <xsd:enumeration value="NRCALTO02A"/>
+         <xsd:enumeration value="NRCAMCH02A"/>
+         <xsd:enumeration value="NRCAMCH04A"/>
+         <xsd:enumeration value="NRCAMCH05A"/>
+         <xsd:enumeration value="NRCAMCH06A"/>
+         <xsd:enumeration value="NRCAMCH07A"/>
+         <xsd:enumeration value="NRCAMCH08A"/>
+         <xsd:enumeration value="NRCAMCH09A"/>
+         <xsd:enumeration value="NRCAMCH10A"/>
+         <xsd:enumeration value="NRCAMCH11A"/>
+         <xsd:enumeration value="NRCAMCH12A"/>
+         <xsd:enumeration value="NRCAMCH13A"/>
+         <xsd:enumeration value="NRCAMCH14A"/>
+         <xsd:enumeration value="NRCAMCH15A"/>
+         <xsd:enumeration value="NRCAMCH16A"/>
+         <xsd:enumeration value="NRCAMCH17A"/>
+         <xsd:enumeration value="NRCAMCH18A"/>
+         <xsd:enumeration value="NRCAMCH19A"/>
+         <xsd:enumeration value="NRCAMCH20"/>
+         <xsd:enumeration value="NRCAMCH21"/>
+         <xsd:enumeration value="NRCAPRC01F"/>
+         <xsd:enumeration value="NRCAPRC02F"/>
+         <xsd:enumeration value="NRCAPRC03F"/>
+         <xsd:enumeration value="NRCAPRC04F"/>
+         <xsd:enumeration value="NRCAPRC05F"/>
+         <xsd:enumeration value="NRCAPRC06F"/>
+         <xsd:enumeration value="NRCAPRC07F"/>
+         <xsd:enumeration value="NRCAPRC08F"/>
+         <xsd:enumeration value="NRCAPRC12F"/>
+         <xsd:enumeration value="NRCAPRC13F"/>
+         <xsd:enumeration value="NRCAPRC14F"/>
+         <xsd:enumeration value="NRCAPRC15F"/>
+         <xsd:enumeration value="NRCAPRC16F"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DisplayTagNRCC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NRCCCXRE">NRCC-CXR-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCELCE">NRCC-ELC-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCENVE">NRCC-ENV-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCLTIE">NRCC-LTI-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCLTOE">NRCC-LTO-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCLTSE">NRCC-LTS-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCMCHE">NRCC-MCH-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCPLBE">NRCC-PLB-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCPRCE">NRCC-PRC-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCPRFE">NRCC-PRF-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCCSRAE">NRCC-SRA-E</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstantPermissive">
+         <xsd:enumeration value="NRCCCXRE"/>
+         <xsd:enumeration value="NRCCELCE"/>
+         <xsd:enumeration value="NRCCENVE"/>
+         <xsd:enumeration value="NRCCLTIE"/>
+         <xsd:enumeration value="NRCCLTOE"/>
+         <xsd:enumeration value="NRCCLTSE"/>
+         <xsd:enumeration value="NRCCMCHE"/>
+         <xsd:enumeration value="NRCCPLBE"/>
+         <xsd:enumeration value="NRCCPRCE"/>
+         <xsd:enumeration value="NRCCPRFE"/>
+         <xsd:enumeration value="NRCCSRAE"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DisplayTagNRCI">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NRCIELC01E">NRCI-ELC-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCIENV01E">NRCI-ENV-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTI01E">NRCI-LTI-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTI02E">NRCI-LTI-02-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTI04E">NRCI-LTI-04-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTI05E">NRCI-LTI-05-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTI06E">NRCI-LTI-06-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTO01E">NRCI-LTO-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTO02E">NRCI-LTO-02-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCILTS01E">NRCI-LTS-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCIMCH01E">NRCI-MCH-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCIPLB01E">NRCI-PLB-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCIPLB02E">NRCI-PLB-02-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCIPLB03E">NRCI-PLB-03-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCIPRC01E">NRCI-PRC-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCISPV01E">NRCI-SPV-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCISTH01E">NRCI-STH-01-E</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstantPermissive">
+         <xsd:enumeration value="NRCIELC01E"/>
+         <xsd:enumeration value="NRCIENV01E"/>
+         <xsd:enumeration value="NRCILTI01E"/>
+         <xsd:enumeration value="NRCILTI02E"/>
+         <xsd:enumeration value="NRCILTI04E"/>
+         <xsd:enumeration value="NRCILTI05E"/>
+         <xsd:enumeration value="NRCILTI06E"/>
+         <xsd:enumeration value="NRCILTO01E"/>
+         <xsd:enumeration value="NRCILTO02E"/>
+         <xsd:enumeration value="NRCILTS01E"/>
+         <xsd:enumeration value="NRCIMCH01E"/>
+         <xsd:enumeration value="NRCIPLB01E"/>
+         <xsd:enumeration value="NRCIPLB02E"/>
+         <xsd:enumeration value="NRCIPLB03E"/>
+         <xsd:enumeration value="NRCIPRC01E"/>
+         <xsd:enumeration value="NRCISPV01E"/>
+         <xsd:enumeration value="NRCISTH01E"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DisplayTagNRCV">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NRCVMCH04H">NRCV-MCH-04-H</dtyp:displayterm>
+            <dtyp:displayterm value="NRCVMCH24H">NRCV-MCH-24-H</dtyp:displayterm>
+            <dtyp:displayterm value="NRCVMCH27H">NRCV-MCH-27-H</dtyp:displayterm>
+            <dtyp:displayterm value="NRCVMCH32H">NRCV-MCH-32-H</dtyp:displayterm>
+            <dtyp:displayterm value="NRCVPLB21H">NRCV-PLB-21-H</dtyp:displayterm>
+            <dtyp:displayterm value="NRCVPLB22H">NRCV-PLB-22-H</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstantPermissive">
+         <xsd:enumeration value="NRCVMCH04H"/>
+         <xsd:enumeration value="NRCVMCH24H"/>
+         <xsd:enumeration value="NRCVMCH27H"/>
+         <xsd:enumeration value="NRCVMCH32H"/>
+         <xsd:enumeration value="NRCVPLB21H"/>
+         <xsd:enumeration value="NRCVPLB22H"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="DoAllSectionsComply">
@@ -4643,6 +4842,24 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:element name="reportGenerationDateTime" type="comp:ReportGenerationDateTime"/>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:complexType name="FooterNRPSR">
+      <xsd:sequence>
+         <xsd:element name="reportGeneratedDate" type="comp:ReportGeneratedDate"/>
+         <xsd:element name="t24StandardsCodeYear" type="comp:T24StandardsCodeYear"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:simpleType name="FormStatus">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Finished"/>
+            <dtyp:displayterm value="NotFinished">X</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Finished"/>
+         <xsd:enumeration value="NotFinished"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="FunctionalPerformanceTestingActivities">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -6360,6 +6577,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="Required"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="MaxDisplayLength">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative"/>
+   </xsd:simpleType>
    <xsd:simpleType name="MaximumAirflowRate">
       <xsd:annotation>
          <xsd:documentation>Units: ft3 per min</xsd:documentation>
@@ -7256,18 +7479,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="ProjectCity">
       <xsd:restriction base="dtyp:City"/>
    </xsd:simpleType>
-   <xsd:simpleType name="ProjectCompletionStatus">
-      <xsd:annotation>
-         <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="Complete">COMPLETE</dtyp:displayterm>
-            <dtyp:displayterm value="NotComplete">NOT COMPLETE</dtyp:displayterm>
-         </xsd:appinfo>
-      </xsd:annotation>
-      <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="Complete"/>
-         <xsd:enumeration value="NotComplete"/>
-      </xsd:restriction>
-   </xsd:simpleType>
    <xsd:simpleType name="ProjectConditionedFloorArea">
       <xsd:annotation>
          <xsd:documentation>Units: ft2</xsd:documentation>
@@ -7859,6 +8070,16 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ReportGeneratedDate">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+         <xsd:documentation source="propertyrules">Date report was generated in format yyyy-mm-dd</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Generated on:</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:date"/>
    </xsd:simpleType>
    <xsd:simpleType name="ReportGenerationDateTime">
       <xsd:annotation>
@@ -8724,6 +8945,9 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="Revision">
       <xsd:restriction base="xsd:string"/>
    </xsd:simpleType>
+   <xsd:simpleType name="RevisionNumber">
+      <xsd:restriction base="xsd:string"/>
+   </xsd:simpleType>
    <xsd:simpleType name="Role">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -9491,8 +9715,14 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="SystemFieldVerified">
       <xsd:restriction base="xsd:token"/>
    </xsd:simpleType>
+   <xsd:simpleType name="SystemsMaxCharMessage">
+      <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
    <xsd:simpleType name="T24StandardsCodeYear">
       <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Code Cycle</dtyp:displayterm>
+         </xsd:appinfo>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="2013">2013</dtyp:displayterm>
             <dtyp:displayterm value="2016">2016</dtyp:displayterm>
