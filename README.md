@@ -1,5 +1,6 @@
 # 2019-Prescriptive-NonResidential-Schema
 
+[![Remote Dispatch Action Dispatcher](https://github.com/RASENTSolutionsLLC-NORESCO/2019-Prescriptive-NonResidential-Schema/actions/workflows/dispatch.yml/badge.svg)](https://github.com/RASENTSolutionsLLC-NORESCO/2019-Prescriptive-NonResidential-Schema/actions/workflows/dispatch.yml)
 
 ## Deploy Schema
 
