@@ -24,6 +24,375 @@
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCELC01E"/>
                      <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Electrical Power Distribution Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-ELC-E is included in scope And 
+A03_RequestedMMB == true
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="MM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch.1)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_12a_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.12(a) DEMAND RESPONSIVE (DR) CONTROLS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL DEMAND RESPONSIVE CONTROLS SHALL: 
+                                       <d:l t="#">
+                                          <d:list>BE EITHER A. CERTIFIED OPENADR 2.0a OR OPENADR 2.0b VIRTUAL END NODE (VEN); OR B. CERTIFIED BY THE MANUFACTURER AS BEING CAPABLE OF RESPONDING TO A DR SIGNAL FROM A CERTIFIED OPENADR 2.0b VEN AUTOMATICALLY IMPLEMENTING THE CONTROL FUNCTIONS REQUESTED BY THE VEN FOR THE EQUIPMENT IT CONTROLS.</d:list>
+                                          <d:list>BE CAPABLE OF COMMUNICATING USING ONE OR MORE OF THE FOLLOWING: WI-FI, ZIGBEE, BACNET, ETHERNET, OR HARD-WIRING. </d:list>
+                                          <d:list>DR CONTROLS MAY INCORPORATE AND USE ADDITIONAL PROTOCOLS BEYOND THOSE SPECIFIED IN 
+                                             <d:t24refnolink/>110.12(a)1 AND 2.</d:list>
+                                          <d:list>CONTINUE TO PERFORM ALL OTHER CONTROL FUNCTIONS PROVIDED BY THE CONTROL WHEN COMMUNICATIONS ARE DISABLED OR UNAVAILABLE. </d:list>
+                                          <d:list>DR CONTROL THERMOSTATS SHALL COMPLY WITH REFERENCE JOINT APPENDIX 5 (JA5), TECHNICAL SPECIFICATIONS FOR OCCUPANT CONTROLLED SMART THERMOSTATS.</d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">Result = true for all projects that require the NRCC-ELC and   FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_12d_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.12(d) DEMAND RESPONSIVE ELECTRONIC MESSAGE CENTER CONTROL</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">CONTROLS FOR ELECTRONIC MESSAGE CENTERS GREATER THAN 15KW SHALL BE CAPABLE OF REDUCING THE LIGHTING POWER BY A MINIMUM OF 30% WHEN RECEIVING A DR SIGNAL.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">Result = true for all projects that require the NRCC-ELC and   FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_12dExc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO 
+                                       <d:t24refnolink/>110.12(d)2 
+                                       <d:b>APPLIES</d:b>:
+ 
+
+ELECTRONIC MESSAGE CENTERS THAT ARE NOT PERMITTED BY A HEALTH OR LIFE SAFETY STATUTE, ORDINANCE, OR REGULATION TO BE REDUCED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_12d_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5a_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.5(a) SERVICE ELECTRICAL METERING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">EACH ELECTRICAL SERVICE OR FEEDER SHALL HAVE A PERMANENTLY INSTALLED METERING SYSTEM WHICH MEASURES ELECTRICAL ENERGY ACCORDING TO TABLE 130.5-A.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is triggered because B02_ElectricalServiceProjectScope != AlterationsFeedersBranchCircuitsOnly Or ReplacementElectricalServiceNotMeter  And 
+B04_UtilityProvidedMeterException130_5a == false And 
+B05_DoesElectricalCodeExceptionApply == false
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5aExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 1</d:b> TO 
+                                       <d:t24refnolink/>130.5(a) 
+                                       <d:b>APPLIES</d:b>:  
+
+SERVICE OR FEEDER FOR WHICH UTILITY COMPANY PROVIDES A METERING SYSTEM THAT INDICATES INSTANTANEOUS KW DEMAND AND KWH FOR A UTILITY-DEFINED PERIOD.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_5a_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5aExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 2</d:b> TO 
+                                       <d:t24refnolink/>130.5(a) 
+                                       <d:b>APPLIES</d:b>:  
+
+ELECTRICAL POWER DISTRIBUTION SYSTEMS SUBJECT TO CALIFORNIA ELECTRICAL CODE ARTICLE 517.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_5a_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5b_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.5(b) SEPARATION OF CIRCUITS FOR ELECTRICAL ENERGY MONITORING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ELECTRICAL POWER DISTRIBUTION SYSTEMS SHALL BE DESIGNED SO THAT MEASUREMENT DEVICES CAN MONITOR ENERGY USE OF LOAD TYPES ACCORDING TO TABLE 130.5-B.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section G is triggered because  B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter And
+B05_DoesElectricalCodeExceptionApply == false
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5bExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 1</d:b> TO 
+                                       <d:t24refnolink/>130.5(b) 
+                                       <d:b>APPLIES</d:b>:  
+
+FOR EACH SEPARATE LOAD TYPE, UP TO 10% OF THE CONNECTED LOAD MAY BE OF ANY TYPE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_5b_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5bExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 2</d:b> TO 
+                                       <d:t24refnolink/>130.5(b) 
+                                       <d:b>APPLIES</d:b>:  
+
+ELECTRICAL POWER DISTRIBUTION SYSTEMS SUBJECT TO CALIFORNIA ELECTRICAL CODE ARTICLE 517.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_5b_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5c_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.5(c) VOLTAGE DROP</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">THE MAXIMUM COMBINED VOLTAGE DROP ON BOTH INSTALLED FEEDER AND BRANCH CIRCUIT CONDUCTORS TO THE FARTHEST CONNECTED LOAD OR OUTLET SHALL NOT EXCEED 5%.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H02a_CircuitVoltageDropCompliance  ==  VoltageDropLT5Percent
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5cExc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO 
+                                       <d:t24refnolink/>130.5(c) 
+                                       <d:b>APPLIES</d:b>:  
+
+VOLTAGE DROP PERMITTED BY CALIFORNIA ELECTRICAL CODE SECTIONS 647.4, 695.6, AND 695.7.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_5c_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5d_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.5(d) CIRCUIT CONTROLS FOR 120-VOLT RECEPTACLES AND CONTROLLED RECEPTACLES</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">BOTH CONTROLLED AND UNCONTROLLED 120-VOLT RECEPTACLES SHALL BE PROVIDED IN OFFICE AREAS, LOBBIES, CONFERENCE ROOMS, KITCHEN AREAS IN OFFICE SPACES, AND COPY ROOMS.
+                                       <d:line1/>CONTROLLED RECEPTACLES SHALL: 
+                                       <d:l t="*">
+                                          <d:list>BE CAPABLE OF AUTOMATICALLY SHUTTING OFF WHEN THE SPACE IS UNOCCUPIED, EITHER AT RECEPTACLE OR CIRCUIT LEVEL. AUTOMATIC TIME SWITCH CONTROL SHALL INCORPORATE OVERRIDE CONTROL ALLOWING CONTROLLED RECEPTACLE TO REMAIN ON FOR NO MORE THAN 2 HOURS AND AN AUTOMATIC HOLIDAY SHUT-OFF TO TURN OFF ALL LOADS FOR AT LEAST 24 HOURS THEN RESUME NORMAL SCHEDULE. COUNTDOWN TIMER SWITCHES SHALL NOT BE USED FOR COMPLIANCE.</d:list>
+                                          <d:list>EITHER A SPLITWIRE RECEPTACLE SHALL BE INSTALLED, OR AT LEAST ONE CONTROLLED RECEPTACLE SHALL BE INSTALLED WITHIN 6 FT OF EACH UNCONTROLLED RECEPTACLE. FOR MODULAR FURNITURE, INSTALL ONE CONTROLLED RECEPTACLE PER WORKSTATION. </d:list>
+                                          <d:list>INCLUDE PERMANENT AND DURABLE MARKINGS TO DIFFERENTIATE THEM FROM UNCONTROLLED RECEPTACLES OR CIRCUITS.</d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section I is triggered because A02_WholeBuildingOccupancy != HospitalBuilding  And B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5dExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 1</d:b> TO 
+                                       <d:t24refnolink/>130.5(d) 
+                                       <d:b>APPLIES</d:b>:  
+
+RECEPTACLES SPECIFICALLY FOR: 
+                                       <d:l t="*">
+                                          <d:list>REFRIGERATORS AND WATER DISPENSERS IN KITCHEN AREAS</d:list>
+                                          <d:list>LOCATED A MINIMUM OF 6 FT ABOVE THE FLOOR FOR CLOCKS </d:list>
+                                          <d:list>USED FOR NETWORK COPIERS, FAX MACHINES, A/V AND DATA EQUIPMENT OTHER THAN PERSONAL COMPUTERS IN COPY ROOMS </d:list>
+                                          <d:list>ON CIRCUITS RATED MORE THAN 20 AMPERES </d:list>
+                                          <d:list>CONNECTED TO AN UNINTERRUPTABLE POWER SUPPLY (UPS) INTENDED TO BE IN CONTINUOUS USE, 24 HOURS/7 DAYS A WEEK/365 DAYS A YEAR AND MARKED TO DIFFERENTIATE THEM FROM OTHER UNCONTROLLED RECEPTACLES OR CIRCUITS </d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_5d_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5dExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 2</d:b> TO 
+                                       <d:t24refnolink/>130.5(d) 
+                                       <d:b>APPLIES</d:b>:  
+
+RECEPTACLES IN HEALTHCARE FACILITIES.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130_5d_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM130_5dNote" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText"/>
+                                    <xsd:documentation source="AdditionalRequirements">NOTE: HARDWIRED POWER STRIP CONTROLLED BY AN OCCUPANT SENSING CONTROL MAY BE USED TO COMPLY WITH 
+                                       <d:t24refnolink/>130.5(d). PLUG-IN DEVICES MAY NOT BE USED FOR COMPLIANCE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM130.5d_MeasureApplies == true, 
+FieldText and AdditionalRequirements static text is displayed in the report
+Else 
+nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="Section_DwellUnitMandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Dwelling Unit and Guest Room Electrical Power Distribution Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-ELC-E is included in scope And 
+A03_RequestedMMB == true And 
+A02_WholeBuildingOccupancy == HighRiseResidential Or HotelMotel 
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="DuMM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch.1)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DuMM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DuMM130_5d_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>130.5(d) CIRCUIT CONTROLS FOR 120-VOLT RECEPTACLES AND CONTROLLED RECEPTACLES IN HOTEL/MOTEL GUESTROOMS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">CONTROLLED RECEPTACLES SHALL BE INSTALLED FOR AT LEAST ONE-HALF OF THE 120-VOLT RECEPTACLES IN EACH GUESTROOM. ELECTRIC CIRCUITS SERVING CONTROLLED RECEPTACLES SHALL HAVE CAPTIVE CARD KEY CONTROLS, OCCUPANCY SENSING CONTROLS, OR AUTOMATIC CONTROLS SO THE POWER IS SWITCHED OFF NO LONGER THAN 30 MINUTES AFTER GUESTROOM IS VACATED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section I is triggered because  A02_WholeBuildingOccupancy != HospitalBuilding  And B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter 
+ 
+And If A02_WholeBuildingOccupancy == HighRiseResidential Or HotelMotel 
+ 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -31,8 +400,8 @@
             <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
             <xsd:element name="ReportMMB" type="xsd:base64Binary" minOccurs="0"/>
          </xsd:sequence>
-         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20200601"/>
-         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCELCE"/>
+         <xsd:attribute name="revision" type="xsd:string" use="required" fixed="rev 20200601"/>
+         <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" use="required" fixed="NRCCELCE"/>
       </xsd:complexType>
    </xsd:element>
    <xsd:complexType name="NRCCELC01E">
@@ -1203,375 +1572,6 @@ Multi-field triggers: See A02_WholeBuildingOccupancy for trigger values from thi
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i>There are no Certificates of Acceptance applicable to electrical power distribution requirements.</d:i>
                         </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-               </xsd:sequence>
-            </xsd:complexType>
-         </xsd:element>
-         <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation source="FieldText">
-                  <d:b>
-                     <d:i>Electrical Power Distribution Mandatory Measures:</d:i>
-                  </d:b>
-               </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">If NRCC-ELC-E is included in scope And 
-A03_RequestedMMB == true
-this Mandatory Measures Noteblock is required 
- 
-Else it is not required and nothing is captured or displayed
-End If</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-               <xsd:sequence>
-                  <xsd:element name="MM_BeforeNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch.1)</d:i>
-                           </d:b>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM_BeginNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_12a_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.12(a) DEMAND RESPONSIVE (DR) CONTROLS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ALL DEMAND RESPONSIVE CONTROLS SHALL: 
-                           <d:l t="#">
-                              <d:list>BE EITHER A. CERTIFIED OPENADR 2.0a OR OPENADR 2.0b VIRTUAL END NODE (VEN); OR B. CERTIFIED BY THE MANUFACTURER AS BEING CAPABLE OF RESPONDING TO A DR SIGNAL FROM A CERTIFIED OPENADR 2.0b VEN AUTOMATICALLY IMPLEMENTING THE CONTROL FUNCTIONS REQUESTED BY THE VEN FOR THE EQUIPMENT IT CONTROLS.</d:list>
-                              <d:list>BE CAPABLE OF COMMUNICATING USING ONE OR MORE OF THE FOLLOWING: WI-FI, ZIGBEE, BACNET, ETHERNET, OR HARD-WIRING. </d:list>
-                              <d:list>DR CONTROLS MAY INCORPORATE AND USE ADDITIONAL PROTOCOLS BEYOND THOSE SPECIFIED IN 
-                                 <d:t24refnolink/>110.12(a)1 AND 2.</d:list>
-                              <d:list>CONTINUE TO PERFORM ALL OTHER CONTROL FUNCTIONS PROVIDED BY THE CONTROL WHEN COMMUNICATIONS ARE DISABLED OR UNAVAILABLE. </d:list>
-                              <d:list>DR CONTROL THERMOSTATS SHALL COMPLY WITH REFERENCE JOINT APPENDIX 5 (JA5), TECHNICAL SPECIFICATIONS FOR OCCUPANT CONTROLLED SMART THERMOSTATS.</d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Result = true for all projects that require the NRCC-ELC and   FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_12d_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.12(d) DEMAND RESPONSIVE ELECTRONIC MESSAGE CENTER CONTROL</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">CONTROLS FOR ELECTRONIC MESSAGE CENTERS GREATER THAN 15KW SHALL BE CAPABLE OF REDUCING THE LIGHTING POWER BY A MINIMUM OF 30% WHEN RECEIVING A DR SIGNAL.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Result = true for all projects that require the NRCC-ELC and   FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_12dExc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO 
-                           <d:t24refnolink/>110.12(d)2 
-                           <d:b>APPLIES</d:b>:
- 
-
-ELECTRONIC MESSAGE CENTERS THAT ARE NOT PERMITTED BY A HEALTH OR LIFE SAFETY STATUTE, ORDINANCE, OR REGULATION TO BE REDUCED.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_12d_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5a_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>130.5(a) SERVICE ELECTRICAL METERING</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">EACH ELECTRICAL SERVICE OR FEEDER SHALL HAVE A PERMANENTLY INSTALLED METERING SYSTEM WHICH MEASURES ELECTRICAL ENERGY ACCORDING TO TABLE 130.5-A.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section F is triggered because B02_ElectricalServiceProjectScope != AlterationsFeedersBranchCircuitsOnly Or ReplacementElectricalServiceNotMeter  And 
-B04_UtilityProvidedMeterException130_5a == false And 
-B05_DoesElectricalCodeExceptionApply == false
- 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5aExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 1</d:b> TO 
-                           <d:t24refnolink/>130.5(a) 
-                           <d:b>APPLIES</d:b>:  
-
-SERVICE OR FEEDER FOR WHICH UTILITY COMPANY PROVIDES A METERING SYSTEM THAT INDICATES INSTANTANEOUS KW DEMAND AND KWH FOR A UTILITY-DEFINED PERIOD.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130_5a_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5aExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 2</d:b> TO 
-                           <d:t24refnolink/>130.5(a) 
-                           <d:b>APPLIES</d:b>:  
-
-ELECTRICAL POWER DISTRIBUTION SYSTEMS SUBJECT TO CALIFORNIA ELECTRICAL CODE ARTICLE 517.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130_5a_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5b_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>130.5(b) SEPARATION OF CIRCUITS FOR ELECTRICAL ENERGY MONITORING</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ELECTRICAL POWER DISTRIBUTION SYSTEMS SHALL BE DESIGNED SO THAT MEASUREMENT DEVICES CAN MONITOR ENERGY USE OF LOAD TYPES ACCORDING TO TABLE 130.5-B.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section G is triggered because  B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter And
-B05_DoesElectricalCodeExceptionApply == false
- 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5bExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 1</d:b> TO 
-                           <d:t24refnolink/>130.5(b) 
-                           <d:b>APPLIES</d:b>:  
-
-FOR EACH SEPARATE LOAD TYPE, UP TO 10% OF THE CONNECTED LOAD MAY BE OF ANY TYPE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130_5b_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5bExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 2</d:b> TO 
-                           <d:t24refnolink/>130.5(b) 
-                           <d:b>APPLIES</d:b>:  
-
-ELECTRICAL POWER DISTRIBUTION SYSTEMS SUBJECT TO CALIFORNIA ELECTRICAL CODE ARTICLE 517.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130_5b_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5c_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>130.5(c) VOLTAGE DROP</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">THE MAXIMUM COMBINED VOLTAGE DROP ON BOTH INSTALLED FEEDER AND BRANCH CIRCUIT CONDUCTORS TO THE FARTHEST CONNECTED LOAD OR OUTLET SHALL NOT EXCEED 5%.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If H02a_CircuitVoltageDropCompliance  ==  VoltageDropLT5Percent
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5cExc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO 
-                           <d:t24refnolink/>130.5(c) 
-                           <d:b>APPLIES</d:b>:  
-
-VOLTAGE DROP PERMITTED BY CALIFORNIA ELECTRICAL CODE SECTIONS 647.4, 695.6, AND 695.7.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130_5c_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5d_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>130.5(d) CIRCUIT CONTROLS FOR 120-VOLT RECEPTACLES AND CONTROLLED RECEPTACLES</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">BOTH CONTROLLED AND UNCONTROLLED 120-VOLT RECEPTACLES SHALL BE PROVIDED IN OFFICE AREAS, LOBBIES, CONFERENCE ROOMS, KITCHEN AREAS IN OFFICE SPACES, AND COPY ROOMS.
-                           <d:line1/>CONTROLLED RECEPTACLES SHALL: 
-                           <d:l t="*">
-                              <d:list>BE CAPABLE OF AUTOMATICALLY SHUTTING OFF WHEN THE SPACE IS UNOCCUPIED, EITHER AT RECEPTACLE OR CIRCUIT LEVEL. AUTOMATIC TIME SWITCH CONTROL SHALL INCORPORATE OVERRIDE CONTROL ALLOWING CONTROLLED RECEPTACLE TO REMAIN ON FOR NO MORE THAN 2 HOURS AND AN AUTOMATIC HOLIDAY SHUT-OFF TO TURN OFF ALL LOADS FOR AT LEAST 24 HOURS THEN RESUME NORMAL SCHEDULE. COUNTDOWN TIMER SWITCHES SHALL NOT BE USED FOR COMPLIANCE.</d:list>
-                              <d:list>EITHER A SPLITWIRE RECEPTACLE SHALL BE INSTALLED, OR AT LEAST ONE CONTROLLED RECEPTACLE SHALL BE INSTALLED WITHIN 6 FT OF EACH UNCONTROLLED RECEPTACLE. FOR MODULAR FURNITURE, INSTALL ONE CONTROLLED RECEPTACLE PER WORKSTATION. </d:list>
-                              <d:list>INCLUDE PERMANENT AND DURABLE MARKINGS TO DIFFERENTIATE THEM FROM UNCONTROLLED RECEPTACLES OR CIRCUITS.</d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section I is triggered because A02_WholeBuildingOccupancy != HospitalBuilding  And B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter
- 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5dExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 1</d:b> TO 
-                           <d:t24refnolink/>130.5(d) 
-                           <d:b>APPLIES</d:b>:  
-
-RECEPTACLES SPECIFICALLY FOR: 
-                           <d:l t="*">
-                              <d:list>REFRIGERATORS AND WATER DISPENSERS IN KITCHEN AREAS</d:list>
-                              <d:list>LOCATED A MINIMUM OF 6 FT ABOVE THE FLOOR FOR CLOCKS </d:list>
-                              <d:list>USED FOR NETWORK COPIERS, FAX MACHINES, A/V AND DATA EQUIPMENT OTHER THAN PERSONAL COMPUTERS IN COPY ROOMS </d:list>
-                              <d:list>ON CIRCUITS RATED MORE THAN 20 AMPERES </d:list>
-                              <d:list>CONNECTED TO AN UNINTERRUPTABLE POWER SUPPLY (UPS) INTENDED TO BE IN CONTINUOUS USE, 24 HOURS/7 DAYS A WEEK/365 DAYS A YEAR AND MARKED TO DIFFERENTIATE THEM FROM OTHER UNCONTROLLED RECEPTACLES OR CIRCUITS </d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130_5d_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5dExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 2</d:b> TO 
-                           <d:t24refnolink/>130.5(d) 
-                           <d:b>APPLIES</d:b>:  
-
-RECEPTACLES IN HEALTHCARE FACILITIES.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130_5d_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM130_5dNote" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="AdditionalRequirements">NOTE: HARDWIRED POWER STRIP CONTROLLED BY AN OCCUPANT SENSING CONTROL MAY BE USED TO COMPLY WITH 
-                           <d:t24refnolink/>130.5(d). PLUG-IN DEVICES MAY NOT BE USED FOR COMPLIANCE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM130.5d_MeasureApplies == true, 
-FieldText and AdditionalRequirements static text is displayed in the report
-Else 
-nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-               </xsd:sequence>
-            </xsd:complexType>
-         </xsd:element>
-         <xsd:element name="Section_DwellUnitMandatoryMeasureBlock" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation source="FieldText">
-                  <d:b>
-                     <d:i>Dwelling Unit and Guest Room Electrical Power Distribution Mandatory Measures:</d:i>
-                  </d:b>
-               </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">If NRCC-ELC-E is included in scope And 
-A03_RequestedMMB == true And 
-A02_WholeBuildingOccupancy == HighRiseResidential Or HotelMotel 
-this Mandatory Measures Noteblock is required 
- 
-Else it is not required and nothing is captured or displayed
-End If</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-               <xsd:sequence>
-                  <xsd:element name="DuMM_BeforeNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch.1)</d:i>
-                           </d:b>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DuMM_BeginNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DuMM130_5d_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>130.5(d) CIRCUIT CONTROLS FOR 120-VOLT RECEPTACLES AND CONTROLLED RECEPTACLES IN HOTEL/MOTEL GUESTROOMS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">CONTROLLED RECEPTACLES SHALL BE INSTALLED FOR AT LEAST ONE-HALF OF THE 120-VOLT RECEPTACLES IN EACH GUESTROOM. ELECTRIC CIRCUITS SERVING CONTROLLED RECEPTACLES SHALL HAVE CAPTIVE CARD KEY CONTROLS, OCCUPANCY SENSING CONTROLS, OR AUTOMATIC CONTROLS SO THE POWER IS SWITCHED OFF NO LONGER THAN 30 MINUTES AFTER GUESTROOM IS VACATED.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section I is triggered because  A02_WholeBuildingOccupancy != HospitalBuilding  And B02_ElectricalServiceProjectScope == NewElectricalService Or ReplacementElectricalService Or ReplacementElectricalServiceNotMeter 
- 
-And If A02_WholeBuildingOccupancy == HighRiseResidential Or HotelMotel 
- 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>

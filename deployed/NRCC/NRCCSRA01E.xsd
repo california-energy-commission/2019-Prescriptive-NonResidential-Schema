@@ -24,6 +24,465 @@
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCSRA01E"/>
                      <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Solar Ready Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E is included in scope And 
+A06_RequestedMMB == true
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="MM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b1B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)1B SOLAR READY BUILDINGS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL NEW NONRESIDENTIAL BUILDINGS UP TO (3) HABITABLE STORIES, OTHER THAN HEALTHCARE FACILITIES, OR ADDITIONS THAT INCREASE THE ROOF AREA 
+                                       <d:gt/> 2,000 FT<d:sup>2</d:sup> (
+                                       <d:b>EXCEPTION 4 TO 141.0(a)</d:b>)SHALL HAVE A SOLAR ZONE LOCATED ON THE ROOF OR OTHER STRUCTURE WITHIN 250 FT FOR THE PURPOSE OF ADDING SOLAR PANELS AT A FUTURE TIME.  THE MINIMUM SOLAR ZONE AREA SHALL BE SIZED ACCORDING TO 
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)1B.</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b1BExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 1</d:b> TO 
+                                       <d:t24refnolink/>110.10(b)1B  
+                                       <d:b>APPLIES</d:b>: 
+
+BUILDING EQUIPPED WITH A PERMANENT SOLAR ELECTRIC SYSTEM HAVING A NAMEPLATE DC POWER RATING, MEASURED UNDER STANDARD TEST CONDITIONS, OF AT LEAST ONE WATT PER FT<d:sup>2</d:sup> OF ROOF AREA.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_10b1B_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b1BExc3_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 3</d:b> TO 
+                                       <d:t24refnolink/>110.10(b)1B  
+                                       <d:b>APPLIES</d:b>: 
+
+DESIGNATED SOLAR ZONE AREA NO LESS THAN 50% OF THE POTENTIAL SOLAR ZONE AREA (AS CALCULATED PER EXCEPTION)</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_10b1B_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b1BExc5_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 5</d:b> TO 
+                                       <d:t24refnolink/>110.10(b)1B  
+                                       <d:b>APPLIES</d:b>:  
+
+ROOF DESIGNATED FOR VEHICULAR TRAFFIC OR HELIPORT</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_10b1B_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)2 AZIMUTH</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL SECTIONS OF THE SOLAR ZONE LOCATED ON STEEP-SLOPED ROOFS SHALL BE ORIENTED BETWEEN 90 DEGREES AND 300 DEGREES OF TRUE NORTH.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F12_IsSolarZoneSubAreaSteepSlopeAzimuthCompliant == true 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)3 SHADING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">NO OBSTRUCTIONS SHALL BE LOCATED IN THE SOLAR ZONE AND OBSTRUCTIONS LOCATED ON ANY PART OF THE BUILDING THAT PROJECTS ABOVE A SOLAR ZONE SHALL BE LOCATED AT LEAST TWICE THE DISTANCE (MEASURED IN THE HORIZONTAL PLANE) OF THE HEIGHT DIFFERENCE BETWEEN THE HIGHEST POINT OF THE OBSTRUCTION AND THE HORIZONTAL PROJECTION OF THE NEAREST POINT OF THE SOLAR ZONE (MEASURED IN THE VERITAL PLANE).</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F14_IsSolarZoneSubAreaObstructionsFree == true And 
+F15_IsSolarZoneSubAreaDistantFromObstructions == true 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b3Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO
+                                       <d:t24refnolink/>110.10(b)3  
+                                       <d:b>APPLIES</d:b>:  
+
+ANY ROOF OBSTRUCTION (LOCATED ANYWHERE ON BUILDING) THAT IS ORIENTED NORTH OF ALL POINTS ON THE SOLAR ZONE</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_10b3_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10b4_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)4 STRUCTURAL DESIGN LOADS ON CONSTRUCTION DOCUMENTS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE STRUCTURAL DESIGN LOADS FOR ROOF DEAD LOAD AND ROOF LIVE LOAD FOR AREAS OF THE ROOF DESIGNATED AS SOLAR ZONE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10c_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(c) INTERCONNECTION PATHWAYS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE RESERVED LOCATIONS FOR INVERTERS AND METERING EQUIPMENT AND A PATHWAY RESERVED FOR CONDUIT ROUTING FROM SOLAR ZONE TO POINT OF CONNECTION WITH ELECTIRCAL SERVICE, OR A PATHWAY FOR ROUTING OF PLUMBING FROM SOLAR ZONE TO WATER-HEATING SYSTEM.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F20_BuildingPlanName has a value
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10d_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(d) DOCUMENTATION</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">A COPY OF THE CONSTRUCTION DOCUMENTS INDATING INFORMATION FROM 
+                                       <d:t24ref h="110.10(b)"/> AND (c) MUST BE PROVIDED TO THE OCCUPANT.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F20_BuildingPlanName has a value
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_10e_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(e) ELECTRIC SERVICE PANEL</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">THE MAIN ELECTRICAL SERVICE PANEL SHOULD HAVE:
+                                       <d:l t="*">
+                                          <d:list>A MINIMUM BUSBAR RATING OF 200 AMPS</d:list>
+                                          <d:list>RESERVED SPACE TO ALLOW FOR THE INSTALLATION OF A DOUBLE POLE CIRCUIT BREAKER AND BE PERMANENTLY MARKED AS SUCH</d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F20_BuildingPlanName has a value
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="Section_DwellUnitMandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Dwelling Unit and Guest Room Solar Ready Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E is included in scope And 
+A06_RequestedMMB == true And 
+A04_SolarReadyBuildingTypeNR ==  HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="DuMM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch.1)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DuMM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b1B_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)1B SOLAR READY BUILDINGS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL NEW LOW-RISE AND HIGH-RISE MULTIFAMLY BUILDINGS AND HOTEL/MOTEL OCCUPANCIES 10 STORIES OR FEWER SHALL HAVE A SOLAR ZONE LOCATED ON THE ROOF OR OTHER STRUCTURE WITHIN 250 FT FOR THE PURPOSE OF ADDING SOLAR PANELS AT A FUTURE TIME.  THE MINIMUM SOLAR ZONE AREA SHALL BE SIZED ACCORDING TO 
+                                       <d:t24refnolink/>110.10(b)1B AND IS APPLICABLE TO THE ENTIRE BUILDING, INCLUDING MIXED OCCUPANCY.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">Result = true for all projects requiring the NRCC-SRA and FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b1BExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 1</d:b> TO 
+                                       <d:t24refnolink/>110.10(b)1B  
+                                       <d:b>APPLIES</d:b>:  
+
+HIGH-RISE MULTIFAMILY BUILDINGS AND HOTEL/MOTEL OCCUPANCIES  WITH A PERMANENT SOLAR ELECTRIC SYSTEM HAVING A NAMEPLATE DC POWER RATING, MEASURED UNDER STANDARD TEST CONDITIONS, OF AT LEAST ONE WATT PER FT<d:sup>2</d:sup> OF ROOF AREA.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b1BExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 2</d:b> TO d:t24refnolink/]110.10(b)1B  
+                                       <d:b>APPLIES</d:b>:  
+
+HIGH-RISE MULTIFAMILY BUILDINGS AND HOTEL/MOTEL OCCUPANCIES  WITH A PERMANENT SOLAR DOMESTIC WATER HEATING SYSTEM COMPLYING WITH 
+                                       <d:b>
+                                          <d:t24refnolink/>150.1(c)8Biii</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b1BExc3_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 3</d:b> TO d:t24refnolink/]110.10(b)1B  
+                                       <d:b>APPLIES</d:b>:  
+
+DESIGNATED SOLAR ZONE AREA NO LESS THAN 50% OF THE POTENTIAL SOLAR ZONE AREA (AS CALCULATED PER EXCEPTION)</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b1BExc4_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 4</d:b> TO d:t24refnolink/]110.10(b)1B  
+                                       <d:b>APPLIES</d:b>:  
+
+LOW-RISE AND HIGH-RISE MULTIFAMLY BUILDINGS WHERE ALL THERMOSTATS IN EACH DWELLING UNIT ARE DEMAND RESPONSE (DR) CONTROLS THAT COMPLY WITH 
+                                       <d:b>
+                                          <d:t24refnolink/>110.12(a)</d:b> AND ARE CAPABLE OF RECEIVING AND RESPONDING TO DR SIGNALS. 
+                                       <d:line2/>IN ADDITION, COMPLY WITH 
+                                       <d:u>EITHER A OR B BELOW:</d:u>
+                                       <d:line2/>A. IN EACH DWELLING UNIT, COMPLY WITH ONE OF THE FOLLOWING: 
+                                       <d:l t="*">
+                                          <d:list>INSTALL A DISHWASHER THAT MEETS OR EXCEEDS ENERGY STAR REQUIREMENTS, AND INSTALL EITHER A REFRIGERATOR THAT MEETS OR EXCEEDS ENERGY STAR REQUIREMENTS, OR A WHOLE HOUSE FAN DRIVEN BY AN ELECTRONICALLY COMMUTATED MOTOR; OR </d:list>
+                                          <d:list>INSTALL A HOME AUTOMATION SYSTEM THAT COMPLIES WITH 
+                                             <d:b>
+                                                <d:t24refnolink/>110.12(a)</d:b> AND IS CAPABLE OF CONTROLLING APPLIANCES AND LIGHTING OF THE DWELLING AND RESPONDING TO DR SIGNALS; OR </d:list>
+                                          <d:list>INSTALL ALTERNATIVE PLUMBING PIPING TO PERMIT DISCHARGE FROM WASHER, SHOWERS AND BATHTUBS TO BE USED FOR IRRIGATION IN COMPLIANCE WITH CALIFORNIA PLUMBING CODE AND LOCAL CODES; OR </d:list>
+                                          <d:list>INSTALL A RAINWATER CATCHMENT SYSTEM DESIGNED TO COMPLY WITH CALIFORNIA PLUMBING CODE AND LOCAL CODES THAT USES RAINWATER FROM AT LEAST 65% OF AVAILABLE ROOF AREA. </d:list>
+                                       </d:l>
+                                       <d:line1/>B. MEET TITLE 24, PART 11, SECTION A4.106.8.2 REQUIREMENTS FOR ELECTRICAL VEHICLE CHARGING SPACES.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)2 AZIMUTH</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL SECTIONS OF THE SOLAR ZONE LOCATED ON STEEP-SLOPED ROOFS SHALL BE ORIENTED BETWEEN 90 DEGREES AND 300 DEGREES OF TRUE NORTH.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)3 SHADING</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">NO OBSTRUCTIONS SHALL BE LOCATED IN THE SOLAR ZONE AND OBSTRUCTIONS LOCATED ON ANY PART OF THE BUILDING THAT PROJECTS ABOVE A SOLAR ZONE SHALL BE LOCATED AT LEAST TWICE THE DISTANCE (MEASURED IN THE HORIZONTAL PLANE) OF THE HEIGHT DIFFERENCE BETWEEN THE HIGHEST POINT OF THE OBSTRUCTION AND THE HORIZONTAL PROJECTION OF THE NEAREST POINT OF THE SOLAR ZONE (MEASURED IN THE VERITAL PLANE).</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b3Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO 
+                                       <d:t24refnolink/>110.10(b)3  
+                                       <d:b>APPLIES</d:b>:  
+
+ANY ROOF OBSTRUCTION (LOCATED ANYWHERE ON BUILDING) THAT IS ORIENTED NORTH OF ALL POINTS ON THE SOLAR ZONE</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If DUMM110_10b3_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10b4_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(b)4 STRUCTURAL DESIGN LOADS ON CONSTRUCTION DOCUMENTS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE STRUCTURAL DESIGN LOADS FOR ROOF DEAD LOAD AND ROOF LIVE LOAD FOR AREAS OF THE ROOF DESIGNATED AS SOLAR ZONE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10c_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(c) INTERCONNECTION PATHWAYS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE RESERVED LOCATIONS FOR INVERTERS AND METERING EQUIPMENT AND A PATHWAY RESERVED FOR CONDUIT ROUTING FROM SOLAR ZONE TO POINT OF CONNECTION WITH ELECTIRCAL SERVICE, OR A PATHWAY FOR ROUTING OF PLUMBING FROM SOLAR ZONE TO WATER-HEATING SYSTEM.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="DUMM110_10d_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.10(d) </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">A COPY OF THE CONSTRUCTION DOCUMENTS INDATING INFORMATION FROM 
+                                       <d:t24refnolink/>110.10(b) AND (c) MUST BE PROVIDED TO THE OCCUPANT.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
+result = true and FieldText and AdditionalRequirements static text is displayed in the report
+Else
+result = false and nothing is displayed in the report
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -31,8 +490,8 @@
             <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
             <xsd:element name="ReportMMB" type="xsd:base64Binary" minOccurs="0"/>
          </xsd:sequence>
-         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20200601"/>
-         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCSRAE"/>
+         <xsd:attribute name="revision" type="xsd:string" use="required" fixed="rev 20200601"/>
+         <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" use="required" fixed="NRCCSRAE"/>
       </xsd:complexType>
    </xsd:element>
    <xsd:complexType name="NRCCSRA01E">
@@ -1614,465 +2073,6 @@ End If</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">
                            <d:i>There are no Certificates of Acceptance applicable to solar ready requirements.</d:i>
                         </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-               </xsd:sequence>
-            </xsd:complexType>
-         </xsd:element>
-         <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation source="FieldText">
-                  <d:b>
-                     <d:i>Solar Ready Mandatory Measures:</d:i>
-                  </d:b>
-               </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E is included in scope And 
-A06_RequestedMMB == true
-this Mandatory Measures Noteblock is required 
- 
-Else it is not required and nothing is captured or displayed
-End If</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-               <xsd:sequence>
-                  <xsd:element name="MM_BeforeNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6)</d:i>
-                           </d:b>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM_BeginNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b1B_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)1B SOLAR READY BUILDINGS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ALL NEW NONRESIDENTIAL BUILDINGS UP TO (3) HABITABLE STORIES, OTHER THAN HEALTHCARE FACILITIES, OR ADDITIONS THAT INCREASE THE ROOF AREA 
-                           <d:gt/> 2,000 FT<d:sup>2</d:sup> (
-                           <d:b>EXCEPTION 4 TO 141.0(a)</d:b>)SHALL HAVE A SOLAR ZONE LOCATED ON THE ROOF OR OTHER STRUCTURE WITHIN 250 FT FOR THE PURPOSE OF ADDING SOLAR PANELS AT A FUTURE TIME.  THE MINIMUM SOLAR ZONE AREA SHALL BE SIZED ACCORDING TO 
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)1B.</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b1BExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 1</d:b> TO 
-                           <d:t24refnolink/>110.10(b)1B  
-                           <d:b>APPLIES</d:b>: 
-
-BUILDING EQUIPPED WITH A PERMANENT SOLAR ELECTRIC SYSTEM HAVING A NAMEPLATE DC POWER RATING, MEASURED UNDER STANDARD TEST CONDITIONS, OF AT LEAST ONE WATT PER FT<d:sup>2</d:sup> OF ROOF AREA.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_10b1B_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b1BExc3_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 3</d:b> TO 
-                           <d:t24refnolink/>110.10(b)1B  
-                           <d:b>APPLIES</d:b>: 
-
-DESIGNATED SOLAR ZONE AREA NO LESS THAN 50% OF THE POTENTIAL SOLAR ZONE AREA (AS CALCULATED PER EXCEPTION)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_10b1B_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b1BExc5_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 5</d:b> TO 
-                           <d:t24refnolink/>110.10(b)1B  
-                           <d:b>APPLIES</d:b>:  
-
-ROOF DESIGNATED FOR VEHICULAR TRAFFIC OR HELIPORT</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_10b1B_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b2_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)2 AZIMUTH</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ALL SECTIONS OF THE SOLAR ZONE LOCATED ON STEEP-SLOPED ROOFS SHALL BE ORIENTED BETWEEN 90 DEGREES AND 300 DEGREES OF TRUE NORTH.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F12_IsSolarZoneSubAreaSteepSlopeAzimuthCompliant == true 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b3_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)3 SHADING</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NO OBSTRUCTIONS SHALL BE LOCATED IN THE SOLAR ZONE AND OBSTRUCTIONS LOCATED ON ANY PART OF THE BUILDING THAT PROJECTS ABOVE A SOLAR ZONE SHALL BE LOCATED AT LEAST TWICE THE DISTANCE (MEASURED IN THE HORIZONTAL PLANE) OF THE HEIGHT DIFFERENCE BETWEEN THE HIGHEST POINT OF THE OBSTRUCTION AND THE HORIZONTAL PROJECTION OF THE NEAREST POINT OF THE SOLAR ZONE (MEASURED IN THE VERITAL PLANE).</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F14_IsSolarZoneSubAreaObstructionsFree == true And 
-F15_IsSolarZoneSubAreaDistantFromObstructions == true 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b3Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO
-                           <d:t24refnolink/>110.10(b)3  
-                           <d:b>APPLIES</d:b>:  
-
-ANY ROOF OBSTRUCTION (LOCATED ANYWHERE ON BUILDING) THAT IS ORIENTED NORTH OF ALL POINTS ON THE SOLAR ZONE</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_10b3_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10b4_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)4 STRUCTURAL DESIGN LOADS ON CONSTRUCTION DOCUMENTS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE STRUCTURAL DESIGN LOADS FOR ROOF DEAD LOAD AND ROOF LIVE LOAD FOR AREAS OF THE ROOF DESIGNATED AS SOLAR ZONE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10c_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(c) INTERCONNECTION PATHWAYS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE RESERVED LOCATIONS FOR INVERTERS AND METERING EQUIPMENT AND A PATHWAY RESERVED FOR CONDUIT ROUTING FROM SOLAR ZONE TO POINT OF CONNECTION WITH ELECTIRCAL SERVICE, OR A PATHWAY FOR ROUTING OF PLUMBING FROM SOLAR ZONE TO WATER-HEATING SYSTEM.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F20_BuildingPlanName has a value
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10d_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(d) DOCUMENTATION</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">A COPY OF THE CONSTRUCTION DOCUMENTS INDATING INFORMATION FROM 
-                           <d:t24ref h="110.10(b)"/> AND (c) MUST BE PROVIDED TO THE OCCUPANT.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F20_BuildingPlanName has a value
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_10e_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(e) ELECTRIC SERVICE PANEL</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">THE MAIN ELECTRICAL SERVICE PANEL SHOULD HAVE:
-                           <d:l t="*">
-                              <d:list>A MINIMUM BUSBAR RATING OF 200 AMPS</d:list>
-                              <d:list>RESERVED SPACE TO ALLOW FOR THE INSTALLATION OF A DOUBLE POLE CIRCUIT BREAKER AND BE PERMANENTLY MARKED AS SUCH</d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F20_BuildingPlanName has a value
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-               </xsd:sequence>
-            </xsd:complexType>
-         </xsd:element>
-         <xsd:element name="Section_DwellUnitMandatoryMeasureBlock" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation source="FieldText">
-                  <d:b>
-                     <d:i>Dwelling Unit and Guest Room Solar Ready Mandatory Measures:</d:i>
-                  </d:b>
-               </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E is included in scope And 
-A06_RequestedMMB == true And 
-A04_SolarReadyBuildingTypeNR ==  HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories
-this Mandatory Measures Noteblock is required 
- 
-Else it is not required and nothing is captured or displayed
-End If</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-               <xsd:sequence>
-                  <xsd:element name="DuMM_BeforeNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6, Ch.1)</d:i>
-                           </d:b>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DuMM_BeginNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b1B_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)1B SOLAR READY BUILDINGS </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ALL NEW LOW-RISE AND HIGH-RISE MULTIFAMLY BUILDINGS AND HOTEL/MOTEL OCCUPANCIES 10 STORIES OR FEWER SHALL HAVE A SOLAR ZONE LOCATED ON THE ROOF OR OTHER STRUCTURE WITHIN 250 FT FOR THE PURPOSE OF ADDING SOLAR PANELS AT A FUTURE TIME.  THE MINIMUM SOLAR ZONE AREA SHALL BE SIZED ACCORDING TO 
-                           <d:t24refnolink/>110.10(b)1B AND IS APPLICABLE TO THE ENTIRE BUILDING, INCLUDING MIXED OCCUPANCY.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Result = true for all projects requiring the NRCC-SRA and FieldText and AdditionalRequirements static text is displayed in the report</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b1BExc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 1</d:b> TO 
-                           <d:t24refnolink/>110.10(b)1B  
-                           <d:b>APPLIES</d:b>:  
-
-HIGH-RISE MULTIFAMILY BUILDINGS AND HOTEL/MOTEL OCCUPANCIES  WITH A PERMANENT SOLAR ELECTRIC SYSTEM HAVING A NAMEPLATE DC POWER RATING, MEASURED UNDER STANDARD TEST CONDITIONS, OF AT LEAST ONE WATT PER FT<d:sup>2</d:sup> OF ROOF AREA.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b1BExc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 2</d:b> TO d:t24refnolink/]110.10(b)1B  
-                           <d:b>APPLIES</d:b>:  
-
-HIGH-RISE MULTIFAMILY BUILDINGS AND HOTEL/MOTEL OCCUPANCIES  WITH A PERMANENT SOLAR DOMESTIC WATER HEATING SYSTEM COMPLYING WITH 
-                           <d:b>
-                              <d:t24refnolink/>150.1(c)8Biii</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b1BExc3_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 3</d:b> TO d:t24refnolink/]110.10(b)1B  
-                           <d:b>APPLIES</d:b>:  
-
-DESIGNATED SOLAR ZONE AREA NO LESS THAN 50% OF THE POTENTIAL SOLAR ZONE AREA (AS CALCULATED PER EXCEPTION)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b1BExc4_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 4</d:b> TO d:t24refnolink/]110.10(b)1B  
-                           <d:b>APPLIES</d:b>:  
-
-LOW-RISE AND HIGH-RISE MULTIFAMLY BUILDINGS WHERE ALL THERMOSTATS IN EACH DWELLING UNIT ARE DEMAND RESPONSE (DR) CONTROLS THAT COMPLY WITH 
-                           <d:b>
-                              <d:t24refnolink/>110.12(a)</d:b> AND ARE CAPABLE OF RECEIVING AND RESPONDING TO DR SIGNALS. 
-                           <d:line2/>IN ADDITION, COMPLY WITH 
-                           <d:u>EITHER A OR B BELOW:</d:u>
-                           <d:line2/>A. IN EACH DWELLING UNIT, COMPLY WITH ONE OF THE FOLLOWING: 
-                           <d:l t="*">
-                              <d:list>INSTALL A DISHWASHER THAT MEETS OR EXCEEDS ENERGY STAR REQUIREMENTS, AND INSTALL EITHER A REFRIGERATOR THAT MEETS OR EXCEEDS ENERGY STAR REQUIREMENTS, OR A WHOLE HOUSE FAN DRIVEN BY AN ELECTRONICALLY COMMUTATED MOTOR; OR </d:list>
-                              <d:list>INSTALL A HOME AUTOMATION SYSTEM THAT COMPLIES WITH 
-                                 <d:b>
-                                    <d:t24refnolink/>110.12(a)</d:b> AND IS CAPABLE OF CONTROLLING APPLIANCES AND LIGHTING OF THE DWELLING AND RESPONDING TO DR SIGNALS; OR </d:list>
-                              <d:list>INSTALL ALTERNATIVE PLUMBING PIPING TO PERMIT DISCHARGE FROM WASHER, SHOWERS AND BATHTUBS TO BE USED FOR IRRIGATION IN COMPLIANCE WITH CALIFORNIA PLUMBING CODE AND LOCAL CODES; OR </d:list>
-                              <d:list>INSTALL A RAINWATER CATCHMENT SYSTEM DESIGNED TO COMPLY WITH CALIFORNIA PLUMBING CODE AND LOCAL CODES THAT USES RAINWATER FROM AT LEAST 65% OF AVAILABLE ROOF AREA. </d:list>
-                           </d:l>
-                           <d:line1/>B. MEET TITLE 24, PART 11, SECTION A4.106.8.2 REQUIREMENTS FOR ELECTRICAL VEHICLE CHARGING SPACES.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If DUMM110_10b1B_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b2_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)2 AZIMUTH</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ALL SECTIONS OF THE SOLAR ZONE LOCATED ON STEEP-SLOPED ROOFS SHALL BE ORIENTED BETWEEN 90 DEGREES AND 300 DEGREES OF TRUE NORTH.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b3_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)3 SHADING</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NO OBSTRUCTIONS SHALL BE LOCATED IN THE SOLAR ZONE AND OBSTRUCTIONS LOCATED ON ANY PART OF THE BUILDING THAT PROJECTS ABOVE A SOLAR ZONE SHALL BE LOCATED AT LEAST TWICE THE DISTANCE (MEASURED IN THE HORIZONTAL PLANE) OF THE HEIGHT DIFFERENCE BETWEEN THE HIGHEST POINT OF THE OBSTRUCTION AND THE HORIZONTAL PROJECTION OF THE NEAREST POINT OF THE SOLAR ZONE (MEASURED IN THE VERITAL PLANE).</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b3Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO 
-                           <d:t24refnolink/>110.10(b)3  
-                           <d:b>APPLIES</d:b>:  
-
-ANY ROOF OBSTRUCTION (LOCATED ANYWHERE ON BUILDING) THAT IS ORIENTED NORTH OF ALL POINTS ON THE SOLAR ZONE</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If DUMM110_10b3_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10b4_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(b)4 STRUCTURAL DESIGN LOADS ON CONSTRUCTION DOCUMENTS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE STRUCTURAL DESIGN LOADS FOR ROOF DEAD LOAD AND ROOF LIVE LOAD FOR AREAS OF THE ROOF DESIGNATED AS SOLAR ZONE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10c_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(c) INTERCONNECTION PATHWAYS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">CONSTRUCTION DOCUMENTS SHALL INDICATE RESERVED LOCATIONS FOR INVERTERS AND METERING EQUIPMENT AND A PATHWAY RESERVED FOR CONDUIT ROUTING FROM SOLAR ZONE TO POINT OF CONNECTION WITH ELECTIRCAL SERVICE, OR A PATHWAY FOR ROUTING OF PLUMBING FROM SOLAR ZONE TO WATER-HEATING SYSTEM.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="DUMM110_10d_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.10(d) </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">A COPY OF THE CONSTRUCTION DOCUMENTS INDATING INFORMATION FROM 
-                           <d:t24refnolink/>110.10(b) AND (c) MUST BE PROVIDED TO THE OCCUPANT.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B01a_IsProjectAllocatedSolarZone == true 
-result = true and FieldText and AdditionalRequirements static text is displayed in the report
-Else
-result = false and nothing is displayed in the report
-End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>

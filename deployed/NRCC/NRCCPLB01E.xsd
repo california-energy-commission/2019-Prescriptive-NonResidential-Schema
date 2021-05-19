@@ -24,6 +24,463 @@
                      <xsd:element name="Header" type="comp:HeaderNRCC"/>
                      <xsd:element ref="nRCCPLBE"/>
                      <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
+                     <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">
+                              <d:b>
+                                 <d:i>Service Water Heating Mandatory Measures:</d:i>
+                              </d:b>
+                           </xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If NRCC-PLB-E is included in scope And 
+A04_RequestedMMB == true
+this Mandatory Measures Noteblock is required 
+ 
+Else it is not required and nothing is captured or displayed
+End If</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="MM_BeforeNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6)</d:i>
+                                       </d:b>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM_BeginNote1" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
+                                    </xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3a_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(a) CERTIFICATION BY MANUFACTURERS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ANY SERVICE WATER HEATING SYSTEM OR EQUIPMENT MAY BE INSTALLED ONLY IF CERTIFIED TO THE ENERGY COMMISSION TO MEET ALL APPLICABLE 
+                                       <d:t24refnolink/>110.3 REQUIREMENTS</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because a row has B03aNew_ProjectHasEquipment == true Or B03aAltered_ProjectHasEquipment == true
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3a1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(a)1 TEMPERATURE CONTROLS</d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">SERVICE WATER HEATING SYSTEMS SHALL BE EQUIPPED WITH AUTOMATIC TEMPERATURE CONTROLS CAPABLE OF BEING ADJUSTED FROM LOWEST TO HIGHEST ACCEPTABLE TEMPERATURES FOR THE INTENDED USE AS LISTED IN TABLE 3, CHAPTER 50 OF THE ASHRAE HANDBOOK, HVAC APPLICATIONS VOLUME, OR TABLE 613.1 OF THE CALIFORNIA PLUMBING CODE FOR HEALTHCARE FACILITIES. RESIDENTIAL OCCUPANCIES ARE EXEMPT FROM TEMPERATURE CONTROL REQUIREMENTS</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section H is required because a row in section B has B03cNew_ProjectHasControls == true Or B03cAltered_ProjectHasControls == true 
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3a1Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO 
+                                       <d:t24refnolink/>110.3a1 
+                                       <d:b>APPLIES</d:b>:  
+
+RESIDENTIAL OCCUPANCIES</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_3a1_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3b_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(b) EFFICIENCY </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">EQUIPMENT SHALL MEET THE APPLICABLE REQUIREMENTS OF THE APPLIANCE EFFICIENCY REGULATIONS AS REQUIRED BY 
+                                       <d:t24refnolink/>110.1.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section F is required because a row has B03aNew_ProjectHasEquipment == true Or B03aAltered_ProjectHasEquipment == true
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c1_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(c)1 OUTLET TEMPERATURE CONTROLS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ON SYSTEMS THAT HAVE A TOTAL CAPACITY GREATER THAN 167,000 BTU/HR, OUTLETS THAT REQUIRE HIGHER THAN SERVICE WATER TEMPERATURES AS LISTED IN THE ASHRAE HANDBOOK, APPLICATIONS VOLUME, SHALL HAVE SEPARATE REMOTE HEATERS, HEAT EXCHANGERS, OR BOOSTERS TO SUPPLY THE OUTLET WITH THE HIGHER TEMPERATURE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H02_OutletTempControls == ReqYes
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c1Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO 
+                                       <d:t24refnolink/>110.3c1 
+                                       <d:b>APPLIES</d:b>:  
+
+SYSTEMS COVERED BY CALIFORNIA PLUMBING CODE SECTION 613.0 SHALL MEET REQUIREMENTS OF THAT SECTION.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_3c1_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(c)2 CONTROLS FOR HOT WATER DISTRIBUTION SYSTEMS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">SERVICE HOT WATER SYSTEMS WITH CIRCULATING PUMPS OR WITH ELECTRICAL HEAT TRACE SYSTEMS SHALL BE CAPABLE OF AUTOMATICALLY TURNING OFF THE SYSTEM.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If H03_CirculatingPumpControls == ReqYes
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c2Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO 
+                                       <d:t24refnolink/>110.3c2 
+                                       <d:b>APPLIES</d:b>:  
+
+SYSTEMS SERVING HEALTHCARE FACILITIES.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_3c2_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(c)3 INSULATION </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">UNFIRED WATER HEATER STORAGE TANKS AND BACKUP TANKS FOR SOLAR WATER-HEATING SYSTEMS SHALL HAVE: 
+                                       <d:l t="A">
+                                          <d:list>EXTERNAL INSULATION WITH AN INSTALLED R-VALUE 
+                                             <d:gte/> R-12; OR </d:list>
+                                          <d:list>INTERNAL AND EXTERNAL INSULATION WITH A COMBINED R-VALUE 
+                                             <d:gte/>R-16; OR </d:list>
+                                          <d:list>THE HEAT LOSS OF THE TANK SURFACE BASED ON AN 80
+                                             <d:deg/>F WATER-AIR TEMPERATURE DIFFERENCE SHALL BE 
+                                             <d:lt/> 6.5 BTU/HR/FT2.</d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F18_StorageTankInsulation  ==  ReqYes
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c4_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(c)4 WATER HEATER RECIRCULATION LOOPS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">WATER HEATING RECIRCULATION LOOPS SERVING MULTIPLE DWELLING UNITS, HIGH-RISE RESIDENTIAL, HOTEL/MOTEL AND NONRESIDENTIAL OCCUPANCIES SHALL HAVE: 
+                                       <d:l t="A">
+                                          <d:list>AIR RELEASE VALVE OR VERTICAL PUMP INSTALLATION </d:list>
+                                          <d:list>RECIRCULATION LOOP BACKFLOW PREVENTION </d:list>
+                                          <d:list>EQUIPMENT FOR PUMP PRIMING </d:list>
+                                          <d:list>PUMP ISOLATION VALVES  </d:list>
+                                          <d:list>COLD WATER SUPPLY AND RECIRCULATION LOOP CONNECTION TO HOT WATER STORAGE TANK </d:list>
+                                          <d:list>COLD WATER SUPPLY BACKFLOW PREVENTION </d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If G01_AirReleaseValve  == ReqYes And 
+ G02_BackflowCheckValve == ReqYes And 
+G03_HoseBibb == ReqYes And 
+G04_IsolationValves == ReqYes And 
+G05_TankDrainPort == ReqYes And
+G06_ColdWaterCheckValve == ReqYes
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c5_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(c)5 STATE BUILDINGS </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">AT LEAST 60% OF THE ENERGY FOR SERVICE WATER HEATING IN NEWLY CONSTRUCTED STATE BUILDINGS SHALL BE PROVIDED BY SITE SOLAR ENERGY OR RECOVERED ENERGY.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F19_StateBuildingWaterHeatingEnergy   ==  ReqYes
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c5Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION</d:b> TO 
+                                       <d:t24refnolink/>110.3c5 
+                                       <d:b>APPLIES</d:b>:  
+
+BUILDINGS FOR WHICH THE STATE ARCHITECT DETERMINES THAT THIS IS ECONOMICALLY OR PHYSICALLY INFEASIBLE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM110_3c5_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_3c6_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.3(c)6 ISOLATION VALVES </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">INSTANTANEOUS WATER HEATERS WITH AN INPUT RATING 
+                                       <d:gt/> 6.8 KBTU/HR (2KW) SHALL HAVE ISOLATION VALVES ON BOTH COLD WATER SUPPLY AND HOT WATER PIPE LEAVING THE WATER HEATER, AND HOSE BIBS OR OTHER FITTINGS ON EACH VALVE FOR FLUSHING THE WATER HEATER WHEN THE VALVES ARE CLOSED.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If F20_InstantaneousIsolationValves  ==  ReqYes
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_8a_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.8(a) INSULATION CERTIFICATION </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">INSTALLED INSULATION SHALL BE CERTIFIED BY THE DEPARTMENT OF CONSUMER AFFAIRS PER TITLE 24, PART 12, CHAPTERS 12-13, ARTICLE 3 "STANDARDS FOR INSULATING MATERIAL."</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section G is required because 
+B03bNew_ProjectHasDistribution == true Or 
+B03bAltered_ProjectHasDistribution == true 
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_8b_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.8(b) UREA FORMALDEHYDE INSULATION </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">UREA FORMALDEHYDE INSULATION SHALL NOT BE INSTALLED UNLESS IN EXTERIOR SIDE WALLS WITH A FOUR-MIL-THICK PLASTIC POLYETHYLENE VAPOR RETARDER OR EQUIVALENT PLASTIC SHEATHING VAPOR RETARDER IS INSTALLED BETWEEN THE UREA FORMALDEHYDE FOAM INSULATION AND THE INTERIOR SPACE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section G is required because 
+B03bNew_ProjectHasDistribution == true Or 
+B03bAltered_ProjectHasDistribution == true 
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_8c_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.8(c) INSULATING MATERIAL </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">ALL INSULATING MATERIALS SHALL BE INSTALLED IN COMPLIANCE WITH THE FLAME SPREAD RATING AND SMOKE DENSITY REQUIREMENTS OF THE CALIFORNIA BUILDING CODE.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If Section G is required because 
+B03bNew_ProjectHasDistribution == true Or 
+B03bAltered_ProjectHasDistribution == true 
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM110_8d2_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>110.8(d) WATER HEATER INSULATION ADDED TO EXISTING TANK </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">IF EXTERNAL INSULATION IS INSTALLED ON EXISTING UNFIRED WATER STORAGE TANK OR EXISTING BACK-UP TANK FOR A SOLAR WATER-HEATING SYSTEM, IT SHALL HAVE:
+                                       <d:l t="*">
+                                          <d:list>R-VALUE 
+                                             <d:gte/> R-12, OR </d:list>
+                                          <d:list>THE HEAT LOSS OF THE TANK SURFACE BASED ON AN 80
+                                             <d:deg/>F WATER-AIR TEMPERATURE DIFFERENCE SHALL BE 
+                                             <d:lt/> 6.5 BTU/HR/FT2.</d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If B03aAltered_ProjectHasEquipment  == true
+And
+F02_WaterHeaterType   == StorageConsumerStorageResDutyCommercial  Or  StorageConsumerElectric
+ 
+Or
+F08_WaterHeaterType ==  StorageCommercial Or  StorageCommercialElectric
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+ 
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_3_MeasureApplies" type="comp:MeasureApplies">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">
+                                       <d:b>
+                                          <d:t24refnolink/>120.3 PIPE INSULATION </d:b>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">PIPE INSULATION THAT COMPLIES WITH TABLE 120.3-A, OR INSULATION THICKNESS EQUATION IN 
+                                       <d:t24refnolink/>120.3(c) IS REQUIRED FOR: 
+                                       <d:l t="*">
+                                          <d:list>RECIRCULATION SYSTEM PIPING, INCLUDING WATER HEATER SUPPLY AND RETURN; </d:list>
+                                          <d:list>THE FIRST 8 FEET OF HOT AND COLD OUTLET PIPING, INCLUDING PIPING BETWEEN THE STORAGE TANK AND A HEAT TRAP, FOR NONRECIRCULATION STORAGE SYSTEM;</d:list>
+                                          <d:list>PIPES THAT ARE EXTERNALLY HEATED</d:list>
+                                       </d:l>
+                                       <d:line1/>PIPE INSULATION SHALL BE PROTECTED FROM DAMAGE, INCLUDING THAT DUE TO SUNLIGHT, MOISTURE, EQUIPMENT MAINTENANCE, AND WIND. PROTECTION SHALL INCLUDE BUT NOT BE LIMITED TO THE FOLLOWING: 
+                                       <d:l t="*">
+                                          <d:list>INSULATION EXPOSED TO WEATHER SHALL BE PROTECTED BY A COVER SUITABLE FOR OUTDOOR SERVICE. THE COVER SHALL BE WATER RETARDANT AND PROVIDE SHIELDING FORM SOLAR RADIATION THAT CAN CAUSE DEGRADATION OF THE MATERIAL.  ADHESIVE TAPE SHALL NOT BE USED TO PROVIDE THIS PROTECTION.</d:list>
+                                          <d:list>PIPE INSULATION BURIED BELOW GRADE MUST BE INSTALLED IN A WATER PROOF AND NON-CRUSHABLE CASING OR SLEEVE.</d:list>
+                                       </d:l>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If G12_NonresPipeInsulationComplies == true And 
+G13_PipeInsulationProtectionComplies  == true 
+ 
+result = true  FieldText and any AdditionalRequirements static text is displayed in the report
+Else result = false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_3Exc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 1</d:b> TO 
+                                       <d:t24refnolink/>120.3 
+                                       <d:b>APPLIES</d:b>:  
+
+FACTORY-INSTALLED PIPING WITHIN SPACE CONDITIONING EQUIPMENT CERTIFIED UNDER 
+                                       <d:t24refnolink/>110.1 OR 
+                                       <d:t24ref h="110.2"/>
+                                    </xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_3Exc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 2</d:b> TO 
+                                       <d:t24refnolink/>120.3 
+                                       <d:b>APPLIES</d:b>:  
+
+PIPING THAT CONVEYS FLUIDS WITH A DESIGN OPERATION TEMPERATURE RANGE BETWEEN 60
+                                       <d:deg/>F AND 105
+                                       <d:deg/>F</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_3Exc3_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 3</d:b> TO 
+                                       <d:t24refnolink/>120.3 
+                                       <d:b>APPLIES</d:b>:  
+
+WHERE HEAT GAIN OR LOSS TO OR FROM PIPING WITHOUT INSULATION WILL NOT INCREASE BUILDING SOURCE ENERGY USE</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="MM120_3Exc4_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">
+                                       <d:b>EXCEPTION 4</d:b> TO 
+                                       <d:t24refnolink/>120.3 
+                                       <d:b>APPLIES</d:b>:  
+
+PIPING THAT PENETRATES FRAMING MEMBERS SHALL NOT REQUIRE INSULATION FOR THE DISTANCE OF THE FRAMING PENETRATION.  METAL PIPING THAT PENETRATES METAL FRAMING SHALL USE GROMMETS, PLUGS, WRAPPING OR OTHER INSULATION MATERIAL TO PREVENT CONTACT WITH THE METAL FRAMING.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
+user input
+Else
+result = false
+End If
+ 
+If result == true  FieldText and AdditionalRequirements static text is displayed in the report
+Else If result == false nothing is displayed in the report
+End if</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -31,8 +488,8 @@
             <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
             <xsd:element name="ReportMMB" type="xsd:base64Binary" minOccurs="0"/>
          </xsd:sequence>
-         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20200601"/>
-         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCCPLBE"/>
+         <xsd:attribute name="revision" type="xsd:string" use="required" fixed="rev 20200601"/>
+         <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" use="required" fixed="NRCCPLBE"/>
       </xsd:complexType>
    </xsd:element>
    <xsd:complexType name="NRCCPLBE">
@@ -1772,463 +2229,6 @@ load this string value: All Individual Dwelling Units Systems</xsd:documentation
                   <xsd:element name="K02a_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Field Inspector</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-               </xsd:sequence>
-            </xsd:complexType>
-         </xsd:element>
-         <xsd:element name="Section_MandatoryMeasureBlock" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation source="FieldText">
-                  <d:b>
-                     <d:i>Service Water Heating Mandatory Measures:</d:i>
-                  </d:b>
-               </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">If NRCC-PLB-E is included in scope And 
-A04_RequestedMMB == true
-this Mandatory Measures Noteblock is required 
- 
-Else it is not required and nothing is captured or displayed
-End If</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-               <xsd:sequence>
-                  <xsd:element name="MM_BeforeNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:i>2019 Nonresidential Energy Standards Compliance (Title 24, Part 6)</d:i>
-                           </d:b>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM_BeginNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:i>The following mandatory measures have been identified as applicable to the project and must be met in order to demonstrate compliance with Title 24, Part 6</d:i>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3a_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(a) CERTIFICATION BY MANUFACTURERS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ANY SERVICE WATER HEATING SYSTEM OR EQUIPMENT MAY BE INSTALLED ONLY IF CERTIFIED TO THE ENERGY COMMISSION TO MEET ALL APPLICABLE 
-                           <d:t24refnolink/>110.3 REQUIREMENTS</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section F is required because a row has B03aNew_ProjectHasEquipment == true Or B03aAltered_ProjectHasEquipment == true
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3a1_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(a)1 TEMPERATURE CONTROLS</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">SERVICE WATER HEATING SYSTEMS SHALL BE EQUIPPED WITH AUTOMATIC TEMPERATURE CONTROLS CAPABLE OF BEING ADJUSTED FROM LOWEST TO HIGHEST ACCEPTABLE TEMPERATURES FOR THE INTENDED USE AS LISTED IN TABLE 3, CHAPTER 50 OF THE ASHRAE HANDBOOK, HVAC APPLICATIONS VOLUME, OR TABLE 613.1 OF THE CALIFORNIA PLUMBING CODE FOR HEALTHCARE FACILITIES. RESIDENTIAL OCCUPANCIES ARE EXEMPT FROM TEMPERATURE CONTROL REQUIREMENTS</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section H is required because a row in section B has B03cNew_ProjectHasControls == true Or B03cAltered_ProjectHasControls == true 
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3a1Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO 
-                           <d:t24refnolink/>110.3a1 
-                           <d:b>APPLIES</d:b>:  
-
-RESIDENTIAL OCCUPANCIES</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_3a1_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3b_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(b) EFFICIENCY </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">EQUIPMENT SHALL MEET THE APPLICABLE REQUIREMENTS OF THE APPLIANCE EFFICIENCY REGULATIONS AS REQUIRED BY 
-                           <d:t24refnolink/>110.1.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section F is required because a row has B03aNew_ProjectHasEquipment == true Or B03aAltered_ProjectHasEquipment == true
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c1_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(c)1 OUTLET TEMPERATURE CONTROLS </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ON SYSTEMS THAT HAVE A TOTAL CAPACITY GREATER THAN 167,000 BTU/HR, OUTLETS THAT REQUIRE HIGHER THAN SERVICE WATER TEMPERATURES AS LISTED IN THE ASHRAE HANDBOOK, APPLICATIONS VOLUME, SHALL HAVE SEPARATE REMOTE HEATERS, HEAT EXCHANGERS, OR BOOSTERS TO SUPPLY THE OUTLET WITH THE HIGHER TEMPERATURE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If H02_OutletTempControls == ReqYes
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c1Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO 
-                           <d:t24refnolink/>110.3c1 
-                           <d:b>APPLIES</d:b>:  
-
-SYSTEMS COVERED BY CALIFORNIA PLUMBING CODE SECTION 613.0 SHALL MEET REQUIREMENTS OF THAT SECTION.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_3c1_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c2_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(c)2 CONTROLS FOR HOT WATER DISTRIBUTION SYSTEMS </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">SERVICE HOT WATER SYSTEMS WITH CIRCULATING PUMPS OR WITH ELECTRICAL HEAT TRACE SYSTEMS SHALL BE CAPABLE OF AUTOMATICALLY TURNING OFF THE SYSTEM.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If H03_CirculatingPumpControls == ReqYes
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c2Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO 
-                           <d:t24refnolink/>110.3c2 
-                           <d:b>APPLIES</d:b>:  
-
-SYSTEMS SERVING HEALTHCARE FACILITIES.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_3c2_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c3_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(c)3 INSULATION </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">UNFIRED WATER HEATER STORAGE TANKS AND BACKUP TANKS FOR SOLAR WATER-HEATING SYSTEMS SHALL HAVE: 
-                           <d:l t="A">
-                              <d:list>EXTERNAL INSULATION WITH AN INSTALLED R-VALUE 
-                                 <d:gte/> R-12; OR </d:list>
-                              <d:list>INTERNAL AND EXTERNAL INSULATION WITH A COMBINED R-VALUE 
-                                 <d:gte/>R-16; OR </d:list>
-                              <d:list>THE HEAT LOSS OF THE TANK SURFACE BASED ON AN 80
-                                 <d:deg/>F WATER-AIR TEMPERATURE DIFFERENCE SHALL BE 
-                                 <d:lt/> 6.5 BTU/HR/FT2.</d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F18_StorageTankInsulation  ==  ReqYes
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c4_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(c)4 WATER HEATER RECIRCULATION LOOPS </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">WATER HEATING RECIRCULATION LOOPS SERVING MULTIPLE DWELLING UNITS, HIGH-RISE RESIDENTIAL, HOTEL/MOTEL AND NONRESIDENTIAL OCCUPANCIES SHALL HAVE: 
-                           <d:l t="A">
-                              <d:list>AIR RELEASE VALVE OR VERTICAL PUMP INSTALLATION </d:list>
-                              <d:list>RECIRCULATION LOOP BACKFLOW PREVENTION </d:list>
-                              <d:list>EQUIPMENT FOR PUMP PRIMING </d:list>
-                              <d:list>PUMP ISOLATION VALVES  </d:list>
-                              <d:list>COLD WATER SUPPLY AND RECIRCULATION LOOP CONNECTION TO HOT WATER STORAGE TANK </d:list>
-                              <d:list>COLD WATER SUPPLY BACKFLOW PREVENTION </d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If G01_AirReleaseValve  == ReqYes And 
- G02_BackflowCheckValve == ReqYes And 
-G03_HoseBibb == ReqYes And 
-G04_IsolationValves == ReqYes And 
-G05_TankDrainPort == ReqYes And
-G06_ColdWaterCheckValve == ReqYes
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c5_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(c)5 STATE BUILDINGS </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">AT LEAST 60% OF THE ENERGY FOR SERVICE WATER HEATING IN NEWLY CONSTRUCTED STATE BUILDINGS SHALL BE PROVIDED BY SITE SOLAR ENERGY OR RECOVERED ENERGY.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F19_StateBuildingWaterHeatingEnergy   ==  ReqYes
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c5Exc_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION</d:b> TO 
-                           <d:t24refnolink/>110.3c5 
-                           <d:b>APPLIES</d:b>:  
-
-BUILDINGS FOR WHICH THE STATE ARCHITECT DETERMINES THAT THIS IS ECONOMICALLY OR PHYSICALLY INFEASIBLE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM110_3c5_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_3c6_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.3(c)6 ISOLATION VALVES </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">INSTANTANEOUS WATER HEATERS WITH AN INPUT RATING 
-                           <d:gt/> 6.8 KBTU/HR (2KW) SHALL HAVE ISOLATION VALVES ON BOTH COLD WATER SUPPLY AND HOT WATER PIPE LEAVING THE WATER HEATER, AND HOSE BIBS OR OTHER FITTINGS ON EACH VALVE FOR FLUSHING THE WATER HEATER WHEN THE VALVES ARE CLOSED.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If F20_InstantaneousIsolationValves  ==  ReqYes
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_8a_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.8(a) INSULATION CERTIFICATION </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">INSTALLED INSULATION SHALL BE CERTIFIED BY THE DEPARTMENT OF CONSUMER AFFAIRS PER TITLE 24, PART 12, CHAPTERS 12-13, ARTICLE 3 "STANDARDS FOR INSULATING MATERIAL."</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section G is required because 
-B03bNew_ProjectHasDistribution == true Or 
-B03bAltered_ProjectHasDistribution == true 
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_8b_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.8(b) UREA FORMALDEHYDE INSULATION </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">UREA FORMALDEHYDE INSULATION SHALL NOT BE INSTALLED UNLESS IN EXTERIOR SIDE WALLS WITH A FOUR-MIL-THICK PLASTIC POLYETHYLENE VAPOR RETARDER OR EQUIVALENT PLASTIC SHEATHING VAPOR RETARDER IS INSTALLED BETWEEN THE UREA FORMALDEHYDE FOAM INSULATION AND THE INTERIOR SPACE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section G is required because 
-B03bNew_ProjectHasDistribution == true Or 
-B03bAltered_ProjectHasDistribution == true 
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_8c_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.8(c) INSULATING MATERIAL </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">ALL INSULATING MATERIALS SHALL BE INSTALLED IN COMPLIANCE WITH THE FLAME SPREAD RATING AND SMOKE DENSITY REQUIREMENTS OF THE CALIFORNIA BUILDING CODE.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Section G is required because 
-B03bNew_ProjectHasDistribution == true Or 
-B03bAltered_ProjectHasDistribution == true 
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM110_8d2_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>110.8(d) WATER HEATER INSULATION ADDED TO EXISTING TANK </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">IF EXTERNAL INSULATION IS INSTALLED ON EXISTING UNFIRED WATER STORAGE TANK OR EXISTING BACK-UP TANK FOR A SOLAR WATER-HEATING SYSTEM, IT SHALL HAVE:
-                           <d:l t="*">
-                              <d:list>R-VALUE 
-                                 <d:gte/> R-12, OR </d:list>
-                              <d:list>THE HEAT LOSS OF THE TANK SURFACE BASED ON AN 80
-                                 <d:deg/>F WATER-AIR TEMPERATURE DIFFERENCE SHALL BE 
-                                 <d:lt/> 6.5 BTU/HR/FT2.</d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If B03aAltered_ProjectHasEquipment  == true
-And
-F02_WaterHeaterType   == StorageConsumerStorageResDutyCommercial  Or  StorageConsumerElectric
- 
-Or
-F08_WaterHeaterType ==  StorageCommercial Or  StorageCommercialElectric
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
- 
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM120_3_MeasureApplies" type="comp:MeasureApplies">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>
-                              <d:t24refnolink/>120.3 PIPE INSULATION </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">PIPE INSULATION THAT COMPLIES WITH TABLE 120.3-A, OR INSULATION THICKNESS EQUATION IN 
-                           <d:t24refnolink/>120.3(c) IS REQUIRED FOR: 
-                           <d:l t="*">
-                              <d:list>RECIRCULATION SYSTEM PIPING, INCLUDING WATER HEATER SUPPLY AND RETURN; </d:list>
-                              <d:list>THE FIRST 8 FEET OF HOT AND COLD OUTLET PIPING, INCLUDING PIPING BETWEEN THE STORAGE TANK AND A HEAT TRAP, FOR NONRECIRCULATION STORAGE SYSTEM;</d:list>
-                              <d:list>PIPES THAT ARE EXTERNALLY HEATED</d:list>
-                           </d:l>
-                           <d:line1/>PIPE INSULATION SHALL BE PROTECTED FROM DAMAGE, INCLUDING THAT DUE TO SUNLIGHT, MOISTURE, EQUIPMENT MAINTENANCE, AND WIND. PROTECTION SHALL INCLUDE BUT NOT BE LIMITED TO THE FOLLOWING: 
-                           <d:l t="*">
-                              <d:list>INSULATION EXPOSED TO WEATHER SHALL BE PROTECTED BY A COVER SUITABLE FOR OUTDOOR SERVICE. THE COVER SHALL BE WATER RETARDANT AND PROVIDE SHIELDING FORM SOLAR RADIATION THAT CAN CAUSE DEGRADATION OF THE MATERIAL.  ADHESIVE TAPE SHALL NOT BE USED TO PROVIDE THIS PROTECTION.</d:list>
-                              <d:list>PIPE INSULATION BURIED BELOW GRADE MUST BE INSTALLED IN A WATER PROOF AND NON-CRUSHABLE CASING OR SLEEVE.</d:list>
-                           </d:l>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If G12_NonresPipeInsulationComplies == true And 
-G13_PipeInsulationProtectionComplies  == true 
- 
-result = true  FieldText and any AdditionalRequirements static text is displayed in the report
-Else result = false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM120_3Exc1_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 1</d:b> TO 
-                           <d:t24refnolink/>120.3 
-                           <d:b>APPLIES</d:b>:  
-
-FACTORY-INSTALLED PIPING WITHIN SPACE CONDITIONING EQUIPMENT CERTIFIED UNDER 
-                           <d:t24refnolink/>110.1 OR 
-                           <d:t24ref h="110.2"/>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM120_3Exc2_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 2</d:b> TO 
-                           <d:t24refnolink/>120.3 
-                           <d:b>APPLIES</d:b>:  
-
-PIPING THAT CONVEYS FLUIDS WITH A DESIGN OPERATION TEMPERATURE RANGE BETWEEN 60
-                           <d:deg/>F AND 105
-                           <d:deg/>F</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM120_3Exc3_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 3</d:b> TO 
-                           <d:t24refnolink/>120.3 
-                           <d:b>APPLIES</d:b>:  
-
-WHERE HEAT GAIN OR LOSS TO OR FROM PIPING WITHOUT INSULATION WILL NOT INCREASE BUILDING SOURCE ENERGY USE</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="MM120_3Exc4_ExceptionApplies" type="comp:ExceptionApplies" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:b>EXCEPTION 4</d:b> TO 
-                           <d:t24refnolink/>120.3 
-                           <d:b>APPLIES</d:b>:  
-
-PIPING THAT PENETRATES FRAMING MEMBERS SHALL NOT REQUIRE INSULATION FOR THE DISTANCE OF THE FRAMING PENETRATION.  METAL PIPING THAT PENETRATES METAL FRAMING SHALL USE GROMMETS, PLUGS, WRAPPING OR OTHER INSULATION MATERIAL TO PREVENT CONTACT WITH THE METAL FRAMING.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If MM120_3_MeasureApplies == true, 
-user input
-Else
-result = false
-End If
- 
-If result == true  FieldText and AdditionalRequirements static text is displayed in the report
-Else If result == false nothing is displayed in the report
-End if</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>

@@ -758,6 +758,28 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="AsBuiltSetDate">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+         <xsd:documentation source="propertyrules">Date of the as-built set in format yyyy-mm-dd</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:date">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="AsBuiltSetName">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">Name of the as-built set</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="AuthorityHavingJurisdiction">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">This is a string identifying the enforcement agency for the project.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:ObjectNamePermissive">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="AutoScheduleControlsOutdoors">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -1545,6 +1567,34 @@
          <xsd:enumeration value="Performance"/>
          <xsd:enumeration value="PerformanceAndPrescriptive"/>
          <xsd:enumeration value="Prescriptive"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ComplianceResultMessageNRCI">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="ExactEqualBetterText">[d:b]Documented as-built conditions should be verified by inspector from Authorigy Having Jurisdiction to comply.[/d:b]</dtyp:displayterm>
+            <dtyp:displayterm value="MayNotComplyText">[d:b]The Certificate of Compliance should be revised to confirm as-built conditions comply and this Certificate of Installation updated accordingly.[/d:b]</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="ExactEqualBetterText"/>
+         <xsd:enumeration value="MayNotComplyText"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ComplianceResultNRCI">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="EqualBetter">INSTALLED FEATURES EQUAL OR BETTER THAN PERMITTED CERTIFICATE OF COMPLIANCE</dtyp:displayterm>
+            <dtyp:displayterm value="ExactMatch">INSTALLED FEATURES EXACTLY MATCH DESIGN ON PERMITTED CERTIFICATE OF COMPLIANCE</dtyp:displayterm>
+            <dtyp:displayterm value="FormNotComplete">FORM NOT COMPLETE</dtyp:displayterm>
+            <dtyp:displayterm value="MayNotComply">INSTALLED FEATURES MAY NOT COMPLY UNLESS PERMITTED CERTIFICATE OF COMPLIANCE REVISED</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="EqualBetter"/>
+         <xsd:enumeration value="ExactMatch"/>
+         <xsd:enumeration value="FormNotComplete"/>
+         <xsd:enumeration value="MayNotComply"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ComplianceSoftwareVersion">
@@ -4813,6 +4863,31 @@
          <xsd:enumeration value="SubAreaComplianceInF"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ExceptionalConditionMessageNRCIMCHE">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>NRCI-MCH-E Exceptional Condition Message</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="BoilerNoMatch">Control requirements on the Boiler Efficiency and Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="ChillerNoMatch">Control requirements on the Chililer Efficiency and Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="FanEconNoMatch">Fan economizer requirements on the Fans and Air Economizer  subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets economizer requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="HeatRejNoMatch">Control requirements on the Heat Rejection Efficiency and Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="PumpsNoMatch">Control requirements on the Pumps Efficiency and Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="SysControlsNoMatch">Control requirements on the System Controls Efficiency and Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="VentNoMatch">Control requirements on the Ventilation Efficiency and Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="BoilerNoMatch"/>
+         <xsd:enumeration value="ChillerNoMatch"/>
+         <xsd:enumeration value="FanEconNoMatch"/>
+         <xsd:enumeration value="HeatRejNoMatch"/>
+         <xsd:enumeration value="PumpsNoMatch"/>
+         <xsd:enumeration value="SysControlsNoMatch"/>
+         <xsd:enumeration value="VentNoMatch"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionNote">
       <xsd:restriction base="xsd:token">
       </xsd:restriction>
@@ -4904,7 +4979,7 @@
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="HasSpecialOutsideAirFiltration">NA: Special OA filtration</dtyp:displayterm>
-            <dtyp:displayterm value="HasWatersideEconomizer">Waterside Economizer (see Tbl. F)</dtyp:displayterm>
+            <dtyp:displayterm value="HasWatersideEconomizer">Waterside Economizer</dtyp:displayterm>
             <dtyp:displayterm value="HighRiseResHotelMotel">NA: High-rise res/hotel/motel</dtyp:displayterm>
             <dtyp:displayterm value="LTE54kBtuPerHrCooling">NA: [d:lte/]54 kBtu/h cooling</dtyp:displayterm>
             <dtyp:displayterm value="MeetsEfficiencyTable140_4A">NA: Efficiency per Table 140.4-D</dtyp:displayterm>
@@ -5718,6 +5793,16 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:token">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="InstalledSameAsCC">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="InstantaneousIsolationValves">
@@ -7447,6 +7532,21 @@
       <xsd:restriction base="dtyp:EnumerationConstant">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="PermitSetDate">
+      <xsd:annotation>
+         <xsd:documentation>  Units: none</xsd:documentation>
+         <xsd:documentation source="propertyrules">Date of the permit set in format yyyy-mm-dd</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:date">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="PermitSetName">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">Name of the permit set</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="PermitYear">
       <xsd:annotation>
          <xsd:documentation>The year that the permit application is submitted to the building department. Used to determine applicability of Standards requirements that become effective at future dates.  Units: none</xsd:documentation>
@@ -7834,6 +7934,16 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasDrySystemEquipment">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasDuctwork">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -7936,6 +8046,16 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasHeatRejectionEquipment">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasLabExhaust">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -7992,11 +8112,31 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasSystemControls">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasSystemPiping">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
             <dtyp:displayterm>System Piping</dtyp:displayterm>
          </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasTerminalBoxControls">
+      <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
             <dtyp:displayterm value="false">No</dtyp:displayterm>
