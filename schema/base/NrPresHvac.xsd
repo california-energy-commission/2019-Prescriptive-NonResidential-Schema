@@ -9,6 +9,13 @@
    elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.1.003">
    <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="NrPresCommon.xsd"/>
    <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="DataTypes.xsd"/>
+   <xsd:simpleType name="AirflowDesignRate">
+      <xsd:annotation>
+         <xsd:documentation>  Units: ft3 per min</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="AirflowMeasuredRate">
       <xsd:annotation>
          <xsd:documentation>  Units: ft3 per min</xsd:documentation>
@@ -1357,6 +1364,7 @@
             <dtyp:displayterm value="EquipmentNA">NA: PTAC, PTHP, Rm AC, HP</dtyp:displayterm>
             <dtyp:displayterm value="HealthcareNA">NA: Healthcare only</dtyp:displayterm>
             <dtyp:displayterm value="OtherControl">Other*</dtyp:displayterm>
+            <dtyp:displayterm value="TempSensitiveNA">NA: Serves temp. sensitive process</dtyp:displayterm>
             <dtyp:displayterm value="ThermostatDR">DR Tstat per [d:t24ref/]110.12</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -1365,6 +1373,7 @@
          <xsd:enumeration value="EquipmentNA"/>
          <xsd:enumeration value="HealthcareNA"/>
          <xsd:enumeration value="OtherControl"/>
+         <xsd:enumeration value="TempSensitiveNA"/>
          <xsd:enumeration value="ThermostatDR"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -1404,7 +1413,10 @@
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="AlteredNA">NA: Alteration</dtyp:displayterm>
+            <dtyp:displayterm value="ControlsPreventNA">NA: Controls prevent reheat/recool/simultaneous</dtyp:displayterm>
             <dtyp:displayterm value="HealthcareNA">NA: Healthcare only</dtyp:displayterm>
+            <dtyp:displayterm value="HumidSensitiveNA">NA: Serves humidity sensitive process</dtyp:displayterm>
+            <dtyp:displayterm value="IncreaseEnergyNA">NA: Would increase energy use</dtyp:displayterm>
             <dtyp:displayterm value="ResetExempt">Exempt*</dtyp:displayterm>
             <dtyp:displayterm value="ResetIncluded">Included</dtyp:displayterm>
             <dtyp:displayterm value="SingleZoneNA">NA: Single Zone</dtyp:displayterm>
@@ -1412,7 +1424,10 @@
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="AlteredNA"/>
+         <xsd:enumeration value="ControlsPreventNA"/>
          <xsd:enumeration value="HealthcareNA"/>
+         <xsd:enumeration value="HumidSensitiveNA"/>
+         <xsd:enumeration value="IncreaseEnergyNA"/>
          <xsd:enumeration value="ResetExempt"/>
          <xsd:enumeration value="ResetIncluded"/>
          <xsd:enumeration value="SingleZoneNA"/>
@@ -2998,11 +3013,13 @@
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="BHP">BHP</dtyp:displayterm>
+            <dtyp:displayterm value="InH2O">Inches water column</dtyp:displayterm>
             <dtyp:displayterm value="Watts">Watts</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="BHP"/>
+         <xsd:enumeration value="InH2O"/>
          <xsd:enumeration value="Watts"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -3697,8 +3714,8 @@
             <dtyp:displayterm value="AmericanHPE10260">HPE10260H045DV  (60 gal)</dtyp:displayterm>
             <dtyp:displayterm value="AmericanHPE10280">HPE10280H045DV  (80 gal)</dtyp:displayterm>
             <dtyp:displayterm value="AmericanHPE6280">HPE6280H045DV 102  (80 gal)</dtyp:displayterm>
-            <dtyp:displayterm value="AmericanHPHE10250">HPHE10250H045DV 102  (50 gal)</dtyp:displayterm>
-            <dtyp:displayterm value="AmericanHPHE10250N">HPHE10250H045DVN 102  (50 gal)</dtyp:displayterm>
+            <dtyp:displayterm value="AmericanHPHE10250">HPHE10250H045DV 120  (50 gal)</dtyp:displayterm>
+            <dtyp:displayterm value="AmericanHPHE10250N">HPHE10250H045DVN 120  (50 gal)</dtyp:displayterm>
             <dtyp:displayterm value="AmericanHPHE10266NRes">HPHE10266H045DVN 120  (66 gal)</dtyp:displayterm>
             <dtyp:displayterm value="AmericanHPHE10266Res">HPHE10266H045DV 120  (66 gal)</dtyp:displayterm>
             <dtyp:displayterm value="AmericanHPHE10280NRes">HPHE10280H045DVN 120  (80 gal)</dtyp:displayterm>
@@ -4437,6 +4454,10 @@
       <xsd:restriction base="dtyp:DecimalNonnegative">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="IAQ_FanLocation">
+      <xsd:restriction base="xsd:token">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="IAQ_InfiltrationVentilation">
       <xsd:annotation>
          <xsd:documentation>  Units: ft3 per min</xsd:documentation>
@@ -4468,6 +4489,15 @@
    </xsd:simpleType>
    <xsd:simpleType name="IndoorType">
       <xsd:restriction base="dtyp:EnumerationConstant">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="IndoorUnitName">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Indoor unit name</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:token">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="InteriorTankInsulation">
@@ -4599,12 +4629,14 @@
    <xsd:simpleType name="LoopTankType">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="CommercialHPWH">Commercial HPWH</dtyp:displayterm>
             <dtyp:displayterm value="ElectricResistance">Electric Resistance</dtyp:displayterm>
             <dtyp:displayterm value="LargeCompressor">Large Compressor</dtyp:displayterm>
             <dtyp:displayterm value="NEEA">NEEA</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="CommercialHPWH"/>
          <xsd:enumeration value="ElectricResistance"/>
          <xsd:enumeration value="LargeCompressor"/>
          <xsd:enumeration value="NEEA"/>
@@ -8393,6 +8425,16 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="VentilationOperationRuntime">
+      <xsd:annotation>
+         <xsd:documentation>  Units: min per h</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Ventilation Operation Runtime</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="VentilationOperationSchedule">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -8468,6 +8510,32 @@
    </xsd:simpleType>
    <xsd:simpleType name="VentilationSystemName">
       <xsd:restriction base="xsd:token">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="VentilationSystemType">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Balanced">Balanced</dtyp:displayterm>
+            <dtyp:displayterm value="BalancedCentralVent">Central Ventilation System - Balanced</dtyp:displayterm>
+            <dtyp:displayterm value="BalancedERV">Balanced ERV</dtyp:displayterm>
+            <dtyp:displayterm value="BalancedHRV">Balanced HRV</dtyp:displayterm>
+            <dtyp:displayterm value="CentralFanIntegrated">Central Fan Integrated (CFI)</dtyp:displayterm>
+            <dtyp:displayterm value="ExhaustCentralVent">Central Ventilation System - Exhaust</dtyp:displayterm>
+            <dtyp:displayterm value="ExhaustVent">Exhaust</dtyp:displayterm>
+            <dtyp:displayterm value="SupplyCentralVent">Central Ventilation System - Supply</dtyp:displayterm>
+            <dtyp:displayterm value="SupplyVent">Supply</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Balanced"/>
+         <xsd:enumeration value="BalancedCentralVent"/>
+         <xsd:enumeration value="BalancedERV"/>
+         <xsd:enumeration value="BalancedHRV"/>
+         <xsd:enumeration value="CentralFanIntegrated"/>
+         <xsd:enumeration value="ExhaustCentralVent"/>
+         <xsd:enumeration value="ExhaustVent"/>
+         <xsd:enumeration value="SupplyCentralVent"/>
+         <xsd:enumeration value="SupplyVent"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="VentSystemOA">
@@ -8894,24 +8962,28 @@
       <xsd:annotation>
          <xsd:documentation>Air System equipment subtype</xsd:documentation>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="SinglePackaged1Phase">Packaged 1 Phase equipment</dtyp:displayterm>
-            <dtyp:displayterm value="SinglePackaged3Phase">Packaged 3 Phase equipment</dtyp:displayterm>
-            <dtyp:displayterm value="Split1Phase">Split 1 Phase equipment</dtyp:displayterm>
-            <dtyp:displayterm value="Split3Phase">Split 3 Phase equipment</dtyp:displayterm>
+            <dtyp:displayterm value="Embedded">Embedded</dtyp:displayterm>
             <dtyp:displayterm value="Floor">Zone System Floor Equipment</dtyp:displayterm>
             <dtyp:displayterm value="Other">Zone System Other Equipment</dtyp:displayterm>
+            <dtyp:displayterm value="SinglePackaged1Phase">Packaged 1 Phase equipment</dtyp:displayterm>
+            <dtyp:displayterm value="SinglePackaged3Phase">Packaged 3 Phase equipment</dtyp:displayterm>
+            <dtyp:displayterm value="Panel">Panel</dtyp:displayterm>
             <dtyp:displayterm value="Room">Zone System Room Equipment</dtyp:displayterm>
+            <dtyp:displayterm value="Split1Phase">Split 1 Phase equipment</dtyp:displayterm>
+            <dtyp:displayterm value="Split3Phase">Split 3 Phase equipment</dtyp:displayterm>
             <dtyp:displayterm value="Wall">Zone System Wall Equipment</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="SinglePackaged1Phase"/>
-         <xsd:enumeration value="SinglePackaged3Phase"/>
-         <xsd:enumeration value="Split1Phase"/>
-         <xsd:enumeration value="Split3Phase"/>
+         <xsd:enumeration value="Embedded"/>
          <xsd:enumeration value="Floor"/>
          <xsd:enumeration value="Other"/>
+         <xsd:enumeration value="SinglePackaged1Phase"/>
+         <xsd:enumeration value="SinglePackaged3Phase"/>
+         <xsd:enumeration value="Panel"/>
          <xsd:enumeration value="Room"/>
+         <xsd:enumeration value="Split1Phase"/>
+         <xsd:enumeration value="Split3Phase"/>
          <xsd:enumeration value="Wall"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -8939,6 +9011,7 @@
             <dtyp:displayterm value="PassiveBeam">Passive Beam</dtyp:displayterm>
             <dtyp:displayterm value="PTAC">Package Terminal Air Conditioner</dtyp:displayterm>
             <dtyp:displayterm value="PTHP">Package Terminal Heat Pump</dtyp:displayterm>
+            <dtyp:displayterm value="Radiant">Radiant</dtyp:displayterm>
             <dtyp:displayterm value="SPVAC">Single Package VAC</dtyp:displayterm>
             <dtyp:displayterm value="SPVHP">Single Package VHP</dtyp:displayterm>
             <dtyp:displayterm value="SZAC">Single Zone Air Conditioner</dtyp:displayterm>
@@ -8946,7 +9019,6 @@
             <dtyp:displayterm value="VentilationOnly">Ventilation Only</dtyp:displayterm>
             <dtyp:displayterm value="VRF">Variable Refrigerant Flow</dtyp:displayterm>
             <dtyp:displayterm value="WSHP">Water Source Heat Pump Zone System</dtyp:displayterm>
-            <dtyp:displayterm value="Furnace">Furnace</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -8958,6 +9030,7 @@
          <xsd:enumeration value="PassiveBeam"/>
          <xsd:enumeration value="PTAC"/>
          <xsd:enumeration value="PTHP"/>
+         <xsd:enumeration value="Radiant"/>
          <xsd:enumeration value="SPVAC"/>
          <xsd:enumeration value="SPVHP"/>
          <xsd:enumeration value="SZAC"/>
@@ -8965,7 +9038,6 @@
          <xsd:enumeration value="VentilationOnly"/>
          <xsd:enumeration value="VRF"/>
          <xsd:enumeration value="WSHP"/>
-         <xsd:enumeration value="Furnace"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ZoneSystemVentilationConnectionType">

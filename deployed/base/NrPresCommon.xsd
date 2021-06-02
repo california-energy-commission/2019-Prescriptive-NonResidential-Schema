@@ -680,11 +680,38 @@
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="DwellingUnitConditionedFloorArea">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft2</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="DwellingUnitEnclosureArea">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft2</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Dwelling Unit Enclosure Area</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="DwellingUnitName">
+      <xsd:restriction base="dtyp:ObjectNamePermissive"/>
+   </xsd:simpleType>
    <xsd:simpleType name="DwellingUnitsCount">
       <xsd:annotation>
          <xsd:documentation>Units: none</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="dtyp:IntegerNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="DwellingUnitsSharedWallArea">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft2</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Dwelling unit wall area shared with other dwelling units</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="ElectricalLoadType">
       <xsd:annotation>
@@ -723,6 +750,16 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="EnclosedSpace">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="ExhaustMaxFlowPerHoodLF">
       <xsd:annotation>
@@ -1164,6 +1201,70 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="WallMountedCanopy"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustMinimumAirFlow">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft3 per min</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Minimum Airflow</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustOperation">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Operation Schedule</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="ContinuousOperation">Continuous</dtyp:displayterm>
+            <dtyp:displayterm value="DemandControl">Demand Control</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="ContinuousOperation"/>
+         <xsd:enumeration value="DemandControl"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustSoundRating">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Sound Rating</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="1Sone">1 sone</dtyp:displayterm>
+            <dtyp:displayterm value="3Sone">3 sone</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="1Sone"/>
+         <xsd:enumeration value="3Sone"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustSystemName">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Kitchen Exhaust System Name</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="KitchenExhaustSystemType">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Kitchen Exhaust System Type</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Downdraft">Downdraft</dtyp:displayterm>
+            <dtyp:displayterm value="Other">Other</dtyp:displayterm>
+            <dtyp:displayterm value="VentedRangeHood">Vented Range Hood</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="Downdraft"/>
+         <xsd:enumeration value="Other"/>
+         <xsd:enumeration value="VentedRangeHood"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="KitchenHoodType">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -1291,6 +1392,14 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:enumeration value="ExistingUnchanged"/>
          <xsd:enumeration value="New"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ManufacturerName">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Manufacturer Name</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:token"/>
    </xsd:simpleType>
    <xsd:simpleType name="Month">
       <xsd:annotation>
@@ -1487,6 +1596,20 @@ receives the most illumination.  Units: ft2</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ResidentialBuildingTypeMechExhaust">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="MultiFamily">Multifamily</dtyp:displayterm>
+            <dtyp:displayterm value="SingleFamilyAttached">Single family attached</dtyp:displayterm>
+            <dtyp:displayterm value="SingleFamilyDetached">Single family detached</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="MultiFamily"/>
+         <xsd:enumeration value="SingleFamilyAttached"/>
+         <xsd:enumeration value="SingleFamilyDetached"/>
+      </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="RoomCavityRatio">
       <xsd:annotation>
@@ -2322,20 +2445,20 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm>UFactor</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:Decimal3PlacesNonnegative"/>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="UFactorCenterOfGlass">
       <xsd:annotation>
          <xsd:documentation>The overall coefficient of thermal transmittance through glass of a fenestration product.  Units: Btu per h ft2 F</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:Decimal3PlacesNonnegative"/>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="UFactorLimit">
       <xsd:annotation>
          <xsd:documentation>This is the regulatory limit for the UFactor of a building element  Units: Btu per h ft2 F</xsd:documentation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="dtyp:Decimal3PlacesNonnegative"/>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="UFactorLimitSkylight">
       <xsd:annotation>

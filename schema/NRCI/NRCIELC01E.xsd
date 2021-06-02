@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+   targetNamespace="http://www.lmonte.com/besm/NRCIELC01E"
+   xmlns="http://www.lmonte.com/besm/NRCIELC01E"
+   xmlns:d="http://www.lmonte.com/besm/d"
+   xmlns:bld="http://www.lmonte.com/besm/bld"
+   xmlns:env="http://www.lmonte.com/besm/env"
+   xmlns:lit="http://www.lmonte.com/besm/lit"
+   xmlns:hvac="http://www.lmonte.com/besm/hvac"
+   xmlns:comp="http://www.lmonte.com/besm/comp"
+   xmlns:com="http://www.lmonte.com/besm/com"
+   xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:altova="http://www.altova.com/xml-schema-extensions"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.1.003">
+   <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/lit" schemaLocation="../base/NrPresLighting.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="../base/NrPresHvac.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="../base/DataTypes.xsd"/>
+   <xsd:element name="ComplianceDocumentPackage">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="DocID" minOccurs="0">
+               <xsd:complexType>
+                  <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCIELC01E"/>
+                  <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CertificateInstallationNR"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Electrical Power Distribution"/>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Payload" type="comp:Payload"/>
+            <xsd:element name="DocumentData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="Header" type="comp:HeaderNRCI" />
+                     <xsd:element ref="nRCIELC01E" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCI" maxOccurs="unbounded" />
+                     <xsd:element name="Footer" type="comp:FooterNRCC" />
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+         </xsd:sequence>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20210701"/>
+         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCIELC01E"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="NRCIELC01E">
+      <xsd:annotation>
+         <xsd:documentation>Electrical Power Distribution</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b] A. GENERAL INFORMATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="A_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This Certificate of Installation documents the installation of electrical system features, materials, components, and manufactured devices required to demonstrate compliance with Title 24, Part 6 per  [d:t24ref/]10-103(a)3 for nonresidential, hotel/motel and high-rise residential occupancies.[/d:i]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This note should be placed after the header and before section A</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent, 
+result = A01_ProjectCity
+Else If  NRCC-PRF parent, 
+result = Info01_ProjectCity
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02_ProjectZipcode" type="comp:ProjectZipcode" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Zip Code</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent, 
+User input
+Else If  NRCC-PRF parent, 
+result = Info02_ProjectZipcode
+Else
+User input
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03_PermitSetDate" type="comp:PermitSetDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A04_PermitSetName" type="comp:PermitSetName" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A05_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Authority Having Jurisdiction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A06_PermitNumber" type="comp:PermitNumber" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building Permit #</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A07_AsBuiltSetDate" type="comp:AsBuiltSetDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_B" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b] B. INSTALLER SCOPE[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="B_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates the construction systems and materials documented on this Nonresidential Certificate of Installation. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01a_ProjectHasServiceMeter" type="comp:ProjectHasServiceMeter" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Electrical Service Meter(s)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01b_ProjectHasLoadSeparation" type="comp:ProjectHasLoadSeparation" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Separation of load downstream of meter(s)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01c_ProjectHasReceptacleControl" type="comp:ProjectHasReceptacleControl" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">120V Receptacle (Outlet) Control(s)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01d_ProjectHasVoltDrop" type="comp:ProjectHasVoltDrop" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Voltage Drop to feeders</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01e_ProjectHasVoltDrop" type="comp:ProjectHasVoltDrop" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Voltage Drop to branch circuits</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_C" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]C. COMPLIANCE RESULTS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="C_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates whether the as-built conditions documented in this form are equal or better than what was documented on the permitted Certificate of Compliance.  If the installation is not equal or better, Section 10-103(a)2B requires the Certificate of Compliance form to be revised accordingly to demonstrate compliance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+If in any required tables or subsections in Section F 
+ ComplianceResultNRCI ==  FormNotComplete
+result = FormNotComplete
+Else If ComplianceResultNRCI == MayNotComply
+result = MayNotComply
+ 
+Else If All require tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
+result = ExactMatch
+Else If any have ComplianceResultNRCI ==  EqualBetter
+result = EqualBetter
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01Message_ComplianceResultMessageNRCI" type="comp:ComplianceResultMessageNRCI" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+If C01_ComplianceResultNRCI == ExactMatch Or EqualBetter
+result = ExactEqualBetterText
+Else If C01_ComplianceResultNRCI == MayNotComply
+result =  MayNotComplyText
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_D" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]D. EXCEPTIONAL CONDITIONS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="D_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is auto-filled with uneditable comments because of field conditions noted by the installer that may impact requirements documented on the Certificate of Compliance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="D01_ExceptionalConditionMessageNRCIELCE" type="comp:ExceptionalConditionMessageNRCIELCE"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the completed compliance document</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_E" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]E. INSTALLER NOTES[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="E_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes remarks made by the permit applicant to the Authority Having Jurisdiction.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E01_CommentsToPermitAuthority" type="comp:CommentsToPermitAuthority"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_F" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]F. INSTALLATION DETAILS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="F_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]The following tables indicate performance requirements as documented on the permitted Certificate of Compliance (NRCC) for all systems and components included in Table B. Installer Scope.  Also included are the as-built conditions documented by the installer/documentation author. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelTopCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Per NRCC</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the top cell for all tables in Section F.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelBottomCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">As-built Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the bottom cell for all tables in Section F</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableMeter" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Service Electrical Metering[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required and displayed If B01a_ProjectHasServiceMeter == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Meter01cc_ElectricalServiceName" type="comp:ElectricalServiceName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent 
+result = NRCC-MCH F01_ElectricalServiceName
+End If
+ 
+The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter02cc_ElectricalServiceRating" type="comp:ElectricalServiceRating" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+result = NRCC-MCH F02_ElectricalServiceRating
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter02_ElectricalServiceRating" type="comp:ElectricalServiceRating" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == true
+result = Meter02cc_ElectricalServiceRating but user can change the value
+Else
+user input
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter03to06Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                          <xsd:documentation source="AdditionalRequirements">Required Metering Capabilities</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter03cc_MeteringDemandRequired" type="comp:MeteringDemandRequired" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Instantaneous Demand (kW)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+result = NRCC-MCH F03a_MeteringDemandRequired
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="true">Required</dtyp:displayterm>
+                                             <dtyp:displayterm value="false">NA</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter03_MeteringCapabilitiesAsBuilt" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Instantaneous Demand (kW)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
+If Meter01_InstalledSameAsCC == true 
+If Meter03cc_MeteringDemandRequired == false
+list only these NA options: UtilityProvidedNA and ElectCode517NA
+Else If Meter03cc_MeteringDemandRequired == true
+list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
+End If
+Else If Meter01_InstalledSameAsCC == false
+List all options for capability
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                             <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                             <xsd:enumeration value="ElectCode517NA"/>
+                                             <xsd:enumeration value="ProvidedAtFeeder"/>
+                                             <xsd:enumeration value="ProvidedAtPanel"/>
+                                             <xsd:enumeration value="ProvidedAtService"/>
+                                             <xsd:enumeration value="UtilityProvidedNA"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Meter04cc_MeteringPeakDemandRequired" type="comp:MeteringPeakDemandRequired" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+result = NRCC-MCH F03b_MeteringPeakDemandRequired
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="true">Required</dtyp:displayterm>
+                                             <dtyp:displayterm value="false">NA</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter04_MeteringCapabilitiesAsBuilt" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
+If Meter01_InstalledSameAsCC == true 
+If Meter04cc_MeteringPeakDemandRequired == false
+list only these NA options: UtilityProvidedNA, InstalledLTE250NA and ElectCode517NA
+Else If Meter04cc_MeteringPeakDemandRequired == true
+list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
+End If
+Else If Meter01_InstalledSameAsCC == false
+List all options for capability
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                             <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                             <xsd:enumeration value="ElectCode517NA"/>
+                                             <xsd:enumeration value="InstalledLTE250NA"/>
+                                             <xsd:enumeration value="ProvidedAtFeeder"/>
+                                             <xsd:enumeration value="ProvidedAtPanel"/>
+                                             <xsd:enumeration value="ProvidedAtService"/>
+                                             <xsd:enumeration value="UtilityProvidedNA"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Meter05cc_MeteringkWhPerUserPeriodRequired" type="comp:MeteringkWhPerUserPeriodRequired" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+result = NRCC-MCH F03c_MeteringkWhPerUserPeriodRequired
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="true">Required</dtyp:displayterm>
+                                             <dtyp:displayterm value="false">NA</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter05_MeteringCapabilitiesAsBuilt" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
+If Meter01_InstalledSameAsCC == true 
+If Meter05cc_MeteringkWhPerUserPeriodRequired == false
+list only these NA options: UtilityProvidedNA and ElectCode517NA
+Else If Meter05cc_MeteringkWhPerUserPeriodRequired == true
+list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
+End If
+Else If Meter01_InstalledSameAsCC == false
+List all options for capability
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                             <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                             <xsd:enumeration value="ElectCode517NA"/>
+                                             <xsd:enumeration value="ProvidedAtFeeder"/>
+                                             <xsd:enumeration value="ProvidedAtPanel"/>
+                                             <xsd:enumeration value="ProvidedAtService"/>
+                                             <xsd:enumeration value="UtilityProvidedNA"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Meter06cc_MeteringkWhPerRatePeriodRequired" type="comp:MeteringkWhPerRatePeriodRequired" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+result = NRCC-MCH F03d_MeteringkWhPerRatePeriodRequired
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="true">Required</dtyp:displayterm>
+                                             <dtyp:displayterm value="false">NA</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Meter06_MeteringCapabilitiesAsBuilt" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
+If Meter01_InstalledSameAsCC == true 
+If Meter06cc_MeteringkWhPerRatePeriodRequired
+ == false
+list only these NA options: UtilityProvidedNA, InstalledLTE1000NA and ElectCode517NA
+Else If Meter06cc_MeteringkWhPerRatePeriodRequired
+ == true
+list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
+End If
+Else If Meter01_InstalledSameAsCC == false
+List all options for capability
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                             <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                             <xsd:enumeration value="ElectCode517NA"/>
+                                             <xsd:enumeration value="InstalledLTE1000NA"/>
+                                             <xsd:enumeration value="ProvidedAtFeeder"/>
+                                             <xsd:enumeration value="ProvidedAtPanel"/>
+                                             <xsd:enumeration value="ProvidedAtService"/>
+                                             <xsd:enumeration value="UtilityProvidedNA"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Meter07_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Metering Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+result = TableIncomplete  
+ 
+Else If Meter01_InstalledSameAsCC == true
+If Meter02_ElectricalServiceRating == Meter02cc_ElectricalServiceRating 
+And
+ 
+Meter03cc_MeteringDemandRequired == false And 
+Meter03_MeteringCapabilitiesAsBuilt == UtilityProvidedNA Or ElectCode517NA
+Or  
+Meter03cc_MeteringDemandRequired == true And
+Meter03_MeteringCapabilitiesAsBuilt ==  ProvidedAtService, ProvidedAtPanel Or  ProvidedAtFeeder
+ 
+And
+Meter04cc_MeteringPeakDemandRequired == false And 
+Meter04_MeteringCapabilitiesAsBuilt == UtilityProvidedNA, InstalledLTE250NA Or ElectCode517NA
+Or 
+Meter04cc_MeteringPeakDemandRequired == true And 
+Meter04_MeteringCapabilitiesAsBuilt ==  ProvidedAtService, ProvidedAtPanel Or  ProvidedAtFeeder
+And 
+ 
+Meter05cc_MeteringkWhPerUserPeriodRequired == false And 
+Meter05_MeteringCapabilitiesAsBuilt == UtilityProvidedNA Or ElectCode517NA
+Or 
+Meter05cc_MeteringkWhPerUserPeriodRequired == true And
+Meter05_MeteringCapabilitiesAsBuilt ==  ProvidedAtService, ProvidedAtPanel Or  ProvidedAtFeeder
+And
+ 
+Meter06cc_MeteringkWhPerRatePeriodRequired == false And 
+Meter06_MeteringCapabilitiesAsBuilt == UtilityProvidedNA, InstalledLTE1000NA Or ElectCode517NA
+Or 
+Meter06cc_MeteringkWhPerRatePeriodRequired == true And 
+Meter06_MeteringCapabilitiesAsBuilt ==  ProvidedAtService, ProvidedAtPanel Or  ProvidedAtFeeder
+ 
+result = ExactMatch
+Else 
+result = EqualBetter
+End If
+Else If Meter01_InstalledSameAsCC == false
+result = EqualBetter
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="MeterEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup] FOOTNOTES: Service is defined as "the conductors and equipment for delivering electric energy from the serving utility to the wiring system of the premise served" in [d:t24refnolink/]100.1 of the Energy Standards.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="MeterEndNote2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup] Feeder is defined as "all circuit conductors between the service equipment, the source of a separately derived system, or other power supply source and the final branch-circuit overcurrent device," in Article 100 of the California Electrical Code.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Circuits" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Separation of Electrical Circuits for Energy Monitoring[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required and displayed If B01b_ProjectHasLoadSeparation == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Circuits00cc_ElectricalServiceName" type="comp:ElectricalServiceName" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = NRCC-ELC G00_ElectricalServiceName 
+End If
+ 
+This field is displayed after the CircuitsTitle and before TableCircuits</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="TableCircuits" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                                       <xsd:complexType>
+                                          <xsd:sequence>
+                                             <xsd:element name="Circuits01cc_ElectricalLoadType" type="com:ElectricalLoadType" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Load Type[d:sup]1[/d:sup]</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = NRCC-ELC G01_ElectricalLoadType 
+End If
+ 
+The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="Circuits01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:element name="Circuits02cc_ElectricalLoadSeparationRequirement" type="comp:ElectricalLoadSeparationRequirement" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Minimum Required Separation of Load</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = NRCC-ELC G02_ElectricalLoadSeparationRequirement
+End If
+ 
+The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Circuits03cc_ElectricalLoadComplianceMethod" type="comp:ElectricalLoadComplianceMethod" >
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Separation Method[d:sup]2[/d:sup]</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+If G03_ElectricalLoadComplianceMethod IsPresent
+result = NRCC-ELC G03_ElectricalLoadComplianceMethodEnd If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Circuits03cc_NotApplicableMessage" >
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Separation Method[d:sup]2[/d:sup]</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+If G03_NotApplicableMessage IsPresent
+result = NRCC-ELC G03_NotApplicableMessage
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Circuits03_ElectricalLoadComplianceMethod" type="comp:ElectricalLoadComplianceMethod" >
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Separation Method[d:sup]2[/d:sup]</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">User selects from dropdown list loaded as follows:
+If Circuits01_InstalledSameAsCC == true
+If Circuits03cc_ElectricalLoadComplianceMethod IsPresent
+result = Circuits03cc_ElectricalLoadComplianceMethod  but user can change the value
+End If
+Else If Circuits01_InstalledSameAsCC == false
+User selects from list
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Circuits03_NotApplicableMessage" type="comp:NotApplicableMessage" >
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Separation Method[d:sup]2[/d:sup]</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Circuits03cc_NotApplicableMessage IsPresent
+result = Circuits03cc_NotApplicableMessage
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:element name="Circuits04_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText">Compliance</xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+result = TableIncomplete  
+Else If Circuits01_InstalledSameAsCC == true
+If Circuits03cc_ElectricalLoadComplianceMethod IsPresent  And Circuits03cc_ElectricalLoadComplianceMethod == Circuits03_ElectricalLoadComplianceMethod
+Or
+If Circuits03_NotApplicableMessage IsPresent
+result = ExactMatch
+Else 
+result = EqualBetter
+End If
+End If</xsd:documentation>
+                                                </xsd:annotation>
+                                             </xsd:element>
+                                          </xsd:sequence>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="CircuitsEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]  FOOTNOTES: For each separate load type, up to 10% of the connected load may be of any type.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="CircuitsEndNote2" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup]  See Chapter 8 of the Nonresidential Compliance Manual for more detail on Compliance Methods: https://www.energy.ca.gov/media/3881 [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableVoltageDrop" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Feeder and Branch Circuit Conductor Voltage Drop [/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required and displayed If B01d_ProjectHasVoltDrop == true Or B01e_ProjectHasVoltDrop == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Volt01cc_ElectricalServiceName" type="comp:ElectricalServiceName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = NRCC-ELC H01_ElectricalServiceName 
+End If
+ 
+The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt02cc_CircuitVoltageDropCompliance" type="comp:CircuitVoltageDropCompliance" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Combined Voltage Drop on Installed Feeder/Branch Circuit Conductors Compliance Method</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+If H02a_CircuitVoltageDropCompliance IsPresent
+result =  VoltageDropLT5Percent
+Else If H02b_CircuitVoltageDropCompliance IsPresent
+result = VoltageDropException
+End If
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="VoltageDropException">Voltage drop [d:gt/] 5% permitted by CA Electrical Code 647.4, 695.6, 695.7
+</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt02_CircuitVoltageDropCompliance" type="comp:CircuitVoltageDropCompliance" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Combined Voltage Drop on Installed Feeder/Branch Circuit Conductors Compliance Method</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Volt01_InstalledSameAsCC == true 
+result = Volt02cc_CircuitVoltageDropCompliance but user can change value
+Else If Volt01_InstalledSameAsCC == false
+User selects from list: VoltageDropLT5Percent, VoltageDropException
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="VoltageDropException">Voltage drop [d:gt/] 5% permitted by CA Electrical Code 647.4, 695.6, 695.7
+</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt03cc_CircuitVoltageDropCalculations" type="comp:CircuitVoltageDropCalculations" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Voltage Drop Calculations</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+If H03_CircuitVoltageDropCalculations  == CalculationsAttached Or CalculationsInDocs
+result = CalculationsInDocs 
+Else If H03_CircuitVoltageDropCalculations == CalculationsContractorResponsible
+result = CalculationsContractorResponsible
+End If
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt03_CircuitVoltageDropCalculations" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Voltage Drop Calculations</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Volt01_InstalledSameAsCC == true 
+result = Volt03cc_CircuitVoltageDropCalculations but user can change value
+Else If Volt01_InstalledSameAsCC == false
+User selects from list: CalculationsInDocs, CalculationsContractorResponsible
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="CalculationsContractorResponsible">Contractor Provided</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:CircuitVoltageDropCalculations">
+                                             <xsd:enumeration value="CalculationsContractorResponsible"/>
+                                             <xsd:enumeration value="CalculationsInDocs"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Volt04cc_NotApplicableMessage" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Voltage Drop to Feeder(s) (%)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">result = BlankGrayedOut</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:NotApplicableMessage">
+                                             <xsd:enumeration value="BlankGrayedOut"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Volt04_VoltageDropToFeeders" type="comp:VoltageDropToFeeders" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Voltage Drop to Feeder(s) (%)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt05cc_NotApplicableMessage" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Voltage Drop After the Feeder(s) (%)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">result = BlankGrayedOut</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:NotApplicableMessage">
+                                             <xsd:enumeration value="BlankGrayedOut"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Volt05_VoltageDropAfterFeeders" type="comp:VoltageDropAfterFeeders" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Voltage Drop After the Feeder(s) (%)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt06cc_NotApplicableMessage" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Total Voltage Drop  (%)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">result = BlankGrayedOut</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:NotApplicableMessage">
+                                             <xsd:enumeration value="BlankGrayedOut"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Volt06cc_VoltageDropTotal" type="comp:VoltageDropTotal" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Total Voltage Drop  (%)</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">result = Volt05_VoltageDropToFeeders  + Volt06_VoltageDropAfterFeeders</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Volt07_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Voltage Drop Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+result = TableIncomplete  
+Else If Volt01_InstalledSameAsCC == true
+If Volt02cc_CircuitVoltageDropCompliance  == Volt02_CircuitVoltageDropCompliance
+And 
+Volt03cc_CircuitVoltageDropCalculations  == Volt03_CircuitVoltageDropCalculations 
+result = ExactMatch
+Else 
+result = EqualBetter
+End If
+Else If Volt01_InstalledSameAsCC == false
+result = EqualBetter
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="TableControls" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Circuit Controls and Controlled Receptacles[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required and displayed If B01c_ProjectHasReceptacleControl == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Controls01cc_SpaceDescription" type="com:SpaceDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Room name or Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = NRCC-ELC I01_SpaceDescription 
+End If
+ 
+The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Controls01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Controls02cc_ControlledReceptacleComplianceType" type="comp:ControlledReceptacleComplianceType" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Location/ Type of Controlled Receptacles[d:sup]1[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = NRCC-ELC I02_ControlledReceptacleComplianceType 
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Controls02_ControlledReceptacleComplianceType" type="comp:ControlledReceptacleComplianceType"  maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Location/ Type of Controlled Receptacles[d:sup]1[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Controls01_InstalledSameAsCC == true
+result = Controls02cc_ControlledReceptacleComplianceType but user can change value or add additional values from dropdown list which includes ControlledReceptacleComplianceType and ControlledReceptacleNA values 
+Else If Controls01_InstalledSameAsCC == false
+User selects all that apply in this space from dropdown list which includes ControlledReceptacleComplianceType and ControlledReceptacleNA values
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Controls02_ControlledReceptacleNA" type="comp:ControlledReceptacleNA"  minOccurs="0" maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Location/ Type of Controlled Receptacles[d:sup]1[/d:sup]</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Controls02 dropdown list includes values from  ControlledReceptacleNA and user may select  one or more that apply in this space or may not select any.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Controls03cc_ControlledReceptacleShutOffControl" type="comp:ControlledReceptacleShutOffControl" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I03_ControlledReceptacleShutOffControl
+ IsPresent
+result = NRCC-ELC I03_ControlledReceptacleShutOffControl
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Controls03cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I03_NotApplicableMessage
+ IsPresent
+result = NRCC-ELC I03_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Controls03_ControlledReceptacleShutOffControl" type="comp:ControlledReceptacleShutOffControl"  maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Controls01_InstalledSameAsCC == false
+User selects all that apply in this space from ControlledReceptacleShutOffControl and ControlledReceptacleNA
+Else If Controls01_InstalledSameAsCC == true
+If Controls03cc_ControlledReceptacleShutOffControl
+ IsPresent
+result = Controls03cc_ControlledReceptacleShutOffControl
+ but user can change value or add additional values from dropdown list which includes ControlledReceptacleShutOffControl and ControlledReceptacleNA values
+ElseIf Controls03cc_NotApplicableMessage IsPresent
+User can select from dropdown list with values from Controls03_ControlledReceptacleNA
+ End If
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Controls03_ControlledReceptacleNA" type="comp:ControlledReceptacleNA"  minOccurs="0" maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Controls03 dropdown list includes values from  ControlledReceptacleNA and user may select  one or more that apply in this space or may not select any.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Controls04cc_AreControlledReceptaclesPermanentlyMarked" type="comp:AreControlledReceptaclesPermanentlyMarked" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Permanent Durable Marking Is Used</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I04_AreControlledReceptaclesPermanentlyMarked
+ IsPresent
+result = NRCC-ELC I04_AreControlledReceptaclesPermanentlyMarked
+End If</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="true">Included in Design</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Controls04cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Permanent Durable Marking Will be Used</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I04_NotApplicableMessage
+ IsPresent
+result = NRCC-ELC I04_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Controls04_AreControlledReceptaclesPermanentlyMarked" type="comp:AreControlledReceptaclesPermanentlyMarked" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Permanent Durable Marking Is Used</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Controls01_InstalledSameAsCC == false
+User selects all that apply in this space from AreControlledReceptaclesPermanentlyMarked true value displayed in dropdown as  Controlled and Uncontrolled Receptacles Identified with Permanent Marking, and any values from ControlledReceptacleNA
+ 
+Else If Controls01_InstalledSameAsCC == true
+If Controls04cc_AreControlledReceptaclesPermanentlyMarked IsPresent
+result = Controls04cc_AreControlledReceptaclesPermanentlyMarked but user can change value or add additional values from dropdown list which includes Controls04cc_AreControlledReceptaclesPermanentlyMarked true value and ControlledReceptacleNA values
+ 
+ElseIf Controls04cc_NotApplicableMessage IsPresent
+User can select from dropdown list with values from Controls03_ControlledReceptacleNA
+End If
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="true">Controlled and Uncontrolled Receptacles Identified with Permanent Marking</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Controls04_ControlledReceptacleNA" type="comp:ControlledReceptacleNA"  minOccurs="0" maxOccurs="unbounded">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Permanent Durable Marking Will be Used</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">Controls04 dropdown list includes values from  ControlledReceptacleNA and user may select  one or more that apply in this space or may not select any.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Controls05_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+result = TableIncomplete  
+Else If Controls01_InstalledSameAsCC == true
+If Controls2cc_ControlledReceptacleComplianceType == Controls2_ControlledReceptacleComplianceType 
+And 
+Controls03cc_NotApplicableMessage IsPresent Or 
+Controls03cc_ControlledReceptacleShutOffControl == Controls03_ControlledReceptacleShutOffControl
+And 
+Controls04cc_NotApplicableMessage IsPresent Or 
+Controls04cc_AreControlledReceptaclesPermanentlyMarked == Controls04_AreControlledReceptaclesPermanentlyMarked 
+ 
+result = ExactMatch
+Else 
+result = EqualBetter
+End If
+Else If Controls01_InstalledSameAsCC == false
+result = EqualBetter
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="ControlsEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup] FOOTNOTES: Office areas, lobbies, conference rooms, kitchen areas in office spaces, and copy rooms must meet controlled receptacle requirements.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="nRCIELC01E" type="NRCIELC01E">
+      <xsd:annotation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCIELC01E compliance report.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+</xsd:schema>
