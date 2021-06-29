@@ -70,23 +70,18 @@
                   <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent, 
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent, 
 result = A01_ProjectCity
-Else If  NRCC-PRF parent, 
-result = Info01_ProjectCity
 End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCELC01E"  usage="copy">A01_ProjectCity</dtyp:srcSchema>
+                        </xsd:appinfo>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A02_ProjectZipcode" type="comp:ProjectZipcode" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Zip Code</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent, 
-User input
-Else If  NRCC-PRF parent, 
-result = Info02_ProjectZipcode
-Else
-User input
-End If</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A03_PermitSetDate" type="comp:PermitSetDate" >
@@ -191,15 +186,13 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">Calculated result:  
-If in any required tables or subsections in Section F 
- ComplianceResultNRCI ==  FormNotComplete
+If in any required tables or subsections in Section F  ComplianceResultNRCI ==  FormNotComplete
 result = FormNotComplete
-Else If ComplianceResultNRCI == MayNotComply
+Else If in any required tables or subsections in Section F ComplianceResultNRCI == MayNotComply
 result = MayNotComply
- 
-Else If All require tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
+Else If All required tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
 result = ExactMatch
-Else If any have ComplianceResultNRCI ==  EqualBetter
+Else If any required tables or subsections in Section F have ComplianceResultNRCI ==  EqualBetter
 result = EqualBetter
 End If</xsd:documentation>
                      </xsd:annotation>
@@ -301,14 +294,17 @@ End If</xsd:documentation>
                                     <xsd:element name="Meter01cc_ElectricalServiceName" type="comp:ElectricalServiceName" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent 
-result = NRCC-MCH F01_ElectricalServiceName
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent 
+result = F01_ElectricalServiceName
 End If
  
 The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">F01_ElectricalServiceName</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Meter01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                    <xsd:element name="Meter01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
@@ -317,9 +313,12 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                     <xsd:element name="Meter02cc_ElectricalServiceRating" type="comp:ElectricalServiceRating" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Rating (kVA)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
-result = NRCC-MCH F02_ElectricalServiceRating
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = F02_ElectricalServiceRating
 End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">F02_ElectricalServiceRating</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Meter02_ElectricalServiceRating" type="comp:ElectricalServiceRating" >
@@ -341,14 +340,17 @@ End If</xsd:documentation>
                                     <xsd:element name="Meter03cc_MeteringDemandRequired" type="comp:MeteringDemandRequired" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Instantaneous Demand (kW)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
-result = NRCC-MCH F03a_MeteringDemandRequired
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result =  F03a_MeteringDemandRequired
 End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="true">Required</dtyp:displayterm>
                                              <dtyp:displayterm value="false">NA</dtyp:displayterm>
                                           </xsd:appinfo>
                                           
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">F03a_MeteringDemandRequired</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Meter03_MeteringCapabilitiesAsBuilt" >
@@ -383,14 +385,17 @@ End If</xsd:documentation>
                                     <xsd:element name="Meter04cc_MeteringPeakDemandRequired" type="comp:MeteringPeakDemandRequired" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
-result = NRCC-MCH F03b_MeteringPeakDemandRequired
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = F03b_MeteringPeakDemandRequired
 End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="true">Required</dtyp:displayterm>
                                              <dtyp:displayterm value="false">NA</dtyp:displayterm>
                                           </xsd:appinfo>
                                           
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">F03b_MeteringPeakDemandRequired</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Meter04_MeteringCapabilitiesAsBuilt" >
@@ -426,14 +431,17 @@ End If</xsd:documentation>
                                     <xsd:element name="Meter05cc_MeteringkWhPerUserPeriodRequired" type="comp:MeteringkWhPerUserPeriodRequired" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
-result = NRCC-MCH F03c_MeteringkWhPerUserPeriodRequired
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = F03c_MeteringkWhPerUserPeriodRequired
 End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="true">Required</dtyp:displayterm>
                                              <dtyp:displayterm value="false">NA</dtyp:displayterm>
                                           </xsd:appinfo>
                                           
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">F03c_MeteringkWhPerUserPeriodRequired</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Meter05_MeteringCapabilitiesAsBuilt" >
@@ -468,14 +476,17 @@ End If</xsd:documentation>
                                     <xsd:element name="Meter06cc_MeteringkWhPerRatePeriodRequired" type="comp:MeteringkWhPerRatePeriodRequired" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
-result = NRCC-MCH F03d_MeteringkWhPerRatePeriodRequired
+                                          <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
+result = F03d_MeteringkWhPerRatePeriodRequired
 End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="true">Required</dtyp:displayterm>
                                              <dtyp:displayterm value="false">NA</dtyp:displayterm>
                                           </xsd:appinfo>
                                           
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">F03d_MeteringkWhPerRatePeriodRequired</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Meter06_MeteringCapabilitiesAsBuilt" >
@@ -585,10 +596,13 @@ End If</xsd:documentation>
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
-result = NRCC-ELC G00_ElectricalServiceName 
+result = G00_ElectricalServiceName 
 End If
  
 This field is displayed after the CircuitsTitle and before TableCircuits</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCELC01E"  usage="copy">G00_ElectricalServiceName</dtyp:srcSchema>
+                                 </xsd:appinfo>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="TableCircuits" >
@@ -604,13 +618,16 @@ This field is displayed after the CircuitsTitle and before TableCircuits</xsd:do
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Load Type[d:sup]1[/d:sup]</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
-result = NRCC-ELC G01_ElectricalLoadType 
+result = G01_ElectricalLoadType 
 End If
  
 The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                                   <xsd:appinfo source="NRCIsrc">
+                                                      <dtyp:srcSchema form="NRCCELC01E"  usage="copy">G01_ElectricalLoadType</dtyp:srcSchema>
+                                                   </xsd:appinfo>
                                                 </xsd:annotation>
                                              </xsd:element>
-                                             <xsd:element name="Circuits01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                             <xsd:element name="Circuits01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
@@ -620,10 +637,13 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText">Minimum Required Separation of Load</xsd:documentation>
                                                    <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
-result = NRCC-ELC G02_ElectricalLoadSeparationRequirement
+result = G02_ElectricalLoadSeparationRequirement
 End If
  
 The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                                   <xsd:appinfo source="NRCIsrc">
+                                                      <dtyp:srcSchema form="NRCCELC01E"  usage="copy">G02_ElectricalLoadSeparationRequirement</dtyp:srcSchema>
+                                                   </xsd:appinfo>
                                                 </xsd:annotation>
                                              </xsd:element>
                                              <xsd:choice maxOccurs="1">
@@ -632,7 +652,11 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                                       <xsd:documentation source="FieldText">Separation Method[d:sup]2[/d:sup]</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
 If G03_ElectricalLoadComplianceMethod IsPresent
-result = NRCC-ELC G03_ElectricalLoadComplianceMethodEnd If</xsd:documentation>
+result = G03_ElectricalLoadComplianceMethod
+End If</xsd:documentation>
+                                                      <xsd:appinfo source="NRCIsrc">
+                                                         <dtyp:srcSchema form="NRCCELC01E"  usage="copy">G03_ElectricalLoadComplianceMethod</dtyp:srcSchema>
+                                                      </xsd:appinfo>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Circuits03cc_NotApplicableMessage" >
@@ -640,8 +664,11 @@ result = NRCC-ELC G03_ElectricalLoadComplianceMethodEnd If</xsd:documentation>
                                                       <xsd:documentation source="FieldText">Separation Method[d:sup]2[/d:sup]</xsd:documentation>
                                                       <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
 If G03_NotApplicableMessage IsPresent
-result = NRCC-ELC G03_NotApplicableMessage
+result = BlankGrayedOut
 End If</xsd:documentation>
+                                                      <xsd:appinfo source="NRCIsrc">
+                                                         <dtyp:srcSchema form="NRCCELC01E"  usage="reference">G03_NotApplicableMessage</dtyp:srcSchema>
+                                                      </xsd:appinfo>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
                                                       <xsd:restriction base="comp:NotApplicableMessage">
@@ -724,13 +751,16 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Electrical Service Designation/Description</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
-result = NRCC-ELC H01_ElectricalServiceName 
+result = H01_ElectricalServiceName 
 End If
  
 The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">H01_ElectricalServiceName</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Volt01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                    <xsd:element name="Volt01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
@@ -741,16 +771,18 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                           <xsd:documentation source="FieldText">Combined Voltage Drop on Installed Feeder/Branch Circuit Conductors Compliance Method</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
 If H02a_CircuitVoltageDropCompliance IsPresent
-result =  VoltageDropLT5Percent
+result =  VoltageDropLT5Percent;
 Else If H02b_CircuitVoltageDropCompliance IsPresent
 result = VoltageDropException
-End If
 End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="VoltageDropException">Voltage drop [d:gt/] 5% permitted by CA Electrical Code 647.4, 695.6, 695.7
 </dtyp:displayterm>
                                           </xsd:appinfo>
                                           
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="reference">H02a_CircuitVoltageDropCompliance; H02b_CircuitVoltageDropCompliance</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Volt02_CircuitVoltageDropCompliance" type="comp:CircuitVoltageDropCompliance" >
@@ -778,6 +810,9 @@ Else If H03_CircuitVoltageDropCalculations == CalculationsContractorResponsible
 result = CalculationsContractorResponsible
 End If
 End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="reference">H03_CircuitVoltageDropCalculations</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Volt03_CircuitVoltageDropCalculations" >
@@ -845,7 +880,7 @@ End If</xsd:documentation>
                                           </xsd:restriction>
                                        </xsd:simpleType>
                                     </xsd:element>
-                                    <xsd:element name="Volt06cc_VoltageDropTotal" type="comp:VoltageDropTotal" >
+                                    <xsd:element name="Volt06_VoltageDropTotal" type="comp:VoltageDropTotal" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Total Voltage Drop  (%)</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">result = Volt05_VoltageDropToFeeders  + Volt06_VoltageDropAfterFeeders</xsd:documentation>
@@ -889,13 +924,16 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Room name or Description</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
-result = NRCC-ELC I01_SpaceDescription 
+result = I01_SpaceDescription 
 End If
  
 The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">I01_SpaceDescription</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Controls01_InstalledSameAsCC" type="comp:InstalledSameAsCC" >
+                                    <xsd:element name="Controls01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
@@ -905,8 +943,11 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Location/ Type of Controlled Receptacles[d:sup]1[/d:sup]</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent
-result = NRCC-ELC I02_ControlledReceptacleComplianceType 
+result = I02_ControlledReceptacleComplianceType 
 End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCELC01E"  usage="copy">I02_ControlledReceptacleComplianceType</dtyp:srcSchema>
+                                          </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Controls02_ControlledReceptacleComplianceType" type="comp:ControlledReceptacleComplianceType"  maxOccurs="unbounded">
@@ -929,19 +970,23 @@ End If</xsd:documentation>
                                        <xsd:element name="Controls03cc_ControlledReceptacleShutOffControl" type="comp:ControlledReceptacleShutOffControl" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I03_ControlledReceptacleShutOffControl
- IsPresent
-result = NRCC-ELC I03_ControlledReceptacleShutOffControl
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I03_ControlledReceptacleShutOffControl IsPresent
+result = I03_ControlledReceptacleShutOffControl
 End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCELC01E"  usage="copy">I03_ControlledReceptacleShutOffControl</dtyp:srcSchema>
+                                             </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Controls03cc_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I03_NotApplicableMessage
- IsPresent
-result = NRCC-ELC I03_NotApplicableMessage
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I03_NotApplicableMessage IsPresent
+result = I03_
 End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCELC01E"  usage="copy">I03_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
@@ -976,23 +1021,27 @@ End If</xsd:documentation>
                                        <xsd:element name="Controls04cc_AreControlledReceptaclesPermanentlyMarked" type="comp:AreControlledReceptaclesPermanentlyMarked" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Permanent Durable Marking Is Used</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I04_AreControlledReceptaclesPermanentlyMarked
- IsPresent
-result = NRCC-ELC I04_AreControlledReceptaclesPermanentlyMarked
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I04_AreControlledReceptaclesPermanentlyMarked  IsPresent
+result = I04_AreControlledReceptaclesPermanentlyMarked
 End If</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
                                                 <dtyp:displayterm value="true">Included in Design</dtyp:displayterm>
                                              </xsd:appinfo>
                                              
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCELC01E"  usage="copy">I04_AreControlledReceptaclesPermanentlyMarked</dtyp:srcSchema>
+                                             </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Controls04cc_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Permanent Durable Marking Will be Used</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I04_NotApplicableMessage
- IsPresent
-result = NRCC-ELC I04_NotApplicableMessage
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-ELC parent And I04_NotApplicableMessage IsPresent
+result = I04_NotApplicableMessage 
 End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCELC01E"  usage="copy">I04_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="comp:NotApplicableMessage">
