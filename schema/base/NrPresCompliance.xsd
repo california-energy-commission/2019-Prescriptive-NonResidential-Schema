@@ -827,12 +827,16 @@
             <dtyp:displayterm value="AutoSchedule">Yes</dtyp:displayterm>
             <dtyp:displayterm value="EMCS">Yes - EMCS</dtyp:displayterm>
             <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+            <dtyp:displayterm value="NotPermittedNA">NA: Not permitted by H&amp;LS</dtyp:displayterm>
+            <dtyp:displayterm value="TunnelsNA">NA: Lighting in Tunnels</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="AutoSchedule"/>
          <xsd:enumeration value="EMCS"/>
          <xsd:enumeration value="Exempt"/>
+         <xsd:enumeration value="NotPermittedNA"/>
+         <xsd:enumeration value="TunnelsNA"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="BackflowCheckValve">
@@ -1556,6 +1560,7 @@
             <dtyp:displayterm value="NRCIMCH01E">NRCI-MCH-01-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCIPLB01E">NRCI-PLB-01-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCIPRC01E">NRCI-PRC-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCISRA01E">NRCI-SRA-01-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04aH">NRCVMCH04aH</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04cH">NRCVMCH04cH</dtyp:displayterm>
             <dtyp:displayterm value="NRCVMCH04dH">NRCVMCH04dH</dtyp:displayterm>
@@ -1634,6 +1639,7 @@
          <xsd:enumeration value="NRCIMCH01E"/>
          <xsd:enumeration value="NRCIPLB01E"/>
          <xsd:enumeration value="NRCIPRC01E"/>
+         <xsd:enumeration value="NRCISRA01E"/>
          <xsd:enumeration value="NRCVMCH04aH"/>
          <xsd:enumeration value="NRCVMCH04cH"/>
          <xsd:enumeration value="NRCVMCH04dH"/>
@@ -2974,6 +2980,7 @@
             <dtyp:displayterm value="NRCIPLB03E">NRCI-PLB-03-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCIPRC01E">NRCI-PRC-01-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCISPV01E">NRCI-SPV-01-E</dtyp:displayterm>
+            <dtyp:displayterm value="NRCISRA01E">NRCI-SRA-01-E</dtyp:displayterm>
             <dtyp:displayterm value="NRCISTH01E">NRCI-STH-01-E</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -2994,6 +3001,7 @@
          <xsd:enumeration value="NRCIPLB03E"/>
          <xsd:enumeration value="NRCIPRC01E"/>
          <xsd:enumeration value="NRCISPV01E"/>
+         <xsd:enumeration value="NRCISRA01E"/>
          <xsd:enumeration value="NRCISTH01E"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -5280,6 +5288,32 @@
          <xsd:enumeration value="LightControlNoMatch"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ExceptionalConditionMessageNRCILTOE">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>NRCI-LTO-E Exceptional Condition Message</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="OutdoorLightControlNoMatch">Control requirements on the Outdoor Lighting Controls subtable do no match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="OutdoorLightControlNoMatch"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExceptionalConditionMessageNRCILTSE">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>NRCI-LTO-E Exceptional Condition Message</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="SignLightControlNoMatch">Control requirements on the Sign Lighting Controls subtable do no match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="SignLightControlNoMatch"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCIMCHE">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -6314,6 +6348,19 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="IsDHW_Central">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Central DHW System Distribution</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">NA</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="IsDWHR_Installed">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -7179,6 +7226,13 @@
             <dtyp:displayterm value="CutoffLT6200Lumens">NA: [d:lt/] 6200 lumens</dtyp:displayterm>
             <dtyp:displayterm value="CutoffLtgZone0">NA: Ltg Zone LZ-0</dtyp:displayterm>
             <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+            <dtyp:displayterm value="NotPermittedNA">NA: Not permitted by H&amp;LS</dtyp:displayterm>
+            <dtyp:displayterm value="ReplacePoleMountNA">NA: Replacement of pole-mounted per [d:t24refnolink/]</dtyp:displayterm>
+            <dtyp:displayterm value="ResControlledNA">NA: Controlled by dwelling unit/guest rm</dtyp:displayterm>
+            <dtyp:displayterm value="RightOfWayNA">NA: Illuminate public right-of-way</dtyp:displayterm>
+            <dtyp:displayterm value="SignageNA">NA: Signage</dtyp:displayterm>
+            <dtyp:displayterm value="StructuresNA">NA: Facade, monument, statue, bridge</dtyp:displayterm>
+            <dtyp:displayterm value="TempLightNA">NA: Temporary Lighting</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -7186,6 +7240,13 @@
          <xsd:enumeration value="CutoffLT6200Lumens"/>
          <xsd:enumeration value="CutoffLtgZone0"/>
          <xsd:enumeration value="Exempt"/>
+         <xsd:enumeration value="NotPermittedNA"/>
+         <xsd:enumeration value="ReplacePoleMountNA"/>
+         <xsd:enumeration value="ResControlledNA"/>
+         <xsd:enumeration value="RightOfWayNA"/>
+         <xsd:enumeration value="SignageNA"/>
+         <xsd:enumeration value="StructuresNA"/>
+         <xsd:enumeration value="TempLightNA"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="LuminairePowerInstalledByType">
@@ -7542,17 +7603,45 @@
    <xsd:simpleType name="MotionSensorCompliance">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="AthleticNA">NA: Athletic Fields/Playgroumds Lighting</dtyp:displayterm>
             <dtyp:displayterm value="FacadeGTE24Ft">NA: Facade, etc. [d:gte/]24 ft</dtyp:displayterm>
             <dtyp:displayterm value="WallGTE24Ft">NA: Wall [d:gte/]24 ft</dtyp:displayterm>
             <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+            <dtyp:displayterm value="HistoricBuildingNA">NA: Historical Building Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="IndustrialNA">NA: Industrial Sites Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="LandscapeNA">NA: Landscape Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="LuminaireLT40NA">NA: Each Luminaire [d:lt/] 40 Watts</dtyp:displayterm>
+            <dtyp:displayterm value="MonumentNA">NA: Public Monument Lighting</dtyp:displayterm>
             <dtyp:displayterm value="MotionSensorCompliant">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="NotPermittedNA">NA: Not permitted by H&amp;LS</dtyp:displayterm>
+            <dtyp:displayterm value="PublicRoadNA">NA: Lighting for Public Roadways</dtyp:displayterm>
+            <dtyp:displayterm value="RegulatedNA">NA: Regulated by FAA or Coast Guard</dtyp:displayterm>
+            <dtyp:displayterm value="SignageNA">NA: Signage</dtyp:displayterm>
+            <dtyp:displayterm value="StairsRampNA">NA: Stairs Wheelchair Lift/Ramp Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="TempLightNA">NA: Temporary Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="ThemeParkNA">NA: Theme Park Specal Effect Lighting</dtyp:displayterm>
+            <dtyp:displayterm value="TunnelsNA">NA: Lighting in Tunnels</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="AthleticNA"/>
          <xsd:enumeration value="FacadeGTE24Ft"/>
          <xsd:enumeration value="WallGTE24Ft"/>
          <xsd:enumeration value="Exempt"/>
+         <xsd:enumeration value="HistoricBuildingNA"/>
+         <xsd:enumeration value="IndustrialNA"/>
+         <xsd:enumeration value="LandscapeNA"/>
+         <xsd:enumeration value="LuminaireLT40NA"/>
+         <xsd:enumeration value="MonumentNA"/>
          <xsd:enumeration value="MotionSensorCompliant"/>
+         <xsd:enumeration value="NotPermittedNA"/>
+         <xsd:enumeration value="PublicRoadNA"/>
+         <xsd:enumeration value="RegulatedNA"/>
+         <xsd:enumeration value="SignageNA"/>
+         <xsd:enumeration value="StairsRampNA"/>
+         <xsd:enumeration value="TempLightNA"/>
+         <xsd:enumeration value="ThemeParkNA"/>
+         <xsd:enumeration value="TunnelsNA"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MountingHeightRangeBUG">
@@ -8421,6 +8510,7 @@
             <dtyp:displayterm value="GarageLT60NA">NA: Garage [d:lt/] 60 Watts</dtyp:displayterm>
             <dtyp:displayterm value="GlazingLT24Ft2NA">NA: [d:lt/] 24 ft2 Glazing</dtyp:displayterm>
             <dtyp:displayterm value="Included">Included</dtyp:displayterm>
+            <dtyp:displayterm value="NA">N/A</dtyp:displayterm>
             <dtyp:displayterm value="NA_LTE80PctAllowedLP">NA:  [d:lte/] 80 % LP (alt only)</dtyp:displayterm>
             <dtyp:displayterm value="NotDaylitZoneNA">NA:  Not Daylit Zone</dtyp:displayterm>
             <dtyp:displayterm value="OverhangRatioNA">NA: Overhang Ratio</dtyp:displayterm>
@@ -8436,6 +8526,7 @@
          <xsd:enumeration value="GarageLT60NA"/>
          <xsd:enumeration value="GlazingLT24Ft2NA"/>
          <xsd:enumeration value="Included"/>
+         <xsd:enumeration value="NA"/>
          <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
          <xsd:enumeration value="NotDaylitZoneNA"/>
          <xsd:enumeration value="OverhangRatioNA"/>
@@ -8716,6 +8807,16 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasEnergyStar">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasEquipment">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -8730,6 +8831,16 @@
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ProjectHasEscalatorControls">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasEVCharging">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -8772,6 +8883,16 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasGreywater">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasHeatingAirSystem">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -8783,6 +8904,16 @@
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ProjectHasHeatRejectionEquipment">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasHomeAutomation">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -8822,6 +8953,16 @@
       <xsd:restriction base="xsd:boolean">
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasLuminaires">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasMultilevelControl">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -8837,6 +8978,16 @@
          <xsd:appinfo source="displaytermType">
             <dtyp:displayterm>Pumps</dtyp:displayterm>
          </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasRainwater">
+      <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
             <dtyp:displayterm value="false">No</dtyp:displayterm>
@@ -9035,6 +9186,10 @@
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean">
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectID">
+      <xsd:restriction base="xsd:string">
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ProjectManagerAttending">
@@ -10427,6 +10582,7 @@
             <dtyp:displayterm value="GaragePrimDayLitNA">NA: Garage w/ Primary Daylight Controls</dtyp:displayterm>
             <dtyp:displayterm value="GlazingLT24Ft2NA">NA: [d:lt/] 24 ft2 Glazing</dtyp:displayterm>
             <dtyp:displayterm value="Included">Included</dtyp:displayterm>
+            <dtyp:displayterm value="NA">N/A</dtyp:displayterm>
             <dtyp:displayterm value="NA_LTE80PctAllowedLP">NA:  [d:lte/] 80 % LP (alt only)</dtyp:displayterm>
             <dtyp:displayterm value="NotDaylitZoneNA">NA:  Not Daylit Zone</dtyp:displayterm>
             <dtyp:displayterm value="OverhangRatioNA">NA: Overhang Ratio</dtyp:displayterm>
@@ -10442,6 +10598,7 @@
          <xsd:enumeration value="GaragePrimDayLitNA"/>
          <xsd:enumeration value="GlazingLT24Ft2NA"/>
          <xsd:enumeration value="Included"/>
+         <xsd:enumeration value="NA"/>
          <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
          <xsd:enumeration value="NotDaylitZoneNA"/>
          <xsd:enumeration value="OverhangRatioNA"/>
@@ -10574,15 +10731,19 @@
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="AstronomicalTimer">Astronomical Timer</dtyp:displayterm>
             <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+            <dtyp:displayterm value="NotPermittedNA">NA: Not permitted by H&amp;LS</dtyp:displayterm>
             <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
             <dtyp:displayterm value="Photocontrol">Photocontrol</dtyp:displayterm>
+            <dtyp:displayterm value="TunnelsNA">NA: Lighting in Tunnels</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="AstronomicalTimer"/>
          <xsd:enumeration value="Exempt"/>
+         <xsd:enumeration value="NotPermittedNA"/>
          <xsd:enumeration value="Other"/>
          <xsd:enumeration value="Photocontrol"/>
+         <xsd:enumeration value="TunnelsNA"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SignatureDate">
@@ -12884,6 +13045,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:attribute name="displayTagNR" type="comp:DisplayTagNR" use="required"></xsd:attribute>
       <xsd:attribute name="payloadDocumentNR" type="comp:ComplianceDocumentTagNR" use="required"></xsd:attribute>
       <xsd:attribute name="processedDate" type="comp:ComplianceApplicationDate" use="required"></xsd:attribute>
+      <xsd:attribute name="projectID" type="comp:ProjectID" use="required"></xsd:attribute>
       <xsd:attribute name="reportRequestor" type="comp:ReportRequestor" use="required"></xsd:attribute>
       <xsd:attribute name="reportRequestorIP_Address" type="comp:ReportRequestorIP_Address" use="required"></xsd:attribute>
       <xsd:attribute name="revision" type="comp:Revision" use="required"></xsd:attribute>

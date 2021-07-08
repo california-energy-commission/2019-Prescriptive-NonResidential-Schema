@@ -135,7 +135,7 @@ End If</xsd:documentation>
                   <xsd:element name="B_BeginNote1" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates construction systems and materials documented on this Nonresidential Certificate of Installation..[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates construction systems and materials documented on this Nonresidential Certificate of Installation.[/d:i]</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="B01a_ProjectHasDrySystemEquipment" type="comp:ProjectHasDrySystemEquipment" >
@@ -392,7 +392,7 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                           <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Dry012cc_NotApplicableMessage" >
+                                    <xsd:element name="Dry02cc_NotApplicableMessage" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Model #</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">The NRCC cell is always BlankGrayedOut</xsd:documentation>
@@ -403,7 +403,7 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                           </xsd:restriction>
                                        </xsd:simpleType>
                                     </xsd:element>
-                                    <xsd:element name="Dry02a_ModelNumber" type="hvac:ModelNumber" >
+                                    <xsd:element name="Dry02_ModelNumber" type="hvac:ModelNumber" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Model #</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
@@ -868,7 +868,8 @@ Else If NRCC-PRF parent and HvacDry06b_EfficiencyCOP IsPresent
 result = NRCC-PRF HvacDry06b_EfficiencyCOP
 End If,</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy choice">Fa06_EfficiencyCOP; Fb04_EfficiencyCOP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa06_EfficiencyCOP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fb04_EfficiencyCOP</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">HvacDry06b_EfficiencyCOP</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -922,7 +923,8 @@ Else If NRCC-PRF parent and HvacDry06b_EfficiencyNA IsPresent
 result = BlankGrayedOut stored in NotApplicableMessage
 End If,</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy choice">Fa06_NotApplicableMessage; Fb04_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa06_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fb04_NotApplicableMessage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacDry06b_EfficiencyNA</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1022,7 +1024,8 @@ Else If NRCC-PRF parent And HvacDry06a_EfficiencyType IsPresent
 result = NRCC-PRF HvacDry06a_EfficiencyType
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa04_EfficiencyType; Fb04_EfficiencyCOP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa04_EfficiencyType</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fb04_EfficiencyCOP</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">HvacDry06a_EfficiencyType</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1049,7 +1052,8 @@ result = BlankGrayedOut and field is blank and grayed out
  
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy choice">Fa04_NotApplicableMessage; Fb04_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa04_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fb04_NotApplicableMessage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacDry06a_NotApplicableMessage</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1200,7 +1204,10 @@ Else If NRCC-PRF parent and HvacDry08b_EfficiencyEER IsPresent
 result = NRCC-PRF HvacDry08b_EfficiencyEER
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy choice">Fa09_EfficiencyEER;  Fa09_EfficiencyEER_IEER result1;  Fa09_EfficiencySEER_EER result1; Fb07_EfficiencyEER</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa09_EfficiencyEER</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa09_EfficiencyEER_IEER result1</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa09_EfficiencySEER_EER result1</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fb07_EfficiencyEER</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">HvacDry08b_EfficiencyEER</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1231,7 +1238,8 @@ Else If NRCC-PRF parent and HvacDry08b_EfficiencyNA IsPresent
 result = BlankGrayedOut and field is blank and grayed out
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy choice">Fa09_NotApplicable; Fb07_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa09_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fb07_NotApplicableMessage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacDry08b_EfficiencyNA</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1313,7 +1321,7 @@ End If</xsd:documentation>
 If CoolingSingleEfficiency: Fa07_EfficiencyType IsPresent
 result = CoolingSingleEfficiency: Fa07_EfficiencyType 
 Else If CoolingEER_IEER_SEER:Fa07_EfficiencyType result 1 IsPresent
-result = NRCC-MCH CoolingEER_IEER_SEER:Fa07_EfficiencyType result 1
+result = CoolingEER_IEER_SEER:Fa07_EfficiencyType result 1
 Else If Fb07_EfficiencyEER IsPresent
 result = EER
 End If 
@@ -1321,7 +1329,9 @@ Else If NRCC-PRF parent and HvacDry08a_EfficiencyType IsPresent
 result = NRCC-PRF HvacDry08a_EfficiencyType
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">CoolingSingleEfficiency:Fa07_EfficiencyType; CoolingEER_IEER_SEER:Fa07_EfficiencyType result 1; Fb07_EfficiencyEER</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">CoolingSingleEfficiency:Fa07_EfficiencyType</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">CoolingEER_IEER_SEER:Fa07_EfficiencyType result 1</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fb07_EfficiencyEER</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">HvacDry08a_EfficiencyType</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1346,7 +1356,8 @@ Else If NRCC-PRF parent and HvacDry08a_NotApplicableMessage IsPresent
 result = BlankGrayedOut
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy choice">Fa07_NotApplicableMessage; Fb07_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fa07_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">Fb07_NotApplicableMessage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacDry08a_NotApplicableMessage</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1424,7 +1435,10 @@ result = BlankGrayedOut and field is blank and grayed out
  
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa09_EfficiencyEER_IEER result2; Fa09_EfficiencySEER_EER result2; Fa07_NotApplicableMessage; Fb07_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa09_EfficiencyEER_IEER result2</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa09_EfficiencySEER_EER result2</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa07_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fb07_NotApplicableMessage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -1501,7 +1515,10 @@ Else  If NRCC-PRF is parent
 result = BlankGrayedOut and field is blank and grayed out
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa09_EfficiencyEER_IEER result2; Fa09_EfficiencySEER_EER result2; Fa07_NotApplicableMessage; Fb07_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa09_EfficiencyEER_IEER result2</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa09_EfficiencySEER_EER result2</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fa07_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fb07_NotApplicableMessage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -2538,7 +2555,9 @@ Else If NRCC-PRF parent
 result = BlankGrayedOut
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fd06b_EfficiencyCOP_IPLV; Fd06b_EfficiencyEER_IPLV; Fd06b_EfficiencyKWperTon_IPLV</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fd06b_EfficiencyCOP_IPLV</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fd06b_EfficiencyEER_IPLV</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">Fd06b_EfficiencyKWperTon_IPLV</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -3970,7 +3989,8 @@ End If</xsd:documentation>
                                              
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">G07_PumpControlVSD</dtyp:srcSchema>
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Pump06_IsVSD; Pump04_PumpMotorHP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Pump06_IsVSD</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Pump04_PumpMotorHP</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -3985,7 +4005,8 @@ result = BlankGrayedOut
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">G07_NotAppicableMessage</dtyp:srcSchema>
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Pump06_IsVSD; Pump04_PumpMotorHP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Pump06_IsVSD</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Pump04_PumpMotorHP</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -4142,7 +4163,8 @@ End If
 The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">H00a_FanSystemName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Fan01_HvacSystemName; FanExh01_HvacSystemName</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan01_HvacSystemName</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">FanExh01_HvacSystemName</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -4165,7 +4187,8 @@ result = FanExh03_FanCount
 End If</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">H03_FanCount</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Fan02_FanCount; FanExh03_FanCount</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan02_FanCount</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">FanExh03_FanCount</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -4197,7 +4220,9 @@ End If
 End If</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">H02_FanFunction</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Fan04_FanFlowCapacity; Fan09_FanFlowCapacity; FanExh01_HvacSystemName</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Fan04_FanFlowCapacity</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Fan09_FanFlowCapacity</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">FanExh01_HvacSystemName</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -4238,10 +4263,6 @@ End If</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And If H00b_FanSystemEconomizerException  IsPresent
 result = H00b_FanSystemEconomizerException
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="ServingComputerRoom">See NRCC-PRC for details[d:sup]1[/d:sup]</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">H00b_FanSystemEconomizerException</dtyp:srcSchema>
                                              </xsd:appinfo>
@@ -4259,7 +4280,8 @@ result = BlankGrayedOut
 End If
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacDry09_EconomizerControlMethod; HvacDry09_NotApplicableMessage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacDry09_EconomizerControlMethod</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacDry09_NotApplicableMessage</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -4292,6 +4314,10 @@ Else If Fan01_InstalledSameAsCC == false
 User input
 End If
 End If</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="ServingComputerRoom">See NRCC-PRC for details[d:sup]1[/d:sup]</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
                                           </xsd:annotation>
                                        </xsd:element>
                                        <xsd:element name="Fan04_NotApplicableMessage" >
@@ -4327,7 +4353,9 @@ End If
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">H06_DesignHP</dtyp:srcSchema>
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Fan06_MotorBHP; Fan11_MotorBHP; FanExh05_MotorBHP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan06_MotorBHP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan11_MotorBHP</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">FanExh05_MotorBHP</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -4346,7 +4374,9 @@ result = FanExh06_MotorWatts
 End If
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Fan06_FanPowerPerFlow; Fan11_FanPowerPerFlow; FanExh06_MotorWatts</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan06_FanPowerPerFlow</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan11_FanPowerPerFlow</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">FanExh06_MotorWatts</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -4365,7 +4395,9 @@ result = FanExh07_TotalStaticPressure
 End If
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Fan06_TotalStaticPressure;  Fan09_TotalStaticPressure; FanExh07_TotalStaticPressure</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan06_TotalStaticPressure</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan09_TotalStaticPressure</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">FanExh07_TotalStaticPressure</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -4438,7 +4470,8 @@ End If
 End If
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Fan05_ ModelingMethod;  Fan10_ ModelingMethod</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan05_ ModelingMethod</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan10_ ModelingMethod</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -4487,7 +4520,9 @@ End If
 End If</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">H04_MaximumAirflowRate</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Fan04_FanFlowCapacity; Fan09_FanFlowCapacity; FanExh04_ExhaustFlowRate</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan04_FanFlowCapacity</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Fan09_FanFlowCapacity</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">FanExh04_ExhaustFlowRate</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -4645,8 +4680,7 @@ result = EnergyManagementSystem
 End If 
 End If</xsd:documentation>
                                              <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="EnergyManagementSystem"> EMCS</dtyp:displayterm>
-                                                <dtyp:displayterm value="EquipmentException"> NA: Eq. type per 110.2(c) exception[d:sup]1[/d:sup]
+                                                <dtyp:displayterm value="EnergyManagementSystem"> EMCS
 </dtyp:displayterm>
                                              </xsd:appinfo>
                                              
@@ -4694,6 +4728,11 @@ Else If Ctrl01_InstalledSameAsCC == false
 User input
 End If 
 End If</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="EnergyManagementSystem"> EMCS</dtyp:displayterm>
+                                                <dtyp:displayterm value="EquipmentException"> NA: Eq. type per 110.2(c) exception[d:sup]1[/d:sup]</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
                                           </xsd:annotation>
                                           <xsd:simpleType>
                                              <xsd:restriction base="hvac:ThermostatType">
@@ -5075,7 +5114,8 @@ result = BlankGrayedOut
 End If
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacSpec03_OperableWindowsHaveInterlock;  HvacSpec03_NotApplicable</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacSpec03_OperableWindowsHaveInterlock</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">HvacSpec03_NotApplicable</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -5461,7 +5501,8 @@ Vent07_MechVentControls IsPresent And != OccupantSensors
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_NotApplicableMessage; Vent07_MechVentControls</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_NotApplicableMessage</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -5509,12 +5550,6 @@ If Vent07_MechVentControls IsPresent And == DCV
 result = ProvidedDCV 
 End If
 End If</xsd:documentation>
-                                                               <xsd:appinfo source="displayterm">
-                                                                  <dtyp:displayterm value="ContinuousOperationNA">NA: Continuously operated per [d:t24refnolink/]120.2(e)3 exception[d:sup]5[/d:sup]</dtyp:displayterm>
-                                                                  <dtyp:displayterm value="LowPowerNA">NA: System [d:lt/] 2kW demand + manual shutoff per [d:t24refnolink/]120.2(e)3 exception[d:sup]5[/d:sup]</dtyp:displayterm>
-                                                                  <dtyp:displayterm value="HotelMotelNA">NA: Hotel/ Motel + manual shutoff per [d:t24refnolink/]120.2(e)3 exception[d:sup]3[/d:sup]</dtyp:displayterm>
-                                                               </xsd:appinfo>
-                                                               
                                                                <xsd:appinfo source="NRCIsrc">
                                                                   <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J16a_DemandControlVent</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
@@ -5530,7 +5565,8 @@ Vent07_MechVentControls IsPresent And != DCV
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls; Vent07_NotApplicableMessage</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_NotApplicableMessage</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -5551,12 +5587,6 @@ Else If Ventnr01_InstalledSameAsCC == false
 User input
 End If
 End If</xsd:documentation>
-                                                               <xsd:appinfo source="displayterm">
-                                                                  <dtyp:displayterm value="ContinuousOperationNA">NA: Continuously operated per [d:t24refnolink/]120.2(e)3 exception[d:sup]5[/d:sup]</dtyp:displayterm>
-                                                                  <dtyp:displayterm value="LowPowerNA">NA: System [d:lt/] 2kW demand + manual shutoff per [d:t24refnolink/]120.2(e)3 exception[d:sup]5[/d:sup]</dtyp:displayterm>
-                                                                  <dtyp:displayterm value="HotelMotelNA">NA: Hotel/ Motel + manual shutoff per [d:t24refnolink/]120.2(e)3 exception[d:sup]3[/d:sup]</dtyp:displayterm>
-                                                               </xsd:appinfo>
-                                                               
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                          <xsd:element name="Ventnr08_NotApplicableMessage" >
@@ -5806,7 +5836,9 @@ End If</xsd:documentation>
                                              </xsd:appinfo>
                                              
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26a_BathroomIAQ; J26b_BathroomVentIAQ; J26c_KitchenHoodRange</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26a_BathroomIAQ</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26b_BathroomVentIAQ</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26c_KitchenHoodRange</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -5826,7 +5858,9 @@ Else  If NRCC-PRF parent
 result = BlankGrayedOut
 End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26a_BathroomIAQ; J26b_BathroomVentIAQ; J26c_KitchenHoodRange</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26a_BathroomIAQ</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26b_BathroomVentIAQ</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">J26c_KitchenHoodRange</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -6021,7 +6055,8 @@ End If
 The result is displayed in both the Per NRCC and As-built conditions</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">K01_ThermalZoneName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy choice">Zone01_TerminalUnitName; Zone01_ZoneSystemName</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Zone01_TerminalUnitName</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Zone01_ZoneSystemName</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -6382,7 +6417,6 @@ End If</xsd:documentation>
                                     <xsd:element name="Zone07to08Subheading" minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Reheated, Recooled, Mixed Air Compliance</xsd:documentation>
-                                          <xsd:documentation source="AdditionalRequirements">Reheated, Recooled, Mixed Air Compliance</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:choice maxOccurs="1">
@@ -6587,7 +6621,8 @@ For each  L10a_DuctSystems
 result += L10a_DuctSystems
 End If</xsd:documentation>
                                  <xsd:appinfo source="NRCIsrc">
-                                    <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">L10b_DuctLeakageTestRequired; L10a_DuctSystems</dtyp:srcSchema>
+                                    <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">L10b_DuctLeakageTestRequired</dtyp:srcSchema>
+                                    <dtyp:srcSchema form="NRCCMCH01E"  usage="reference">L10a_DuctSystems</dtyp:srcSchema>
                                  </xsd:appinfo>
                               </xsd:annotation>
                            </xsd:element>
@@ -6613,9 +6648,6 @@ This subsection consists of a display of static table and has no reported data</
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">[d:i] TABLE 120.3-A PIPE INSULATION THICKNESS [/d:i]</xsd:documentation>
                                  <xsd:documentation source="CalculationsAndRules">For published reports, insert image file of Table 120.3-A here.</xsd:documentation>
-                                 <xsd:appinfo source="filenameterm">
-                                    <dtyp:filenameterm>Table120_3APipeInsulationThickness.jpg</dtyp:filenameterm>
-                                 </xsd:appinfo>
                               </xsd:annotation>
                            </xsd:element>
                         </xsd:sequence>
@@ -6631,7 +6663,17 @@ This subsection consists of a display of static table and has no reported data</
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
-                  <xsd:element name="G_BeginNote1" minOccurs="0">
+                  <xsd:element name="G_BeginNote1NoNRCA" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]There are no Acceptance Tests or HERS verifications indicated on the permitted NRCC related to the systems or materials documented on this NRCI.[/d:i]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If at least one RequireNRCAxxx == true, 
+the static text in AdditionalRequirements IS NOT DISPLAYED  
+Else If All RequireNRCAxxx == false 
+the static text in AdditionalRequirements the only thing displayed after the Section title.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G_BeginNote2" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">[d:i]The following Acceptance Tests and HERS Verifications related to the systems or materials documented on this NRCI have been indicated on the permitted Certificate of Compliance (NRCC) as being required to comply with Title 24, Part 6. [/d:i]</xsd:documentation>
@@ -6746,7 +6788,7 @@ Else If G02_RequireNRCAMch03A == true And NRCC-MCH is parent
 result = NRCC-MCH  O02_SystemFieldVerified and it is displayed
 End If</xsd:documentation>
                         <xsd:appinfo source="NRCIsrc">
-                           <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">O01_SystemFieldVerified</dtyp:srcSchema>
+                           <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">O02_SystemFieldVerified</dtyp:srcSchema>
                         </xsd:appinfo>
                      </xsd:annotation>
                   </xsd:element>
@@ -7191,7 +7233,7 @@ End If</xsd:documentation>
                   <xsd:element name="G11_RequireNRCAMch12A" type="comp:RequireNRCAMch12A" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCA-MCH-12-A-FDD-F Must be submitted for  Packaged Direct Expansion Units</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-MCH-12-A-FDD-F Must be submitted for Packaged Direct Expansion Units</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 result = O11_RequireNRCAMch12A 
 If result == true 
@@ -7720,7 +7762,7 @@ End If</xsd:documentation>
                   <xsd:element name="G21_RequireNRCVMch04H" type="comp:RequireNRCVMch04H" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-04-H Duct Leakage Test  [d:i] NOTE: Must be completed by installer and submitted for Air Distribution Duct Leakage[/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-04-H Duct Leakage Test [d:i] NOTE: Must be completed by installer and submitted for Air Distribution Duct Leakage[/d:i]</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 result = P01_RequireNRCVMch04H  
 If result == true 
@@ -7773,7 +7815,7 @@ End If</xsd:documentation>
                   <xsd:element name="G22_RequireNRCVMch24H" type="comp:RequireNRCVMch24H" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-24 Enclosure Air Leakage Worksheet  [d:i] NOTE: Must be completed by a HERS Rater [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-24 Enclosure Air Leakage Worksheet [d:i] NOTE: Must be completed by a HERS Rater [/d:i]</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 result = P02_RequireNRCVMch24H  
 If result == true 
@@ -7827,7 +7869,7 @@ End If</xsd:documentation>
                   <xsd:element name="G23_RequireNRCVMch27H" type="comp:RequireNRCVMch27H" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-27 High-rise ResIdential [d:i] NOTE: Must be completed by a HERS Rater [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-27 High-rise Residential [d:i] NOTE: Must be completed by a HERS Rater [/d:i]</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 result = P03_RequireNRCVMch27H  
 If result == true 
@@ -7880,7 +7922,7 @@ End If</xsd:documentation>
                   <xsd:element name="G24_RequireNRCVMch32H" type="comp:RequireNRCVMch32H" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-32 Local Mechanical Exhaust  [d:i] NOTE: Must be completed by a HERS Rater [/d:i]</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCV-MCH-32 Local Mechanical Exhaust [d:i] NOTE: Must be completed by a HERS Rater [/d:i]</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 result = P04_RequireNRCVMch32H  
 If result == true 
@@ -7929,13 +7971,6 @@ End If</xsd:documentation>
                         <xsd:appinfo source="NRCIsrc">
                            <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">P04_SystemsToFieldVerify</dtyp:srcSchema>
                         </xsd:appinfo>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="G_LabelNoNRCA_NRCV" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"></xsd:documentation>
-                        <xsd:documentation source="AdditionalRequirements">There are no Acceptance Tests or HERS verifications indicated on the permitted NRCC related to the systems or materials documented on this NRCI.</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This text is displayed only if there are no required NRCA or NRCV  displayed in this section</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="GEndNote1" minOccurs="0">
