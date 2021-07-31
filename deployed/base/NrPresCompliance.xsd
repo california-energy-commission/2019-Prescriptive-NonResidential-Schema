@@ -784,7 +784,6 @@
             <dtyp:displayterm value="B2">B2</dtyp:displayterm>
             <dtyp:displayterm value="B3">B3</dtyp:displayterm>
             <dtyp:displayterm value="B4">B4</dtyp:displayterm>
-            <dtyp:displayterm value="B5">B5</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -793,7 +792,6 @@
          <xsd:enumeration value="B2"/>
          <xsd:enumeration value="B3"/>
          <xsd:enumeration value="B4"/>
-         <xsd:enumeration value="B5"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="BackLightRatingLimitBUG">
@@ -898,11 +896,14 @@
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="ControlFanMotorDemand">Controls limit fan motor demand to 
                <d:lte/> 30% of the total design wattage at 50% of design air volume provided</dtyp:displayterm>
+            <dtyp:displayterm value="FanLT10HP_NA">NA: Combustion air fan 
+               <d:lt/>10 HP</dtyp:displayterm>
             <dtyp:displayterm value="FanVarSpeedDrive">Variable speed drive provided</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="ControlFanMotorDemand"/>
+         <xsd:enumeration value="FanLT10HP_NA"/>
          <xsd:enumeration value="FanVarSpeedDrive"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -1796,7 +1797,7 @@
    <xsd:simpleType name="CompliancePath">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="NA"/>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
             <dtyp:displayterm value="Performance">Performance</dtyp:displayterm>
             <dtyp:displayterm value="PerformanceAndPrescriptive">Performance and Prescriptive Combined</dtyp:displayterm>
             <dtyp:displayterm value="Prescriptive">Prescriptive</dtyp:displayterm>
@@ -1832,6 +1833,7 @@
             <dtyp:displayterm value="ExactMatch">INSTALLED FEATURES EXACTLY MATCH DESIGN ON PERMITTED CERTIFICATE OF COMPLIANCE</dtyp:displayterm>
             <dtyp:displayterm value="FormNotComplete">FORM NOT COMPLETE</dtyp:displayterm>
             <dtyp:displayterm value="MayNotComply">INSTALLED FEATURES MAY NOT COMPLY UNLESS PERMITTED CERTIFICATE OF COMPLIANCE REVISED</dtyp:displayterm>
+            <dtyp:displayterm value="TableIncomplete">INCOMPLETE</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -1839,6 +1841,7 @@
          <xsd:enumeration value="ExactMatch"/>
          <xsd:enumeration value="FormNotComplete"/>
          <xsd:enumeration value="MayNotComply"/>
+         <xsd:enumeration value="TableIncomplete"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ComplianceSoftwareVersion">
@@ -2259,12 +2262,14 @@
    <xsd:simpleType name="CondenserFins">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="ExistCondenserNA">NA: existing condenser being reused</dtyp:displayterm>
             <dtyp:displayterm value="FinsLTE10PerIn">
                <d:lte/> 10 fins/in</dtyp:displayterm>
             <dtyp:displayterm value="FinsNA">NA: Using microchannel condenser</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="ExistCondenserNA"/>
          <xsd:enumeration value="FinsLTE10PerIn"/>
          <xsd:enumeration value="FinsNA"/>
       </xsd:restriction>
@@ -5120,12 +5125,27 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="MeteringNoMatch">Metering capabilities on the Electrical Metering subtable do no match what was permitted on the Certificate of Compliance.  Please verify installation meets metering capability requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
             <dtyp:displayterm value="ReceptControlNoMatch">Receptacle controls on the Controlled Receptacles subtable do no match what was permitted on the Certificate of Compliance.  Please verify installation meets control requirements.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="MeteringNoMatch"/>
+         <xsd:enumeration value="NoExceptionNote"/>
          <xsd:enumeration value="ReceptControlNoMatch"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExceptionalConditionMessageNRCIENVE">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>NRCI-PLB-E Exceptional Condition Message</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NoExceptionNote"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCILTIE">
@@ -5135,10 +5155,12 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="LightControlNoMatch">Control requirements on the Control By Space subtable do no match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="LightControlNoMatch"/>
+         <xsd:enumeration value="NoExceptionNote"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCILTOE">
@@ -5147,23 +5169,27 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm>NRCI-LTO-E Exceptional Condition Message</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
             <dtyp:displayterm value="OutdoorLightControlNoMatch">Control requirements on the Outdoor Lighting Controls subtable do no match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NoExceptionNote"/>
          <xsd:enumeration value="OutdoorLightControlNoMatch"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCILTSE">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
-            <dtyp:displayterm>NRCI-LTO-E Exceptional Condition Message</dtyp:displayterm>
+            <dtyp:displayterm>NRCI-LTS-E Exceptional Condition Message</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
             <dtyp:displayterm value="SignLightControlNoMatch">Control requirements on the Sign Lighting Controls subtable do no match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NoExceptionNote"/>
          <xsd:enumeration value="SignLightControlNoMatch"/>
       </xsd:restriction>
    </xsd:simpleType>
@@ -5177,6 +5203,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="ChillerNoMatch">Control requirements on the Chililer Efficiency and Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
             <dtyp:displayterm value="FanEconNoMatch">Fan economizer requirements on the Fans and Air Economizer  subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets economizer requirements.</dtyp:displayterm>
             <dtyp:displayterm value="HeatRejNoMatch">Control requirements on the Heat Rejection subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
             <dtyp:displayterm value="PumpsNoMatch">Control requirements on the Pumps subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
             <dtyp:displayterm value="SysControlsNoMatch">Control requirements on the System Controls subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
             <dtyp:displayterm value="VentNoMatch">Control requirements on the Ventilation subtable do not match what was permitted on the Certificate of Compliance.  Please verify installation meets controls requirements.</dtyp:displayterm>
@@ -5187,9 +5214,49 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="ChillerNoMatch"/>
          <xsd:enumeration value="FanEconNoMatch"/>
          <xsd:enumeration value="HeatRejNoMatch"/>
+         <xsd:enumeration value="NoExceptionNote"/>
          <xsd:enumeration value="PumpsNoMatch"/>
          <xsd:enumeration value="SysControlsNoMatch"/>
          <xsd:enumeration value="VentNoMatch"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExceptionalConditionMessageNRCIPLBE">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>NRCI-PLB-E Exceptional Condition Message</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NoExceptionNote"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExceptionalConditionMessageNRCIPRCE">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>NRCI-PLB-E Exceptional Condition Message</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NoExceptionNote"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ExceptionalConditionMessageNRCISRAE">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>NRCI-SRA-E Exceptional Condition Message</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="NoExceptionNote">No exceptional condition notes for this NRCI</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="NoExceptionNote"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionNote">
@@ -5298,6 +5365,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="FenestrationComplianceCalc">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="EnergyCodeDefaults">Energy Code Defaults</dtyp:displayterm>
             <dtyp:displayterm value="NA6DefaultCOG">NA6 Default (COG)</dtyp:displayterm>
             <dtyp:displayterm value="NFRC_Certified">NFRC Certified</dtyp:displayterm>
             <dtyp:displayterm value="Table110_6Defaults">
@@ -5305,6 +5373,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="EnergyCodeDefaults"/>
          <xsd:enumeration value="NA6DefaultCOG"/>
          <xsd:enumeration value="NFRC_Certified"/>
          <xsd:enumeration value="Table110_6Defaults"/>
@@ -7088,6 +7157,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:restriction base="dtyp:EnumerationConstant"/>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryAreaControlsRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7095,6 +7171,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryAutoShutOffControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7102,6 +7185,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryBuildingDemandResponseControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7109,6 +7199,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryBuildingShutOffControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7116,6 +7213,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryDaylightingControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7123,6 +7227,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryDemandResponseControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7132,6 +7243,11 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="MandatoryLightingControlIsReportRequired">
       <xsd:annotation>
          <xsd:documentation>This property is the basic definition for a number of different mandatory lighting control report properties that are defined as aliases of this property</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
@@ -7164,6 +7280,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryManualAreaControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7188,6 +7311,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryMultiLevelControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7195,6 +7325,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryPrimaryDaylightingControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7202,6 +7339,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatorySecondaryDaylightingControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -7209,6 +7353,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="MandatoryShutOffControlRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+            <dtyp:displayterm value="NA">NA</dtyp:displayterm>
+            <dtyp:displayterm value="Required">Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="NA"/>
@@ -8539,6 +8690,24 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasElevatorLighting">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasElevatorVentilation">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasEnclosedParking">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -8583,6 +8752,42 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:appinfo source="displaytermType">
             <dtyp:displayterm>Fan Systems</dtyp:displayterm>
          </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasFenestrationSkylight">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasFenestrationVertical">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasFloorAssembly">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasFloorInsulation">
+      <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
             <dtyp:displayterm value="false">No</dtyp:displayterm>
@@ -8644,7 +8849,34 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasInsulationAboveDeck">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasInsulationBelowDeck">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasInterlockControl">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasKitchenHood">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -8689,6 +8921,15 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasNewSolidDoor">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasPumps">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -8719,6 +8960,51 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasRefrigCompressors">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasRefrigCondensers">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasRefrigEvap">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasRefrigInfiltBarrier">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasRefrigInsulation">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasRefrigSpace">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
@@ -8729,6 +9015,15 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="ProjectHasRefrigSpaceLT3kFt2">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasRoofSurfacing">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -8833,6 +9128,15 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasUnderSlabHeating">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="ProjectHasVentilation">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -8855,6 +9159,24 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="ProjectHasVoltDrop">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasWallAssembly">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="ProjectHasWallInsulation">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -10244,7 +10566,7 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
-            <dtyp:displayterm value="false">No</dtyp:displayterm>
+            <dtyp:displayterm value="false">No, by others</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:boolean"/>
@@ -10444,12 +10766,16 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="DimmingNA">NA</dtyp:displayterm>
             <dtyp:displayterm value="PowerReduced65">Power reduced 65%+</dtyp:displayterm>
             <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
+            <dtyp:displayterm value="OutdoorUse24x7NA">NA: Outdoor 24x7 use</dtyp:displayterm>
+            <dtyp:displayterm value="TunnelsNA">NA: Lighting in Tunnels</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="DimmingNA"/>
          <xsd:enumeration value="PowerReduced65"/>
          <xsd:enumeration value="Exempt"/>
+         <xsd:enumeration value="OutdoorUse24x7NA"/>
+         <xsd:enumeration value="TunnelsNA"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SignShutOffControls">
@@ -10461,6 +10787,8 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="AutoTimeSwitchPhotoControl">Automatic Time Switch + Photocontrol</dtyp:displayterm>
             <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
             <dtyp:displayterm value="Other">Other*</dtyp:displayterm>
+            <dtyp:displayterm value="OutdoorUse24x7NA">NA: Outdoor 24x7 use</dtyp:displayterm>
+            <dtyp:displayterm value="TunnelsNA">NA: Lighting in Tunnels</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -10470,6 +10798,8 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="AutoTimeSwitchPhotoControl"/>
          <xsd:enumeration value="Exempt"/>
          <xsd:enumeration value="Other"/>
+         <xsd:enumeration value="OutdoorUse24x7NA"/>
+         <xsd:enumeration value="TunnelsNA"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="SignatureDate">

@@ -2856,6 +2856,9 @@ Multi-field triggers: See Fconwater08_CondenserMinEfficiency  CalculationsAndRul
 																<xsd:annotation>
 																	<xsd:documentation source="FieldText">Variable Speed Control [d:t24ref/]120.6(a)4D</xsd:documentation>
 																	<xsd:documentation source="CalculationsAndRules">User selects only choice, result = true; else result = false</xsd:documentation>
+																	<xsd:appinfo source="displayterm">
+																		<dtyp:displayterm value="true">Variable speed fan(s) provided control per [d:t24ref/]120.6(a)4D</dtyp:displayterm>
+																	</xsd:appinfo>
 																</xsd:annotation>
 															</xsd:element>
 															<xsd:element name="Fconadia04_CondenserTempControls">
@@ -3523,7 +3526,7 @@ End If</xsd:documentation>
 									<xsd:element name="H03toH14NA_NotApplicableMessage">
 										<xsd:annotation>
 											<xsd:documentation source="FieldText"/>
-											<xsd:documentation source="CalculationsAndRules">If H01_GarageGT20%NonGasCars  Or H02_GarageNewExhaustLT10000cfm == true result = BlankGrayedOut applied to H03 through H14</xsd:documentation>
+											<xsd:documentation source="CalculationsAndRules">If H01_VehiclesGT20PctNonGas  Or H02_NewExhaustLT10000cfm == true result = BlankGrayedOut applied to H03 through H14</xsd:documentation>
 										</xsd:annotation>
 										<xsd:simpleType>
 											<xsd:restriction base="comp:NotApplicableMessage">
@@ -3534,7 +3537,7 @@ End If</xsd:documentation>
 									<xsd:element name="Hparking">
 										<xsd:annotation>
 											<xsd:documentation source="FieldText"/>
-											<xsd:documentation source="CalculationsAndRules">If H01_GarageGT20%NonGasCars And H02_GarageNewExhaustLT10000cfm == false this subsection is required</xsd:documentation>
+											<xsd:documentation source="CalculationsAndRules">If H01_VehiclesGT20PctNonGas  And H02_NewExhaustLT10000cfm == false this subsection is required</xsd:documentation>
 										</xsd:annotation>
 										<xsd:complexType>
 											<xsd:sequence>
@@ -4077,11 +4080,16 @@ End If</xsd:documentation>
 															<xsd:documentation source="CalculationsAndRules">User selects only item in list: Occupancy sensors provided;   If selected result = true;  Else result = false</xsd:documentation>
 														</xsd:annotation>
 													</xsd:element>
-													<xsd:element name="K15_NotApplicableMessage" type="comp:NotApplicableMessage">
+													<xsd:element name="K15_NotApplicableMessage">
 														<xsd:annotation>
 															<xsd:documentation source="FieldText">Controls</xsd:documentation>
 															<xsd:documentation source="CalculationsAndRules">If K10_IsSpaceConditioned == true result = BlankGrayedOut;</xsd:documentation>
 														</xsd:annotation>
+														<xsd:simpleType>
+															<xsd:restriction base="comp:NotApplicableMessage">
+																<xsd:enumeration value="BlankGrayedOut"/>
+															</xsd:restriction>
+														</xsd:simpleType>
 													</xsd:element>
 												</xsd:choice>
 											</xsd:sequence>
@@ -4336,11 +4344,16 @@ End If</xsd:documentation>
 							</xsd:annotation>
 							<xsd:complexType>
 								<xsd:choice>
-									<xsd:element name="Ne01to08NA_NotApplicableMessage" type="comp:NotApplicableMessage">
+									<xsd:element name="Ne01to08NA_NotApplicableMessage">
 										<xsd:annotation>
 											<xsd:documentation source="FieldText"/>
 											<xsd:documentation source="CalculationsAndRules">If Nv01_HoodsNotReplaced == true result for Ne01 to Ne08 = BlankGrayedOut and NEndNote1 is not displayed</xsd:documentation>
 										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="comp:NotApplicableMessage">
+												<xsd:enumeration value="BlankGrayedOut"/>
+											</xsd:restriction>
+										</xsd:simpleType>
 									</xsd:element>
 									<xsd:element name="NeReq">
 										<xsd:annotation>

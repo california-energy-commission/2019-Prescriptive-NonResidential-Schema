@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.lmonte.com/besm/NRCILTO01E" version="2019.1.003" xmlns="http://www.lmonte.com/besm/NRCILTO01E" xmlns:altova="http://www.altova.com/xml-schema-extensions" xmlns:bld="http://www.lmonte.com/besm/bld" xmlns:com="http://www.lmonte.com/besm/com" xmlns:comp="http://www.lmonte.com/besm/comp" xmlns:d="http://www.lmonte.com/besm/d" xmlns:dtyp="http://www.lmonte.com/besm/dtyp" xmlns:env="http://www.lmonte.com/besm/env" xmlns:hvac="http://www.lmonte.com/besm/hvac" xmlns:lit="http://www.lmonte.com/besm/lit" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="../base/DataTypes.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="../base/NrPresHvac.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/lit" schemaLocation="../base/NrPresLighting.xsd"/>
+   <xsd:element name="ComplianceDocumentPackage">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="DocID" minOccurs="0">
+               <xsd:complexType>
+                  <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCILTO01E"/>
+                  <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CertificateInstallationNR"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Outdoor Lighting"/>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Payload" type="comp:Payload"/>
+            <xsd:element name="DocumentData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="Header" type="comp:HeaderNRCI"/>
+                     <xsd:element ref="nRCILTO01E"/>
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded"/>
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCI" maxOccurs="unbounded"/>
+                     <xsd:element name="Footer" type="comp:FooterNRCC"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+         </xsd:sequence>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20210701"/>
+         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCILTO01E"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="NRCILTO01E">
+      <xsd:annotation>
+         <xsd:documentation>Outdoor Lighting</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>A. GENERAL INFORMATION</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="A_BeforeNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This Certificate of Installation documents the installation of sign lighting features, materials, components, and manufactured devices required to demonstrate compliance with Title 24, Part 6 per  
+                              <d:t24refnolink/>10.103(a)3 for nonresidential, hotel/motel and high-rise residential occupancies, [ .</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A01_ProjectCity" type="comp:ProjectCity">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-LTO parent, 
+result = A01_ProjectCity
+End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCLTO01E" usage="copy">A01_ProjectCity</dtyp:srcSchema>
+                        </xsd:appinfo>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02_ProjectZipcode" type="comp:ProjectZipcode">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Zip Code</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-LTO parent, 
+User input
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03_PermitSetDate" type="comp:PermitSetDate">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A04_PermitSetName" type="comp:PermitSetName">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A05_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Authority Having Jurisdiction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A06_PermitNumber" type="comp:PermitNumber">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building Permit #</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A07_AsBuiltSetDate" type="comp:AsBuiltSetDate">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_B" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>B. INSTALLER SCOPE</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="B_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This table indicates the construction systems and materials documented on this Nonresidential Certificate of Installation. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01_ProjectHasLuminaires" type="comp:ProjectHasLuminaires">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Luminaires</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B02_ProjectHasControls" type="comp:ProjectHasControls">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Controls</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_C" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>C. COMPLIANCE RESULTS</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="C_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This table indicates whether the as-built conditions documented in this form are equal or better than what was documented on the permitted Certificate of Compliance.  If the installation is not equal or better, Section 10-103(a)2B requires the Certificate of Compliance form to be revised accordingly to demonstrate compliance.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01_ComplianceResultNRCI" type="comp:ComplianceResultNRCI">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+ If in any required tables or subsections in Section F 
+  ComplianceResultNRCI ==  FormNotComplete
+ result = FormNotComplete
+ Else If ComplianceResultNRCI == MayNotComply
+ result = MayNotComply
+  
+ Else If All require tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
+ result = ExactMatch
+ Else If any have ComplianceResultNRCI ==  EqualBetter
+ result = EqualBetter
+ End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01Message_ComplianceResultMessageNRCI" type="comp:ComplianceResultMessageNRCI">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+ If C01_ComplianceResultNRCI == ExactMatch Or EqualBetter
+ result = ExactEqualBetterText
+ Else If C01_ComplianceResultNRCI == MayNotComply
+ result =  MayNotComplyText
+ End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_D" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>D. EXCEPTIONAL CONDITIONS</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="D_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This table is auto-filled with uneditable comments because of field conditions noted by the installer that may impact requirements documented on the Certificate of Compliance.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="D01_ExceptionalConditionMessageNRCILTOE" type="comp:ExceptionalConditionMessageNRCILTOE" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document
+If ExceptionalConditionMessageNRCILTOE == ""
+result = NoExceptionNote
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_E" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>E. INSTALLER NOTES</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the  installer to the Authority Having Jurisdiction</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="E_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>This table includes remarks made by the installer to the Authority Having Jurisdiction.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E01_CommentsToPermitAuthority" type="comp:CommentsToPermitAuthority" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_F" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>F. INSTALLATION DETAILS</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="F_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>The following tables indicate performance requirements as documented on the permitted Certificate of Compliance (NRCC) for all systems and components included in Table B. Installer Scope.  Also included are the as-built conditions documented by the installer/documentation author. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelTopCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Per NRCC</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the top cell for all tables in Section F.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelBottomCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">As-built Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the bottom cell for all tables in Section F</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableLum" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Outdoor Lighting Fixture Schedule</d:b>
+                        </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if B01_ProjectHasLuminaires  == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Lum01cc_LuminaireName" type="lit:LuminaireName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = F01_LuminaireName
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F01_LuminaireName</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Lum01_InstalledSameAsCC" type="comp:InstalledSameAsCC" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Lum02_ScopeIncludesFixture" type="comp:ScopeIncludesFixture">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Fixture Within Scope?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User input
+ If result == false  Lum03cc-Lum08cc is displayed but Lum03-Lum09 As-built cells are blank and grayed out</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Lum03cc_LuminaireDescription" type="lit:LuminaireDescription">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = F02_LuminaireDescription
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F02_LuminaireDescription</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum03_LuminaireDescription" type="lit:LuminaireDescription">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
+If Lum01_InstalledSameasCC == true
+result = Lum03cc_LuminaireDescription  
+Else 
+User input 
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum03_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+ result = BlankGrayedOut
+ End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Lum04cc_IsLuminaireLinear" type="comp:IsLuminaireLinear">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Fixture Type</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = F02a_IsLuminaireLinear
+End If</xsd:documentation>
+                                          <xsd:appinfo source="displayterm">
+                                             <dtyp:displayterm value="true">Linear</dtyp:displayterm>
+                                             <dtyp:displayterm value="false">Non-linear</dtyp:displayterm>
+                                          </xsd:appinfo>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F02a_IsLuminaireLinear</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum04_IsLuminaireLinear" type="comp:IsLuminaireLinear">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Fixture Type</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true
+If Lum01_InstalledSameasCC == true
+result = Lum04cc_IsLuminaireLinear 
+Else 
+User input
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="true">Linear</dtyp:displayterm>
+                                                <dtyp:displayterm value="false">Non-linear</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum04_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Fixture Type</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+ result = BlankGrayedOut
+ End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum05cc_LuminairePower" type="lit:LuminairePower">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Rated Watts per Luminaire<d:sup>1</d:sup>
+                                             </xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F03_LuminairePower IsPresent
+result = F03_LuminairePower
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F03_LuminairePower</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum05cc_LuminaireWattsPerLF" type="lit:LuminaireWattsPerLF">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Rated Watts per Luminaire<d:sup>1</d:sup>
+                                             </xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F03_LuminaireWattsPerLF IsPresent
+result = F03_LuminaireWattsPerLF
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">LuminaireWattsPerLF</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum05_LuminairePower" type="lit:LuminairePower">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Rated Watts per Luminaire<d:sup>1</d:sup>
+                                             </xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
+If Lum05cc_LuminairePower IsPresent
+If Lum01_InstalledSameasCC == true
+result = Lum05cc_LuminairePower 
+Else
+User input
+End If
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum05_LuminaireWattsPerLF" type="lit:LuminaireWattsPerLF">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Rated Watts per Luminaire<d:sup>1</d:sup>
+                                             </xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
+If Lum05cc_LuminaireWattsPerLF IsPresent
+If Lum01_InstalledSameasCC == true
+result = Lum05cc_LuminaireWattsPerLF 
+Else
+User input
+End If
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum05_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Rated Watts per Luminaire<d:sup>1</d:sup>
+                                             </xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+ result = BlankGrayedOut
+ End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum06cc_LuminaireCountByType" type="lit:LuminaireCountByType">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F05_LuminaireCountByType IsPresent
+result = F05_LuminaireCountByType 
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F05_LuminaireCountByType</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum06cc_LuminairesTotalLF" type="lit:LuminairesTotalLF">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F05_LuminaireWattsPerLF IsPresent
+result = F05_LuminairesTotalLF
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F05_LuminairesTotalLF</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum06_LuminaireCountByType" type="lit:LuminaireCountByType">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
+If Lum06cc_LuminaireCountByType IsPresent
+If Lum01_InstalledSameasCC == true
+result = Lum06cc_LuminaireCountByType  
+Else
+User input
+End If
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum06_LuminairesTotalLF" type="lit:LuminairesTotalLF">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
+If Lum06cc_LuminairesTotalLF IsPresent
+If Lum01_InstalledSameasCC == true
+result = Lum06cc_LuminairesTotalLF  
+Else
+Use input
+End If
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum06_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+ result = BlankGrayedOut
+ End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum07cc_LuminairePowerByType" type="lit:LuminairePowerByType">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F08_LuminairePowerByType IsPresent
+result = F08_LuminairePowerByType  
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F08_LuminairePowerByType</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum07cc_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F08_NotApplicableMessage IsPresent
+result = F08_NotApplicableMessage  
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F08_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum07_LuminairePowerByType" type="lit:LuminairePowerByType">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
+If Lum05_LuminairePower IsPresent
+result = Lum05_LuminairePower x Lum06_LuminaireCountByType
+Else If Lum05_LuminaireWattsPerLF  IsPresent
+result = Lum05_LuminaireWattsPerLF x Lum06_LuminairesTotalLF
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum07_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+ result = BlankGrayedOut
+Else If Lum07cc_NotApplicableMessage IsPresent
+result = Lum07cc_NotApplicableMessage 
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum08cc_LuminairePowerCutoffCompliance">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Outdoor Luminaire 
+                                                <d:gte/> 6,200 Lumens</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F09_LuminairePowerCutoffCompliance IsPresent
+result = F09_LuminairePowerCutoffCompliance  
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F09_LuminairePowerCutoffCompliance</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:LuminairePowerCutoffCompliance">
+                                                <xsd:enumeration value="CutoffGTE6200Lumens"/>
+                                                <xsd:enumeration value="CutoffLT6200Lumens"/>
+                                                <xsd:enumeration value="CutoffLtgZone0"/>
+                                                <xsd:enumeration value="Exempt"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                       <xsd:element name="Lum08cc_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Outdoor Luminaire 
+                                                <d:gte/> 6,200 Lumens</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If F09_NotApplicableMessage IsPresent
+result = F09_NotApplicableMessage  
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTO01E" usage="copy">F09_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum08_LuminairePowerCutoffCompliance">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Outdoor Luminaire 
+                                                <d:gte/> 6,200 Lumens</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
+If Lum08cc_LuminairePowerCutoffCompliance IsPresent And Lum08cc_LuminairePowerCutoffCompliance != Exempt
+If Lum01_InstalledSameasCC == true
+result = Lum08cc_LuminairePowerCutoffCompliance  
+Else
+User selects from list
+End If
+Else
+User selects from list
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:LuminairePowerCutoffCompliance">
+                                                <xsd:enumeration value="CutoffGTE6200Lumens"/>
+                                                <xsd:enumeration value="CutoffLT6200Lumens"/>
+                                                <xsd:enumeration value="CutoffLtgZone0"/>
+                                                <xsd:enumeration value="NotPermittedNA"/>
+                                                <xsd:enumeration value="ReplacePoleMountNA"/>
+                                                <xsd:enumeration value="ResControlledNA"/>
+                                                <xsd:enumeration value="RightOfWayNA"/>
+                                                <xsd:enumeration value="SignageNA"/>
+                                                <xsd:enumeration value="StructuresNA"/>
+                                                <xsd:enumeration value="TempLightNA"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                       <xsd:element name="Lum08_NotApplicableMessage">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Outdoor Luminaire 
+                                                <d:gte/> 6,200 Lumens</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+ result = BlankGrayedOut
+Else If Lum08cc_NotApplicableMessage IsPresent
+result = Lum08cc_NotApplicableMessage 
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Lum09_ComplianceResultNRCI" type="comp:ComplianceResultNRCI">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Fixture Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any required field is blank
+ result = TableIncomplete  
+Else If Lum07_LuminairePowerByType IsPresent 
+If  Lum07_LuminairePowerByType LT  Lum07cc_LuminairePowerByType 
+ result = MayNotComply
+ 
+ Else  If  
+Lum02_ScopeIncludesFixture == true And 
+Lum03_LuminaireDescription == Lum03cc_LuminaireDescription
+And 
+Lum04_IsLuminaireLinear == Lum04cc_IsLuminaireLinear
+And
+(
+Lum05_LuminairePower  IsPresent And Lum05_LuminairePower == Lum05cc_LuminairePower Or   Lum05_LuminaireWattsPerLF IsPresent And  Lum05_LuminaireWattsPerLF ==  Lum05cc_LuminaireWattsPerLF
+)
+And 
+(
+Lum06_LuminaireCountByType IsPresent And Lum06_LuminaireCountByType == Lum06cc_LuminaireCountByType Or Lum06_LuminairesTotalLF IsPresent And Lum06_LuminairesTotalLF == Lum06cc_LuminairesTotalLF
+)
+And
+( 
+Lum08_NotApplicableMessage IsPresent Or Lum08cc_LuminairePowerCutoffCompliance == Exempt And Lum08_LuminairePowerCutoffCompliance != CutoffGTE6200Lumens Or Lum08_LuminairePowerCutoffCompliance == Lum08cc_LuminairePowerCutoffCompliance
+)
+Then 
+If Lum07_NotApplicableMessage IsPresent Or Lum07_LuminairePowerByType ==  Lum07cc_LuminairePowerByType
+result = ExactMatch
+ 
+Else If Lum07_LuminairePowerByType IsPresent And Lum07_LuminairePowerByType GTE  Lum07cc_LuminairePowerByType
+result = EqualBetter
+End If
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="LumEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i><d:sup>1</d:sup> For linear luminaires, wattage is in W/lf instead of Watts/luminaire.  Total linear feet should be indicated in column 06 instead of number of luminaires. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableBUG" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">
+                           <d:b>CUTOFF REQUIREMENTS (BUG)</d:b>
+                        </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if any luminaire in TableLum  has Lum08cc_LumenairePowerCutoffCompliance == CutoffGTE6200Lumens And Lum08_LumenairePowerCutoffCompliance == CutoffGTE6200Lumens</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Bug03to04Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Backlight</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug05Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Uplight</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug06to07Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Glare</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug01cc_LuminaireName" type="lit:LuminaireName">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+If G01_LuminaireName == Lum01_LuminaireName  where Lum02_ScopeIncludesFixture == true
+result = G01_LuminaireName
+Else skip this G01_LuminaireName -  not in installer's scope
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">G01_LuminaireName</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug01_InstalledSameAsCC" type="comp:InstalledSameAsCC" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug02cc_LuminaireDescription" type="lit:LuminaireDescription">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = G02_LuminaireDescription
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">G02_LuminaireDescription</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug03cc_MountingHeightRangeBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Mounting Height from Property Line</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = G03_MountingHeightRangeBUG
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">G03_MountingHeightRangeBUG</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MountingHeightRangeBUG">
+                                             <xsd:enumeration value="Back1To2MH"/>
+                                             <xsd:enumeration value="BackHalfTo1MH"/>
+                                             <xsd:enumeration value="BackLessThanHalfMH"/>
+                                             <xsd:enumeration value="GT2MH"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Bug03_MountingHeightRangeBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Mounting Height from Property Line</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Bug01_InstalledSameAsCC == true
+result = Bug03cc_MountingHeightRangeBUG
+Else
+User input
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MountingHeightRangeBUG">
+                                             <xsd:enumeration value="Back1To2MH"/>
+                                             <xsd:enumeration value="BackHalfTo1MH"/>
+                                             <xsd:enumeration value="BackLessThanHalfMH"/>
+                                             <xsd:enumeration value="GT2MH"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Bug04cc_BackLightRatingBUG" type="comp:BackLightRatingBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Backlight Rating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = G05_BackLightRatingBUG
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">G05_BackLightRatingBUG</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug04_BackLightRatingBUG" type="comp:BackLightRatingBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Backlight Rating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Bug01_InstalledSameAsCC == true
+result = Bug04cc_BackLightRatingBUG
+Else
+Uer input
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug05cc_UpLightRatingBUG" type="comp:UpLightRatingBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Uplight Rating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = G08_UpLightRatingBUG
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">G08_UpLightRatingBUG</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug05_UpLightRatingBUG" type="comp:UpLightRatingBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Uplight Rating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Bug01_InstalledSameAsCC == true
+result = Bug05cc_UpLightRatingBUG
+Else
+User input
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug06cc_MountingHeightRangeBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Mounting Height from Property Line</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = G09_MountingHeightRangeBUG
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">G09_MountingHeightRangeBUG</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MountingHeightRangeBUG">
+                                             <xsd:enumeration value="BackLessThanHalfMH"/>
+                                             <xsd:enumeration value="Front1To2MH"/>
+                                             <xsd:enumeration value="FrontHalfTo1MH"/>
+                                             <xsd:enumeration value="GT2MH"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Bug06_MountingHeightRangeBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Mounting Height from Property Line</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Bug01_InstalledSameAsCC == true
+result = Bug06cc_MountingHeightRangeBUG
+End If
+User input</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MountingHeightRangeBUG">
+                                             <xsd:enumeration value="BackLessThanHalfMH"/>
+                                             <xsd:enumeration value="Front1To2MH"/>
+                                             <xsd:enumeration value="FrontHalfTo1MH"/>
+                                             <xsd:enumeration value="GT2MH"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Bug07cc_GlareRatingBUG" type="comp:GlareRatingBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Glare Rating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = G11_GlareLightRatingBUG
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">G11_GlareLightRatingBUG</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug07_GlareRatingBUG" type="comp:GlareRatingBUG">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Glare Rating</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Bug01_InstalledSameAsCC == true
+result = Bug07cc_GlareLightRatingBUG
+Else
+User input
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Bug08_ComplianceResultNRCI" type="comp:ComplianceResultNRCI">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Fixture Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+ result = TableIncomplete  
+Else If   
+Bug03_MountingHeightRangeBUG == Bug03cc_MountingHeightRangeBUG
+And 
+Bug04_BackLightRatingBUG == Bug04cc_BackLightRatingBUG
+And
+Bug05_UpLightRatingBUG == Bug05cc_UpLightRatingBUG
+And
+Bug06_MountingHeightRangeBUG == Bug06cc_MountingHeightRangeBUG
+And
+Bug07_GlareLightRatingBUG == Bug07cc_GlareLightRatingBUG
+ 
+result = ExactMatch
+ 
+Else If 
+Bug03_MountingHeightRangeBUG GTE Bug03cc_MountingHeightRangeBUG 
+And
+Bug04_BackLightRatingBUG LTE Bug04cc_BackLightRatingBUG
+And
+Bug05_UpLightRatingBUG LTE Bug05cc_UpLightRatingBUG
+And
+Bug06_MountingHeightRangeBUG GTE Bug06cc_MountingHeightRangeBUG
+And
+Bug07_GlareLightRatingBUG LTE Bug07cc_GlareLightRatingBUG
+ 
+result = EqualBetter 
+ 
+Else If 
+Bug03_MountingHeightRangeBUG LT Bug03cc_MountingHeightRangeBUG 
+And
+Bug04_BackLightRatingBUG GT Bug04cc_BackLightRatingBUG
+And
+Bug05_UpLightRatingBUG GT Bug05cc_UpLightRatingBUG
+And
+Bug06_MountingHeightRangeBUG LT Bug06cc_MountingHeightRangeBUG
+And
+Bug07_GlareLightRatingBUG GT Bug07cc_GlareLightRatingBUG
+ 
+result = MayNotComply
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="TableControls" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Outdoor Lighting Controls</d:b>
+                        </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if B02_ProjectHasControls  == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Ctrl01cc_SpaceDescription" type="com:SpaceDescription">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Area Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = H01_SpaceDescription
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">H01_SpaceDescription</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl01_InstalledSameAsCC" type="comp:InstalledSameAsCC" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl02cc_ShutOffControlsOutdoors">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = H02_ShutOffControlsOutdoors
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">H02_ShutOffControlsOutdoors</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:ShutOffControlsOutdoors">
+                                             <xsd:enumeration value="AstronomicalTimer"/>
+                                             <xsd:enumeration value="Exempt"/>
+                                             <xsd:enumeration value="Other"/>
+                                             <xsd:enumeration value="Photocontrol"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl02_ShutOffControlsOutdoors">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+If Ctrl02cc_ShutOffControlsOutdoors != Exempt Or Other
+result = Ctrl02cc_ShutOffControlsOutdoors
+Else
+User selects from list
+End If
+Else
+User selects from list
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:ShutOffControlsOutdoors">
+                                             <xsd:enumeration value="AstronomicalTimer"/>
+                                             <xsd:enumeration value="NotPermittedNA"/>
+                                             <xsd:enumeration value="Photocontrol"/>
+                                             <xsd:enumeration value="TunnelsNA"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl03cc_AutoScheduleControlsOutdoors">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Auto-Schedule</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = H03_AutoScheduleControlsOutdoors
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">H03_AutoScheduleControlsOutdoors</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:AutoScheduleControlsOutdoors">
+                                             <xsd:enumeration value="AutoSchedule"/>
+                                             <xsd:enumeration value="EMCS"/>
+                                             <xsd:enumeration value="Exempt"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl03_AutoScheduleControlsOutdoors">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Auto-Schedule</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+If Ctrl03cc_AutoScheduleControlsOutdoors != Exempt 
+result = Ctrl03cc_AutoScheduleControlsOutdoors
+Else
+User selects from list
+End If
+Else
+User selects from list
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:AutoScheduleControlsOutdoors">
+                                             <xsd:enumeration value="AutoSchedule"/>
+                                             <xsd:enumeration value="EMCS"/>
+                                             <xsd:enumeration value="NotPermittedNA"/>
+                                             <xsd:enumeration value="TunnelsNA"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl04cc_MotionSensorCompliance">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Motion Sensor</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+result = H04_MotionSensorCompliance
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTO01E" usage="copy">H04_MotionSensorCompliance</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MotionSensorCompliance">
+                                             <xsd:enumeration value="Exempt"/>
+                                             <xsd:enumeration value="FacadeGTE24Ft"/>
+                                             <xsd:enumeration value="MotionSensorCompliant"/>
+                                             <xsd:enumeration value="WallGTE24Ft"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl04_MotionSensorCompliance">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Motion Sensor</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+If Ctrl04cc_MotionSensorCompliance != Exempt 
+result = Ctrl04cc_MotionSensorCompliance
+Else
+User selects from list
+End If
+Else
+User selects from list
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:simpleType>
+                                          <xsd:restriction base="comp:MotionSensorCompliance">
+                                             <xsd:enumeration value="AthleticNA"/>
+                                             <xsd:enumeration value="FacadeGTE24Ft"/>
+                                             <xsd:enumeration value="HistoricBuildingNA"/>
+                                             <xsd:enumeration value="IndustrialNA"/>
+                                             <xsd:enumeration value="LandscapeNA"/>
+                                             <xsd:enumeration value="LuminaireLT40NA"/>
+                                             <xsd:enumeration value="MonumentNA"/>
+                                             <xsd:enumeration value="MotionSensorCompliant"/>
+                                             <xsd:enumeration value="NotPermittedNA"/>
+                                             <xsd:enumeration value="PublicRoadNA"/>
+                                             <xsd:enumeration value="RegulatedNA"/>
+                                             <xsd:enumeration value="SignageNA"/>
+                                             <xsd:enumeration value="StairsRampNA"/>
+                                             <xsd:enumeration value="TempLightNA"/>
+                                             <xsd:enumeration value="ThemeParkNA"/>
+                                             <xsd:enumeration value="TunnelsNA"/>
+                                             <xsd:enumeration value="WallGTE24Ft"/>
+                                          </xsd:restriction>
+                                       </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl05_ComplianceResultNRCI" type="comp:ComplianceResultNRCI">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Controls Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+ result = TableIncomplete  
+Else If  
+ (
+Ctrl02cc_ShutOffControlsOutdoors == Exempt Or Other And Ctrl02_ShutOffControlsOutdoors == NotPermittedNA Or TunnelNA Or 
+Ctrl02_ShutOffControlsOutdoors == Ctrl02cc_ShutOffControlsOutdoors
+)
+And
+(
+Ctrl03cc_AutoScheduleControlsOutdoors == Exempt And Ctrl03_AutoScheduleControlsOutdoors == NotPermittedNA Or TunnelNA Or
+Ctrl03cc_AutoScheduleControlsOutdoors == Ctrl03_AutoScheduleControlsOutdoors
+)
+And
+(
+Ctrl04cc_MotionSensorCompliance == Exempt And Ctrl04_MotionSensorCompliance == NotPermittedNA Or TunnelNA Or SignageNA Or TempLightNA, Or LuminaireLT40NA Or RegulatedNA Or PublicRoadNA Or AthleticNA OR IndustrialNA Or MonumentNA Or LandscapeNA OR StairsRampNA OR ThemeParkNA OR HistoricBuildingNA Or  
+Ctrl04cc_MotionSensorCompliance == Ctrl04_MotionSensorCompliance
+)  
+result  = ExactMatch
+Else
+result = EqualBetter
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_G" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">
+                  <d:b>G.  DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE</d:b>
+               </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if NRCC-LTO-E is parent And in Section-P P01_RequireNRCALto02A == true</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="G_LabelNoNRCA" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">There are no Acceptance Tests indicated on the permitted NRCC related to the systems or materials documented on this NRCI.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If at least one RequireNRCAxxx == true
+the static text in AdditionalRequirements IS NOT DISPLAYED  
+Else If All RequireNRCAxxx == false 
+the static text in AdditionalRequirements is the only thing displayed after the Section title.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>The following Acceptance Tests related to the systems or materials documented on this NRCI have been indicated on the permitted Certificate of Compliance (NRCC) as being required to comply with Title 24, Part 6.</d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G_LabelNRCA" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Certificates of Acceptance </d:b>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G_NoteNRCA" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:i>Lighting  Acceptance Tests must be completed by a certified Acceptance Testing Technician and NRCA forms completed through an approved Acceptance Test Technician Certification Provider database.  The Certificate of Acceptance (NRCA) forms indicated below will be required by the Authority Having Jurisdiction to demonstrate compliance. </d:i>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G01_RequireNRCALto02A" type="comp:RequireNRCALto02A">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">NRCA-LTO-02-A :  Outdoor Lighing Control- Must be submitted for all new, added or altered shut-off lighting controls</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-LTO parent
+result = P01_RequireNRCALto02A
+If result == true 
+static text and related SystemFieldVerified  or SystemsToFieldVerify are displayed
+Else
+Nothing is displayed for this NRCA 
+End If
+End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCLTO01E" usage="copy">P01_RequireNRCALto02A</dtyp:srcSchema>
+                        </xsd:appinfo>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G01_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">System To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If G01_RequireNRCALto02A == false 
+this field is not required and nothing is displayed
+ 
+Else If G01_RequireNRCALto02A == true 
+result = NRCC-LTO  P01_SystemFieldVerified and it is displayed
+End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCLTO01E" usage="copy">P01_SystemFieldVerified</dtyp:srcSchema>
+                        </xsd:appinfo>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="G01_SystemsToFieldVerify" type="comp:SystemsToFieldVerify" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">System To Be Field Verified</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If G01_RequireNRCALti02A == false  
+this field is not required and nothing is displayed
+ 
+Else If G01_RequireNRCALto02A == true  
+result = NRCC-LTO  P01_SystemsToFieldVerify and it is displayed
+End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCLTO01E" usage="copy">P01_SystemsToFieldVerify</dtyp:srcSchema>
+                        </xsd:appinfo>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="GEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"/>
+                        <xsd:documentation source="AdditionalRequirements">
+                           <d:b>A copy of this Certificate of Installation should be distributed to the certified Acceptance Test Technician(s) who will perform the acceptance test(s).  Title 24, Part 6 Section 10-103(a)3F also requires this Certificate of Installation be posted or made available to the Authority Having Jurisdiction for all applicable inspections. </d:b>
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="nRCILTO01E" type="NRCILTO01E">
+      <xsd:annotation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCILTO01E compliance report.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+</xsd:schema>

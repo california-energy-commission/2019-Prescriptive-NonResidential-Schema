@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+   targetNamespace="http://www.lmonte.com/besm/NRCISRA01E"
+   xmlns="http://www.lmonte.com/besm/NRCISRA01E"
+   xmlns:d="http://www.lmonte.com/besm/d"
+   xmlns:bld="http://www.lmonte.com/besm/bld"
+   xmlns:env="http://www.lmonte.com/besm/env"
+   xmlns:lit="http://www.lmonte.com/besm/lit"
+   xmlns:hvac="http://www.lmonte.com/besm/hvac"
+   xmlns:comp="http://www.lmonte.com/besm/comp"
+   xmlns:com="http://www.lmonte.com/besm/com"
+   xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:altova="http://www.altova.com/xml-schema-extensions"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.1.003">
+   <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/lit" schemaLocation="../base/NrPresLighting.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="../base/NrPresHvac.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="../base/DataTypes.xsd"/>
+   <xsd:element name="ComplianceDocumentPackage">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="DocID" minOccurs="0">
+               <xsd:complexType>
+                  <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCISRA01E"/>
+                  <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CertificateInstallationNR"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Solar Ready Areas"/>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Payload" type="comp:Payload"/>
+            <xsd:element name="DocumentData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="Header" type="comp:HeaderNRCI" />
+                     <xsd:element ref="nRCISRA01E" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCI" maxOccurs="unbounded" />
+                     <xsd:element name="Footer" type="comp:FooterNRCC" />
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+         </xsd:sequence>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20210701"/>
+         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCISRA01E"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="NRCISRA01E">
+      <xsd:annotation>
+         <xsd:documentation>Solar Ready Areas</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]A. GENERAL INFORMATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="A_BeforeNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This  Certificate of Installation is used to document the installation of solar ready  features, materials, components, and manufactured devices required to demonstrate compliance with Title 24, Part 6 per [d:t24refnolink/]110-103(a)3 for nonresidential, hotel/motel and high-rise residential occupancies.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+result = A01_ProjectCity
+End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">A01_ProjectCity</dtyp:srcSchema>
+                        </xsd:appinfo>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02_ProjectZipcode" type="comp:ProjectZipcode" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Zip Code</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03_PermitSetDate" type="comp:PermitSetDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A04_PermitSetName" type="comp:PermitSetName" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A05_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Authority Having Jurisdiction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A06_PermitNumber" type="comp:PermitNumber" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building Permit #</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A07_AsBuiltSetDate" type="comp:AsBuiltSetDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_B" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b] B. INSTALLER SCOPE[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="B_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates construction systems and materials documented on this Nonresidential Certificate of Installation.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01a_IsProjectAllocatedSolarZone" type="comp:IsProjectAllocatedSolarZone" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Allocated Zone</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01b_ProjectHasHomeAutomation" type="comp:ProjectHasHomeAutomation" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Home Automation System</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01c_IsProjectInstalledPhotovoltaicSystem" type="comp:IsProjectInstalledPhotovoltaicSystem" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Photovoltaic System</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01d_ProjectHasGreywater" type="comp:ProjectHasGreywater" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Greywater Irrigation System</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01e_IsProjectInstalledSolarWaterHeating" type="comp:IsProjectInstalledSolarWaterHeating" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Solar Water Heater</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01f_ProjectHasRainwater" type="comp:ProjectHasRainwater" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Rainwater Catchment System</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01g_IsProjectSmartTstatPlusEE_Measure" type="comp:IsProjectSmartTstatPlusEE_Measure" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Smart Thermostat</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01h_ProjectHasEVCharging" type="comp:ProjectHasEVCharging" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Electric Vehicle Charging Space</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_C" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]C. COMPLIANCE RESULTS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="C_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates whether the as-built conditions documented in this form are equal or better than what was documented on the permitted Certificate of Compliance.  If the installation is not equal or better, Section 10-103(a)2B requires the Certificate of Compliance form to be revised accordingly to demonstrate compliance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+If in any required tables or subsections in Section F  ComplianceResultNRCI ==  FormNotComplete
+result = FormNotComplete
+Else If in any required tables or subsections in Section F ComplianceResultNRCI == MayNotComply
+result = MayNotComply
+Else If All required tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
+result = ExactMatch
+Else If any required tables or subsections in Section F have ComplianceResultNRCI ==  EqualBetter
+result = EqualBetter
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01Message_ComplianceResultMessageNRCI" type="comp:ComplianceResultMessageNRCI" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+If C01_ComplianceResultNRCI == ExactMatch Or EqualBetter
+result = ExactEqualBetterText
+Else If C01_ComplianceResultNRCI == MayNotComply
+result =  MayNotComplyText
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_D" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]D. EXCEPTIONAL CONDITIONS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="D_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is auto-filled with uneditable comments because of field conditions noted by the installer that may impact requirements documented on the Certificate of Compliance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="D01_ExceptionalConditionMessageNRCISRAE" type="comp:ExceptionalConditionMessageNRCISRAE"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document
+If ExceptionalConditionMessageNRCISRAE == ""
+result = NoExceptionNote
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_E" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]E. INSTALLER NOTES[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="E_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes remarks made by the installer to the Authority Having Jurisdiction.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E01_CommentsToPermitAuthority" type="comp:CommentsToPermitAuthority"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_F" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]F. INSTALLATION DETAILS [/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="F_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]The following tables indicate performance requirements as documented on the permitted Certificate of Compliance (NRCC) for all systems and components included in Table B. Installer Scope.  Also included are the as-built conditions documented by the installer/documentation author. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelTopCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Per NRCC</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the top cell for all tables/subsections in Section F except the last subsection Smart Thermostats and Additional Efficiency Measure</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelBottomCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">As-built Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the bottom cell for all tables/subsections in Section F except the last subsection Smart Thermostats and Additional Efficiency Measure</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableZone" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Allocated Solar Zone on Roof for Future Use [/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This section is required If B01a_IsProjectAllocatedSolarZone == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Zone01cc_SolarZoneSubAreaID" type="comp:SolarZoneSubAreaID" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Subarea Name</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If F09_SolarZoneSubAreaID IsPresent
+result = F09_SolarZoneSubAreaID
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">F10_SolarZoneSubAreaID</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Zone01cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Subarea Name</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If F10_F09to19NA_NotApplicableMessage IsPresent
+result = BlankGrayedOut
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">F09to19NA_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Zone01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Zone02cc_BuildingPlanName" type="comp:BuildingPlanName" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Building Plan Reference Showing Solar Zone</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If F10_BuildingPlanName IsPresent
+result = SolarZoneSubAreaID
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">F10_BuildingPlanName</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Zone02cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Building Plan Reference Showing Solar Zone</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If F10_F09to19NA_NotApplicableMessage IsPresent
+result = BlankGrayedOut
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">F09to19NA_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Zone03cc_IsSolarZoneSubAreaObstructionsFree" type="comp:IsSolarZoneSubAreaObstructionsFree" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Solar Zone Free from Obstructions?[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If F14_IsSolarZoneSubAreaObstructionsFree IsPresent  
+result =F14_IsSolarZoneSubAreaObstructionsFree 
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">F14_IsSolarZoneSubAreaObstructionsFree</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Zone03cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Solar Zone Free from Obstructions?[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If F10_F09to19NA_NotApplicableMessage IsPresent
+result = BlankGrayedOut
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">F09to19NA_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Zone03_IsSolarZoneSubAreaObstructionsFree" type="comp:IsSolarZoneSubAreaObstructionsFree" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Solar Zone Free from Obstructions?[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Zone03cc_IsSolarZoneSubAreaObstructionsFree IsPresent
+If Zone01_InstalledSameAsCC == true
+result = Zone03cc_IsSolarZoneSubAreaObstructionsFree
+Else
+User input
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Zone03_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Solar Zone Free from Obstructions?[d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Zone03cc_NotApplicableMessage IsPresent
+result = Zone03cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Zone04_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Solar Zone Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+result = TableIncomplete 
+Else If  Zone03_IsSolarZoneSubAreaObstructionsFree IsPresent  And Zone03_IsSolarZoneSubAreaObstructionsFree  == Zone03cc_IsSolarZoneSubAreaObstructionsFree 
+result = ExactMatch
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="ZoneEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i] [d:sup]1[/d:sup]FOOTNOTE:  No obstructions, including but not limited to, vents, chimneys, architectural features, and roof mounted equipment, shall be located in the solar zone. [/d:i].</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="PV" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Permanently Installed Solar Photovoltaic (Pv) System[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This section is required If B01c_IsProjectInstalledPhotovoltaicSystem ==true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="PV01cc_PV_SystemTotalRatedPowerDC" type="hvac:PV_SystemTotalRatedPowerDC" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Installed DC Power Rating (Watts)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If G03_PV_SystemTotalRatedPowerDC IsPresent
+result = G03_PV_SystemTotalRatedPowerDC
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">G03_PV_SystemTotalRatedPowerDC</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="PV01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="PV01_PV_SystemTotalRatedPowerDC" type="hvac:PV_SystemTotalRatedPowerDC" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Installed DC Power Rating (Watts)</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If PV01_InstalledSameAsCC == true
+result = PV01cc_PV_SystemTotalRatedPowerDC
+Else
+User input
+End If</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="PV02_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">PV Compliance</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+result = TableIncomplete 
+If PV01_PV_SystemTotalRatedPowerDC == PV01cc_PV_SystemTotalRatedPowerDC 
+result = ExactMatch
+Else If PV01_PV_SystemTotalRatedPowerDC GTE PV01cc_PV_SystemTotalRatedPowerDC 
+result = EqualBetter
+Else If PV01_PV_SystemTotalRatedPowerDC LT PV01cc_PV_SystemTotalRatedPowerDC
+result = MayNotComply
+End If</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="SHW" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Permanently Installed Solar Hot Water Systems [/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required if B01e_IsProjectInstalledSolarWaterHeating ==true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="SHW01cc_SolarWaterHeatingCertificationAuthority" type="comp:SolarWaterHeatingCertificationAuthority" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">SRCC# or IAPMO File #</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+result = H01_SolarWaterHeatingCertificationAuthority
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">H01_SolarWaterHeatingCertificationAuthority</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="SHW01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="SHW01_SolarWaterHeatingCertificationAuthority" type="comp:SolarWaterHeatingCertificationAuthority" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">SRCC# or IAPMO File #</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If SHW01_InstalledSameAsCC == true
+result = SHW01cc_SolarWaterHeatingCertificationAuthority
+Else
+User input
+End If</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:choice maxOccurs="1">
+                              <xsd:element name="SHW02cc_SolarWaterSystemSRCC_CertificationNumber" type="hvac:SolarWaterSystemSRCC_CertificationNumber" >
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">Certification Number</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If H02_SolarWaterSystemSRCC_CertificationNumber
+IsPresent
+result = H02_SolarWaterSystemSRCC_CertificationNumber
+End If
+End If</xsd:documentation>
+                                    <xsd:appinfo source="NRCIsrc">
+                                       <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">H02_SolarWaterSystemSRCC_CertificationNumber</dtyp:srcSchema>
+                                    </xsd:appinfo>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="SHW02cc_SolarWaterSystemIAPMO_FileNumber" type="hvac:SolarWaterSystemIAPMO_FileNumber" >
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">Certification Number</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If H02_SolarWaterSystemIAPMO_FileNumber
+IsPresent
+result = H02_SolarWaterSystemIAPMO_FileNumber
+End If
+End If</xsd:documentation>
+                                    <xsd:appinfo source="NRCIsrc">
+                                       <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">H02_SolarWaterSystemIAPMO_FileNumber</dtyp:srcSchema>
+                                    </xsd:appinfo>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:choice>
+                           <xsd:choice maxOccurs="1">
+                              <xsd:element name="SHW02_SolarWaterSystemSRCC_CertificationNumber" type="hvac:SolarWaterSystemSRCC_CertificationNumber" >
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">Certification Number</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If  SHW02cc_SolarWaterSystemSRCC_CertificationNumber IsPresent
+If SHW01_InstalledSameAsCC == true
+result = SHW02cc_SolarWaterSystemSRCC_CertificationNumber
+Else
+User input
+End If
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="SHW02_SolarWaterSystemIAPMO_FileNumber" type="hvac:SolarWaterSystemIAPMO_FileNumber" >
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">Certification Number</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If SHW02cc_SolarWaterSystemIAPMO_FileNumber IsPresent
+If SHW01_InstalledSameAsCC == true
+result = SHW02cc_SolarWaterSystemIAPMO_FileNumber
+Else
+User input
+End If
+End If</xsd:documentation>
+                                 </xsd:annotation>
+                              </xsd:element>
+                           </xsd:choice>
+                           <xsd:element name="SHW03cc_SolarWaterHeatingCertificationType" type="comp:SolarWaterHeatingCertificationType" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">System Type [d:sup]1,2[/d:sup]</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If H00a_IsSolarWaterHeatingOG100 == true
+result = OG100
+Else If H00b_IsSolarWaterHeatingOG300 == true
+result = OG300
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">H00a_IsSolarWaterHeatingOG100</dtyp:srcSchema>
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">H00b_IsSolarWaterHeatingOG300</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="SHW03_SolarWaterHeatingCertificationType" type="comp:SolarWaterHeatingCertificationType" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">System Type [d:sup]1,2[/d:sup]</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If SHW01_InstalledSameAsCC == true
+result = SHW03cc_SolarWaterHeatingCertificationType
+Else
+User input
+End If</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="SHW04cc_SolarWaterHeatingSavingsFraction" type="comp:SolarWaterHeatingSavingsFraction" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Solar Savings Fraction</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If H03_SolarSavingsFractionOG100 IsPresent
+result = H03_SolarSavingsFractionOG100
+Else If H05_SolarSavingsFractionOG300 IsPresent
+result = H05_SolarSavingsFractionOG300
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">H03_SolarSavingsFractionOG100</dtyp:srcSchema>
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="copy">H05_SolarSavingsFractionOG300</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="SHW04_SolarWaterHeatingSavingsFraction" type="comp:SolarWaterHeatingSavingsFraction" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">Solar Savings Fraction</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If SHW01_InstalledSameAsCC == true
+result = SHW04cc_SolarWaterHeatingSavingsFraction
+Else
+User input
+End If</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:choice maxOccurs="1">
+                              <xsd:element name="SHW05cc_IsDWHR_Installed" type="comp:IsDWHR_Installed" >
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">Drainwater Heat Recovery</xsd:documentation>
+                                    <xsd:documentation source="AdditionalRequirements">A drain water heat recovery system that is field verified by a HERS Rater as specified in the Title 24, Part 6 Reference Appendix RA3.6.9 is being used to lower the required Solar Savings Fraction and must be installed and HERS verified.</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If H00c_IsDWHR_Installed == true
+Display static text in AdditionalRequirements
+End If
+End If</xsd:documentation>
+                                    <xsd:appinfo source="NRCIsrc">
+                                       <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">H00c_IsDWHR_Installed</dtyp:srcSchema>
+                                    </xsd:appinfo>
+                                 </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element name="SHW05cc_NotApplicableMessage" >
+                                 <xsd:annotation>
+                                    <xsd:documentation source="FieldText">Drainwater Heat Recovery</xsd:documentation>
+                                    <xsd:documentation source="CalculationsAndRules">If NRCC-SRA parent
+If H00c_IsDWHR_Installed == false
+result = BlankGrayedOut
+End If
+End If</xsd:documentation>
+                                    <xsd:appinfo source="NRCIsrc">
+                                       <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">H00c_IsDWHR_Installed</dtyp:srcSchema>
+                                    </xsd:appinfo>
+                                 </xsd:annotation>
+                                 <xsd:simpleType>
+                                    <xsd:restriction base="comp:NotApplicableMessage">
+                                       <xsd:enumeration value="BlankGrayedOut"/>
+                                    </xsd:restriction>
+                                 </xsd:simpleType>
+                              </xsd:element>
+                           </xsd:choice>
+                           <xsd:element name="SHW06_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">SHW Compliance</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+result = TableIncomplete
+ 
+Else If SHW01_SolarWaterHeatingCertificationAuthority  == SHW01cc_SolarWaterHeatingCertificationAuthority
+And
+(
+SHW02_SolarWaterSystemSRCC_CertificationNumber IsPresent And SHW02_SolarWaterSystemSRCC_CertificationNumber == SHW02cc_SolarWaterSystemSRCC_CertificationNumber  
+Or SHW02_SolarWaterSystemIAPMO_FileNumber IsPresent And SHW02_SolarWaterSystemIAPMO_FileNumber == SHW02cc_SolarWaterSystemIAPMO_FileNumber
+)
+And 
+SHW03_SolarWaterHeatingCertificationType == SHW03cc_SolarWaterHeatingCertificationType 
+And
+SHW04_SolarWaterHeatingSavingsFraction == SHW04cc_SolarWaterHeatingSavingsFraction
+result = ExactMatch
+ 
+Else If SHW04_SolarWaterHeatingSavingsFraction GTE SHW04cc_SolarWaterHeatingSavingsFraction
+result = EqualBetter
+ 
+Else If SHW04_SolarWaterHeatingSavingsFraction LT SHW04cc_SolarWaterHeatingSavingsFraction
+result = MayNotComply
+End If</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="SHWEndNote1" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]  FOOTNOTE: The SWH system is built-up and specifies collectors certified by the Solar Rating &amp; Certification Company (SRCC) or the International Association of Plumbing &amp; Mechancial Officials (IAPMO) as OG-100. [/d:i]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="SHWEndNote2" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]2[/d:sup] The system specified is certified by the Solar Rating &amp; Certification Company (SRCC) or the International Association of Plumbing &amp; Mechancial Officials (IAPMO) as OG-300 and will be installed in the exact configuration and California climate zone for which it was rated. [/d:i]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="Tstat" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Smart Thermostats And Alternative Efficiency Measure in High-rise Residential Dwelling Units[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This section is required If B01g_IsProjectSmartTstatPlusEE_Measure == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="TstatBeginNote1" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">[d:i]The following requirements have been included on the permitted Certificate of Compliance (NRCC) to comply with Title 24, Part 6.  Installations shall meet these requirements or the Certificate of Compliance shall be modified to demonstrate compliance. [/d:i]</xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Tstat01cc_IsProjectSmartTstatPlusEE_Measure" type="comp:IsProjectSmartTstatPlusEE_Measure" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">All thermostats in each dwelling unit comply with the following requirements form Title 24, Part 6 [d:t24refnolink/]110.12(a) and all requirements in Joint Appendix 5: [d:l t="#"][d:list]All demand responsive controls shall be either: [/d:list] [d:l t="A"][d:list]A certified OpenADR 2.0a or OpenADR 2.0b Virtual End Node (VEN), as specified under Clause 11, Conformance, in the applicable OpenADR 2.0 specification; or [/d:list][d:list]Certified by the manufacturer as being capable of responding to a demand response signal from a certified OpenADR 2.0b Virtual End Node by automatically implementing the control functions requested by the Virtual End Node for the equipment it controls.[/d:list][/d:l] [d:list] All demand responsive controls shall be capable of communicating using one or more of the following: Wi-Fi, ZigBee, BACnet, Ethernet, or hard-wiring.[/d:list][d:list]Demand responsive controls may incorporate and use additional protocols beyond those specified in Sections 110.12(a)1 and 2.[/d:list][d:list]When communications are disabled or unavailable, all demand responsive controls shall continue to perform all other control functions provided by the control.[/d:list][/d:l]</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E parent
+If B01d_IsProjectSmartTstatPlusEE_Measure IsPresent And == true
+result = true And static text in AdditionalRequirements is displayed
+Else
+result = false and static text is not displayed
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">B01d_IsProjectSmartTstatPlusEE_Measure</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Tstat02cc_ProjectHasEnergyStar" type="comp:ProjectHasEnergyStar" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Dwelling units include an ENERGY STAR dishwasher AND EITHER an ENERGY STAR refrigerator OR a whole house fan driven by an electronically commutated motor</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E parent
+If I02a_SolarReadyAlternativeEfficiencyMeasure == EnergyStarAppliances
+result = true And static text in AdditionalRequirements is displayed
+Else I02a_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure
+result = false And static text is not displayed
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">I02a_SolarReadyAlternativeEfficiencyMeasure</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Tstat03cc_ProjectHasHomeAutomation" type="comp:ProjectHasHomeAutomation" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Dwelling units include a home automation system that is capable of, at a minimum, controlling the appliances and lighting of the dwelling and responding to demand response signals.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E parent
+If I02b_SolarReadyAlternativeEfficiencyMeasure == HomeAutomationDemandResponseCapable
+result = true And static text in AdditionalRequirements is displayed
+Else I02b_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure
+result = false And static text is not displayed
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">I02b_SolarReadyAlternativeEfficiencyMeasure</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Tstat04cc_ProjectHasGreywater" type="comp:ProjectHasGreywater" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Dwelling units include alternative plumbing piping to permit the discharge from the clothes washer and all showers and bathtubs to be used for an irrigation system in compliance with the California Plumbing Code and any applicable local ordinances.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E parent
+If I02c_SolarReadyAlternativeEfficiencyMeasure == AlternativePlumbingForGrayWaterIrrigation
+result = true And static text in AdditionalRequirements is displayed
+Else I02c_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure
+result = false And static text is not displayed
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">I02c_SolarReadyAlternativeEfficiencyMeasure</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Tstat05cc_ProjectHasRainwater" type="comp:ProjectHasRainwater" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Dwelling units include a rainwater catchment system designed to comply with the California Plumbing Code and any applicable local ordinances, and that uses rainwater flowing from at least 65% of the available roof area.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E parent
+If I02d_SolarReadyAlternativeEfficiencyMeasure == RainwaterCatchmentSystem
+result = true And static text in AdditionalRequirements is displayed
+Else I02d_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure
+result = false And static text is not displayed
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">I02d_SolarReadyAlternativeEfficiencyMeasure</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="Tstat06cc_ProjectHasEVCharging" type="comp:ProjectHasEVCharging" >
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"></xsd:documentation>
+                                 <xsd:documentation source="AdditionalRequirements">Project complies with Title 24, Part 11 [d:t24refnolink/]A4.106.8.2 requirements for electric vehicle charging spaces.</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If NRCC-SRA-E parent
+If I02e_SolarReadyAlternativeEfficiencyMeasure == ChargingSpaceForEV
+result = true And static text in AdditionalRequirements is displayed
+Else I02e_SolarReadyAlternativeEfficiencyMeasure == NoEfficiencyMeasure
+result = false And static text is not displayed
+End If
+End If</xsd:documentation>
+                                 <xsd:appinfo source="NRCIsrc">
+                                    <dtyp:srcSchema form="NRCCSRA01E"  usage="reference">I02e_SolarReadyAlternativeEfficiencyMeasure</dtyp:srcSchema>
+                                 </xsd:appinfo>
+                              </xsd:annotation>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="nRCISRA01E" type="NRCISRA01E">
+      <xsd:annotation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCISRA01E compliance report.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+</xsd:schema>

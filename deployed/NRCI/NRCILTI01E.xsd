@@ -318,7 +318,10 @@ End If</xsd:documentation>
                   <xsd:element name="D01_ExceptionalConditionMessageNRCILTIE" type="comp:ExceptionalConditionMessageNRCILTIE" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document
+If ExceptionalConditionMessageNRCILTIE == ""
+result = NoExceptionNote
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -993,19 +996,17 @@ Else If in any row Lum05_LuminaireUse != Lum05cc_LuminaireUse
  result = MayNotComply
  
  Else If for all rows Lum05_LuminaireUse == Lum05cc_LuminaireUse
- And
- Lum06cc_NotApplicableMessage IsPresent Or 
- Lum06_TrackLightingLength == Lum06cc_TrackLightingLength
+ Then If
+ Lum06cc_NotApplicableMessage IsPresent Or Lum06_TrackLightingLength == Lum06cc_TrackLightingLength
  And 
- Lum07cc_NotApplicableMessage IsPresent Or 
- Lum07_TrackLightingCurrentLimiterPower  == Lum07cc_TrackLightingCurrentLimiterPower 
+ Lum07cc_NotApplicableMessage IsPresent Or  Lum07_TrackLightingCurrentLimiterPower  == Lum07cc_TrackLightingCurrentLimiterPower 
  result = ExactMatch
  
- Else If for all rows 
-Lum05_LuminaireUse == Lum05cc_LuminaireUse And Lum05_LuminaireUse  include TrackLighting 
- And Sum All rows ( Lum06cc_TrackLightingLength x Lum07cc_TrackLightingCurrentLimiterPower )  GTE Sum All rows ( Lum06_TrackLightingLength x Lum07_TrackLightingCurrentLimiterPower ) 
+Else 
+Sum All rows ( Lum06cc_TrackLightingLength x Lum07cc_TrackLightingCurrentLimiterPower )  GTE Sum All rows ( Lum06_TrackLightingLength x Lum07_TrackLightingCurrentLimiterPower ) 
  result = EqualBetter
  Else
+Sum All rows ( Lum06cc_TrackLightingLength x Lum07cc_TrackLightingCurrentLimiterPower )  LT Sum All rows ( Lum06_TrackLightingLength x Lum07_TrackLightingCurrentLimiterPower ) 
  MayNotComply
  End If</xsd:documentation>
                                        </xsd:annotation>
@@ -1683,7 +1684,7 @@ Ctrl03cc_MandatoryBuildingDemandResponseControlRequired IsPresent And  (Ctrl03cc
 Condition 2 
 Ctrl04cc_AreaControlsCompliance IsPresent And (Ctrl04cc_AreaControlsCompliance == Ctrl04_AreaControlsCompliance) Or (Ctrl04cc_AreaControlsCompliance == AreaControlsExempt Or AreaControlsOther)
 Or
-Ctrl04cc_MandatoryAreaControlsRequired IsPresent  
+Ctrl04cc_MandatoryAreaControlsRequired IsPresent  And (Ctrl04cc_MandatoryAreaControlsRequired == Required And Ctrl04_AreaControlsCompliance == AnnunciatedAreaControl  Or AuthorizedPersonnelAreaControl Or ManualOnOff)
  
 Condition 3 
 Ctrl05cc_MultilevelControls IsPresent And  (Ctrl05cc_MultilevelControls == Ctrl05_MultilevelControls) Or  (Ctrl05cc_MultilevelControls == MultilevelControlsExempt Or MultilevelControlsOther And Ctrl05_MultilevelControls == HealthcareNA Or LumLT2LampsNA Or RestroomsNA)
@@ -1693,11 +1694,11 @@ Or
 Condition 4
 Ctrl06cc_ShutOffControlsArea IsPresent And (Ctrl06cc_ShutOffControlsArea == Ctrl06_ShutOffControlsArea) Or (Ctrl06cc_ShutOffControlsArea  == ExemptShutOffControl Or OtherShutOffControl And Ctrl06_ShutOffControlsArea == HealthcareNA)
 Or
-Ctrl06cc_MandatoryBuildingShutOffControlRequired IsPresent And (Ctrl06cc_MandatoryBuildingShutOffControlRequired == Required And Ctrl06_ShutOffControlsArea != HealthcareNA Or LumLT2LampsNA Or RestroomsNA) Or (Ctrl06cc_MandatoryBuildingShutOffControlRequired == Exempt Or NA  And Ctrl06_ShutOffControlsArea == HealthcareNA Or LumLT2LampsNA Or RestroomsNA)
+Ctrl06cc_MandatoryBuildingShutOffControlRequired IsPresent And (Ctrl06cc_MandatoryBuildingShutOffControlRequired == Required And Ctrl06_ShutOffControlsArea != HealthcareNA And != LumLT2LampsNA  And != RestroomsNA) Or (Ctrl06cc_MandatoryBuildingShutOffControlRequired == Exempt Or NA  And Ctrl06_ShutOffControlsArea == HealthcareNA Or LumLT2LampsNA Or RestroomsNA)
  
 Condition 5
-If Ctrl07cc_PrimarySkylitDaylightControlsIncluded IsPresent And (Ctrl07cc_PrimarySkylitDaylightControlsIncluded == Ctrl07_PrimarySkylitDaylightControlsIncluded) Or (Ctrl07cc_PrimarySkylitDaylightControlsIncluded == Exempt Or NA And Ctrl07_PrimarySkylitDaylightControlsIncluded != Included)
-Or
+If Ctrl07cc_PrimarySkylitDaylightControlsIncluded IsPresent And (Ctrl07cc_PrimarySkylitDaylightControlsIncluded == Ctrl07_PrimarySkylitDaylightControlsIncluded) Or (Ctrl07cc_PrikylitDaylightControlsIncluded == Exempt Or NA And Ctrl07_PrimarySkylitDaylightControlsIncluded != Included)
+Or 
 Ctrl07cc_MandatoryPrimaryDaylightingControlRequired IsPresent And (Ctrl07cc_MandatoryPrimaryDaylightingControlRequired == Required And Ctrl07_PrimarySkylitDaylightControlsIncluded == Included) Or (Ctrl07cc_MandatoryPrimaryDaylightingControlRequired == Exempt Or NA And Ctrl07_PrimarySkylitDaylightControlsIncluded != Included) 
  
 Condition 6 
@@ -1975,13 +1976,431 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
  result = TableIncomplete  
  
-Else If for all rows Paf04cc_LuminairePower == Paf04_LuminairePower And Paf05cc_LuminaireCountByType == Paf05_LuminaireCountByType
+Else If for all rows 
+Paf04cc_LuminairePower == Paf04_LuminairePower 
+And 
+Paf05cc_LuminaireCountByType == Paf05_LuminaireCountByType
 result = ExactMatch
-Else If for all rows Paf06_LuminairePowerByType GTE Paf06cc_LuminairePowerByType
+ 
+Else If for all rows 
+Paf06_LuminairePowerByType GTE Paf06cc_LuminairePowerByType
 result = EqualBetter
-Else If any row has Paf06_LuminairePowerByType LT Paf06cc_LuminairePowerByType
+Else If any row has 
+Paf06_LuminairePowerByType LT Paf06cc_LuminairePowerByType
 result = MayNotComply
 End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="Ctrlfun" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">
+                           <d:b>Lighting Controls Functionality</d:b>
+                        </xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This section applies If any control in Section B col  B03 has a true value</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Ctrlfun_BeginNote1" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText"/>
+                                 <xsd:documentation source="AdditionalRequirements">
+                                    <d:i>Functionality listed for all lighting control systems must be installed and programmed </d:i>
+                                 </xsd:documentation>
+                              </xsd:annotation>
+                           </xsd:element>
+                           <xsd:element name="CtrlfunTime" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Time-switch Controls </d:b>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03a_ProjectHasTimerControl == true</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="CtrlfunTime01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">Installed controls that provide time-switch functionality, including automatic &amp;amp; astronomical controls: 
+                                             <d:l t="A">
+                                                <d:list>Have program backup capabilities to prevent the loss of schedule for at least 7 days &amp;amp; the date and time for at lest 72 hours if power is interrupted; </d:list>
+                                                <d:list>Are capable of providing manual override to each connected load and of resuming normally scheduled operations within 2 hours after manual override is initiated (nonresidential buildings only); </d:list>
+                                                <d:list>Provide automatic holiday shutoff that turns off all connected loads for at least 24 hours and then resumes normally scheduled operation (nonresidential buildings only); </d:list>
+                                                <d:list>Have sunrise and sunset prediction accuracy within +/- 15 minutes and timekeeping accuracy withing 5 min per year (astronomical only);</d:list>
+                                                <d:list>Are capable of displaying date, current time, sunrise time, and switching times for each step during programming and automatically adjusting for daylight savings time (astronomical only);</d:list>
+                                                <d:list>Have ability to independently offset the on and off for each channel by at least 90 minutes before and after sunrise &amp;amp; sunset  (astronomical only);</d:list>
+                                                <d:list>Include at least 2 separately programmable steps per zone (multilevel only); </d:list>
+                                                <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
+                                             </d:l>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="CtrlfunDayLit" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Daylighting Controls </d:b>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03b_ProjectHasDaylightControl == true</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="CtrlfunDayLit01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">Installed controls that provide daylighting functionality:  
+                                             <d:l t="A">
+                                                <d:list>Automatically return to its most recent time delay setting within 60 minutes of the last received input when left in calibration mode; </d:list>
+                                                <d:list>; Have a set point control that easily distinguishes setting to within 10% of full scale adjustment;</d:list>
+                                                <d:list>Provide a linear response within 5% accuracy over the range of luminance measured by the light sensor; </d:list>
+                                                <d:list>Are capable of being calibrated in a manner that the person initiating the calibration is remote from the sensor during calibration to avoid influencing calibration accuracy, for example by having a light sensor that is physically separated from where the calibration adjustments are made;</d:list>
+                                                <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
+                                             </d:l>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="CtrlfunDim" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Dimmers </d:b>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03i_ProjectHasDimmerControl == true</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="CtrlfunDim01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">Installed controls that provide dimmer functionality:  
+                                             <d:l t="A">
+                                                <d:list> Are capable of reducing lighting power consumption be a minimum of 65% when at its lowest setting; </d:list>
+                                                <d:list>; Provide reduced flicker operation, meaning that directly controlled light sources shall be provided electrical power such that the light output has an amplitude modulation of less than 30% for frequencies less than 200 Hz without causing premature lamp failure;</d:list>
+                                                <d:list>Provide an off setting that produces a zero lumen output; </d:list>
+                                                <d:list>For wall box dimmers and associated switches designed for use in three way circuit, be capable of turning lights off, and on to the level set by the dimmer if the lights are off;</d:list>
+                                                <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
+                                             </d:l>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="CtrlfunSens" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Occupant Sensing Controls </d:b>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03e_ProjectHasSensorControl == true</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="CtrlfunSens01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">Installed occupant sensing controls include occupant sensors, motion sensors, and vacancy sensors, including those with a Partial-ON or Partial-OFF function:  
+                                             <d:l t="A">
+                                                <d:list> Are capable of automatically turning the controlled lights in the area either off or down no more than 20 minutes after the area has been vacated; </d:list>
+                                                <d:list>; For manual-on controls, have a grace period of no less than 15 seconds and no more than 30 seconds to turn on lighting automatically after the sensor has timed out;</d:list>
+                                                <d:list>Provide a visible status signal that indicates that the device is operating properly, or that it has failed or malfunctioned.  The visible status may have an override that turns off the signal. </d:list>
+                                                <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
+                                                <d:list>NOTE: Occupant Sensing Control systems may consist of a combination of single or multilevel Occupant, Motion, or Vacancy Sensor Controls, provided that components installed to comply with manual-on requirements shall not be capable of conversion by occupants from manual-on to automatic-on functionality. </d:list>
+                                                <d:list>Sensors that are used by occupant sensing controls to detect occupants shall meet all of the following requirements: 
+                                                   <d:l t="R#">
+                                                      <d:list>Shall not incorporate switches or mechanical devices that allow the sensor to be disabled without changing the settings of the control.</d:list>
+                                                      <d:list>Sensors that utilize ultrasonic radiation for detection of occupants shall comply with 21 C.F.R. part 1002.12, not emit audible sound and not emit ultrasound in excess of the decibel levels shown in Table 110.9-A measured no more than five feet from the source, on axis.</d:list>
+                                                      <d:list>Sensors that utilize microwave radiation for detection of occupants shall comply with 47 C.F.R. parts 2 and 15 and not emit radiation in excess of 1 milliwatt per square centimeter measured at no more than 5 centimeters from the emission surface of the device.</d:list>
+                                                   </d:l>
+                                                </d:list>
+                                             </d:l>
+                                             <d:line2/>
+                                             <d:tab2/>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensTable" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">
+                                             <d:i>TABLE 110.9-A - ULTRASOUND MAXIMUM DECIBEL VALUES</d:i>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">
+                                             <d:b>Mid-frequency of Sound Pressure Third-Octave Band (in kHz)</d:b>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol02" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">
+                                             <d:b>Third-Octave Band (in dB reference 20 micropascals)</d:b>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol01Row1" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Less than 20</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol02Row1" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">80</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol01Row2" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">20 or more to less than 25</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol02Row2" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">105</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol01Row3" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">25 or more to less than 31.5</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol02Row3" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">110</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol01Row4" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">31.5 or more</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunSensCol02Row4" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">115</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="CtrlfunInterlock" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Interlocking Lighting Systems </d:b>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03f_ProjectHasInterlockControl == true</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="CtrlfunInterlock01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">Lighting systems installed in auditoriums, convention centers, conference rooms, multipurpose rooms or theaters:  
+                                             <d:l t="A">
+                                                <d:list>Must not have more than two lighting systems used for an area, and if there are two they must be interlocked.  </d:list>
+                                                <d:list>The two lighting systems are interlocked with a non-programmable double throw switch to prevent simultaneous operation.  For compliance with Part 6 a Nonprogrammable Double-Throw Switch is an electrical switch commonly called a "single pole double throw" or "three-way" switch that is wired as a selector switch allowing one of the two loads to be enabled.  It can be a line voltage switch or a low voltage switch selecting between two relays.  It cannot be overridden or changed in any manner that would permit both loads to operate simultaneously.</d:list>
+                                             </d:l>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="CtrlfunVideo" minOccurs="0">
+                              <xsd:annotation>
+                                 <xsd:documentation source="FieldText">
+                                    <d:b>Controls in Videoconferencing Studio</d:b>
+                                 </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03k_ProjectHasVideoControl == true</xsd:documentation>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="CtrlfunVideo01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"/>
+                                          <xsd:documentation source="AdditionalRequirements">If additional lighting power for a Videoconferencing Studio was included in the prescriptive compliance strategy on the NRCC-LTI-E:  
+                                             <d:l t="A">
+                                                <d:list>The Videoconferencing Studio must be a room with permanently installed videoconferencing cameras, audio equipment, and playback equipment for both audio-based and video-based two-way communication between local and remote sites; and  </d:list>
+                                                <d:list>General lighting must be switched in accordance with TABLE 130.1-A (see below); and </d:list>
+                                                <d:list>Wall wash lighting is separately switched from the general lighting systems; and </d:list>
+                                                <d:list>All of the lighting in the studio, including general lighting, is controlled by a multi-scene programmable control system (also known as a scene preset control system).</d:list>
+                                             </d:l>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoTable" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">
+                                             <d:i>TABLE 130.1-A MULTILEVEL LIGHTING CONTROLS AND UNIFORMITY REQUIREMENT</d:i>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">
+                                             <d:b>Luminaire Type</d:b>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol02" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">
+                                             <d:b>Minimum Required Control Steps (percent of full rated power*)</d:b>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol03" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">
+                                             <d:b>Uniform level of illuminance shall be achieved by:</d:b>
+                                          </xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row1" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Line-voltage sockets except GU-24</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row2" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Low-voltage incandescent systems</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row3" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">LED luminaires and LED source systems</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row4" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">GU-24 rated for LED</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol02to03Row1to4" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Continuous dimming 10-100 percent</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row5" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">GU-24 sockets rated for fluorescent 
+                                             <d:gt/> 20 W</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row6" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Pin-based compact fluorescent 
+                                             <d:gt/> 20 W**</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol02to3Row5to6" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Continuous dimming 20-100 percent</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row7" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">GU-24 sockets rated for fluorescent 
+                                             <d:lte/> 20 W</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row8" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Pin-based compact fluorescent 
+                                             <d:lte/> 20 W**</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row9" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Linear and U-bent fluorescent 
+                                             <d:lte/> 13 W</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol02Row7to9" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Minimum one step between 30-70 percent</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol03Row7to9" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Switching alternate lamps in a luminaire</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row10" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Linear and U-bent fluorescent 
+                                             <d:gt/> 13 W</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol02Row10" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Minimum one step in each range: 
+                                             <d:line1/>20-40%  50-70%  75-85%  100%</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol03Row10" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Switching alternate lamps in each luminaire, having a minimum of 4 lamps per luminaire illuminating the same area and in the same manner.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row11" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Track Lighting</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol02Row11" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Minimum one step between 30-70 percent</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol03Row11" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Separately switching circuits in multi-circuit track with a minimum of two circuits</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row12" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">HID 
+                                             <d:gt/> 20 W</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row13" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Induction
+                                             <d:gt/> 25 W</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol01Row14" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Other light sources</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol02Row12to14" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Minimum one step between 50-70 percent</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoCol03Row12to14" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Switching alternate lamps in each luminaire, having a minimum of 2 lamps per luminaire illuminating the same area and in the same manner.</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoEndNote1" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">* Full rated input power of ballast and lamp, corresponding to maximum ballast factor</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="CtrlfunVideoEndNote2" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">** Includes only pin based lamps: twin tube, multiple twin tube, and spiral lamps</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                  </xsd:sequence>
@@ -1993,426 +2412,12 @@ End If</xsd:documentation>
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
-         <xsd:element name="Section_Ctrlfun" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation source="FieldText">
-                  <d:b>Lighting Controls Functionality</d:b>
-               </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section applies If any control in Section B col  B03 has a true value</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-               <xsd:sequence>
-                  <xsd:element name="Ctrlfun_BeginNote1" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText"/>
-                        <xsd:documentation source="AdditionalRequirements">
-                           <d:i>Functionality listed for all lighting control systems must be installed and programmed </d:i>
-                        </xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="CtrlfunTime" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Time-switch Controls </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03a_ProjectHasTimerControl == true</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="CtrlfunTime01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">Installed controls that provide time-switch functionality, including automatic &amp;amp; astronomical controls: 
-                                    <d:l t="A">
-                                       <d:list>Have program backup capabilities to prevent the loss of schedule for at least 7 days &amp;amp; the date and time for at lest 72 hours if power is interrupted; </d:list>
-                                       <d:list>Are capable of providing manual override to each connected load and of resuming normally scheduled operations within 2 hours after manual override is initiated (nonresidential buildings only); </d:list>
-                                       <d:list>Provide automatic holiday shutoff that turns off all connected loads for at least 24 hours and then resumes normally scheduled operation (nonresidential buildings only); </d:list>
-                                       <d:list>Have sunrise and sunset prediction accuracy within +/- 15 minutes and timekeeping accuracy withing 5 min per year (astronomical only);</d:list>
-                                       <d:list>Are capable of displaying date, current time, sunrise time, and switching times for each step during programming and automatically adjusting for daylight savings time (astronomical only);</d:list>
-                                       <d:list>Have ability to independently offset the on and off for each channel by at least 90 minutes before and after sunrise &amp;amp; sunset  (astronomical only);</d:list>
-                                       <d:list>Include at least 2 separately programmable steps per zone (multilevel only); </d:list>
-                                       <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
-                                    </d:l>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                        </xsd:sequence>
-                     </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="CtrlfunDayLit" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Daylighting Controls </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03b_ProjectHasDaylightControl == true</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="CtrlfunDayLit01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">Installed controls that provide daylighting functionality:  
-                                    <d:l t="A">
-                                       <d:list>Automatically return to its most recent time delay setting within 60 minutes of the last received input when left in calibration mode; </d:list>
-                                       <d:list>; Have a set point control that easily distinguishes setting to within 10% of full scale adjustment;</d:list>
-                                       <d:list>Provide a linear response within 5% accuracy over the range of luminance measured by the light sensor; </d:list>
-                                       <d:list>Are capable of being calibrated in a manner that the person initiating the calibration is remote from the sensor during calibration to avoid influencing calibration accuracy, for example by having a light sensor that is physically separated from where the calibration adjustments are made;</d:list>
-                                       <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
-                                    </d:l>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                        </xsd:sequence>
-                     </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="CtrlfunDim" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Dimmers </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03i_ProjectHasDimmerControl == true</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="CtrlfunDim01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">Installed controls that provide dimmer functionality:  
-                                    <d:l t="A">
-                                       <d:list> Are capable of reducing lighting power consumption be a minimum of 65% when at its lowest setting; </d:list>
-                                       <d:list>; Provide reduced flicker operation, meaning that directly controlled light sources shall be provided electrical power such that the light output has an amplitude modulation of less than 30% for frequencies less than 200 Hz without causing premature lamp failure;</d:list>
-                                       <d:list>Provide an off setting that produces a zero lumen output; </d:list>
-                                       <d:list>For wall box dimmers and associated switches designed for use in three way circuit, be capable of turning lights off, and on to the level set by the dimmer if the lights are off;</d:list>
-                                       <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
-                                    </d:l>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                        </xsd:sequence>
-                     </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="CtrlfunSens" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Occupant Sensing Controls </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03e_ProjectHasSensorControl == true</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="CtrlfunSens01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">Installed occupant sensing controls include occupant sensors, motion sensors, and vacancy sensors, including those with a Partial-ON or Partial-OFF function:  
-                                    <d:l t="A">
-                                       <d:list> Are capable of automatically turning the controlled lights in the area either off or down no more than 20 minutes after the area has been vacated; </d:list>
-                                       <d:list>; For manual-on controls, have a grace period of no less than 15 seconds and no more than 30 seconds to turn on lighting automatically after the sensor has timed out;</d:list>
-                                       <d:list>Provide a visible status signal that indicates that the device is operating properly, or that it has failed or malfunctioned.  The visible status may have an override that turns off the signal. </d:list>
-                                       <d:list>Indicator lights integral to lighting controls shall consume no more than one watt of per indicator light.</d:list>
-                                       <d:list>NOTE: Occupant Sensing Control systems may consist of a combination of single or multilevel Occupant, Motion, or Vacancy Sensor Controls, provided that components installed to comply with manual-on requirements shall not be capable of conversion by occupants from manual-on to automatic-on functionality. </d:list>
-                                       <d:list>Sensors that are used by occupant sensing controls to detect occupants shall meet all of the following requirements: 
-                                          <d:l t="R#">
-                                             <d:list>Shall not incorporate switches or mechanical devices that allow the sensor to be disabled without changing the settings of the control.</d:list>
-                                             <d:list>Sensors that utilize ultrasonic radiation for detection of occupants shall comply with 21 C.F.R. part 1002.12, not emit audible sound and not emit ultrasound in excess of the decibel levels shown in Table 110.9-A measured no more than five feet from the source, on axis.</d:list>
-                                             <d:list>Sensors that utilize microwave radiation for detection of occupants shall comply with 47 C.F.R. parts 2 and 15 and not emit radiation in excess of 1 milliwatt per square centimeter measured at no more than 5 centimeters from the emission surface of the device.</d:list>
-                                          </d:l>
-                                       </d:list>
-                                    </d:l>
-                                    <d:line2/>
-                                    <d:tab2/>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensTable" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:i>TABLE 110.9-A - ULTRASOUND MAXIMUM DECIBEL VALUES</d:i>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:b>Mid-frequency of Sound Pressure Third-Octave Band (in kHz)</d:b>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol02" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:b>Third-Octave Band (in dB reference 20 micropascals)</d:b>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol01Row1" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Less than 20</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol02Row1" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">80</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol01Row2" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">20 or more to less than 25</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol02Row2" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">105</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol01Row3" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">25 or more to less than 31.5</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol02Row3" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">110</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol01Row4" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">31.5 or more</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunSensCol02Row4" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">115</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                        </xsd:sequence>
-                     </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="CtrlfunInterlock" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Interlocking Lighting Systems </d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03f_ProjectHasInterlockControl == true</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="CtrlfunInterlock01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">Lighting systems installed in auditoriums, convention centers, conference rooms, multipurpose rooms or theaters:  
-                                    <d:l t="A">
-                                       <d:list>Must not have more than two lighting systems used for an area, and if there are two they must be interlocked.  </d:list>
-                                       <d:list>The two lighting systems are interlocked with a non-programmable double throw switch to prevent simultaneous operation.  For compliance with Part 6 a Nonprogrammable Double-Throw Switch is an electrical switch commonly called a "single pole double throw" or "three-way" switch that is wired as a selector switch allowing one of the two loads to be enabled.  It can be a line voltage switch or a low voltage switch selecting between two relays.  It cannot be overridden or changed in any manner that would permit both loads to operate simultaneously.</d:list>
-                                    </d:l>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                        </xsd:sequence>
-                     </xsd:complexType>
-                  </xsd:element>
-                  <xsd:element name="CtrlfunVideo" minOccurs="0">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">
-                           <d:b>Controls in Videoconferencing Studio</d:b>
-                        </xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">This subsection is displayed If B03k_ProjectHasVideoControl == true</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:complexType>
-                        <xsd:sequence>
-                           <xsd:element name="CtrlfunVideo01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="AdditionalRequirements">If additional lighting power for a Videoconferencing Studio was included in the prescriptive compliance strategy on the NRCC-LTI-E:  
-                                    <d:l t="A">
-                                       <d:list>The Videoconferencing Studio must be a room with permanently installed videoconferencing cameras, audio equipment, and playback equipment for both audio-based and video-based two-way communication between local and remote sites; and  </d:list>
-                                       <d:list>General lighting must be switched in accordance with TABLE 130.1-A (see below); and </d:list>
-                                       <d:list>Wall wash lighting is separately switched from the general lighting systems; and </d:list>
-                                       <d:list>All of the lighting in the studio, including general lighting, is controlled by a multi-scene programmable control system (also known as a scene preset control system).</d:list>
-                                    </d:l>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoTable" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:i>TABLE 130.1-A MULTILEVEL LIGHTING CONTROLS AND UNIFORMITY REQUIREMENT</d:i>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:b>Luminaire Type</d:b>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol02" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:b>Minimum Required Control Steps (percent of full rated power*)</d:b>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol03" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">
-                                    <d:b>Uniform level of illuminance shall be achieved by:</d:b>
-                                 </xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row1" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Line-voltage sockets except GU-24</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row2" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Low-voltage incandescent systems</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row3" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">LED luminaires and LED source systems</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row4" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">GU-24 rated for LED</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol02to03Row1to4" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Continuous dimming 10-100 percent</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row5" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">GU-24 sockets rated for fluorescent 
-                                    <d:gt/> 20 W</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row6" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Pin-based compact fluorescent 
-                                    <d:gt/> 20 W**</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol02to3Row5to6" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Continuous dimming 20-100 percent</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row7" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">GU-24 sockets rated for fluorescent 
-                                    <d:lte/> 20 W</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row8" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Pin-based compact fluorescent 
-                                    <d:lte/> 20 W**</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row9" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Linear and U-bent fluorescent 
-                                    <d:lte/> 13 W</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol02Row7to9" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Minimum one step between 30-70 percent</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol03Row7to9" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Switching alternate lamps in a luminaire</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row10" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Linear and U-bent fluorescent 
-                                    <d:gt/> 13 W</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol02Row10" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Minimum one step in each range: 
-                                    <d:line1/>20-40%  50-70%  75-85%  100%</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol03Row10" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Switching alternate lamps in each luminaire, having a minimum of 4 lamps per luminaire illuminating the same area and in the same manner.</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row11" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Track Lighting</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol02Row11" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Minimum one step between 30-70 percent</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol03Row11" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Separately switching circuits in multi-circuit track with a minimum of two circuits</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row12" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">HID 
-                                    <d:gt/> 20 W</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row13" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Induction
-                                    <d:gt/> 25 W</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol01Row14" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Other light sources</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol02Row12to14" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Minimum one step between 50-70 percent</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoCol03Row12to14" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">Stepped dimming; or Continuous dimming; or Switching alternate lamps in each luminaire, having a minimum of 2 lamps per luminaire illuminating the same area and in the same manner.</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoEndNote1" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">* Full rated input power of ballast and lamp, corresponding to maximum ballast factor</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                           <xsd:element name="CtrlfunVideoEndNote2" minOccurs="0">
-                              <xsd:annotation>
-                                 <xsd:documentation source="FieldText">** Includes only pin based lamps: twin tube, multiple twin tube, and spiral lamps</xsd:documentation>
-                              </xsd:annotation>
-                           </xsd:element>
-                        </xsd:sequence>
-                     </xsd:complexType>
-                  </xsd:element>
-               </xsd:sequence>
-            </xsd:complexType>
-         </xsd:element>
-         <xsd:element name="Section_G" minOccurs="0">
+         <xsd:element name="Section_G" minOccurs="1">
             <xsd:annotation>
                <xsd:documentation source="FieldText">
                   <d:b>G. ACCEPTANCE TESTS &amp;amp; FIELD VERIFICATION</d:b>
                </xsd:documentation>
-               <xsd:documentation source="CalculationsAndRules">This section is required if NRCC-LTI-E is parent And in Section-U U01_RequireNRCALti02A == true Or U02_RequireNRCALti03A == true Or U03_RequireNRCALti04A == trueOr U04_RequireNRCALti05A == true</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>

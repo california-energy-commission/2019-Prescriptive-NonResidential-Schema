@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+   targetNamespace="http://www.lmonte.com/besm/NRCILTS01E"
+   xmlns="http://www.lmonte.com/besm/NRCILTS01E"
+   xmlns:d="http://www.lmonte.com/besm/d"
+   xmlns:bld="http://www.lmonte.com/besm/bld"
+   xmlns:env="http://www.lmonte.com/besm/env"
+   xmlns:lit="http://www.lmonte.com/besm/lit"
+   xmlns:hvac="http://www.lmonte.com/besm/hvac"
+   xmlns:comp="http://www.lmonte.com/besm/comp"
+   xmlns:com="http://www.lmonte.com/besm/com"
+   xmlns:dtyp="http://www.lmonte.com/besm/dtyp"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:altova="http://www.altova.com/xml-schema-extensions"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" version="2019.1.003">
+   <xsd:import namespace="http://www.lmonte.com/besm/com" schemaLocation="../base/NrPresCommon.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/bld" schemaLocation="../base/NrPresBuilding.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/env" schemaLocation="../base/NrPresEnvelope.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/lit" schemaLocation="../base/NrPresLighting.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/hvac" schemaLocation="../base/NrPresHvac.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/comp" schemaLocation="../base/NrPresCompliance.xsd"/>
+   <xsd:import namespace="http://www.lmonte.com/besm/dtyp" schemaLocation="../base/DataTypes.xsd"/>
+   <xsd:element name="ComplianceDocumentPackage">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="DocID" minOccurs="0">
+               <xsd:complexType>
+                  <xsd:attribute name="doc" type="comp:ComplianceDocumentTagNR" fixed="NRCILTS01E"/>
+                  <xsd:attribute name="docType" type="comp:ComplianceDocumentTypeNR" fixed="CertificateInstallationNR"/>
+                  <xsd:attribute name="docTitle" type="comp:ComplianceDocumentTitleNR" fixed="Sign Lighting"/>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Payload" type="comp:Payload"/>
+            <xsd:element name="DocumentData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="Header" type="comp:HeaderNRCI" />
+                     <xsd:element ref="nRCILTS01E" />
+                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded" />
+                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCI" maxOccurs="unbounded" />
+                     <xsd:element name="Footer" type="comp:FooterNRCC" />
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Report" type="xsd:base64Binary" minOccurs="0"/>
+         </xsd:sequence>
+         <xsd:attribute name="revision" use="required" type="xsd:string" fixed="rev 20210701"/>
+         <xsd:attribute name="doc" use="required" type="comp:ComplianceDocumentTagNR" fixed="NRCILTS01E"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="NRCILTS01E">
+      <xsd:annotation>
+         <xsd:documentation>Sign Lighting</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]A. GENERAL INFORMATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="A_BeforeNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This Certificate of Installation documents the installation of outdoor lighting features, materials, components, and manufactured devices required to demonstrate compliance with Title 24, Part 6 per  [d:t24refnolink/]10.103(a)3 for nonresidential, hotel/motel and high-rise residential occupancies, [ .[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A01_ProjectCity" type="comp:ProjectCity" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-LTS parent, 
+result = A01_ProjectCity
+End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">A01_ProjectCity</dtyp:srcSchema>
+                        </xsd:appinfo>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A02_ProjectZipcode" type="comp:ProjectZipcode" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Zip Code</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-LTS parent, 
+User input
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A03_PermitSetDate" type="comp:PermitSetDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A04_PermitSetName" type="comp:PermitSetName" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A05_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Authority Having Jurisdiction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A06_PermitNumber" type="comp:PermitNumber" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Building Permit #</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A07_AsBuiltSetDate" type="comp:AsBuiltSetDate" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Date of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Name of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_B" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b] B. INSTALLER SCOPE[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="B_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates the construction systems and materials documented on this Nonresidential Certificate of Installation. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01Subheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Luminaires</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B01_ProjectHasLuminaires" type="comp:ProjectHasLuminaires" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Sign Lighting</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B02ato02cSubheading" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Controls</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B02a_ProjectHasShutOffControl" type="comp:ProjectHasShutOffControl" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B02b_ProjectHasDimmerControl" type="comp:ProjectHasDimmerControl" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="B02c_ProjectHasDemandControl" type="comp:ProjectHasDemandControl" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_C" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]C. COMPLIANCE RESULTS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="C_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table indicates whether the as-built conditions documented in this form are equal or better than what was documented on the permitted Certificate of Compliance.  If the installation is not equal or better, Section 10-103(a)2B requires the Certificate of Compliance form to be revised accordingly to demonstrate compliance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+ If in any required tables or subsections in Section F 
+  ComplianceResultNRCI ==  FormNotComplete
+ result = FormNotComplete
+ Else If ComplianceResultNRCI == MayNotComply
+ result = MayNotComply
+  
+ Else If All require tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
+ result = ExactMatch
+ Else If any have ComplianceResultNRCI ==  EqualBetter
+ result = EqualBetter
+ End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="C01Message_ComplianceResultMessageNRCI" type="comp:ComplianceResultMessageNRCI" >
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Calculated result:  
+ If C01_ComplianceResultNRCI == ExactMatch Or EqualBetter
+ result = ExactEqualBetterText
+ Else If C01_ComplianceResultNRCI == MayNotComply
+ result =  MayNotComplyText
+ End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_D" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]D. EXCEPTIONAL CONDITIONS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="D_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table is auto-filled with uneditable comments because of field conditions noted by the installer that may impact requirements documented on the Certificate of Compliance.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="D01_ExceptionalConditionMessageNRCILTSE" type="comp:ExceptionalConditionMessageNRCILTSE"  minOccurs="0" maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document
+If ExceptionalConditionMessageNRCILTSE == ""
+result = NoExceptionNote
+End If</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_E" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]E. INSTALLER NOTES[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the  installer to the Authority Having Jurisdiction</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="E_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]This table includes remarks made by the installer to the Authority Having Jurisdiction.[/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="E01_CommentsToPermitAuthority" type="comp:CommentsToPermitAuthority"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="Section_F" minOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation source="FieldText">[d:b]F. INSTALLATION DETAILS[/d:b]</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="F_BeginNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i]The following tables indicate performance requirements as documented on the permitted Certificate of Compliance (NRCC) for all systems and components included in Table B. Installer Scope.  Also included are the as-built conditions documented by the installer/documentation author. [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelTopCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">Per NRCC</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the top cell for all tables in Section F.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="F_RowLabelBottomCell" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">As-built Conditions</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This is the text displayed at the left end of a row in the bottom cell for all tables in Section F</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableSign" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Sign Lighting Compliance[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This table is required if B01_ProjectHasLuminaires  == true</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Sign01cc_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+result = C01_LightedSignName
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">C01_LightedSignName</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Sign01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Sign02cc_LightedSignDescription" type="lit:LightedSignDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Sign Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+result = C02_LightedSignDescription 
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">C02_LightedSignDescription</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign03cc_LuminairePower" type="lit:LuminairePower" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If NRCCLTSE F01_LightedSignName == Sign01cc_LightedSignName assigned from NRCCLTSE  C01_LightedSignName
+result = F12_LuminairePower
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F12_LuminairePower</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign03cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If NRCCLTSE F01_LightedSignName != Sign01cc_LightedSignName assigned from NRCCLTSE  C01_LightedSignName
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="reference">F01_LightedSignName</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign03_LuminairePower" type="lit:LuminairePower" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign03cc_LuminairePower IsPresent
+If Sign01_InstalledSameAsCC == true
+result = Sign03cc_LuminairePower 
+Else
+User input 
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign03_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign03cc_NotApplicableMessage IsPresent
+result = Sign03cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign04cc_LuminaireCountByType" type="lit:LuminaireCountByType" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If Sign03cc_LuminairePower IsPresent
+result = F14_LuminaireCountByType
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F14_LuminaireCountByType</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign04cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If Sign03cc_NotApplicableMessage IsPresent
+result = Sign03cc_NotApplicableMessage
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign04_LuminaireCountByType" type="lit:LuminaireCountByType" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign04cc_LuminaireCountByType IsPresent
+If Sign01_InstalledSameAsCC == true
+result = Sign04cc_LuminaireCountByType
+Else
+User input 
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign04_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign04cc_NotApplicableMessage IsPresent
+result = Sign04cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign05cc_LightedSignDesignedPower" type="comp:LightedSignDesignedPower" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If Sign03cc_LuminairePower IsPresent
+result = F07_LightedSignDesignedPower
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F07_LightedSignDesignedPower</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign05cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If Sign03cc_NotApplicableMessage IsPresent
+result = Sign03cc_NotApplicableMessage
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign05_LightedSignDesignedPower" type="comp:LightedSignDesignedPower" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign03cc_LuminairePower IsPresent And
+Sign04cc_LuminaireCountByType IsPresent
+result =Sign03_LuminairePower x  Sign04_LuminaireCountByType
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign05_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign05cc_NotApplicableMessage IsPresent
+result = Sign05cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign06cc_CompliantLightSource" type="comp:CompliantLightSource"  maxOccurs="unbounded">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliant Light Sources</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If NRCCLTSE G01_LightedSignName == Sign01cc_LightedSignName assigned from NRCCLTSE  C01_LightedSignName
+result = G03_CompliantLightSource
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">G03_CompliantLightSource</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign06cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliant Light Sources</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If NRCCLTSE G01_LightedSignName != Sign01cc_LightedSignName assigned from NRCCLTSE  C01_LightedSignName
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="reference">G01_LightedSignName</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign06_CompliantLightSource" type="comp:CompliantLightSource"  maxOccurs="unbounded">
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliant Light Sources</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign06cc_CompliantLightSource IsPresent
+If Sign01_InstalledSameAsCC == true
+result = Sign06cc_CompliantLightSource
+Else
+User  selects one or more from list 
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign06_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Compliant Light Sources</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign06cc_NotApplicableMessage IsPresent
+result = Sign06cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign07cc_IsMethodEnergyVerifiedLabel" type="comp:IsMethodEnergyVerifiedLabel" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If B05_LightedSignPrescriptiveMethod ==  EnergyVerifiedLabel
+If C06_IsMethodEnergyVerifiedLabel IsPresent
+result = C06_IsMethodEnergyVerifiedLabel
+End If
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="reference">B05_LightedSignPrescriptiveMethod</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">C06_IsMethodEnergyVerifiedLabel</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign07cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If B05_LightedSignPrescriptiveMethod !=  EnergyVerifiedLabelresult = BlankGrayedOut 
+Else If C06_NotApplicableMessage IsPresent
+result = C06_NotApplicableMessage
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="reference">B05_LightedSignPrescriptiveMethod</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">C06_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Sign07_IsMethodEnergyVerifiedLabel" type="comp:IsMethodEnergyVerifiedLabel" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign07cc_IsMethodEnergyVerifiedLabel IsPresent
+If Sign01_InstalledSameAsCC == true
+result = Sign07cc_IsMethodEnergyVerifiedLabel
+Else
+User  selects from list  of true value display term is ENERGY VERIFIED Sign Installed and false value display term No ENERGY VERIFIED Label
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="true"> ENERGY VERIFIED Sign Installed</dtyp:displayterm>
+                                                <dtyp:displayterm value="false"> No ENERGY VERIFIED Label</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Sign07_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:sup]1[/d:sup]</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Sign07cc_NotApplicableMessage IsPresent
+result = Sign07cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Sign08_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Sign Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+ result = TableIncomplete  
+Else If Sign05cc_LightedSignDesignedPower IsPresent And 
+Sign05_LightedSignDesignedPower GT  Sign05cc_LightedSignDesignedPower 
+Or 
+Sign07_IsMethodEnergyVerifiedLabel IsPresent And Sign07_IsMethodEnergyVerifiedLabel == false
+ result = MayNotComply
+ 
+ Else  If  
+Sign03_NotApplicableMessage IsPresent Or Sign03_LuminairePower == Sign03cc_LuminairePower
+And 
+Sign04_NotApplicableMessage IsPresent Or Sign04_LuminaireCountByType == Sign04cc_LuminaireCountByType
+And
+Sign05_NotApplicableMessage IsPresent Or Sign05_LightedSignDesignedPower == Sign05cc_LightedSignDesignedPower 
+And 
+Sign06_NotApplicableMessage IsPresent Or  Sign06_CompliantLightSource  == Sign06cc_CompliantLightSource
+And 
+Sign07_NotApplicableMessage IsPresent Or Sign07_IsMethodEnergyVerifiedLabel == Sign07cc_IsMethodEnergyVerifiedLabel 
+result = ExactMatch
+
+Else If Sign05_LightedSignDesignedPower LTE  Sign05cc_LightedSignDesignedPower Or Sign07_IsMethodEnergyVerifiedLabel == true Or Sign06_CompliantLightSource  IsPresent
+result = EqualBetter
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="SignEndNote1" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText"></xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">[d:i][d:sup]1[/d:sup]  FOOTNOTE: ENERGY VERIFIED labels must be permanent, pre-printed, factory-installed, ENERGY VERIFIED label confirming that the sign complies with the Section 140.8 of the California 2019 Title 24, Part 6 Standards.  [/d:i]</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="TableControls" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">[d:b]Sign Lighting Controls[/d:b]</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This subsection is required if B02a_ProjectHasShutOffControl== true Or
+B02b_ProjectHasDimmerControl == true Or B02c_ProjectHasDemandControl == true Or</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Ctrl01cc_LightedSignName" type="lit:LightedSignName" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Name or Sign Tag</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+result = F01_LightedSignName
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F01_LightedSignName</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl02cc_LightedSignDescription" type="lit:LightedSignDescription" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Sign Description</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+result = F02_LightedSignDescription 
+End If</xsd:documentation>
+                                          <xsd:appinfo source="NRCIsrc">
+                                             <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F02_LightedSignDescription</dtyp:srcSchema>
+                                          </xsd:appinfo>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl03to05Subheading" minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Mandatory Controls</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Ctrl03cc_SignShutOffControls" type="comp:SignShutOffControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If F08a_SignShutOffControls IsPresent for F01_LightedSignName assigned to Ctrl01cc_LightedSignName
+result = F08a_SignShutOffControls
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F08a_SignShutOffControls</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Ctrl03cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If F08a_NotApplicableMessage IsPresent for F01_LightedSignName assigned to Ctrl01cc_LightedSignName
+result = F08a_NotApplicableMessage
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F08a_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Ctrl03_SignShutOffControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Ctrl03cc_SignShutOffControls IsPresent
+If Ctrl01_InstalledSameAsCC == true
+result = Ctrl03cc_SignShutOffControls
+Else
+User selects from list
+End If
+End If</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="AutoTimeSwitchPhotoControl">Auto Timer + Photocontrol (outdoor)</dtyp:displayterm>
+                                                <dtyp:displayterm value="AstronomicalTimeSwitchPhotoControl">Astrn. Timer (outdoor)</dtyp:displayterm>
+                                                <dtyp:displayterm value="AutoTimeSwitch">Auto Timer (indoor)</dtyp:displayterm>
+                                                <dtyp:displayterm value="AstronomicalTimeSwitch">Astrn. Timer (indoor)</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:SignShutOffControls">
+                                                <xsd:enumeration value="AstronomicalTimeSwitch"/>
+                                                <xsd:enumeration value="AstronomicalTimeSwitchPhotoControl"/>
+                                                <xsd:enumeration value="AutoTimeSwitch"/>
+                                                <xsd:enumeration value="AutoTimeSwitchPhotoControl"/>
+                                                <xsd:enumeration value="OutdoorUse24x7NA"/>
+                                                <xsd:enumeration value="TunnelsNA"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                       <xsd:element name="Ctrl03_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Ctrl03cc_NotApplicableMessage IsPresent
+result = Ctrl03cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Ctrl04cc_SignDimmingControls" type="comp:SignDimmingControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If F08b_SignDimmingControls IsPresent for F01_LightedSignName assigned to Ctrl01cc_LightedSignName
+result = F08b_SignDimmingControls
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F08b_SignDimmingControls</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Ctrl04cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If F08b_NotApplicableMessage IsPresent for F01_LightedSignName assigned to Ctrl01cc_LightedSignName
+result = F08b_NotApplicableMessage
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F08b_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Ctrl04_SignDimmingControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Ctrl04cc_SignDimmingControls  IsPresent
+If Ctrl01_InstalledSameAsCC == true
+result = Ctrl04cc_SignDimmingControls
+Else
+User selects from list
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:SignDimmingControls">
+                                                <xsd:enumeration value="OutdoorUse24x7NA"/>
+                                                <xsd:enumeration value="PowerReduced65"/>
+                                                <xsd:enumeration value="TunnelsNA"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                       <xsd:element name="Ctrl04_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Dimming</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Ctrl04cc_NotApplicableMessage IsPresent
+result = Ctrl04cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Ctrl05cc_SignDemandResponseControls" type="comp:SignDemandResponseControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If F08c_SignDemandResponseControls IsPresent for F01_LightedSignName assigned to Ctrl01cc_LightedSignName
+result = F08c_SignDemandResponseControls
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F08c_SignDemandResponseControls</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Ctrl05cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
+If F08c_NotApplicableMessage IsPresent for F01_LightedSignName assigned to Ctrl01cc_LightedSignName
+result = F08c_NotApplicableMessage
+End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTS01E"  usage="copy">F08c_NotApplicableMessage</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Ctrl05_SignDemandResponseControls" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Ctrl05cc_SignDemandResponseControls  IsPresent
+If Ctrl01_InstalledSameAsCC == true
+result = Ctrl05cc_SignDemandResponseControls
+Else
+User selects from list
+End If
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:SignDemandResponseControls">
+                                                <xsd:enumeration value="Exempt"/>
+                                                <xsd:enumeration value="LTE15kwNA"/>
+                                                <xsd:enumeration value="PowerReduced30"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                       <xsd:element name="Ctrl05_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                                             <xsd:documentation source="AdditionalRequirements">.</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If Ctrl05cc_NotApplicableMessage IsPresent
+result = Ctrl05cc_NotApplicableMessage
+End If</xsd:documentation>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
+                                    <xsd:element name="Ctrl06_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Controls Compliance</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">If any user input field is blank
+ result = TableIncomplete  
+
+ Else  If  
+Ctrl03_NotApplicableMessage IsPresent Or Ctrl03_SignShutOffControls  == Ctrl03cc_SignShutOffControls
+And 
+Ctrl04_NotApplicableMessage IsPresent Or Ctrl04_SignDimmingControls  == Ctrl04cc_SignDimmingControls
+And
+Ctrl05_NotApplicableMessage IsPresent Or  Ctrl05cc_SignDemandResponseControls  ==  Ctrl05cc_SignDemandResponseControls
+result = ExactMatch
+
+Else 
+result = EqualBetter
+ExceptionalConditionMessageNRCILTSE = SignLightControlNoMatch
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="nRCILTS01E" type="NRCILTS01E">
+      <xsd:annotation>
+         <xsd:documentation>This element contains all of the data and text required to generate the NRCILTS01E compliance report.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+</xsd:schema>

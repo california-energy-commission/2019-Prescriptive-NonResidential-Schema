@@ -26,6 +26,44 @@
    <xsd:simpleType name="AssemblyLayers">
       <xsd:restriction base="xsd:string"/>
    </xsd:simpleType>
+   <xsd:simpleType name="AssemblyType">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="ConcretePanel">Concrete Sandwich Panel</dtyp:displayterm>
+            <dtyp:displayterm value="Framed">Framed</dtyp:displayterm>
+            <dtyp:displayterm value="HeatedSlab">Heated Slab-on-grade</dtyp:displayterm>
+            <dtyp:displayterm value="ICF">ICF</dtyp:displayterm>
+            <dtyp:displayterm value="Log">Log</dtyp:displayterm>
+            <dtyp:displayterm value="Mass">Mass</dtyp:displayterm>
+            <dtyp:displayterm value="MetalBuilding">Metal Building</dtyp:displayterm>
+            <dtyp:displayterm value="MetalFramed">Metal Framed</dtyp:displayterm>
+            <dtyp:displayterm value="MetalPanel">Metal Panel</dtyp:displayterm>
+            <dtyp:displayterm value="RaisedMass">Raised Mass</dtyp:displayterm>
+            <dtyp:displayterm value="SIPS">SIPS</dtyp:displayterm>
+            <dtyp:displayterm value="Span">Span</dtyp:displayterm>
+            <dtyp:displayterm value="SpandrelCurtain">Spandrel/ Curtain Wall</dtyp:displayterm>
+            <dtyp:displayterm value="Strawbale">Strawbale</dtyp:displayterm>
+            <dtyp:displayterm value="WoodFramed">Wood Framed</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="ConcretePanel"/>
+         <xsd:enumeration value="Framed"/>
+         <xsd:enumeration value="HeatedSlab"/>
+         <xsd:enumeration value="ICF"/>
+         <xsd:enumeration value="Log"/>
+         <xsd:enumeration value="Mass"/>
+         <xsd:enumeration value="MetalBuilding"/>
+         <xsd:enumeration value="MetalFramed"/>
+         <xsd:enumeration value="MetalPanel"/>
+         <xsd:enumeration value="RaisedMass"/>
+         <xsd:enumeration value="SIPS"/>
+         <xsd:enumeration value="Span"/>
+         <xsd:enumeration value="SpandrelCurtain"/>
+         <xsd:enumeration value="Strawbale"/>
+         <xsd:enumeration value="WoodFramed"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="CRRCProductID">
       <xsd:annotation>
          <xsd:documentation>The CRRC product identification number for the roofing product</xsd:documentation>
@@ -196,9 +234,9 @@
    </xsd:simpleType>
    <xsd:simpleType name="CavityInsulationOther">
       <xsd:annotation>
-         <xsd:documentation>Short phrase describing cavity insulation</xsd:documentation>
+         <xsd:documentation>Units: none</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="xsd:token"/>
+      <xsd:restriction base="dtyp:Decimal"/>
    </xsd:simpleType>
    <xsd:simpleType name="CeilingArea">
       <xsd:annotation>
@@ -1832,9 +1870,9 @@
    </xsd:simpleType>
    <xsd:simpleType name="ContinuousInsulationOther">
       <xsd:annotation>
-         <xsd:documentation>Short phrase descirbing  insulation that is non-standard or unique.</xsd:documentation>
+         <xsd:documentation>Units: none</xsd:documentation>
       </xsd:annotation>
-      <xsd:restriction base="xsd:token"/>
+      <xsd:restriction base="dtyp:Decimal"/>
    </xsd:simpleType>
    <xsd:simpleType name="CoreICF">
       <xsd:annotation>
@@ -1879,7 +1917,10 @@
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="CoreInsulationOther">
-      <xsd:restriction base="xsd:token"/>
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal"/>
    </xsd:simpleType>
    <xsd:simpleType name="DisplayPerimeter">
       <xsd:annotation>
@@ -1944,6 +1985,7 @@
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="InsulatedSingleLayerSectionalMetal">Insulated single layer metal sectional doors with EPS</dtyp:displayterm>
             <dtyp:displayterm value="InsulatedSwingingMetal">Insulated metal swing doors</dtyp:displayterm>
+            <dtyp:displayterm value="RatedNFRC">NFRC rated</dtyp:displayterm>
             <dtyp:displayterm value="UninsulatedDoubleLayerMetal">Uninsulated double-layer metal</dtyp:displayterm>
             <dtyp:displayterm value="UninsulatedSingleLayerMetal">Uninsulated single-layer metal</dtyp:displayterm>
             <dtyp:displayterm value="UninsulatedSingleLayerRollupMetal">Uninsulated single-layer metal rollup door</dtyp:displayterm>
@@ -1955,6 +1997,7 @@
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="InsulatedSingleLayerSectionalMetal"/>
          <xsd:enumeration value="InsulatedSwingingMetal"/>
+         <xsd:enumeration value="RatedNFRC"/>
          <xsd:enumeration value="UninsulatedDoubleLayerMetal"/>
          <xsd:enumeration value="UninsulatedSingleLayerMetal"/>
          <xsd:enumeration value="UninsulatedSingleLayerRollupMetal"/>
@@ -3136,6 +3179,12 @@ Used by the compliance software user interface to narrow list of material select
          <xsd:enumeration value="5In"/>
          <xsd:enumeration value="6In"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="NFRC_Number">
+      <xsd:annotation>
+         <xsd:documentation>The CRRC product identification number for the roofing product</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string"/>
    </xsd:simpleType>
    <xsd:simpleType name="OpaqueSurfaceType">
       <xsd:annotation>

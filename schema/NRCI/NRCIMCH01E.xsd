@@ -83,7 +83,14 @@ End If</xsd:documentation>
                   <xsd:element name="A02_ProjectZipcode" type="comp:ProjectZipcode" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Zip Code</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If NRCC-PRF parent
+result = Info02_ProjectZipcode
+Else If NRCC-MCH parent
+User input
+End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Info02_ProjectZipcode</dtyp:srcSchema>
+                        </xsd:appinfo>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A03_PermitSetDate" type="comp:PermitSetDate" >
@@ -307,7 +314,10 @@ End If</xsd:documentation>
                   <xsd:element name="D01_ExceptionalConditionMessageNRCIMCHE" type="comp:ExceptionalConditionMessageNRCIMCHE"  minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document
+If ExceptionalConditionMessageNRCIMCHE == ""
+result = NoExceptionNote
+End If</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -557,7 +567,7 @@ End If</xsd:documentation>
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Equipment Type</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If NRCC-PRF parent 
-If NRCC-PRFHvacDry02_ZoneSystemType  IsPresent for system in Dry01nrcc_HvacSystemName
+If NRCC-PRF HvacDry02_ZoneSystemType  IsPresent for system in Dry01nrcc_HvacSystemName
 result = NRCC-PRF HvacDry02_ZoneSystemType
 End If
 End If</xsd:documentation>
@@ -1215,8 +1225,11 @@ End If</xsd:documentation>
                                        <xsd:element name="Dry09cc_EfficiencySEER" type="hvac:EfficiencySEER" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Efficiency</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent and Fa09_EfficiencySEER IsPresent
+                                             <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent 
+If Fa09_EfficiencySEER IsPresent
 result = NRCC-MCH Fa09_EfficiencySEER 
+Else If Fa09_EfficiencySEER_EER result2 IsPresent
+result = Fa09_EfficiencySEER_EER result2
 Else If NRCC-PRF parent and HvacDry08b_EfficiencySEER IsPresent
 result = NRCC-PRF HvacDry08b_EfficiencySEER
 End If</xsd:documentation>
@@ -1569,38 +1582,93 @@ result = TableIncomplete
  
 Else If Dry03_xxx != Dry03cc_xxx 
 Or 
-Dry06_EfficiencyAFUE IsPresent And LT  Dry06cc_EfficiencyAFUE Or Dry06_EfficiencyCOP  IsPresent And LT  Dry06cc_EfficiencyCOP Or
-Dry06_EfficiencyHSPF  IsPresent And  LT  Dry06cc_EfficiencyHSPF Or Dry06_CombustionEfficiency  IsPresent And LT  Dry06cc_CombustionEfficiency Or Dry06_ThermalEfficiency IsPresent And LT Dry06cc_ThermalEfficiency
+(
+Dry06_EfficiencyAFUE IsPresent And Dry06_EfficiencyAFUE LT  Dry06cc_EfficiencyAFUE 
+Or 
+Dry06_EfficiencyCOP  IsPresent And Dry06_EfficiencyCOP LT  Dry06cc_EfficiencyCOP 
 Or
-Dry09_EfficiencyCOP IsPresent And LT Dry09cc_EfficiencyCOP Or
-Dry09_EfficiencySCOP IsPresent And LT Dry09cc_EfficiencySCOP Or
-Dry09_EfficiencyEER IsPresent And LT Dry09cc_EfficiencyEER Or
-Dry09_EfficiencySEER IsPresent And LT Dry09cc_EfficiencySEER
+Dry06_EfficiencyHSPF  IsPresent And  Dry06_EfficiencyHSPF LT  Dry06cc_EfficiencyHSPF 
+Or 
+Dry06_CombustionEfficiency  IsPresent And Dry06_CombustionEfficiency LT  Dry06cc_CombustionEfficiency 
+Or 
+Dry06_ThermalEfficiency IsPresent And Dry06_ThermalEfficiency LT Dry06cc_ThermalEfficiency
+)
+ 
+Or
+(
+Dry09_EfficiencyCOP IsPresent And Dry09_EfficiencyCOP LT Dry09cc_EfficiencyCOP 
+Or
+Dry09_EfficiencySCOP IsPresent And Dry09_EfficiencySCOP LT Dry09cc_EfficiencySCOP 
+Or
+Dry09_EfficiencyEER IsPresent And Dry09_EfficiencyEER LT Dry09cc_EfficiencyEER 
+Or
+Dry09_EfficiencySEER IsPresent And Dry09_EfficiencySEER LT Dry09cc_EfficiencySEER
+)
 result = MayNotComply
  
-Else If Dry03_xxx == Dry03cc_xxx
+Else If 
+Dry03_xxx == Dry03cc_xxx
 And
 Dry04_NotApplicableMessage IsPresent Or  Dry04_HeatingRatedCapacity == Dry04cc_HeatingRatedCapacity
 And
 Dry05_NotApplicableMessage IsPresent Or  Dry05_HeatingSupplementalCapacity ==  Dry05cc_HeatingSupplementalCapacity
+ 
 And
-Dry06_NotApplicableMessage IsPresent Or  Dry06_EfficiencyAFUE IsPresent And ==  Dry06cc_EfficiencyAFUE Or Dry06_EfficiencyCOP IsPresent And ==  Dry06cc_EfficiencyCOP Or Dry06_EfficiencyHSPF  IsPresent And ==  Dry06cc_EfficiencyHSPF Or Dry06_CombustionEfficiency  IsPresent And ==  Dry06cc_CombustionEfficiency Or Dry06_ThermalEfficiency   IsPresent And ==  Dry06cc_ThermalEfficiency
+(
+Dry06_NotApplicableMessage IsPresent 
+Or  
+Dry06_EfficiencyAFUE IsPresent And Dry06_EfficiencyAFUE ==  Dry06cc_EfficiencyAFUE 
+Or 
+Dry06_EfficiencyCOP IsPresent And Dry06_EfficiencyCOP ==  Dry06cc_EfficiencyCOP 
+Or 
+Dry06_EfficiencyHSPF  IsPresent And Dry06_EfficiencyHSPF ==  Dry06cc_EfficiencyHSPF 
+Or 
+Dry06_CombustionEfficiency  IsPresent And Dry06_CombustionEfficiency  ==  Dry06cc_CombustionEfficiency 
+Or 
+Dry06_ThermalEfficiency IsPresent And Dry06_ThermalEfficiency ==  Dry06cc_ThermalEfficiency
+)
+ 
 And
 Dry08_NotApplicableMessage IsPresent Or  Dry08_CoolingRatedCapacity == Dry08cc_CoolingRatedCapacity
+ 
 And
-Dry09_NotApplicableMessage IsPresent Or Dry09_EfficiencyCOP  IsPresent And ==  Dry09cc_EfficiencyCOP Or Dry09_EfficiencySCOP  IsPresent And ==  Dry09cc_EfficiencySCOP Or Dry09_EfficiencyEER  IsPresent And == Dry09cc_EfficiencyEER Or Dry09_EfficiencySEER  IsPresent And ==  Dry09cc_EfficiencySEER
+(
+Dry09_NotApplicableMessage IsPresent 
+Or 
+Dry09_EfficiencyCOP  IsPresent And Dry09_EfficiencyCOP ==  Dry09cc_EfficiencyCOP 
+Or 
+Dry09_EfficiencySCOP  IsPresent And Dry09_EfficiencySCOP ==  Dry09cc_EfficiencySCOP 
+Or 
+Dry09_EfficiencyEER  IsPresent And Dry09_EfficiencyEER == Dry09cc_EfficiencyEER 
+Or 
+Dry09_EfficiencySEER  IsPresent And Dry09_EfficiencySEER ==  Dry09cc_EfficiencySEER
+)
+ 
 result = ExactMatch
  
-Else If Dry06_EfficiencyAFUE IsPresent And GTE Dry06cc_EfficiencyAFUE Or
-Dry06_EfficiencyCOP IsPresent And  GTE Dry06cc_EfficiencyCOP Or
-Dry06_EfficiencyHSPF IsPresent And GTE Dry06cc_EfficiencyHSPF Or
-Dry06_CombustionEfficiency IsPresent And GTE Dry06cc_CombustionEfficiency Or
-Dry06_ThermalEfficiency IsPresent And  GTE Dry06cc_ThermalEfficiency
+Else If 
+(
+Dry06_EfficiencyAFUE IsPresent And Dry06_EfficiencyAFUE GTE Dry06cc_EfficiencyAFUE 
 Or
-Dry09_EfficiencyCOP IsPresent And  GTE Dry09cc_EfficiencyCOP Or
-Dry09_EfficiencySCOP IsPresent And GTE Dry09cc_EfficiencySCOP Or
-Dry09_EfficiencyEER IsPresent And GTE Dry09cc_EfficiencyEER Or
-Dry09_EfficiencySEER IsPresent And GTE Dry09cc_EfficiencySEER
+Dry06_EfficiencyCOP IsPresent And  Dry06_EfficiencyCOP GTE Dry06cc_EfficiencyCOP 
+Or
+Dry06_EfficiencyHSPF IsPresent And Dry06_EfficiencyHSPF GTE Dry06cc_EfficiencyHSPF 
+Or
+Dry06_CombustionEfficiency IsPresent And Dry06_CombustionEfficiency GTE Dry06cc_CombustionEfficiency 
+Or
+Dry06_ThermalEfficiency IsPresent And Dry06_ThermalEfficiency  GTE Dry06cc_ThermalEfficiency
+)
+ 
+Or
+(
+Dry09_EfficiencyCOP IsPresent And Dry09_EfficiencyCOP GTE Dry09cc_EfficiencyCOP 
+Or
+Dry09_EfficiencySCOP IsPresent And Dry09_EfficiencySCOP GTE Dry09cc_EfficiencySCOP 
+Or
+Dry09_EfficiencyEER IsPresent And Dry09_EfficiencyEER GTE Dry09cc_EfficiencyEER 
+Or
+Dry09_EfficiencySEER IsPresent And Dry09_EfficiencySEER GTE Dry09cc_EfficiencySEER
+)
 result = EqualBetter
 End If
 End If</xsd:documentation>
@@ -2103,39 +2171,65 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete 
  
-Else If Blr03_BoilerType != Blr03cc_BoilerType 
+Else If 
+Blr03_BoilerType != Blr03cc_BoilerType 
 Or
-Blr05_CapacityRated IsPresent And  != Blr05cc_CapacityRated Or Blr05_BoilerRatedInputRange IsPresent And != Blr05cc_BoilerRatedInputRange
+(
+Blr05_CapacityRated IsPresent And  Blr05_CapacityRated != Blr05cc_CapacityRated 
+Or 
+Blr05_BoilerRatedInputRange IsPresent And Blr05_BoilerRatedInputRange != Blr05cc_BoilerRatedInputRange
+)
 Or
-Blr06_EfficiencyAFUE IsPresent And  LT Blr06cc_EfficiencyAFUE  Or Blr06_ThermalEfficiency  IsPresent And  LT Blr06cc_ThermalEfficiency  Or
+(
+Blr06_EfficiencyAFUE IsPresent And Blr06_EfficiencyAFUE LT Blr06cc_EfficiencyAFUE  
+Or 
+Blr06_ThermalEfficiency  IsPresent And  Blr06_ThermalEfficiency LT Blr06cc_ThermalEfficiency  
+Or
 Blr06_CombustionEfficiency  IsPresent And  LT Blr06cc_CombustionEfficiency 
+)
+ 
 result = MayNotComply
  
-Else If Blr03_BoilerType == Blr03cc_BoilerType
+Else If 
+Blr03_BoilerType == Blr03cc_BoilerType
 And 
-If Blr04_NotApplicableMessage IsPresent Or Blr04_BoilerCount ==  Blr04cc_BoilerCount
+Blr04_NotApplicableMessage IsPresent Or Blr04_BoilerCount ==  Blr04cc_BoilerCount
 And
-Blr05_CapacityRated IsPresent And  == Blr05cc_CapacityRated Or Blr05_BoilerRatedInputRange IsPresent And == Blr05cc_BoilerRatedInputRange
+(
+Blr05_CapacityRated IsPresent And  Blr05_CapacityRated IsPresent == Blr05cc_CapacityRated 
+Or 
+Blr05_BoilerRatedInputRange IsPresent And Blr05_BoilerRatedInputRange == Blr05cc_BoilerRatedInputRange
+)
 And 
 Blr08_NotApplicableMessage IsPresent Or Blr08_BoilerIsolationValve ==  Blr08cc_BoilerIsolationValve 
 And 
 Blr09_NotApplicableMessage IsPresent Or Blr09_TempResetControl ==  Blr09cc_TempResetControl
-Then
  
-If Blr06_EfficiencyAFUE IsPresent And == Blr06cc_EfficiencyAFUE  Or
-If Blr06_ThermalEfficiency  IsPresent And == Blr06cc_ThermalEfficiency  Or
-If Blr06_CombustionEfficiency  IsPresent And == Blr06cc_CombustionEfficiency 
+Then If
+(
+Blr06_EfficiencyAFUE IsPresent And Blr06_EfficiencyAFUE == Blr06cc_EfficiencyAFUE  
+Or
+Blr06_ThermalEfficiency  IsPresent And Blr06_ThermalEfficiency == Blr06cc_ThermalEfficiency  
+Or
+Blr06_CombustionEfficiency  IsPresent And Blr06_CombustionEfficiency == Blr06cc_CombustionEfficiency 
+)
 result = ExactMatch
-Else
-If Blr06_EfficiencyAFUE IsPresent And  GTE Blr06cc_EfficiencyAFUE  Or
-If Blr06_ThermalEfficiency  IsPresent And  GTE Blr06cc_ThermalEfficiency  Or
-If Blr06_CombustionEfficiency  IsPresent And GTE Blr06cc_CombustionEfficiency 
+ 
+Else If  
+(
+Blr06_EfficiencyAFUE IsPresent And  Blr06_EfficiencyAFUE GTE Blr06cc_EfficiencyAFUE  
+Or
+Blr06_ThermalEfficiency  IsPresent And  Blr06_ThermalEfficiency GTE Blr06cc_ThermalEfficiency  
+Or
+Blr06_CombustionEfficiency  IsPresent And Blr06_CombustionEfficiency  GTE Blr06cc_CombustionEfficiency 
+)
 result = EqualBetter
 End If
 End If 
  
-If  Blr08_BoilerIsolationValve IsPresent And !=  Blr08cc_BoilerIsolationValve Or 
-Blr09_TempResetControl IsPresent And !=  Blr09cc_TempResetControl
+If  Blr08_BoilerIsolationValve IsPresent And  Blr08_BoilerIsolationValve !=  Blr08cc_BoilerIsolationValve 
+Or 
+Blr09_TempResetControl IsPresent And Blr09_TempResetControl !=  Blr09cc_TempResetControl
  
 D03_ExceptionalConditoinMessageNRCIMCHE += BoilerNoMatch
 End If</xsd:documentation>
@@ -2836,49 +2930,93 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete display term INCOMPLETE
  
-Else If Chlr03_ChillerType != Chlr03cc_ChillerType 
+Else If 
+Chlr03_ChillerType != Chlr03cc_ChillerType 
 Or
-If Chlr05_ChillerTonsRange IsPresent And  != Chlr05cc_ChillerTonsRange Or
-Chlr05_ChillerCapacity IsPresent And != Chlr05cc_ChillerCapacity 
+(
+Chlr05_ChillerTonsRange IsPresent And  Chlr05_ChillerTonsRange != Chlr05cc_ChillerTonsRange 
 Or
-Chlr06_EfficiencyCOP IsPresent And  LT Chlr06cc_EfficiencyCOP  Or
-Chlr06_EfficiencyEER  IsPresent And  LT Chlr06cc_EfficiencyEER  Or 
-Chlr06_EfficiencyKWperTon  IsPresent And  GT Chlr06cc_EfficiencyKWperTon
+Chlr05_ChillerCapacity IsPresent And Chlr05_ChillerCapacity != Chlr05cc_ChillerCapacity 
+)
+ 
 Or
-Chlr08_EfficiencyCOP_IPLV IsPresent  LT Chlr08cc_EfficiencyCOP_IPLV Or 
-Chlr08_EfficiencyEER_IPLV IsPresent  LT Chlr08cc_EfficiencyEER_IPLV Or
-Chlr08_EfficiencyKWperTon_IPLV IsPresent GT Chlr08cc_EfficiencyKWperTon_IPLV  
+(
+Chlr06_EfficiencyCOP IsPresent And Chlr06_EfficiencyCOP LT Chlr06cc_EfficiencyCOP  
+Or
+Chlr06_EfficiencyEER  IsPresent And  Chlr06_EfficiencyEER LT Chlr06cc_EfficiencyEER  
+Or 
+Chlr06_EfficiencyKWperTon  IsPresent And  Chlr06_EfficiencyKWperTon GT Chlr06cc_EfficiencyKWperTon
+)
+ 
+Or
+(
+Chlr08_EfficiencyCOP_IPLV IsPresent  And Chlr08_EfficiencyCOP_IPLV LT Chlr08cc_EfficiencyCOP_IPLV 
+Or 
+Chlr08_EfficiencyEER_IPLV IsPresent  And Chlr08_EfficiencyEER_IPLV LT Chlr08cc_EfficiencyEER_IPLV 
+Or
+Chlr08_EfficiencyKWperTon_IPLV IsPresent And Chlr08_EfficiencyKWperTon_IPLV GT Chlr08cc_EfficiencyKWperTon_IPLV  
+)
 result = MayNotComply
  
-Else If Chlr03_ChillerType == Chlr03cc_ChillerType 
+Else If 
+Chlr03_ChillerType == Chlr03cc_ChillerType 
 And
 Chlr04_NotApplicableMessage IsPresent Or Chlr04_Count ==  Chlr04cc_Count
 And
-Chlr05_ChillerTonsRange IsPresent And  == Chlr05cc_ChillerTonsRange Or Chlr05_ChillerCapacity IsPresent And == Chlr05cc_ChillerCapacity
+Chlr05_ChillerTonsRange IsPresent And  Chlr05_ChillerTonsRange IsPresent == Chlr05cc_ChillerTonsRange 
+Or Chlr05_ChillerCapacity IsPresent And Chlr05_ChillerCapacity == Chlr05cc_ChillerCapacity
 And 
 Chlr10_NotApplicableMessage IsPresent Or Chlr10_ChillerIsolationValve IsPresent ==  Chlr10cc_ChillerIsolationValve 
 And 
 Chlr11_NotApplicableMessage IsPresent Or Chlr11_TempResetControl IsPresent And ==  Chlr11cc_TempResetControl
  
-Then
-If Chlr06_EfficiencyCOP IsPresent And == Chlr06cc_EfficiencyCOP  Or Chlr06_EfficiencyEER  IsPresent And  == Chlr06cc_EfficiencyEER  Or Chlr06_EfficiencyKWperTon  IsPresent And == Chlr06cc_EfficiencyKWperTon 
+Then If
+(
+Chlr06_EfficiencyCOP IsPresent And Chlr06_EfficiencyCOP == Chlr06cc_EfficiencyCOP  
+Or 
+Chlr06_EfficiencyEER  IsPresent And  Chlr06_EfficiencyEER == Chlr06cc_EfficiencyEER  
+Or 
+Chlr06_EfficiencyKWperTon  IsPresent And Chlr06_EfficiencyKWperTon == Chlr06cc_EfficiencyKWperTon
+)
+ 
 And
-Chlr08_NotApplicableMessage IsPresent Or Chlr08_EfficiencyCOP_IPLV IsPresent  == Chlr08cc_EfficiencyCOP_IPLV Or Chlr08_EfficiencyEER_IPLV IsPresent  == Chlr08cc_EfficiencyEER_IPLV Or Chlr08_EfficiencyKWperTon_IPLV IsPresent == Chlr08cc_EfficiencyKWperTon_IPLV 
+(
+Chlr08_NotApplicableMessage IsPresent 
+Or 
+Chlr08_EfficiencyCOP_IPLV IsPresent  And Chlr08_EfficiencyCOP_IPLV == Chlr08cc_EfficiencyCOP_IPLV 
+Or 
+Chlr08_EfficiencyEER_IPLV IsPresent  And Chlr08_EfficiencyEER_IPLV == Chlr08cc_EfficiencyEER_IPLV 
+Or 
+Chlr08_EfficiencyKWperTon_IPLV IsPresent And Chlr08_EfficiencyKWperTon_IPLV == Chlr08cc_EfficiencyKWperTon_IPLV
+) 
  
 result = ExactMatch
  
-Else  If Chlr06_EfficiencyCOP IsPresent And GTE Chlr06cc_EfficiencyCOP  Or Chlr06_EfficiencyEER  IsPresent And  GTE Chlr06cc_EfficiencyEER  Or
-Chlr06_EfficiencyKWperTon  IsPresent And LTE Chlr06cc_EfficiencyKWperTon 
+Else  If 
+(
+Chlr06_EfficiencyCOP IsPresent And Chlr06_EfficiencyCOP GTE Chlr06cc_EfficiencyCOP  
 Or 
-Chlr08_EfficiencyCOP_IPLV IsPresent And GTE Chlr08cc_EfficiencyCOP_IPLV Or Chlr08_EfficiencyEER_IPLV IsPresent And GTE Chlr08cc_EfficiencyEER_IPLV Or Chlr08_EfficiencyKWperTon_IPLV IsPresent And LTE Chlr08cc_EfficiencyKWperTon_IPLV 
+Chlr06_EfficiencyEER  IsPresent And  Chlr06_EfficiencyEER GTE Chlr06cc_EfficiencyEER  
+Or
+Chlr06_EfficiencyKWperTon  IsPresent And Chlr06_EfficiencyKWperTon LTE Chlr06cc_EfficiencyKWperTon 
+)
+ 
+Or 
+(
+Chlr08_EfficiencyCOP_IPLV IsPresent And Chlr08_EfficiencyCOP_IPLV GTE Chlr08cc_EfficiencyCOP_IPLV 
+Or 
+Chlr08_EfficiencyEER_IPLV IsPresent And Chlr08_EfficiencyEER_IPLV GTE Chlr08cc_EfficiencyEER_IPLV 
+Or 
+Chlr08_EfficiencyKWperTon_IPLV IsPresent And Chlr08_EfficiencyKWperTon_IPLV LTE Chlr08cc_EfficiencyKWperTon_IPLV 
+)
   
 result = EqualBetter
 End If 
 End If
  
-If Chlr10_ChillerIsolationValve IsPresent And !=  Chlr10cc_ChillerIsolationValve
+If Chlr10_ChillerIsolationValve IsPresent And Chlr10_ChillerIsolationValve !=  Chlr10cc_ChillerIsolationValve
 Or 
-Chlr11_TempResetControl IsPresent And !=  Chlr11cc_TempResetControl
+Chlr11_TempResetControl IsPresent And Chlr11_TempResetControl !=  Chlr11cc_TempResetControl
 D03_ExceptionalConditoinMessageNRCIMCHE += ChillerNoMatch
 End If</xsd:documentation>
                                        </xsd:annotation>
@@ -3504,14 +3642,18 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Equipment Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete 
-Else If Hrej03_HeatRejectionType != Hrej03cc_HeatRejectionType
+Else If 
+Hrej03_HeatRejectionType != Hrej03cc_HeatRejectionType
 Or
-Hrej05_CoolingTowerCapacityRated IsPresent   LT Hrej05cc_CoolingTowerCapacityRated Or Hrej05_HeatRejectionCondenserCapacityRated IsPresent LT Hrej05cc_HeatRejectionCondenserCapacityRated  
+Hrej05_CoolingTowerCapacityRated IsPresent And Hrej05_CoolingTowerCapacityRated  LT Hrej05cc_CoolingTowerCapacityRated 
+Or 
+Hrej05_HeatRejectionCondenserCapacityRated IsPresent And Hrej05_HeatRejectionCondenserCapacityRated LT Hrej05cc_HeatRejectionCondenserCapacityRated  
 result = MayNotComply
  
-Else If Hrej03_HeatRejectionType ==  Hrej3cc_HeatRejectionType
+Else If 
+Hrej03_HeatRejectionType ==  Hrej3cc_HeatRejectionType
 And
-Hrej04_NotApplicableMessage IsPresent Or Hrej04_HeatRejectionEquipmentCount has value ==  Hrej04cc_HeatRejectionEquipmentCount    
+Hrej04_NotApplicableMessage IsPresent Or Hrej04_HeatRejectionEquipmentCount ==  Hrej04cc_HeatRejectionEquipmentCount    
 And 
 Hrej07_NotApplicableMessage IsPresent Or Hrej07_HeatRejectionFanSpeedControl ==  Hrej07cc_HeatRejectionFanSpeedControl
 And 
@@ -3522,29 +3664,37 @@ And
 Hrej10_NotApplicableMessage IsPresent Or Hrej10_HasWaterEconomizerControls == Hrej10cc_HasWaterEconomizerControls
 And
 Hrej11_NotApplicableMessage IsPresent Or Hrej11_HasTempResetControls == Hrej11cc_HasTempResetControls
+ 
 Then 
- 
-If Hrej05_NotApplicableMessage IsPresent Or Hrej05_CoolingTowerCapacityRated IsPresent  == Hrej05cc_CoolingTowerCapacityRated Or
-Hrej05_HeatRejectionCondenserCapacityRated IsPresent == Hrej05cc_HeatRejectionCondenserCapacityRated
- 
+If
+( 
+Hrej05_NotApplicableMessage IsPresent 
+Or 
+Hrej05_CoolingTowerCapacityRated IsPresent  And Hrej05_CoolingTowerCapacityRated == Hrej05cc_CoolingTowerCapacityRated 
+Or
+Hrej05_HeatRejectionCondenserCapacityRated IsPresent And Hrej05_HeatRejectionCondenserCapacityRated == Hrej05cc_HeatRejectionCondenserCapacityRated
+) 
 result = ExactMatch
  
-Else  If Hrej05_CoolingTowerCapacityRated IsPresent  GT Hrej05cc_CoolingTowerCapacityRated Or Hrej05_HeatRejectionCondenserCapacityRated IsPresent GT  Hrej05cc_HeatRejectionCondenserCapacityRated
+Else  If 
+Hrej05_CoolingTowerCapacityRated IsPresent  And Hrej05_CoolingTowerCapacityRated GT Hrej05cc_CoolingTowerCapacityRated 
+Or 
+Hrej05_HeatRejectionCondenserCapacityRated IsPresent And Hrej05_HeatRejectionCondenserCapacityRated GT  Hrej05cc_HeatRejectionCondenserCapacityRated
   
 result = EqualBetter
 End If
 End If
  
  
-If Hrej07_NotApplicableMessage NotPresent And Hrej07_HeatRejectionFanSpeedControl !=  Hrej07cc_HeatRejectionFanSpeedControl
+If Hrej07_HeatRejectionFanSpeedControl IsPresent And Hrej07_HeatRejectionFanSpeedControl !=  Hrej07cc_HeatRejectionFanSpeedControl
 Or
-Hrej08_NotApplicableMessage NotPresent And Hrej08_TowerFlowTurnDown !=  Hrej08cc_TowerFlowTurnDown 
+Hrej08_TowerFlowTurnDown IsPresent And Hrej08_TowerFlowTurnDown !=  Hrej08cc_TowerFlowTurnDown 
 Or
-Hrej09_NotApplicableMessage NotPresent And Hrej09_FanControlMultipleCells != Hrej09cc_FanControlMultipleCells
+Hrej09_FanControlMultipleCells IsPresent And Hrej09_FanControlMultipleCells != Hrej09cc_FanControlMultipleCells
 Or
-Hrej10_NotApplicableMessage NotPresent And Hrej10_HasWaterEconomizerControls != Hrej10cc_HasWaterEconomizerControls
+Hrej10_HasWaterEconomizerControls IsPresent And Hrej10_HasWaterEconomizerControls != Hrej10cc_HasWaterEconomizerControls
 Or
-Hrej11_NotApplicableMessage NotPresent And Hrej11_HasTempResetControls != Hrej11cc_HasTempResetControls
+Hrej11_HasTempResetControls IsPresent And Hrej11_HasTempResetControls != Hrej11cc_HasTempResetControls
  
  D03_ExceptionalConditoinMessageNRCIMCHE += HeatRejNoMatch
 End If</xsd:documentation>
@@ -3705,7 +3855,7 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete 
 Else If Eheat01_InstalledSameAsCC == true
-Eheat04_ElectricResistanceHeatingCapacity IsPresent And == Eheat04cc_ElectricResistanceHeatingCapacity
+Eheat04_ElectricResistanceHeatingCapacity IsPresent And Eheat04_ElectricResistanceHeatingCapacity == Eheat04cc_ElectricResistanceHeatingCapacity
 result = ExactMatch
 Else 
 result = EqualBetter
@@ -4122,13 +4272,13 @@ Else
 result = EqualBetter
 End If
  
-If Pump05_NotApplicableMessage NotPresent And  Pump05_PumpControlVF  != Pump05cc_PumpControlVF 
+If Pump05_PumpControlVF IsPresent And  Pump05_PumpControlVF  != Pump05cc_PumpControlVF 
 Or
-Pump06_NotApplicableMessage NotPresent And Pump06_HeatPumpIsolation != Pump06cc_HeatPumpIsolation 
+Pump06_HeatPumpIsolation IsPresent And Pump06_HeatPumpIsolation != Pump06cc_HeatPumpIsolation 
 Or
-Pump07_NotApplicableMessage NotPresent And Pump07_PumpControlVSD != Pump07cc_PumpControlVSD 
+Pump07_PumpControlVSD IsPresent And Pump07_PumpControlVSD != Pump07cc_PumpControlVSD 
 Or
-Pump08_NotApplicableMessage NotPresent And Pump08_DifferentialPressureSensorRequired != Pump08cc_DifferentialPressureSensorRequired 
+Pump08_DifferentialPressureSensorRequired IsPresent And Pump08_DifferentialPressureSensorRequired != Pump08cc_DifferentialPressureSensorRequired 
  
 D03_ExceptionalConditionMessageNRCIMCHE += PumpsNoMatch
 End If</xsd:documentation>
@@ -4598,20 +4748,42 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete 
  
-Else If Fan05_DesignHP  IsPresent And Fan05_DesignHP GT Fan05cc_DesignHP  Or  Fan05_FanPowerPerFlow  IsPresent And 
-Fan05_FanPowerPerFlow  GT  Fan05cc_FanPowerPerFlow  Or Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  GT  Fan05cc_TotalStaticPressure 
+Else If 
+(
+Fan05_DesignHP  IsPresent And Fan05_DesignHP GT Fan05cc_DesignHP  
+Or  
+Fan05_FanPowerPerFlow  IsPresent And Fan05_FanPowerPerFlow  GT  Fan05cc_FanPowerPerFlow  
+Or 
+Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  GT  Fan05cc_TotalStaticPressure
+)
+ 
 Or
 Fan07_MaximumAirflowRate LT Fan07cc_MaximumAirflowRate
-Or Fan08_PressureDropAdjustmentDevice  IsPresent And  Fan08_PressureDropAdjustmentDevice == false
+Or 
+Fan08_PressureDropAdjustmentDevice  IsPresent And  Fan08_PressureDropAdjustmentDevice == false
 result = MayNotComply
  
-Else If Fan02_FanCount == Fan02cc_FanCount 
+Else If 
+Fan02_FanCount == Fan02cc_FanCount 
 And 
 Fan03_FanFunction == Fan03cc_FanFunction 
 And 
-Fan04_NotApplicableMessage IsPresent Or Fan04FanSystemEconomizerType IsPresent And Fan04FanSystemEconomizerType == Fan04cc_FanSystemEconomizerType Or Fan04FanSystemEconomizerException IsPresent And Fan04FanSystemEconomizerException == Fan04cc_FanSystemEconomizerException 
+(
+Fan04_NotApplicableMessage IsPresent 
+Or 
+Fan04FanSystemEconomizerType IsPresent And Fan04FanSystemEconomizerType == Fan04cc_FanSystemEconomizerType 
+Or 
+Fan04FanSystemEconomizerException IsPresent And Fan04FanSystemEconomizerException == Fan04cc_FanSystemEconomizerException 
+)
+ 
 And 
-Fan05_DesignHP  IsPresent And Fan05_DesignHP  == Fan05cc_DesignHP  Or Fan05_FanPowerPerFlow  IsPresent And Fan05_FanPowerPerFlow  == Fan05cc_FanPowerPerFlow  Or Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  == Fan05cc_TotalStaticPressure  
+(
+Fan05_DesignHP  IsPresent And Fan05_DesignHP  == Fan05cc_DesignHP  
+Or 
+Fan05_FanPowerPerFlow  IsPresent And Fan05_FanPowerPerFlow  == Fan05cc_FanPowerPerFlow  
+Or 
+Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  == Fan05cc_TotalStaticPressure  
+)
 And
 Fan07_MaximumAirflowRate == Fan07cc_MaximumAirflowRate
 And
@@ -4619,12 +4791,20 @@ Fan08_NotApplicableMessage IsPresent Or Fan08_PressureDropAdjustmentDevice == tr
  
 result = ExactMatch
  
-Else If Fan05_DesignHP  IsPresent And Fan05_DesignHP  LTE Fan05cc_DesignHP  Or Fan05_FanPowerPerFlow  IsPresent And Fan05_FanPowerPerFlow  LTE Fan05cc_FanPowerPerFlow  Or Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  LTE Fan05cc_TotalStaticPressure 
+Else If 
+(
+Fan05_DesignHP  IsPresent And Fan05_DesignHP  LTE Fan05cc_DesignHP  
+Or 
+Fan05_FanPowerPerFlow  IsPresent And Fan05_FanPowerPerFlow  LTE Fan05cc_FanPowerPerFlow  
+Or 
+Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  LTE Fan05cc_TotalStaticPressure 
+)
 result = EqualBetter
 End If
 End If
  
-If Fan04_NotApplicableMessage NotPresent And Fan04FanSystemEconomizerType IsPresent And Fan04FanSystemEconomizerType != Fan04cc_FanSystemEconomizerType Or Fan04FanSystemEconomizerException IsPresent And Fan04FanSystemEconomizerException != Fan04cc_FanSystemEconomizerException 
+If Fan04FanSystemEconomizerType IsPresent And Fan04FanSystemEconomizerType != Fan04cc_FanSystemEconomizerType 
+Or Fan04FanSystemEconomizerException IsPresent And Fan04FanSystemEconomizerException != Fan04cc_FanSystemEconomizerException 
  
 D03_ExceptionalConditionMessageNRCIMCHE += FanEconNoMatch
 End If</xsd:documentation>
@@ -5157,7 +5337,8 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">System Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete  
-Else If Ctrl02_NotApplicableMessage IsPresent Or  Ctrl02_ThermostatType  == Ctrl02cc_ThermostatType 
+Else If 
+Ctrl02_NotApplicableMessage IsPresent Or  Ctrl02_ThermostatType  == Ctrl02cc_ThermostatType 
 And
 Ctrl03_NotApplicableMessage IsPresent Or  Ctrl03_ControlSystemShutOff  == Ctrl03cc_ControlSystemShutOff 
 And
@@ -5174,17 +5355,17 @@ result = EqualBetter
 End If
 End If
  
-If Ctrl02_NotApplicableMessage NotPresent And  Ctrl02_ThermostatType  != Ctrl02cc_ThermostatType   
+If Ctrl02_ThermostatType IsPresent And  Ctrl02_ThermostatType  != Ctrl02cc_ThermostatType   
 Or
-Ctrl03_NotApplicableMessage NotPresent And  Ctrl03_ControlSystemShutOff  != Ctrl03cc_ControlSystemShutOff   
+Ctrl03_ControlSystemShutOff  IsPresent And  Ctrl03_ControlSystemShutOff  != Ctrl03cc_ControlSystemShutOff   
 Or
-Ctrl04_NotApplicableMessage NotPresent And  Ctrl04_ControlSystemZone  != Ctrl04cc_ControlSystemZone   
+Ctrl04_ControlSystemZone IsPresent And  Ctrl04_ControlSystemZone  != Ctrl04cc_ControlSystemZone   
 Or
-Ctrl05_NotApplicableMessage NotPresent And Ctrl05_ControlSystemDR  != Ctrl05cc_ControlSystemDR   
+Ctrl05_ControlSystemDR IsPresent And Ctrl05_ControlSystemDR  != Ctrl05cc_ControlSystemDR   
 Or
-Ctrl06_NotApplicableMessage NotPresent And  Ctrl06_ControlSystemTempReset  != Ctrl06cc_ControlSystemTempReset  
+Ctrl06_ControlSystemTempReset IsPresent And  Ctrl06_ControlSystemTempReset  != Ctrl06cc_ControlSystemTempReset  
 Or
-Ctrl07_NotApplicableMessage NotPresent And  Ctrl07_ControlSystemWindows  != Ctrl07cc_ControlSystemWindows   
+Ctrl07_ControlSystemWindows IsPresent And  Ctrl07_ControlSystemWindows  != Ctrl07cc_ControlSystemWindows   
  
 D03_ExceptionalConditionMessageNRCIMCHE += SysControlsNoMatch
 End If</xsd:documentation>
@@ -5614,14 +5795,16 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">System Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete  
-Else If Ventnr02_VentSystemOA LT Ventnr02cc_VentSystemOA 
+Else If 
+Ventnr02_VentSystemOA LT Ventnr02cc_VentSystemOA 
 Or
 Ventnr03_NotApplicableMessage NotPresent And  Ventnr03_VentSystemTransferAir LT Ventnr03cc_VentSystemTransferAir 
 Or
 Ventnr06_NotApplicableMessage NotPresent And Ventnr06_ExhaustPerSpace LT Ventnr06cc_ExhaustPerSpace 
 result = MayNotComply
  
-Else If Ventnr02_VentSystemOA  == Ventnr02cc_VentSystemOA 
+Else If 
+Ventnr02_VentSystemOA  == Ventnr02cc_VentSystemOA 
 And
 Ventnr03_NotApplicableMessage IsPresent Or  Ventnr03_VentSystemTransferAir   == Ventnr03cc_VentSystemTransferAir 
 And
@@ -5636,16 +5819,16 @@ result = ExactMatch
  
 Else If Ventnr02_VentSystemOA GTE Ventnr02cc_VentSystemOA 
 And
-Ventnr03_NotApplicableMessage NotPresent And  Ventnr03_VentSystemTransferAir GTE Ventnr03cc_VentSystemTransferAir 
+Ventnr03_VentSystemTransferAir IsPresent And  Ventnr03_VentSystemTransferAir GTE Ventnr03cc_VentSystemTransferAir 
 And
-Ventnr06_NotApplicableMessage NotPresent And Ventnr06_ExhaustPerSpace GTE Ventnr06cc_ExhaustPerSpace 
+Ventnr06_ExhaustPerSpace IsPresent And Ventnr06_ExhaustPerSpace GTE Ventnr06cc_ExhaustPerSpace 
  
 result = EqualBetter
 End If
  
-If Ventnr07_NotApplicableMessage NotPresent And Ventnr07_OccupantSensorVent  != Ventnr07cc_OccupantSensorVent 
+If Ventnr07_OccupantSensorVent IsPresent And Ventnr07_OccupantSensorVent  != Ventnr07cc_OccupantSensorVent 
 Or
-Ventnr08_NotApplicableMessage NotPresent Or  Ventnr08_DemandControlVent   != Ventnr08cc_DemandControlVent 
+Ventnr08_DemandControlVent IsPresent Or  Ventnr08_DemandControlVent   != Ventnr08cc_DemandControlVent 
     
 D03_ExceptionalConditionMessageNRCIMCHE += VentNoMatch
 End If</xsd:documentation>
@@ -5978,14 +6161,16 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Space Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete  
-Else If Ventres02_OA_SpaceRequiredMin LT Ventres02cc_OA_SpaceRequiredMin 
+Else If 
+Ventres02_OA_SpaceRequiredMin LT Ventres02cc_OA_SpaceRequiredMin 
 Or 
 Ventres03_VentilationPerSpace IsPresent And Ventres03_VentilationPerSpace  LT Ventres03cc_VentilationPerSpace 
 Or
 Ventres04_ExhaustPerSpace IsPresent And Ventres04_ExhaustPerSpace  LT Ventres04cc_ExhaustPerSpace
 result = MayNotComply
  
-Else If  Ventres02_OA_SpaceRequiredMin  == Ventres02cc_OA_SpaceRequiredMin 
+Else If  
+Ventres02_OA_SpaceRequiredMin  == Ventres02cc_OA_SpaceRequiredMin 
 And
 Ventres03_NotApplicableMessage IsPresent Or  Ventres03_VentilationPerSpace  == Ventres03cc_VentilationPerSpace 
 And
@@ -6001,6 +6186,7 @@ And
 Ventres03_VentilationPerSpace IsPresent And  Ventres03_VentilationPerSpace  GTE Ventres03cc_VentilationPerSpace 
 And
 Ventres04_ExhaustPerSpace  GTE Ventres04cc_ExhaustPerSpace
+ 
 result = EqualBetter
 End If</xsd:documentation>
                                        </xsd:annotation>
@@ -6555,7 +6741,8 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Zone/ Box/ System Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete  
-Else If Zone02_NotApplicableMessage IsPesent Or Zone02_ZonalControlStrategy == Zone02cc_ZonalControlStrategy 
+Else If 
+Zone02_NotApplicableMessage IsPesent Or Zone02_ZonalControlStrategy == Zone02cc_ZonalControlStrategy 
 And
 Zone03_NotApplicableMessage IsPesent Or Zone03_PrimaryAirFlowMaximum == Zone03cc_PrimaryAirFlowMaximum 
 And
@@ -6571,11 +6758,14 @@ Zone08_NotApplicableMessage IsPesent Or Zone08_Stage2ModulatesDBtoHeatFlow == Zo
  
 result = ExactMatch
  
-Else If Zone02_ZonalControlStrategy IsPresent And != VAVwithDDC And !=  VAVnoDDC
+Else If 
+(Zone02_ZonalControlStrategy IsPresent And Zone02_ZonalControlStrategy != VAVwithDDC And !=  VAVnoDDC
 Or
-Zone02_ZonalControlStrategy IsPresent And ==  VAVnoDDC And Zone05_ReheatRecoolMixAirFlow IsPresent And LT Zone05cc_ReheatRecoolMixAirFlow
+Zone02_ZonalControlStrategy IsPresent And Zone02_ZonalControlStrategy ==  VAVnoDDC And Zone05_ReheatRecoolMixAirFlow IsPresent And LT Zone05cc_ReheatRecoolMixAirFlow
+)
  
 Or
+(
 Zone02_ZonalControlStrategy IsPresent And == VAVwithDDC  
 And 
 Zone05_ReheatRecoolMixAirFlow  IsPresent  And LT Zone05cc_ReheatRecoolMixAirFlow 
@@ -6583,7 +6773,7 @@ And
 Zone04_PrimaryAirInDeadband IsPresent And LT Zone04cc_PrimaryAirInDeadband  
 And 
 Zone07_Stage1ModulatesLTE95F IsPesent And == true And Zone08_Stage2ModulatesDBtoHeatFlow  IsPesent And == true
- 
+) 
 result = EqualBetter
 Else
 result = MayNotComply
@@ -6663,13 +6853,13 @@ This subsection consists of a display of static table and has no reported data</
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
-                  <xsd:element name="G_BeginNote1NoNRCA" minOccurs="0">
+                  <xsd:element name="G_BeginNote1NoNRCAorNRCV" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"></xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">[d:i]There are no Acceptance Tests or HERS verifications indicated on the permitted NRCC related to the systems or materials documented on this NRCI.[/d:i]</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If at least one RequireNRCAxxx == true, 
+                        <xsd:documentation source="CalculationsAndRules">If at least one RequireNRCAxxx == true, Or at least one RequireNRCVxxx == true
 the static text in AdditionalRequirements IS NOT DISPLAYED  
-Else If All RequireNRCAxxx == false 
+Else If All RequireNRCAxxx == false And  All RequireNRCVxxx == false
 the static text in AdditionalRequirements the only thing displayed after the Section title.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -7768,14 +7958,14 @@ result = P01_RequireNRCVMch04H
 If result == true 
 static text and related SystemFieldVerified  or SystemsToFieldVerify are displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCV 
 End If
 Else If NRCC-PRF parent
 result = NrcvMch02_RequireNRCVMch04H
 If result == true 
 only static text is displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCV 
 End If
 End If</xsd:documentation>
                         <xsd:appinfo source="NRCIsrc">
@@ -7821,14 +8011,14 @@ result = P02_RequireNRCVMch24H
 If result == true 
 static text and related SystemFieldVerified  or SystemsToFieldVerify are displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCV 
 End If
 Else If NRCC-PRF parent
 result = NrcvMch02Row2_RequireNRCVMch24H 
 If result == true 
 only static text is displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCV 
 End If
 End If</xsd:documentation>
                         <xsd:appinfo source="NRCIsrc">
@@ -7875,14 +8065,14 @@ result = P03_RequireNRCVMch27H
 If result == true 
 static text and related SystemFieldVerified  or SystemsToFieldVerify are displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCv 
 End If
 Else If NRCC-PRF parent
 result = NrcvMch02Row3_RequireNRCVMch27H 
 If result == true 
 only static text is displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCv 
 End If
 End If</xsd:documentation>
                         <xsd:appinfo source="NRCIsrc">
@@ -7928,14 +8118,14 @@ result = P04_RequireNRCVMch32H
 If result == true 
 static text and related SystemFieldVerified  or SystemsToFieldVerify are displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCV 
 End If
 Else If NRCC-PRF parent
 result = NrcvMch02Row4_RequireNRCVMch32H 
 If result == true 
 only static text is displayed
 Else
-Nothing is displayed for this NRCA 
+Nothing is displayed for this NRCV 
 End If
 End If</xsd:documentation>
                         <xsd:appinfo source="NRCIsrc">
