@@ -34,7 +34,7 @@ this Mandatory Measures Noteblock is required
 
 Else it is not required and nothing is captured or displayed
 End If</xsd:documentation>
-									<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+									<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 								</xsd:annotation>
 								<xsd:complexType>
 									<xsd:sequence>
@@ -193,6 +193,30 @@ End if</xsd:documentation>
 							<xsd:annotation>
 								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="A05_ProjectScopeNR">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="comp:ProjectScopeNR">
+									<xsd:enumeration value="AdditionComplete"/>
+									<xsd:enumeration value="ExistingAddition"/>
+									<xsd:enumeration value="ExistingAdditionAndAlteration"/>
+									<xsd:enumeration value="ExistingAlteration"/>
+									<xsd:enumeration value="NewComplete"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="A06_TotalGrossFloorArea" type="com:TotalGrossFloorArea">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="A07_WholeBuildingOccupancy" type="com:WholeBuildingOccupancy">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="AErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
@@ -585,16 +609,10 @@ Display terms: If result == Compliant display term is COMPLIES; Else If result =
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]E. ADDITIONAL REMARKS[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="E__ToolTip" minOccurs="0">
-							<xsd:annotation>
-								<xsd:documentation source="FieldText"/>
-								<xsd:documentation source="AdditionalRequirements">Table E allows user input of additional information to support the compliance documentation.</xsd:documentation>
-							</xsd:annotation>
-						</xsd:element>
 						<xsd:element name="E_BeginNote1" minOccurs="0">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText"/>
@@ -614,7 +632,7 @@ Display terms: If result == Compliant display term is COMPLIES; Else If result =
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]F. MAXIMUM ALLOWED LIGHTING POWER AND CONTROLS[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">This section is required if B05_LightedSignPrescriptiveMethod == MaximumAllowedPower</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -859,7 +877,7 @@ Display terms: If result == Compliant display term is COMPLIES; Else If result =
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]G. LIGHT SOURCES AND CONTROLS[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">This section is required if B05_LightedSignPrescriptiveMethod == AlternateLightSources</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1059,7 +1077,7 @@ End If</xsd:documentation>
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]H. ENERGY VERIFIED LABELED SIGNS AND CONTROLS [/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">This section is required if B05_LightedSignPrescriptiveMethod == EnergyVerifiedLabel</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1254,7 +1272,7 @@ End If</xsd:documentation>
 			<xsd:element name="Section_J" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]J. DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE [/d:b]</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>

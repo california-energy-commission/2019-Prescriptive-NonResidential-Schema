@@ -1787,6 +1787,25 @@ End If</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
+						<xsd:element name="A08_ProjectScopeNR">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="comp:ProjectScopeNR">
+									<xsd:enumeration value="AdditionComplete"/>
+									<xsd:enumeration value="ExistingAddition"/>
+									<xsd:enumeration value="ExistingAdditionAndAlteration"/>
+									<xsd:enumeration value="ExistingAlteration"/>
+									<xsd:enumeration value="NewComplete"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="A09_IsProjectAllElectric" type="comp:IsProjectAllElectric">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -5286,7 +5305,7 @@ End If</xsd:documentation>
 														<xsd:annotation>
 															<xsd:documentation source="FieldText">Rated Performance</xsd:documentation>
 															<xsd:documentation source="CalculationsAndRules">If Fe02_HeatRejectionType == ClosedTowerAxialFan,  ClosedTowerCentrifugalFan, OpenTowerAxialFan, OpenTowerAxialGTE900gpm, OpenTowerReplacementAxialGTE900gpm Or OpenTowerCentrifugalFan 
-result is stored in HeatRejectionCapacityRatedTower with units of gpm/hp
+result is stored in CoolingTowerCapacityRated with units of gpm/hp
 End If</xsd:documentation>
 														</xsd:annotation>
 													</xsd:element>
@@ -5294,7 +5313,7 @@ End If</xsd:documentation>
 														<xsd:annotation>
 															<xsd:documentation source="FieldText">Rated Performance</xsd:documentation>
 															<xsd:documentation source="CalculationsAndRules">If Fe02_HeatRejectionType == EvaporativeCondenserAxialFan,   EvaporativeCondenserCentrifugalFan Or AirCooledCondenser 
-result is stored in HeatRejectionCapacityRatedCondenser with units of Btu/h hp
+result is stored in HeatRejectionCondenserCapacityRated with units of Btu/h hp
 End if</xsd:documentation>
 														</xsd:annotation>
 													</xsd:element>
@@ -8941,12 +8960,29 @@ End If</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">User input: If Yes, result = true, Else result = false</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-						<xsd:element name="Q02_DocLocationMandMeasBlock" type="comp:DocLocationMandMeasBlock" minOccurs="0">
-							<xsd:annotation>
-								<xsd:documentation source="FieldText">Plan sheet or construction document location</xsd:documentation>
-								<xsd:documentation source="CalculationsAndRules">User enters string for plan or construction document location of the  mandatory measure note block</xsd:documentation>
-							</xsd:annotation>
-						</xsd:element>
+						<xsd:choice maxOccurs="1">
+							<xsd:element name="Q02_DocLocationMandMeasBlock" type="comp:DocLocationMandMeasBlock">
+								<xsd:annotation>
+									<xsd:documentation source="FieldText">Plan sheet or construction document location</xsd:documentation>
+									<xsd:documentation source="CalculationsAndRules">If Q01_UsingMandMeasNoteBlock == true 
+User enters string for plan or construction document location of the  mandatory measure note block
+End If</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Q02_NotApplicableMessage">
+								<xsd:annotation>
+									<xsd:documentation source="FieldText">Plan sheet or construction document location</xsd:documentation>
+									<xsd:documentation source="CalculationsAndRules">If Q01_UsingMandMeasNoteBlock == false 
+result = BlankGrayedOut
+End If</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="comp:NotApplicableMessage">
+										<xsd:enumeration value="BlankGrayedOut"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:choice>
 						<xsd:element name="MandatoryMeasureChoice">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText"/>

@@ -34,7 +34,7 @@ this Mandatory Measures Noteblock is required
  
 Else it is not required and nothing is captured or displayed
 End If</xsd:documentation>
-									<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+									<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 								</xsd:annotation>
 								<xsd:complexType>
 									<xsd:sequence>
@@ -207,7 +207,7 @@ this Mandatory Measures Noteblock is required
  
 Else it is not required and nothing is captured or displayed
 End If</xsd:documentation>
-									<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+									<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 								</xsd:annotation>
 								<xsd:complexType>
 									<xsd:sequence>
@@ -389,21 +389,15 @@ End If</xsd:documentation>
 		<xsd:sequence>
 			<xsd:element name="Section_A" minOccurs="1" maxOccurs="1">
 				<xsd:annotation>
-					<xsd:documentation source="FieldText">[d:b] A. GENERAL INFORMATION[/d:b]</xsd:documentation>
+					<xsd:documentation source="FieldText">[d:b]A. GENERAL INFORMATION[/d:b]</xsd:documentation>
 					<xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="A_HeaderBeginNote1" minOccurs="0">
+						<xsd:element name="A_BeforeNote1" minOccurs="0">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText"/>
-								<xsd:documentation source="AdditionalRequirements">[d:i]This document is used to demonstrate compliance with mandatory requirements in [d:t24ref/]110.10 for newly constructed buildings which are either high-rise multifamily ten stories or fewer, hotel/motel ten stories or fewer or all other nonresidential buildings three stories or fewer.  It is also used to demonstrate compliance with additions to these building types which add more than 2,000 ft[d:sup]2[/d:sup] of roof area.  Alterations or additions of less than 2,000ft[d:sup]2[/d:sup] are not required to comply with [d:t24ref/]110.10.[/d:i]</xsd:documentation>
-							</xsd:annotation>
-						</xsd:element>
-						<xsd:element name="A_Tooltip" minOccurs="0">
-							<xsd:annotation>
-								<xsd:documentation source="FieldText"/>
-								<xsd:documentation source="AdditionalRequirements">The NRCC-SRA documents Solar Ready requirements in [d:t24ref/]110.10 that are applicable to hotel/motel occupancies 10 stories or fewer, high-rise multifamily buildings 10 stories or fewer and other nonresidential buildings three stories or fewer.  The Solar Ready requirements do not apply to the following:  (1) Hotel/motel or high-rise multifamily building with more than 10 stories, (2) other nonresidential buildings with more than 3 stories, or (3) alterations or additions which add less than or equal to 2,000 ft[d:sup]2[/d:sup] of roof area.  When [d:t24ref/]110.10 does not apply, this compliance document does not need to be completed.</xsd:documentation>
+								<xsd:documentation source="AdditionalRequirements">[d:i]This document is used to demonstrate compliance with mandatory requirements in [d:t24ref/]110.10 for newly constructed buildings which are either high-rise multifamily ten stories or fewer, hotel/motel ten stories or fewer or all other nonresidential buildings three sotires or fewer.  It is also used to demonstrate compliance with additions to these building types which add more than 2,000 ft[d:sup]2[/d:sup] of roof area.  Alterations or additions of less than  2,000 ft[d:sup]2[/d:sup] are not required to comply with [d:t24ref/]110.10. [/d:i]</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="A01_ProjectCity" type="comp:ProjectCity">
@@ -422,13 +416,13 @@ End If</xsd:documentation>
 							<xsd:annotation>
 								<xsd:documentation source="FieldText">Roof is designed for vehicle traffic, parking or for heliport</xsd:documentation>
 								<xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP! Roofs designed for vehicle traffic, parking or for heliports are not required to comply with solar ready requirements in [d:t24ref/]110.10.  Document this exception by providing the plan sheet showing the roof design in 03a to the right and completing the signature page.[/d:i][/d:b]</xsd:documentation>
-								<xsd:documentation source="CalculationsAndRules">User input;  If user checks this field result = true and A03a_BuildingPlanName field is required and STOP!... message in AdditionalRequirements is displayed; Else result = false and A03a is grayed out</xsd:documentation>
+								<xsd:documentation source="CalculationsAndRules">User input; If user checks this field result = true and A03a_BuildingPlanName field is required and STOP!... message in AdditionalRequirements is displayed;   Else result = false and A03a is grayed out</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-						<xsd:element name="A03a_BuildingPlanName" type="comp:BuildingPlanName" minOccurs="0">
+						<xsd:element name="A03a_BuildingPlanName" type="comp:BuildingPlanName">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText">Plan sheet showing roof design for vehicle traffic, parking or heliport exception:</xsd:documentation>
-								<xsd:documentation source="CalculationsAndRules">If A03_IsRoofForTrafficParkingHeliport == true user input is required; Else field is grayed out</xsd:documentation>
+								<xsd:documentation source="CalculationsAndRules">If A03_IsRoofForTrafficParkingHeliport == true user input required; else field is grayed out</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="A04_SolarReadyBuildingTypeNR" type="comp:SolarReadyBuildingTypeNR">
@@ -437,7 +431,7 @@ End If</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">User selects from list: HighRiseMultifamilyLTE10Stories display term High-rise mulltifamily 10 stories or fewer, HotelMotelLTE10Stories display term Hotel/Motel 10 stories or fewer, OtherNonresidentialGT3Stories display term All other nonresidential buildings, OtherNonresidentialLTE3Stories display term Other nonresidential bldg 3 stories or fewer, HealthcareFacility display term HealthcareFacilities, BuildingRoofLTE533Ft2 display term Building with total roof area less than or equal to 533 ft2
  
 Mandatory Measure Triggers:
-result ==  HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories  And A06_RequestedMMB == true
+If result ==  HighRiseMultifamilyLTE10Stories Or HotelMotelLTE10Stories  And A06_RequestedMMB == true
 DwellUnitMandatoryMeasureBlock is required
 End If</xsd:documentation>
 							</xsd:annotation>
@@ -459,13 +453,36 @@ End If</xsd:documentation>
 							<xsd:annotation>
 								<xsd:documentation source="FieldText"/>
 								<xsd:documentation source="AdditionalRequirements">[d:b][d:i]STOP!  Alterations or additions that increase roof area by [d:lte/] 2,000 ft[d:sup]2[/d:sup] are not required to comply with solar ready requirements in [d:t24ref/]110.10 and do not need to complete this compliance document.[/d:i][/d:b]</xsd:documentation>
-								<xsd:documentation source="CalculationsAndRules">This message is displayed to user if   A05_SolarReadyBuildingScopeNR == RoofIncreaseLTE2000ft2</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="A06_RequestedMMB" type="comp:RequestedMMB" minOccurs="0">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="A07_ProjectScopeNR">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="comp:ProjectScopeNR">
+									<xsd:enumeration value="AdditionComplete"/>
+									<xsd:enumeration value="ExistingAddition"/>
+									<xsd:enumeration value="ExistingAdditionAndAlteration"/>
+									<xsd:enumeration value="ExistingAlteration"/>
+									<xsd:enumeration value="NewComplete"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="A08_TotalGrossFloorArea" type="com:TotalGrossFloorArea">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="A09_WholeBuildingOccupancy" type="com:WholeBuildingOccupancy">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="AErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
@@ -480,7 +497,7 @@ End If</xsd:documentation>
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b] B. PROJECT SCOPE[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">This section is required  If A03_IsRoofForTrafficParkingHeliport != true</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1072,7 +1089,7 @@ End If</xsd:documentation>
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]E. ADDITIONAL REMARKS[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1095,7 +1112,7 @@ End If</xsd:documentation>
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]F. ALLOCATED SOLAR ZONE[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">Section F is required if B01a_IsProjectAllocatedSolarZone == true</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1446,7 +1463,7 @@ End If</xsd:documentation>
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]G. PERMANENTLY INSTALLED SOLAR PHOTOVOLTAIC (PV) SYSTEM[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">Section G is required if B01b_IsProjectInstalledPhotovoltaicSystem ==true</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1504,7 +1521,7 @@ End If</xsd:documentation>
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]H. PERMANENTLY INSTALLED SOLAR HOT WATER SYSTEMS [/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">Section H is required if B01c_IsProjectInstalledSolarWaterHeating ==true</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1637,7 +1654,7 @@ End If</xsd:documentation>
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]I. SMART THERMOSTATS AND ALTERNATIVE EFFICIENCY MEASURE[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">Section I is required if B01d_IsProjectSmartTstatPlusEE_Measure == true</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
@@ -1822,7 +1839,7 @@ End If</xsd:documentation>
 			<xsd:element name="Section_K" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation source="FieldText">[d:b]K. DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE[/d:b]</xsd:documentation>
-					<xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+					<xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
 					<xsd:sequence>
