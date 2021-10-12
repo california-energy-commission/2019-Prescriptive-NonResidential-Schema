@@ -700,6 +700,26 @@
    <xsd:simpleType name="DwellingUnitName">
       <xsd:restriction base="dtyp:ObjectNamePermissive"/>
    </xsd:simpleType>
+   <xsd:simpleType name="DwellingUnitType">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="FivePlusBedroom">Five or more Bedrooms</dtyp:displayterm>
+            <dtyp:displayterm value="FourBedroom">Four Bedroom</dtyp:displayterm>
+            <dtyp:displayterm value="OneBedroom">One Bedroom</dtyp:displayterm>
+            <dtyp:displayterm value="StudioUnit">Studio Unit</dtyp:displayterm>
+            <dtyp:displayterm value="ThreeBedroom">Three Bedroom</dtyp:displayterm>
+            <dtyp:displayterm value="TwoBedroom">Two Bedroom</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="FivePlusBedroom"/>
+         <xsd:enumeration value="FourBedroom"/>
+         <xsd:enumeration value="OneBedroom"/>
+         <xsd:enumeration value="StudioUnit"/>
+         <xsd:enumeration value="ThreeBedroom"/>
+         <xsd:enumeration value="TwoBedroom"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:simpleType name="DwellingUnitsCount">
       <xsd:annotation>
          <xsd:documentation>Units: none</xsd:documentation>
@@ -1427,6 +1447,16 @@ ExtFlr/IntFlr: 0.8  Units: none</xsd:documentation>
          <xsd:minInclusive value="1"/>
       </xsd:restriction>
    </xsd:simpleType>
+   <xsd:simpleType name="NaturalGasOnSite">
+      <xsd:annotation>
+         <xsd:documentation source="propertyrules">NR Presc exclude;  CBECC NR include</xsd:documentation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="NaturalVentilationMethod">
       <xsd:annotation>
          <xsd:documentation source="propertyrules">NR Presc include;  CBECC NR exclude</xsd:documentation>
@@ -1619,6 +1649,9 @@ receives the most illumination.  Units: ft2</xsd:documentation>
          <xsd:enumeration value="SingleFamilyAttached"/>
          <xsd:enumeration value="SingleFamilyDetached"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="ResidentialDwellingUnitName">
+      <xsd:restriction base="dtyp:ObjectNamePermissive"/>
    </xsd:simpleType>
    <xsd:simpleType name="RoomCavityRatio">
       <xsd:annotation>
@@ -1988,6 +2021,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="BarLoungeFineDiningArea">Bar/Lounge and Fine Dining Area</dtyp:displayterm>
             <dtyp:displayterm value="BeautySalonArea">Beauty Salon Area</dtyp:displayterm>
             <dtyp:displayterm value="CivicMeetingPlaceArea">Civic Meeting Place Area</dtyp:displayterm>
+            <dtyp:displayterm value="ClassroomArt">Art Classroom</dtyp:displayterm>
             <dtyp:displayterm value="ClassroomLectureTrainingVocationalArea">Classroom, Lecture, or Training Vocational Area</dtyp:displayterm>
             <dtyp:displayterm value="CommercialIndustrialStorageArea">Commercial Industrial Storage Area</dtyp:displayterm>
             <dtyp:displayterm value="CommercialIndustrialStorageAreaRefrigerated">Commercial and Industrial Storage Area (refrigerated)</dtyp:displayterm>
@@ -2008,7 +2042,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="GeneralCommercialIndustrialWorkAreaHighBay">General Commercial Industrial Work Area High Bay</dtyp:displayterm>
             <dtyp:displayterm value="GeneralCommercialIndustrialWorkAreaLowBay">General Commercial Industrial Work AreaLow Bay</dtyp:displayterm>
             <dtyp:displayterm value="GeneralCommercialIndustrialWorkAreaPrecision">General Commercial Industrial Work Area Precision</dtyp:displayterm>
-            <dtyp:displayterm value="GeneralCommercialIndustrialWorkBuilding">General Commercial Industrial Work Building</dtyp:displayterm>
+            <dtyp:displayterm value="GeneralCommercialIndustrialWorkBuilding">General Commercial Industrial Work</dtyp:displayterm>
             <dtyp:displayterm value="GrocerySalesArea">Grocery Sales Area</dtyp:displayterm>
             <dtyp:displayterm value="HighRiseResidentialLivingSpace">High Rise Residential Living Space</dtyp:displayterm>
             <dtyp:displayterm value="HospitalExamTreatment">Exam/Treatment Room</dtyp:displayterm>
@@ -2084,6 +2118,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="BarLoungeFineDiningArea"/>
          <xsd:enumeration value="BeautySalonArea"/>
          <xsd:enumeration value="CivicMeetingPlaceArea"/>
+         <xsd:enumeration value="ClassroomArt"/>
          <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
          <xsd:enumeration value="CommercialIndustrialStorageArea"/>
          <xsd:enumeration value="CommercialIndustrialStorageAreaRefrigerated"/>
@@ -2530,7 +2565,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm value="BowlingAlleySeatingVent">Bowling alley (seating)</dtyp:displayterm>
             <dtyp:displayterm value="CellWithToiletVent">Cells with toilet</dtyp:displayterm>
             <dtyp:displayterm value="ClassroomAge5_18">Classroom (ages 5-18)</dtyp:displayterm>
-            <dtyp:displayterm value="ClassroomArt">Art Classroom</dtyp:displayterm>
             <dtyp:displayterm value="ClassroomComputer">Computer Lab</dtyp:displayterm>
             <dtyp:displayterm value="ClassroomPerformance">Music/theater/dance</dtyp:displayterm>
             <dtyp:displayterm value="ClassroomPostsecondary">Lecture/ postsecondary classroom</dtyp:displayterm>
@@ -2620,7 +2654,6 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="BowlingAlleySeatingVent"/>
          <xsd:enumeration value="CellWithToiletVent"/>
          <xsd:enumeration value="ClassroomAge5_18"/>
-         <xsd:enumeration value="ClassroomArt"/>
          <xsd:enumeration value="ClassroomComputer"/>
          <xsd:enumeration value="ClassroomPerformance"/>
          <xsd:enumeration value="ClassroomPostsecondary"/>
@@ -2747,35 +2780,36 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
             <dtyp:displayterm>Whole Building Occupancy</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="AllOthersBuildings">All Others Buildings</dtyp:displayterm>
-            <dtyp:displayterm value="AssemblyBuilding">Assembly Building</dtyp:displayterm>
-            <dtyp:displayterm value="AuditoriumBuilding">Auditorium Building</dtyp:displayterm>
-            <dtyp:displayterm value="ClassroomBuilding">Classroom Building</dtyp:displayterm>
-            <dtyp:displayterm value="CommercialIndustrialBuilding">Commercial Industrial Building</dtyp:displayterm>
-            <dtyp:displayterm value="CommercialIndustrialStorageBuilding">Commercial Industrial Storage Building</dtyp:displayterm>
-            <dtyp:displayterm value="ConventionCenterBuilding">Convention Center Building</dtyp:displayterm>
-            <dtyp:displayterm value="FinancialInstitutionBuilding">Financial Institution Building</dtyp:displayterm>
-            <dtyp:displayterm value="GeneralCommercialIndustrialWorkBuilding">General Commercial Industrial Work Building</dtyp:displayterm>
-            <dtyp:displayterm value="GroceryStoreBuilding">Grocery Store Building</dtyp:displayterm>
-            <dtyp:displayterm value="GymnasiumBuilding">Gymnasium Building</dtyp:displayterm>
+            <dtyp:displayterm value="AllOthersBuildings">All Other Occupancies</dtyp:displayterm>
+            <dtyp:displayterm value="AssemblyBuilding">Assembly</dtyp:displayterm>
+            <dtyp:displayterm value="AuditoriumBuilding">Auditorium</dtyp:displayterm>
+            <dtyp:displayterm value="ClassroomBuilding">Classroom</dtyp:displayterm>
+            <dtyp:displayterm value="CommercialIndustrialBuilding">Commercial Industrial</dtyp:displayterm>
+            <dtyp:displayterm value="CommercialIndustrialStorageBuilding">Commercial Industrial Storage</dtyp:displayterm>
+            <dtyp:displayterm value="ConventionCenterBuilding">Convention Center</dtyp:displayterm>
+            <dtyp:displayterm value="DataCenterBuilding">Data Center</dtyp:displayterm>
+            <dtyp:displayterm value="FinancialInstitutionBuilding">Financial Institution</dtyp:displayterm>
+            <dtyp:displayterm value="GeneralCommercialIndustrialWorkBuilding">General Commercial Industrial Work</dtyp:displayterm>
+            <dtyp:displayterm value="GroceryStoreBuilding">Grocery Store</dtyp:displayterm>
+            <dtyp:displayterm value="GymnasiumBuilding">Gymnasium</dtyp:displayterm>
             <dtyp:displayterm value="HighRiseResidential">High-Rise Residential</dtyp:displayterm>
             <dtyp:displayterm value="HospitalBuilding">Healthcare Facility</dtyp:displayterm>
             <dtyp:displayterm value="HotelMotel">Hotel/Motel</dtyp:displayterm>
-            <dtyp:displayterm value="LibraryBuilding">Library Building</dtyp:displayterm>
-            <dtyp:displayterm value="ManufacturingFacilityBuilding">Industrial/Manufacturing Facility Building</dtyp:displayterm>
-            <dtyp:displayterm value="MedicalClinicBuilding">Medical Clinic Building</dtyp:displayterm>
-            <dtyp:displayterm value="MotionPictureBuilding">Motion Picture Theater Building</dtyp:displayterm>
-            <dtyp:displayterm value="OfficeBuilding">Office Building</dtyp:displayterm>
-            <dtyp:displayterm value="ParkingGarageBuilding">Parking Garage Building</dtyp:displayterm>
-            <dtyp:displayterm value="PerformingArtsTheaterBuilding">Performing Arts Theater Building</dtyp:displayterm>
-            <dtyp:displayterm value="ReligiousFacilityBuilding">Religious Facility Building</dtyp:displayterm>
+            <dtyp:displayterm value="LibraryBuilding">Library</dtyp:displayterm>
+            <dtyp:displayterm value="ManufacturingFacilityBuilding">Industrial/Manufacturing Facility</dtyp:displayterm>
+            <dtyp:displayterm value="MedicalClinicBuilding">Medical Clinic</dtyp:displayterm>
+            <dtyp:displayterm value="MotionPictureBuilding">Motion Picture Theater</dtyp:displayterm>
+            <dtyp:displayterm value="OfficeBuilding">Office</dtyp:displayterm>
+            <dtyp:displayterm value="ParkingGarageBuilding">Parking Garage</dtyp:displayterm>
+            <dtyp:displayterm value="PerformingArtsTheaterBuilding">Performing Arts Theater</dtyp:displayterm>
+            <dtyp:displayterm value="ReligiousFacilityBuilding">Religious Facility</dtyp:displayterm>
             <dtyp:displayterm value="RelocatablePublicSchoolBuilding">Relocatable Public School</dtyp:displayterm>
-            <dtyp:displayterm value="RestaurantBuilding">Restaurant Building</dtyp:displayterm>
-            <dtyp:displayterm value="RetailBuilding">Retail Store Building</dtyp:displayterm>
-            <dtyp:displayterm value="SchoolBuilding">School Building</dtyp:displayterm>
-            <dtyp:displayterm value="SportsArenaBuilding">Sports Arena Building</dtyp:displayterm>
+            <dtyp:displayterm value="RestaurantBuilding">Restaurant</dtyp:displayterm>
+            <dtyp:displayterm value="RetailBuilding">Retail Store</dtyp:displayterm>
+            <dtyp:displayterm value="SchoolBuilding">School</dtyp:displayterm>
+            <dtyp:displayterm value="SportsArenaBuilding">Sports Arena</dtyp:displayterm>
             <dtyp:displayterm value="SupportArea">Support Areas</dtyp:displayterm>
-            <dtyp:displayterm value="TheaterBuilding">Theater Building</dtyp:displayterm>
+            <dtyp:displayterm value="TheaterBuilding">Theater</dtyp:displayterm>
             <dtyp:displayterm value="Warehouse">Warehouse</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
@@ -2787,6 +2821,7 @@ NOTE: For roofs, differentiate between the initial Solar Reflectance value and t
          <xsd:enumeration value="CommercialIndustrialBuilding"/>
          <xsd:enumeration value="CommercialIndustrialStorageBuilding"/>
          <xsd:enumeration value="ConventionCenterBuilding"/>
+         <xsd:enumeration value="DataCenterBuilding"/>
          <xsd:enumeration value="FinancialInstitutionBuilding"/>
          <xsd:enumeration value="GeneralCommercialIndustrialWorkBuilding"/>
          <xsd:enumeration value="GroceryStoreBuilding"/>

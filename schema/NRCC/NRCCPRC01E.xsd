@@ -285,7 +285,7 @@ End if</xsd:documentation>
 											<xsd:annotation>
 												<xsd:documentation source="FieldText"/>
 												<xsd:documentation source="AdditionalRequirements">[d:t24refnolink/]120.6(a)4C SATURATED CONDENSING TEMPERATURES NECESSARY FOR ADIABATIC CONDENSERS TO REJECT THE DESIGN TOTAL HEAT OF REJECTION OF A REFRIGERATION SYSTEM ASSUMING DRY MODE PERFORMANCE SHALL BE [d:lte/] THE DESIGN DRYBULB TEMPERATURE: [d:l t="*"][d:list]PLUS 20[d:deg/]F FOR SYSTEMS SERVING FREEZERS[/d:list][d:list]PLUS 30[d:deg/]F FOR SYSTEMS SERVING COOLERS [/d:list][/d:l]</xsd:documentation>
-												<xsd:documentation source="CalculationsAndRules">If Fcon01Air_CondenserTypeApplies == true And 
+												<xsd:documentation source="CalculationsAndRules">If Fcon01Adiabatic_CondenserTypeApplies == true And 
 If Fconadia05_CondenserTemps  == TempsAdiabaticComply 
  
 result = true and FieldText and AdditionalRequirements static text is displayed in the report
@@ -1370,7 +1370,7 @@ End if</xsd:documentation>
 											<xsd:annotation>
 												<xsd:documentation source="FieldText"/>
 												<xsd:documentation source="AdditionalRequirements">2. ELEVATOR CAB VENTILATION FANS FOR CABS WITHOUT SPACE CONDITIONING SHALL NOT EXCEED 0.33 WATTS PER CFM AS MEASURED AT MAXIMUM SPEED.</xsd:documentation>
-												<xsd:documentation source="CalculationsAndRules">If K10_IsSpaceConditioned   ==  true 
+												<xsd:documentation source="CalculationsAndRules">If K10_IsSpaceConditioned   == false 
  
 result = true and FieldText and AdditionalRequirements static text is 
 displayed in the report
@@ -1574,14 +1574,52 @@ End If</xsd:documentation>
 								</xsd:restriction>
 							</xsd:simpleType>
 						</xsd:element>
-						<xsd:element name="A09_WholeBuildingOccupancy" type="com:WholeBuildingOccupancy">
+						<xsd:element name="A09_WholeBuildingOccupancy" maxOccurs="unbounded">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
 							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="com:WholeBuildingOccupancy">
+									<xsd:enumeration value="AllOthersBuildings"/>
+									<xsd:enumeration value="AssemblyBuilding"/>
+									<xsd:enumeration value="AuditoriumBuilding"/>
+									<xsd:enumeration value="ClassroomBuilding"/>
+									<xsd:enumeration value="CommercialIndustrialBuilding"/>
+									<xsd:enumeration value="CommercialIndustrialStorageBuilding"/>
+									<xsd:enumeration value="ConventionCenterBuilding"/>
+									<xsd:enumeration value="DataCenterBuilding"/>
+									<xsd:enumeration value="FinancialInstitutionBuilding"/>
+									<xsd:enumeration value="GroceryStoreBuilding"/>
+									<xsd:enumeration value="GymnasiumBuilding"/>
+									<xsd:enumeration value="HighRiseResidential"/>
+									<xsd:enumeration value="HospitalBuilding"/>
+									<xsd:enumeration value="HotelMotel"/>
+									<xsd:enumeration value="LibraryBuilding"/>
+									<xsd:enumeration value="ManufacturingFacilityBuilding"/>
+									<xsd:enumeration value="MedicalClinicBuilding"/>
+									<xsd:enumeration value="OfficeBuilding"/>
+									<xsd:enumeration value="ParkingGarageBuilding"/>
+									<xsd:enumeration value="ReligiousFacilityBuilding"/>
+									<xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
+									<xsd:enumeration value="RestaurantBuilding"/>
+									<xsd:enumeration value="RetailBuilding"/>
+									<xsd:enumeration value="SchoolBuilding"/>
+									<xsd:enumeration value="SportsArenaBuilding"/>
+									<xsd:enumeration value="SupportArea"/>
+									<xsd:enumeration value="TheaterBuilding"/>
+									<xsd:enumeration value="Warehouse"/>
+								</xsd:restriction>
+							</xsd:simpleType>
 						</xsd:element>
 						<xsd:element name="A10_IsProjectAllElectric" type="comp:IsProjectAllElectric">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="A11_GasType" type="com:GasType">
+							<xsd:annotation>
+								<xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+								<xsd:documentation source="CalculationsAndRules">Values are NaturalGas, Propane and None</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="AEndNote1" minOccurs="0">

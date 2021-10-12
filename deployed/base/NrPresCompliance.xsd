@@ -1319,6 +1319,15 @@
       </xsd:annotation>
       <xsd:restriction base="xsd:string"/>
    </xsd:simpleType>
+   <xsd:simpleType name="CompactDistributionVerificationRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Required</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="Company">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -2542,6 +2551,46 @@
          <xsd:enumeration value="CompliesExceptionalConditions"/>
          <xsd:enumeration value="DoesNotComply"/>
       </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DWHR_Configuration">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>DWHR Instalation Configuration</dtyp:displayterm>
+         </xsd:appinfo>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="EqualFlow">Equal Flow</dtyp:displayterm>
+            <dtyp:displayterm value="UnequalFlowShower">Unequal to Shower</dtyp:displayterm>
+            <dtyp:displayterm value="UnequalFlowWaterHeater">Unequal to Water Heater</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:EnumerationConstant">
+         <xsd:enumeration value="EqualFlow"/>
+         <xsd:enumeration value="UnequalFlowShower"/>
+         <xsd:enumeration value="UnequalFlowWaterHeater"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="DWHR_DrainCount">
+      <xsd:annotation>
+         <xsd:documentation>Units: none</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:IntegerNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="DWHR_HERS_VerificationRequired">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Required</dtyp:displayterm>
+            <dtyp:displayterm value="false">Not Required</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="DWHR_Name">
+      <xsd:annotation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>DWHR Name</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:token"/>
    </xsd:simpleType>
    <xsd:simpleType name="DataNotAvailable">
       <xsd:annotation>
@@ -5020,6 +5069,8 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
                <d:t24ref h="110.3(c)6"/>.</dtyp:displayterm>
             <dtyp:displayterm value="UseNRCCMCHE">Table B indicates a combined hydronic system will be used to comply with title 24, Part 6.  These systems shall be documented on the NRCC-MCH-E compliance document.</dtyp:displayterm>
             <dtyp:displayterm value="UseNRCCSRAE">Table B indicates a solar water heating system will be used to comply with title 24, Part 6.  These systems shall be documented on the NRCC-SRA-E compliance document.</dtyp:displayterm>
+            <dtyp:displayterm value="UserChangedSelectionInI">Selections made in Table I have been changed by the permit applicant.  See Table E. Additional Remarks for permit applicant's explanation.</dtyp:displayterm>
+            <dtyp:displayterm value="UserChangedSelectionInK">Selections made in Table K have been changed by the permit applicant.  See Table E. Additional Remarks for permit applicant's explanation.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -5028,6 +5079,8 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="StateBuilding"/>
          <xsd:enumeration value="UseNRCCMCHE"/>
          <xsd:enumeration value="UseNRCCSRAE"/>
+         <xsd:enumeration value="UserChangedSelectionInI"/>
+         <xsd:enumeration value="UserChangedSelectionInK"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCCPRCE">
@@ -5058,51 +5111,49 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm>NRCC-PRF-E Exceptional Condition Message</dtyp:displayterm>
          </xsd:appinfo>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="ComponentsMandatoryEfficiency">The proposed building includes HVAC components that do not meet the mandatory efficiency requirements..</dtyp:displayterm>
-            <dtyp:displayterm value="CoolingEquipmentAdded">The proposed building includes spaces without cooling equipment, but cooling equipment has been added to the model, presumably to meet unmet load hour requirements.  Verify that the performance parameters of the added equipment are minimally compliant.</dtyp:displayterm>
-            <dtyp:displayterm value="CoolingSystemAdded">The user model includes space(s) that are designed to be served by mechanical cooling systems, but the cooling systems were not included in the simulation model.  A cooling system has been modeled for both the proposed and standard cases.</dtyp:displayterm>
-            <dtyp:displayterm value="DaylightingControlsNotModeled">The project uses the Simplified Geometry Performance Modeling Approach which is not capable of modeling daylighting controls and assumes the prescriptive Secondary Daylit Control requirements are met.  PRESCRIPTIVE COMPLIANCE documentation (form NRCC-LTI-02-E) for the requirements of section 140.6(d) Automatic Daylighting Controls in Secondary Daylit Zones is required.</dtyp:displayterm>
-            <dtyp:displayterm value="EnclosedParkingMandatoryRequirements">The project includes mechanical ventilation systems for enclosed parking garages having total design exhaust rate greater than or equal to 10,000 cfm.  Please verify the design meets the Mandatory Requirements for Enclosed Parking Garages as per Section 120.6(c).</dtyp:displayterm>
-            <dtyp:displayterm value="EquipmentDifferFromPlans">The compliance model includes HVAC equipment with capacities that differ from the building plans, presumably to meet unmet load hour requirements.  Verify that the equipment in the design provides adequate cooling and heating capacity for the spaces served.</dtyp:displayterm>
+            <dtyp:displayterm value="AddedCoolEquipmentCheck">The proposed building includes spaces without cooling equipment, but cooling equipment has been added to the model, presumably to meet unmet load hour requirements.  Verify that the performance parameters of the added equipment are minimally compliant.</dtyp:displayterm>
+            <dtyp:displayterm value="CoolEquipmentAddedForLoads">The user model includes space(s) without sufficient cooling equipment.  Cooling equipment has been added to the model to meet cooling loads.</dtyp:displayterm>
             <dtyp:displayterm value="FacadeDisplayPerimeter">Verify that the display perimeter for any facades where it is used matches the display perimeter as indicated on the building plans.</dtyp:displayterm>
-            <dtyp:displayterm value="GeneralLightingExceptionalMethod">The general lighting exceptional method is employed for one or more spaces.  Verify that the lighting allowances match the lighting installed on the plans and serve the areas within each space as identified in the compliance model.</dtyp:displayterm>
+            <dtyp:displayterm value="HvacMinEfficiencyCheck">The proposed building includes HVAC components that do not meet the mandatory efficiency requirements..</dtyp:displayterm>
             <dtyp:displayterm value="IlluminanceSetpointBelowRange">Verify that the spaces with design illuminance setpoint below the range specified in the ACM Appendix 5.4 have acceptable interior lighting levels.</dtyp:displayterm>
-            <dtyp:displayterm value="InsufficientCoolingEquipment">The user model includes space(s) without sufficient cooling equipment.  Cooling equipment has been added to the model to meet cooling loads.</dtyp:displayterm>
+            <dtyp:displayterm value="LightingCreditPAF">The proposed building claims credit for non-mandatory lighting control credits via Power Adjustment Factors (PAFs) as outlined in Standards Table 140.6-A.  Review NRCC-PRF-LTI DETAILS Table A to ensure that credit is not claimed for mandatory controls.</dtyp:displayterm>
+            <dtyp:displayterm value="LightingExceptionalMethod">The general lighting exceptional method is employed for one or more spaces.  Verify that the lighting allowances match the lighting installed on the plans and serve the areas within each space as identified in the compliance model.</dtyp:displayterm>
             <dtyp:displayterm value="ModelingApproximations">Significant modeling approximations have been used to represent the building design.  Such approximations are common and an expected part of energy modeling.  However, such approximations should have thermodynamically similar results in the model and in the completed building.  Ensure that a narrative has been provided.  Review the narrative and ensure the modeling approximations are appropriate.  Some approximations may not be appropriate.  In such cases, the Exceptional Design Compliance procedure should be used.  An example would be modeling of thermal storage by modifying the efficiency of heating and cooling equipment.</dtyp:displayterm>
-            <dtyp:displayterm value="NonMandatoryLightingControlCredit">The proposed building claims credit for non-mandatory lighting control credits via Power Adjustment Factors (PAFs) as outlined in Standards Table 140.6-A.  Review NRCC-PRF-LTI DETAILS Table A to ensure that credit is not claimed for mandatory controls.</dtyp:displayterm>
+            <dtyp:displayterm value="NoCoolSystemSimulated">The user model includes space(s) that are designed to be served by mechanical cooling systems, but the cooling systems were not included in the simulation model.  A cooling system has been modeled for both the proposed and standard cases.</dtyp:displayterm>
             <dtyp:displayterm value="NoServiceWaterHeating">The building does not include service water heating.  Verify that service water heating is not required and is not included in the design.</dtyp:displayterm>
+            <dtyp:displayterm value="ParkingGarageExhaustCheck">The project includes mechanical ventilation systems for enclosed parking garages having total design exhaust rate greater than or equal to 10,000 cfm.  Please verify the design meets the Mandatory Requirements for Enclosed Parking Garages as per Section 120.6(c).</dtyp:displayterm>
             <dtyp:displayterm value="PartialComplianceScope">This project includes partial performance compliance scope options.  The building must show compliance with all other applicable compliance scope options (performance or prescriptively) before occupying.</dtyp:displayterm>
+            <dtyp:displayterm value="PrescriptiveDayLightCtrl">The project uses the Simplified Geometry Performance Modeling Approach which is not capable of modeling daylighting controls and assumes the prescriptive Secondary Daylit Control requirements are met.  PRESCRIPTIVE COMPLIANCE documentation (form NRCC-LTI-02-E) for the requirements of section 140.6(d) Automatic Daylighting Controls in Secondary Daylit Zones is required.</dtyp:displayterm>
+            <dtyp:displayterm value="RatedCapDifferFromPlans">The compliance model includes HVAC equipment with capacities that differ from the building plans, presumably to meet unmet load hour requirements.  Verify that the equipment in the design provides adequate cooling and heating capacity for the spaces served.</dtyp:displayterm>
             <dtyp:displayterm value="SolarReflectanceCRRC">The aged solar reflectance and aged thermal emittance must be listed in the Cool Roof Rating Council database of certified products.  For projects where initial reflectance is used, the initial reflectance must be listed, and the aged reflectance is calculated by the software program and used in the compliance model.</dtyp:displayterm>
             <dtyp:displayterm value="SolarThermalFlexCredit">Solar thermal flexibility credit taken - kWdc min. PV system required</dtyp:displayterm>
             <dtyp:displayterm value="SolarThermalSystemInstalled">This analysis includes the performance of a solar thermal system for use with prescriptive compliance of a residential central water heating system.  Verify the project has a solar thermal system installed with a solar fraction (SF) of at least 0.00.</dtyp:displayterm>
             <dtyp:displayterm value="SpacesWithNoLighting">Verify that the space(s) defined with no lighting installed are either unconditioned spaces, or that the project has partial lighting compliance.</dtyp:displayterm>
-            <dtyp:displayterm value="ThermalZonesWithOperableOpenings">The project has thermal zones with operable openings modeled without mechanical compliance selected.  Compliance with Section 140.4(n) Mechanical System Shutoff should be considered.</dtyp:displayterm>
             <dtyp:displayterm value="UnknownHvacSystem">The proposed building includes space(s) that are modeled with unknown HVAC system(s).  Verify that the spaces modeled with unknown HVAC system(s) are either part of core and shell analysis which will be permitted for mechanical compliance in the future, or the spaces have an existing HVAC system not modeled for compliance, or the compliance scope does not include mechanical.</dtyp:displayterm>
-            <dtyp:displayterm value="VentilationRatesHigherThanRequired">The project has spaces with higher ventilation rates that required because of other codes or accreditation standards being applied.</dtyp:displayterm>
+            <dtyp:displayterm value="ZoneOpeningsInterlock">The project has thermal zones with operable openings modeled without mechanical compliance selected.  Compliance with Section 140.4(n) Mechanical System Shutoff should be considered.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
-         <xsd:enumeration value="ComponentsMandatoryEfficiency"/>
-         <xsd:enumeration value="CoolingEquipmentAdded"/>
-         <xsd:enumeration value="CoolingSystemAdded"/>
-         <xsd:enumeration value="DaylightingControlsNotModeled"/>
-         <xsd:enumeration value="EnclosedParkingMandatoryRequirements"/>
-         <xsd:enumeration value="EquipmentDifferFromPlans"/>
+         <xsd:enumeration value="AddedCoolEquipmentCheck"/>
+         <xsd:enumeration value="CoolEquipmentAddedForLoads"/>
          <xsd:enumeration value="FacadeDisplayPerimeter"/>
-         <xsd:enumeration value="GeneralLightingExceptionalMethod"/>
+         <xsd:enumeration value="HvacMinEfficiencyCheck"/>
          <xsd:enumeration value="IlluminanceSetpointBelowRange"/>
-         <xsd:enumeration value="InsufficientCoolingEquipment"/>
+         <xsd:enumeration value="LightingCreditPAF"/>
+         <xsd:enumeration value="LightingExceptionalMethod"/>
          <xsd:enumeration value="ModelingApproximations"/>
-         <xsd:enumeration value="NonMandatoryLightingControlCredit"/>
+         <xsd:enumeration value="NoCoolSystemSimulated"/>
          <xsd:enumeration value="NoServiceWaterHeating"/>
+         <xsd:enumeration value="ParkingGarageExhaustCheck"/>
          <xsd:enumeration value="PartialComplianceScope"/>
+         <xsd:enumeration value="PrescriptiveDayLightCtrl"/>
+         <xsd:enumeration value="RatedCapDifferFromPlans"/>
          <xsd:enumeration value="SolarReflectanceCRRC"/>
          <xsd:enumeration value="SolarThermalFlexCredit"/>
          <xsd:enumeration value="SolarThermalSystemInstalled"/>
          <xsd:enumeration value="SpacesWithNoLighting"/>
-         <xsd:enumeration value="ThermalZonesWithOperableOpenings"/>
          <xsd:enumeration value="UnknownHvacSystem"/>
-         <xsd:enumeration value="VentilationRatesHigherThanRequired"/>
+         <xsd:enumeration value="ZoneOpeningsInterlock"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCCSRAE">
@@ -5113,11 +5164,13 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="CalculatorOutputAttachedForH">Table H column 03 does not indicate the output from CEC's Solar Water Heating Calculator has been attached.  Please attach the output and indicate this in Table H.</dtyp:displayterm>
             <dtyp:displayterm value="SubAreaComplianceInF">Table F indicates a subarea that is not in compliance with the requirements.  Please revisit Table F</dtyp:displayterm>
+            <dtyp:displayterm value="UserChangedSelectionInJ">Selections made in Table J have been changed by the permit applicant.  See Table E. Additional Remarks for permit applicant's explanation.</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="CalculatorOutputAttachedForH"/>
          <xsd:enumeration value="SubAreaComplianceInF"/>
+         <xsd:enumeration value="UserChangedSelectionInJ"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="ExceptionalConditionMessageNRCIELCE">
@@ -5542,7 +5595,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="G2">G2</dtyp:displayterm>
             <dtyp:displayterm value="G3">G3</dtyp:displayterm>
             <dtyp:displayterm value="G4">G4</dtyp:displayterm>
-            <dtyp:displayterm value="G5">G5</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -5551,7 +5603,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="G2"/>
          <xsd:enumeration value="G3"/>
          <xsd:enumeration value="G4"/>
-         <xsd:enumeration value="G5"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="GlareRatingLimitBUG">
@@ -5669,21 +5720,23 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
    <xsd:simpleType name="HERS_VerificationMeasure">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
-            <dtyp:displayterm value="CompactHotWaterDistributionHRR">Highrise residential compact hot water distribution system expanded credit</dtyp:displayterm>
-            <dtyp:displayterm value="DemandControlPushButtonHRR">Highrise residential recirculating with demand control, push button</dtyp:displayterm>
-            <dtyp:displayterm value="DemandControlSensorsHRR">Highrise residential recirculating with demand control, occupancy/motion sensor</dtyp:displayterm>
-            <dtyp:displayterm value="DuctLeakageTesting">Duct Leakage testing</dtyp:displayterm>
-            <dtyp:displayterm value="DwellingUnitAirLeakage">Highrise residential dwelling unit envelope air leakage</dtyp:displayterm>
-            <dtyp:displayterm value="KitchenHoodRatedHRR">Highrise residential kitchen hood rated by HVI</dtyp:displayterm>
-            <dtyp:displayterm value="ParallelPipingHRR">Highrise residential central parallel piping</dtyp:displayterm>
-            <dtyp:displayterm value="PipeInsulationHRR">Highrise residential pipe insulation, all lines</dtyp:displayterm>
-            <dtyp:displayterm value="VentilationAirflowHRR">Highrise residential ventilation airflow</dtyp:displayterm>
+            <dtyp:displayterm value="CompactHotWaterDistributionHRR">Compact hot water distribution system expanded credit</dtyp:displayterm>
+            <dtyp:displayterm value="DemandControlPushButtonHRR">Recirculation with demand control push button</dtyp:displayterm>
+            <dtyp:displayterm value="DemandControlSensorsHRR">Recirculation with demand control occupancy/motion sensor</dtyp:displayterm>
+            <dtyp:displayterm value="DrainWaterHR">Drain water heat recovery system</dtyp:displayterm>
+            <dtyp:displayterm value="DuctLeakageTesting">Duct leakage testing</dtyp:displayterm>
+            <dtyp:displayterm value="DwellingUnitAirLeakage">Residential dwelling unit envelope air leakage</dtyp:displayterm>
+            <dtyp:displayterm value="KitchenHoodRatedHRR">Residential dwelling unit kitchen hood rated by HVI</dtyp:displayterm>
+            <dtyp:displayterm value="ParallelPipingHRR">Central parallel piping</dtyp:displayterm>
+            <dtyp:displayterm value="PipeInsulationHRR">Pipe insulation, all lines</dtyp:displayterm>
+            <dtyp:displayterm value="VentilationAirflowHRR">Residential dwelling unit ventilation airflow performance</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
          <xsd:enumeration value="CompactHotWaterDistributionHRR"/>
          <xsd:enumeration value="DemandControlPushButtonHRR"/>
          <xsd:enumeration value="DemandControlSensorsHRR"/>
+         <xsd:enumeration value="DrainWaterHR"/>
          <xsd:enumeration value="DuctLeakageTesting"/>
          <xsd:enumeration value="DwellingUnitAirLeakage"/>
          <xsd:enumeration value="KitchenHoodRatedHRR"/>
@@ -6068,6 +6121,15 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:token"/>
    </xsd:simpleType>
+   <xsd:simpleType name="InMyScope">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No, by others</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
    <xsd:simpleType name="IndoorAirDensityCorrection">
       <xsd:annotation>
          <xsd:appinfo source="displaytermType">
@@ -6356,6 +6418,15 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
       <xsd:restriction base="xsd:boolean"/>
    </xsd:simpleType>
    <xsd:simpleType name="IsOCST_RequirementSatisfied">
+      <xsd:annotation>
+         <xsd:appinfo source="displayterm">
+            <dtyp:displayterm value="true">Yes</dtyp:displayterm>
+            <dtyp:displayterm value="false">No</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="IsProjectAllElectric">
       <xsd:annotation>
          <xsd:appinfo source="displayterm">
             <dtyp:displayterm value="true">Yes</dtyp:displayterm>
@@ -12103,7 +12174,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
             <dtyp:displayterm value="U2">U2</dtyp:displayterm>
             <dtyp:displayterm value="U3">U3</dtyp:displayterm>
             <dtyp:displayterm value="U4">U4</dtyp:displayterm>
-            <dtyp:displayterm value="U5">U5</dtyp:displayterm>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="dtyp:EnumerationConstant">
@@ -12112,7 +12182,6 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          <xsd:enumeration value="U2"/>
          <xsd:enumeration value="U3"/>
          <xsd:enumeration value="U4"/>
-         <xsd:enumeration value="U5"/>
       </xsd:restriction>
    </xsd:simpleType>
    <xsd:simpleType name="UpLightRatingLimitBUG">
@@ -12485,6 +12554,51 @@ Builders, Manufacturers, And Suppliers</xsd:documentation>
          </xsd:appinfo>
       </xsd:annotation>
       <xsd:restriction base="xsd:token"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="WaterHeaterQualificationDistance">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Qualification Distance</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="WaterHeaterToBath">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Master Bath distance of furthest fixture to Water Heater</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="WaterHeaterToFurthest3rdFixture">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Furthest Third furthest fixture to Water Heater</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="WaterHeaterToKitchen">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Kitchen distance of furthest fixture to Water Heater</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:DecimalNonnegative"/>
+   </xsd:simpleType>
+   <xsd:simpleType name="WaterHeaterWeightedDistance">
+      <xsd:annotation>
+         <xsd:documentation>Units: ft</xsd:documentation>
+         <xsd:appinfo source="displaytermType">
+            <dtyp:displayterm>Weighted Distance</dtyp:displayterm>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:restriction base="dtyp:Decimal4PlacesNonnegative"/>
    </xsd:simpleType>
    <xsd:simpleType name="WaterHeatingAutomationControlsGoalsOPR">
       <xsd:annotation>

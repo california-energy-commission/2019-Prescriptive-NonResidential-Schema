@@ -37,7 +37,7 @@ this Mandatory Measures Noteblock is required
  
 Else it is not required and nothing is captured or displayed
 End If</xsd:documentation>
-                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
                         </xsd:annotation>
                         <xsd:complexType>
                            <xsd:sequence>
@@ -353,7 +353,7 @@ this Mandatory Measures Noteblock is required
  
 Else it is not required and nothing is captured or displayed
 End If</xsd:documentation>
-                           <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+                           <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
                         </xsd:annotation>
                         <xsd:complexType>
                            <xsd:sequence>
@@ -454,7 +454,6 @@ DUMM130_5d_MeasureApplies  = true and is displayed
 End If
 End If</xsd:documentation>
                         <xsd:appinfo source="displayterm">
-                           <dtyp:displayterm value="HospitalBuilding">Healthcare Facilities</dtyp:displayterm>
                            <dtyp:displayterm value="RelocatablePublicSchoolBuilding">Relocatable</dtyp:displayterm>
                            <dtyp:displayterm value="RetailBuilding">Retail</dtyp:displayterm>
                            <dtyp:displayterm value="AllOthersBuildings">Other (Write In)</dtyp:displayterm>
@@ -463,15 +462,32 @@ End If</xsd:documentation>
                      <xsd:simpleType>
                         <xsd:restriction base="com:WholeBuildingOccupancy">
                            <xsd:enumeration value="AllOthersBuildings"/>
+                           <xsd:enumeration value="AssemblyBuilding"/>
+                           <xsd:enumeration value="AuditoriumBuilding"/>
+                           <xsd:enumeration value="ClassroomBuilding"/>
+                           <xsd:enumeration value="CommercialIndustrialBuilding"/>
+                           <xsd:enumeration value="CommercialIndustrialStorageBuilding"/>
+                           <xsd:enumeration value="ConventionCenterBuilding"/>
+                           <xsd:enumeration value="DataCenterBuilding"/>
+                           <xsd:enumeration value="FinancialInstitutionBuilding"/>
+                           <xsd:enumeration value="GroceryStoreBuilding"/>
+                           <xsd:enumeration value="GymnasiumBuilding"/>
                            <xsd:enumeration value="HighRiseResidential"/>
                            <xsd:enumeration value="HospitalBuilding"/>
                            <xsd:enumeration value="HotelMotel"/>
+                           <xsd:enumeration value="LibraryBuilding"/>
+                           <xsd:enumeration value="ManufacturingFacilityBuilding"/>
+                           <xsd:enumeration value="MedicalClinicBuilding"/>
                            <xsd:enumeration value="OfficeBuilding"/>
                            <xsd:enumeration value="ParkingGarageBuilding"/>
+                           <xsd:enumeration value="ReligiousFacilityBuilding"/>
                            <xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
+                           <xsd:enumeration value="RestaurantBuilding"/>
                            <xsd:enumeration value="RetailBuilding"/>
                            <xsd:enumeration value="SchoolBuilding"/>
+                           <xsd:enumeration value="SportsArenaBuilding"/>
                            <xsd:enumeration value="SupportArea"/>
+                           <xsd:enumeration value="TheaterBuilding"/>
                            <xsd:enumeration value="Warehouse"/>
                         </xsd:restriction>
                      </xsd:simpleType>
@@ -486,6 +502,25 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">This is a flag set by the agent that generates the report XML data to indicate that the user requested a Mandatory Measures Note Block which is placed after the DeclarationBlock in the XML output.</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A04_ProjectScopeNR">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                     </xsd:annotation>
+                     <xsd:simpleType>
+                        <xsd:restriction base="comp:ProjectScopeNR">
+                           <xsd:enumeration value="AdditionComplete"/>
+                           <xsd:enumeration value="ExistingAddition"/>
+                           <xsd:enumeration value="ExistingAdditionAndAlteration"/>
+                           <xsd:enumeration value="ExistingAlteration"/>
+                           <xsd:enumeration value="NewComplete"/>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="A05_TotalGrossFloorArea" type="com:TotalGrossFloorArea">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="AErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
@@ -909,7 +944,7 @@ End If</xsd:documentation>
                   <d:b>E. ADDITIONAL REMARKS</d:b>
                </xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">This section is required if there are  comments from the permit applicant to the Authority Having Jurisdiction</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
@@ -941,7 +976,7 @@ Mandatory Measure Triggers:
 If this section is required    
 MM130_5a_MeasureApplies  = true and is displayed
 End If</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
@@ -1049,7 +1084,7 @@ Mandatory Measure Triggers:
 If this section is required    
 MM130_5b_MeasureApplies  = true and is displayed
 End If</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
@@ -1214,7 +1249,7 @@ End If</xsd:documentation>
                   <d:b>H. VOLTAGE DROP </d:b>
                </xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">Section H is required If B02_ElectricalServiceProjectScope !=  NewReplacementServiceMeterOnly</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
@@ -1253,7 +1288,7 @@ End If</xsd:documentation>
                                        <xsd:element name="H02a_CircuitVoltageDropCompliance" type="comp:CircuitVoltageDropCompliance" fixed="VoltageDropLT5Percent">
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Voltage drop 
-                                                <d:lt/> 5%</xsd:documentation>
+                                                <d:lte/> 5%</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">User either: checks 1st choice, Voltage drop less than 5%, and 
 result = VoltageDropLT5Percent; 
 Else user checks 2nd choice Permitted by CEC and 
@@ -1380,7 +1415,7 @@ MM130_5d_MeasureApplies  = true and is displayed
 End If
  
 Multi-field triggers: See A02_WholeBuildingOccupancy for trigger values from this section</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
@@ -1546,7 +1581,7 @@ Multi-field triggers: See A02_WholeBuildingOccupancy for trigger values from thi
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Form/Title</xsd:documentation>
                         <xsd:documentation source="AdditionalRequirements">NRCI-ELC-01-E - Must be submitted for all buildings</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">Calculated Boolean value based on user input in previous sections of this form. By default result = true display term Yes represented as a radio button.  If user changes this value to false display term No represented as a radio button, an explanation is required in Section E Additional Remarks.  This will also result in D03_ExceptionalConditionMessageNRCCELCE = UserChangedSelectionInJ</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">Result = true and can not be changed by user</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="J01b_VerifedByInspector" type="comp:VerifedByInspector" minOccurs="0">
@@ -1562,7 +1597,7 @@ Multi-field triggers: See A02_WholeBuildingOccupancy for trigger values from thi
                <xsd:documentation source="FieldText">
                   <d:b>K. DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE</d:b>
                </xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, display only the section FieldText and the statement 'This section does not apply to this project.'</xsd:documentation>
+               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
