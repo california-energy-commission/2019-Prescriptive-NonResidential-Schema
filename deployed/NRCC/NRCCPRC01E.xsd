@@ -1879,11 +1879,16 @@ End If</xsd:documentation>
                   <xsd:element name="A08_ProjectScopeNR">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:appinfo source="displayterm">
+                           <dtyp:displayterm value="AdditionComplete">Addition</dtyp:displayterm>
+                           <dtyp:displayterm value="ExistingAdditionAndAlteration">Addition Alteration</dtyp:displayterm>
+                           <dtyp:displayterm value="ExistingAlteration">Alteration</dtyp:displayterm>
+                           <dtyp:displayterm value="NewComplete">New</dtyp:displayterm>
+                        </xsd:appinfo>
                      </xsd:annotation>
                      <xsd:simpleType>
                         <xsd:restriction base="comp:ProjectScopeNR">
                            <xsd:enumeration value="AdditionComplete"/>
-                           <xsd:enumeration value="ExistingAddition"/>
                            <xsd:enumeration value="ExistingAdditionAndAlteration"/>
                            <xsd:enumeration value="ExistingAlteration"/>
                            <xsd:enumeration value="NewComplete"/>
@@ -3536,75 +3541,157 @@ Multi-field triggers: See Fconadia07_CondenserMinEfficiency  CalculationsAndRule
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Indicate compressor types included in the project:<d:sup>1</d:sup>
                                  </xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">Only one value can be checked, either new only or altered / existing only,</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Fcom01New_CompressorTypeApplies" type="comp:CompressorTypeApplies">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Compressor (new only)</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input:  If checked result = true; Else result = false;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input:  If checked result = true; If unchecked result = false
+NOTE: If result == true; forces Fcom01Altered_CompressorTypeApplies = false.
+End If</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
                            <xsd:element name="Fcom01Altered_CompressorTypeApplies" type="comp:CompressorTypeApplies">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText">Altered or existing compressors  only</xsd:documentation>
-                                 <xsd:documentation source="CalculationsAndRules">User input:  If checked result = true; Else result = false;</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">User input:  If checked result = true; If unchecked result = false
+NOTE: If result == true;  forces Fcom01New_CompressorTypeApplies = false.</xsd:documentation>
                               </xsd:annotation>
                            </xsd:element>
-                           <xsd:element name="TableFcom" minOccurs="0">
+                           <xsd:element name="TableFcom">
                               <xsd:annotation>
                                  <xsd:documentation source="FieldText"/>
-                                 <xsd:documentation source="CalculationsAndRules">This table is required If Fcom01New_CompressorTypeApplies == true</xsd:documentation>
+                                 <xsd:documentation source="CalculationsAndRules">If Fcom01New_CompressorTypeApplies == true
+Data for this table is required
+Else If Fcom01Altered_CompressorTypeApplies == true
+all fields have BlankGrayedOut value
+End if</xsd:documentation>
                               </xsd:annotation>
                               <xsd:complexType>
                                  <xsd:sequence>
                                     <xsd:element name="Row" minOccurs="1" maxOccurs="unbounded">
                                        <xsd:complexType>
                                           <xsd:sequence>
-                                             <xsd:element name="Fcom02_ComponentName" type="comp:ComponentName">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Fcom03_CompressorTemps" type="comp:CompressorTemps">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Design Condensing Temperatures 
-                                                      <d:t24ref h="120.6(a)5A"/>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from list; MinTempLTE70 display term Min condensing temp 
-                                                      <d:lte/> 70 deg</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Fcom04_CompressorVariableSpeed" type="comp:CompressorVariableSpeed">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Variable Speed Control 
-                                                      <d:t24ref h="120.6(a)5B"/>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from list; CompressorSpeedControlled display term Controls compressor speed in response to refrigeration load, NotNewScrewCompressorNA display term NA: Not new open-drive screw compressor w SST 
-                                                      <d:lte/> 28 deg, GT1DedicatedCompressorNA display term NA: 
-                                                      <d:gt/>1 dedicated compressor per suction group, GT20pctQuickChillNA display term NA:  
-                                                      <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Fcom02_ComponentName" type="comp:ComponentName">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01New_CompressorTypeApplies == true
+User input
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Fcom02_NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01Altered_CompressorTypeApplies == true
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Fcom03_CompressorTemps" type="comp:CompressorTemps">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Design Condensing Temperatures 
+                                                         <d:t24ref h="120.6(a)5A"/>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01New_CompressorTypeApplies == true
+User selects from list; MinTempLTE70 display term Min condensing temp 
+                                                         <d:lte/> 70 deg
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Fcom03_NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Design Condensing Temperatures 
+                                                         <d:t24ref h="120.6(a)5A"/>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01Altered_CompressorTypeApplies == true
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Fcom04_CompressorVariableSpeed" type="comp:CompressorVariableSpeed">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Variable Speed Control 
+                                                         <d:t24ref h="120.6(a)5B"/>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01New_CompressorTypeApplies == true
+User selects from list; CompressorSpeedControlled display term Controls compressor speed in response to refrigeration load, NotNewScrewCompressorNA display term NA: Not new open-drive screw compressor w SST 
+                                                         <d:lte/> 28 deg, GT1DedicatedCompressorNA display term NA: 
+                                                         <d:gt/>1 dedicated compressor per suction group, GT20pctQuickChillNA display term NA:  
+                                                         <d:gt/> 20% for quick chill/freezing or cooling another refrigerated space
+End If
  
 Mandatory Measure Triggers:
 If result == CompressorSpeedControlled
 MM120_6a5B_MeasureApplies = true and is displayed 
 End If</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
-                                             <xsd:element name="Fcom05_VariableVolRatioStatus" type="comp:VariableVolRatioStatus">
-                                                <xsd:annotation>
-                                                   <xsd:documentation source="FieldText">Variable Volume Ratio 
-                                                      <d:t24ref h="120.6(a)5C"/>
-                                                   </xsd:documentation>
-                                                   <xsd:documentation source="CalculationsAndRules">User selects from list; AutoVaryVolRatio display term Auto vary volume ratio in response to operating pressure, GT1DedicatedCompressorNA display term NA: Not screw compressor w 
-                                                      <d:gt/>150 HP motor
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Fcom04_NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Variable Speed Control 
+                                                         <d:t24ref h="120.6(a)5B"/>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01Altered_CompressorTypeApplies == true
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
+                                             <xsd:choice maxOccurs="1">
+                                                <xsd:element name="Fcom05_VariableVolRatioStatus" type="comp:VariableVolRatioStatus">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Variable Volume Ratio 
+                                                         <d:t24ref h="120.6(a)5C"/>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01New_CompressorTypeApplies == true
+User selects from list; AutoVaryVolRatio display term Auto vary volume ratio in response to operating pressure, GT1DedicatedCompressorNA display term NA: Not screw compressor w 
+                                                         <d:gt/>150 HP motor
+End If
  
 Mandatory Measure Triggers:
 If result == AutoVaryVolRatio
 MM120_6a5C_MeasureApplies = true and is displayed 
 End If</xsd:documentation>
-                                                </xsd:annotation>
-                                             </xsd:element>
+                                                   </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="Fcom05_NotApplicableMessage">
+                                                   <xsd:annotation>
+                                                      <xsd:documentation source="FieldText">Variable Volume Ratio 
+                                                         <d:t24ref h="120.6(a)5C"/>
+                                                      </xsd:documentation>
+                                                      <xsd:documentation source="CalculationsAndRules">If Fcom01Altered_CompressorTypeApplies == true
+result = BlankGrayedOut
+End If</xsd:documentation>
+                                                   </xsd:annotation>
+                                                   <xsd:simpleType>
+                                                      <xsd:restriction base="comp:NotApplicableMessage">
+                                                         <xsd:enumeration value="BlankGrayedOut"/>
+                                                      </xsd:restriction>
+                                                   </xsd:simpleType>
+                                                </xsd:element>
+                                             </xsd:choice>
                                           </xsd:sequence>
                                        </xsd:complexType>
                                     </xsd:element>
@@ -5749,7 +5836,7 @@ End If</xsd:documentation>
                   <xsd:element name="Q11_SystemFieldVerified" type="comp:SystemFieldVerified" minOccurs="0" maxOccurs="unbounded">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Systems/Spaces To Be Field Verified</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If Q11_RequireNRCAPrc13F == true; is loaded with systems/spaces that the User enters to be field verified for this Certificate of Acceptance</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If Q11_RequireNRCAPrc13F == true; is loaded with one value, "All Escalators" for this Certificate of Acceptance</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="Q11_SystemsToFieldVerify" type="comp:SystemsToFieldVerify" minOccurs="0">
