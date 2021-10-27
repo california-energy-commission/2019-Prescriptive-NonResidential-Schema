@@ -106,7 +106,7 @@ End if</xsd:documentation>
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
-                                          <d:t24refnolink/>130.3(a)1  CONTROLS FOR INDOOR SIGN LIGHTING</d:b>
+                                          <d:t24refnolink/>130.3(a)1 CONTROLS FOR INDOOR SIGN LIGHTING</d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">ALL INDOOR SIGN LIGHTING, OTHER THAN EXIT SIGN LIGHTING, SHALL BE CONTROLLED BY EITHER AN AUTOMATIC TIME-SWITCH CONTROL, OR AN ASTRONOMICAL TIME-SWITCH CONTROL.</xsd:documentation>
                                     <xsd:documentation source="CalculationsAndRules">If  any row has G04a_SignShutOffControls == AstronomicalTimeSwitch Or AutoTimeSwitch 
@@ -120,7 +120,7 @@ End If</xsd:documentation>
                                  <xsd:annotation>
                                     <xsd:documentation source="FieldText">
                                        <d:b>
-                                          <d:t24refnolink/>130.3(a)2  CONTROLS FOR OUTDOOR SIGN LIGHTING</d:b>
+                                          <d:t24refnolink/>130.3(a)2 CONTROLS FOR OUTDOOR SIGN LIGHTING</d:b>
                                     </xsd:documentation>
                                     <xsd:documentation source="AdditionalRequirements">
                                        <d:tab1/>A. ALL OUTDOOR SIGN LIGHTING SHALL BE CONTROLLED BY A COMBINATION OF PHOTOCELL AND AUTOMATIC TIME-SWITCH, OR BY AN ASTRONOMICAL TIME-SWITCH. 
@@ -257,43 +257,52 @@ End if</xsd:documentation>
                         </xsd:restriction>
                      </xsd:simpleType>
                   </xsd:element>
-                  <xsd:element name="A06_WholeBuildingOccupancy" maxOccurs="unbounded">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                     </xsd:annotation>
-                     <xsd:simpleType>
-                        <xsd:restriction base="com:WholeBuildingOccupancy">
-                           <xsd:enumeration value="AllOthersBuildings"/>
-                           <xsd:enumeration value="AssemblyBuilding"/>
-                           <xsd:enumeration value="AuditoriumBuilding"/>
-                           <xsd:enumeration value="ClassroomBuilding"/>
-                           <xsd:enumeration value="CommercialIndustrialBuilding"/>
-                           <xsd:enumeration value="CommercialIndustrialStorageBuilding"/>
-                           <xsd:enumeration value="ConventionCenterBuilding"/>
-                           <xsd:enumeration value="DataCenterBuilding"/>
-                           <xsd:enumeration value="FinancialInstitutionBuilding"/>
-                           <xsd:enumeration value="GroceryStoreBuilding"/>
-                           <xsd:enumeration value="GymnasiumBuilding"/>
-                           <xsd:enumeration value="HighRiseResidential"/>
-                           <xsd:enumeration value="HospitalBuilding"/>
-                           <xsd:enumeration value="HotelMotel"/>
-                           <xsd:enumeration value="LibraryBuilding"/>
-                           <xsd:enumeration value="ManufacturingFacilityBuilding"/>
-                           <xsd:enumeration value="MedicalClinicBuilding"/>
-                           <xsd:enumeration value="OfficeBuilding"/>
-                           <xsd:enumeration value="ParkingGarageBuilding"/>
-                           <xsd:enumeration value="ReligiousFacilityBuilding"/>
-                           <xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
-                           <xsd:enumeration value="RestaurantBuilding"/>
-                           <xsd:enumeration value="RetailBuilding"/>
-                           <xsd:enumeration value="SchoolBuilding"/>
-                           <xsd:enumeration value="SportsArenaBuilding"/>
-                           <xsd:enumeration value="SupportArea"/>
-                           <xsd:enumeration value="TheaterBuilding"/>
-                           <xsd:enumeration value="Warehouse"/>
-                        </xsd:restriction>
-                     </xsd:simpleType>
-                  </xsd:element>
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="A06_WholeBuildingOccupancy" maxOccurs="unbounded">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="com:WholeBuildingOccupancy">
+                              <xsd:enumeration value="AllOthersBuildings"/>
+                              <xsd:enumeration value="AuditoriumBuilding"/>
+                              <xsd:enumeration value="ClassroomBuilding"/>
+                              <xsd:enumeration value="CommercialIndustrialBuilding"/>
+                              <xsd:enumeration value="ConventionCenterBuilding"/>
+                              <xsd:enumeration value="DataCenterBuilding"/>
+                              <xsd:enumeration value="FinancialInstitutionBuilding"/>
+                              <xsd:enumeration value="GroceryStoreBuilding"/>
+                              <xsd:enumeration value="GymnasiumBuilding"/>
+                              <xsd:enumeration value="HighRiseResidential"/>
+                              <xsd:enumeration value="HospitalBuilding"/>
+                              <xsd:enumeration value="HotelMotel"/>
+                              <xsd:enumeration value="LibraryBuilding"/>
+                              <xsd:enumeration value="MedicalClinicBuilding"/>
+                              <xsd:enumeration value="OfficeBuilding"/>
+                              <xsd:enumeration value="ParkingGarageBuilding"/>
+                              <xsd:enumeration value="ReligiousFacilityBuilding"/>
+                              <xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
+                              <xsd:enumeration value="RestaurantBuilding"/>
+                              <xsd:enumeration value="RetailBuilding"/>
+                              <xsd:enumeration value="SchoolBuilding"/>
+                              <xsd:enumeration value="SportsArenaBuilding"/>
+                              <xsd:enumeration value="SupportArea"/>
+                              <xsd:enumeration value="TheaterBuilding"/>
+                              <xsd:enumeration value="Warehouse"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                     <xsd:element name="A06_NotApplicableMessage">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="comp:NotApplicableMessage">
+                              <xsd:enumeration value="NoData"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="AErrorMessage_SectionErrorMessage" type="comp:SectionErrorMessage" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"/>
