@@ -441,10 +441,11 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText">Project Location (city)</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A02_WholeBuildingOccupancy" maxOccurs="unbounded">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Occupancy Types Within Project:</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User selects one or more occupancy types in the project
+                  <xsd:choice maxOccurs="1">
+                     <xsd:element name="A02_WholeBuildingOccupancy" maxOccurs="unbounded">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Occupancy Types Within Project:</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">User selects one or more occupancy types in the project
  
 Mandatory Measure Triggers:  
 If result includes HighRiseResidential Or HotelMotel Then
@@ -453,46 +454,60 @@ If  section I is required
 DUMM130_5d_MeasureApplies  = true and is displayed 
 End If
 End If</xsd:documentation>
-                        <xsd:appinfo source="displayterm">
-                           <dtyp:displayterm value="RelocatablePublicSchoolBuilding">Relocatable</dtyp:displayterm>
-                           <dtyp:displayterm value="RetailBuilding">Retail</dtyp:displayterm>
-                           <dtyp:displayterm value="AllOthersBuildings">Other (Write In)</dtyp:displayterm>
-                        </xsd:appinfo>
-                     </xsd:annotation>
-                     <xsd:simpleType>
-                        <xsd:restriction base="com:WholeBuildingOccupancy">
-                           <xsd:enumeration value="AllOthersBuildings"/>
-                           <xsd:enumeration value="AuditoriumBuilding"/>
-                           <xsd:enumeration value="ClassroomBuilding"/>
-                           <xsd:enumeration value="CommercialIndustrialBuilding"/>
-                           <xsd:enumeration value="ConventionCenterBuilding"/>
-                           <xsd:enumeration value="DataCenterBuilding"/>
-                           <xsd:enumeration value="FinancialInstitutionBuilding"/>
-                           <xsd:enumeration value="GroceryStoreBuilding"/>
-                           <xsd:enumeration value="GymnasiumBuilding"/>
-                           <xsd:enumeration value="HighRiseResidential"/>
-                           <xsd:enumeration value="HospitalBuilding"/>
-                           <xsd:enumeration value="HotelMotel"/>
-                           <xsd:enumeration value="LibraryBuilding"/>
-                           <xsd:enumeration value="MedicalClinicBuilding"/>
-                           <xsd:enumeration value="OfficeBuilding"/>
-                           <xsd:enumeration value="ParkingGarageBuilding"/>
-                           <xsd:enumeration value="ReligiousFacilityBuilding"/>
-                           <xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
-                           <xsd:enumeration value="RestaurantBuilding"/>
-                           <xsd:enumeration value="RetailBuilding"/>
-                           <xsd:enumeration value="SchoolBuilding"/>
-                           <xsd:enumeration value="SportsArenaBuilding"/>
-                           <xsd:enumeration value="SupportArea"/>
-                           <xsd:enumeration value="TheaterBuilding"/>
-                           <xsd:enumeration value="Warehouse"/>
-                        </xsd:restriction>
-                     </xsd:simpleType>
-                  </xsd:element>
+                           <xsd:appinfo source="displayterm">
+                              <dtyp:displayterm value="RelocatablePublicSchoolBuilding">Relocatable</dtyp:displayterm>
+                              <dtyp:displayterm value="RetailBuilding">Retail</dtyp:displayterm>
+                              <dtyp:displayterm value="AllOthersBuildings">Other (Write In)</dtyp:displayterm>
+                           </xsd:appinfo>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="com:WholeBuildingOccupancy">
+                              <xsd:enumeration value="AllOthersBuildings"/>
+                              <xsd:enumeration value="AuditoriumBuilding"/>
+                              <xsd:enumeration value="ClassroomBuilding"/>
+                              <xsd:enumeration value="CommercialIndustrialBuilding"/>
+                              <xsd:enumeration value="ConventionCenterBuilding"/>
+                              <xsd:enumeration value="DataCenterBuilding"/>
+                              <xsd:enumeration value="FinancialInstitutionBuilding"/>
+                              <xsd:enumeration value="GroceryStoreBuilding"/>
+                              <xsd:enumeration value="GymnasiumBuilding"/>
+                              <xsd:enumeration value="HighRiseResidential"/>
+                              <xsd:enumeration value="HospitalBuilding"/>
+                              <xsd:enumeration value="HotelMotel"/>
+                              <xsd:enumeration value="LibraryBuilding"/>
+                              <xsd:enumeration value="MedicalClinicBuilding"/>
+                              <xsd:enumeration value="OfficeBuilding"/>
+                              <xsd:enumeration value="ParkingGarageBuilding"/>
+                              <xsd:enumeration value="ReligiousFacilityBuilding"/>
+                              <xsd:enumeration value="RelocatablePublicSchoolBuilding"/>
+                              <xsd:enumeration value="RestaurantBuilding"/>
+                              <xsd:enumeration value="RetailBuilding"/>
+                              <xsd:enumeration value="SchoolBuilding"/>
+                              <xsd:enumeration value="SportsArenaBuilding"/>
+                              <xsd:enumeration value="SupportArea"/>
+                              <xsd:enumeration value="TheaterBuilding"/>
+                              <xsd:enumeration value="Warehouse"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                     <xsd:element name="A02OtherOnly_WholeBuildingOccupancy">
+                        <xsd:annotation>
+                           <xsd:documentation source="FieldText">Occupancy Types Within Project:</xsd:documentation>
+                           <xsd:documentation source="CalculationsAndRules">If AllOtherBuildings is only occupancy in project 
+use this choice which only allows that value  with display of only  All Other Occupancies selected
+End If</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                           <xsd:restriction base="com:WholeBuildingOccupancy">
+                              <xsd:enumeration value="AllOthersBuildings"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:choice>
                   <xsd:element name="A02a_TypeOtherDescription" type="com:TypeOtherDescription" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Other (write in)</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">If A02_WholeBuildingOccupancy includes AllOtherBuildings, this field is required.  User must input a short description of the occupancy  type in this field.</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">If A02_WholeBuildingOccupancy or A02OtherOnly_WholeBuildingOccupancy  includes AllOtherBuildings, this field is required.  User must input a short description of the occupancy  type in this field.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                   <xsd:element name="A03_RequestedMMB" type="comp:RequestedMMB" minOccurs="0">

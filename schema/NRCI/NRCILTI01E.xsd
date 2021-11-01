@@ -276,9 +276,9 @@ End If</xsd:documentation>
  Else If ComplianceResultNRCI == MayNotComply
  result = MayNotComply
   
- Else If All require tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
+Else If All required tables or subsections in Section F  have  a combination of ComplianceResultNRCI ==  ExactMatch or NotInScope
  result = ExactMatch
- Else If any have ComplianceResultNRCI ==  EqualBetter
+ Else If All required tables or subsections in Section F  have  a combination of ComplianceResultNRCI ==  EqualBetter or ExactMatch or NotInScope
  result = EqualBetter
  End If</xsd:documentation>
                      </xsd:annotation>
@@ -394,21 +394,23 @@ End If</xsd:documentation>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Lum01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Lum02_ScopeIncludesFixture" type="comp:ScopeIncludesFixture" >
+                                    <xsd:element name="Lum01_ScopeIncludesFixture" type="comp:ScopeIncludesFixture" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Fixture Within Scope?</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
- If result == false  Lum03cc-Lum08cc is displayed but Lum03-Lum08 As-built cells are blank and grayed out</xsd:documentation>
+ If result == false  Lum03cc-Lum08cc is displayed but Lum03-Lum12 As-built cells are blank and grayed out  
+And D01_ExceptionalConditionMessageNRCILTIE += LumNotInScope  
+End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="false">No, by others</dtyp:displayterm>
                                           </xsd:appinfo>
                                           
+                                       </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="Lum01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Lum03cc_LuminaireDescription" type="lit:LuminaireDescription" >
@@ -444,7 +446,7 @@ End If</xsd:documentation>
                                        <xsd:element name="Lum03_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
  End If</xsd:documentation>
                                           </xsd:annotation>
@@ -551,7 +553,7 @@ Else If  Fu01_LuminaireName was loaded into Lum01cc_LuminaireName
                                        <xsd:element name="Lum05_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Fixture Type</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
 Else If Lum05cc_NotApplicableMessage IsPresent
  result = Lum05cc_NotApplicableMessage
@@ -617,7 +619,7 @@ End If</xsd:documentation>
                                        <xsd:element name="Lum06_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Linear Ft of Track</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
 Else If Lum06cc_NotApplicableMessage IsPresent
  result = Lum06cc_NotApplicableMessage
@@ -680,7 +682,7 @@ Else If G03ii01_TrackLightingCurrentLimiterPower NotPresent
                                        <xsd:element name="Lum07_NotApplicableMessage" type="comp:NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">VA of Current Limiter</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
  Else If Lum07cc_NotApplicableMessage IsPresent
  result = Lum07cc_NotApplicableMessage
@@ -738,7 +740,7 @@ Else If G03iii01_TrackLightingBranchCircuitPower NotPresent
                                        <xsd:element name="Lum08_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Voltage of Branch Circuit</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
  Else If Lum08cc_NotApplicableMessage IsPresent
  result = Lum08cc_NotApplicableMessage
@@ -800,7 +802,7 @@ Else  If G03iii02_TrackOvercurrentPanelsTotalPower NotPresent
                                        <xsd:element name="Lum09_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Sum of Ampere Rating [d:sup]1[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
  Else If Lum09cc_NotApplicableMessage IsPresent
  result = Lum09cc_NotApplicableMessage
@@ -863,7 +865,7 @@ Else  If G03iv01_TrackTrackLightingPowerSourceRatedWattage NotPresent
                                        <xsd:element name="Lum10_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Maximum Rated Input Wattage [d:sup]2[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
  Else If Lum10cc_NotApplicableMessage IsPresent
  result = Lum10cc_NotApplicableMessage
@@ -909,7 +911,7 @@ Else  If G03iv01_TrackTrackLightingPowerSourceRatedWattage NotPresent
                                        <xsd:element name="Lum11_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Rated Wattage per luminaire</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
 End If</xsd:documentation>
                                           </xsd:annotation>
@@ -954,7 +956,7 @@ End If</xsd:documentation>
                                        <xsd:element name="Lum12_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
  result = BlankGrayedOut
  End If</xsd:documentation>
                                           </xsd:annotation>
@@ -970,6 +972,8 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Fixture Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
  result = TableIncomplete  
+Else If Lum01_ScopeIncludesFixture == false
+result = NotInScope
 Else If in any row Lum05_LuminaireUse != Lum05cc_LuminaireUse
  result = MayNotComply
  
@@ -1054,191 +1058,225 @@ End If</xsd:documentation>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Ctrl01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                    <xsd:element name="Ctrl01_InMyScope" type="comp:InMyScope" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Is this in your scope?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
+ If result == false Ctrl02cc-Ctrl09cc is displayed but Ctrl03-Ctrl09 As-built fields are blank and grayed out
+And D01_ExceptionalConditionMessageNRCILTIE += CtrlNotInScope  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl02cc_SpaceFunction" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Primary Function Area</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent And  H05_SpaceFunction IsPresent
+                                    <xsd:element name="CtrlScopeChoice" >
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:complexType>
+                                          <xsd:choice >
+                                             <xsd:element name="CtrolScopeNA_NotApplicableMessage" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"></xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">If Ctrol01_InMyScope == false
+result = BlankGrayedOut for Ctrl03-Ctrl09 As-built fields are blank and grayed out fields
+End If</xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
+                                             </xsd:element>
+                                             <xsd:element name="CtrlInScope" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"></xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:complexType>
+                                                   <xsd:sequence>
+                                                      <xsd:element name="Ctrl01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl02cc_SpaceFunction" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Primary Function Area</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent And  H05_SpaceFunction IsPresent
 result = H05_SpaceFunction
 Else If NRCCPRFE parent
  result = LtgControls04_SpaceFunction
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H05_SpaceFunction</dtyp:srcSchema>
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls04_SpaceFunction</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="com:SpaceFunction">
-                                                <xsd:enumeration value="AllOthersSpace"/>
-                                                <xsd:enumeration value="AudienceSeatingArea"/>
-                                                <xsd:enumeration value="AuditoriumArea"/>
-                                                <xsd:enumeration value="AutoRepairArea"/>
-                                                <xsd:enumeration value="BarLoungeFineDiningArea"/>
-                                                <xsd:enumeration value="BeautySalonArea"/>
-                                                <xsd:enumeration value="CivicMeetingPlaceArea"/>
-                                                <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
-                                                <xsd:enumeration value="CommercialIndustrialStorageArea"/>
-                                                <xsd:enumeration value="CommercialIndustrialWarehouse"/>
-                                                <xsd:enumeration value="ConventionConferenceMultipurposeMeetingCenterArea"/>
-                                                <xsd:enumeration value="CopyRoom"/>
-                                                <xsd:enumeration value="CorridorArea"/>
-                                                <xsd:enumeration value="ElectricalMechancialTelephoneRoom"/>
-                                                <xsd:enumeration value="ExerciseCenterGymnasiumArea"/>
-                                                <xsd:enumeration value="ExhibitMuseumArea"/>
-                                                <xsd:enumeration value="FamilyDiningArea"/>
-                                                <xsd:enumeration value="FastfoodDining"/>
-                                                <xsd:enumeration value="FinancialTransactionsArea"/>
-                                                <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaHighBay"/>
-                                                <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaLowBay"/>
-                                                <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaPrecision"/>
-                                                <xsd:enumeration value="GrocerySalesArea"/>
-                                                <xsd:enumeration value="HospitalExamTreatment"/>
-                                                <xsd:enumeration value="HospitalImaging"/>
-                                                <xsd:enumeration value="HospitalMedicalSupply"/>
-                                                <xsd:enumeration value="HospitalNursery"/>
-                                                <xsd:enumeration value="HospitalNurseStation"/>
-                                                <xsd:enumeration value="HospitalOperatingRoom"/>
-                                                <xsd:enumeration value="HospitalPatientRoom"/>
-                                                <xsd:enumeration value="HospitalPhysicalTherapy"/>
-                                                <xsd:enumeration value="HospitalRecovery"/>
-                                                <xsd:enumeration value="HotelFunctionArea"/>
-                                                <xsd:enumeration value="KitchenCommercialFoodPreparation"/>
-                                                <xsd:enumeration value="LaboratoryScientific"/>
-                                                <xsd:enumeration value="Laundry"/>
-                                                <xsd:enumeration value="LibraryReadingArea"/>
-                                                <xsd:enumeration value="LibraryStacks"/>
-                                                <xsd:enumeration value="LobbyMainEntry"/>
-                                                <xsd:enumeration value="LockerDressingRoom"/>
-                                                <xsd:enumeration value="LoungeBreakRoom"/>
-                                                <xsd:enumeration value="LowVisionCorridorArea"/>
-                                                <xsd:enumeration value="LowVisionDiningArea"/>
-                                                <xsd:enumeration value="LowVisionLobbyMainEntry"/>
-                                                <xsd:enumeration value="LowVisionMultipurposeRoom"/>
-                                                <xsd:enumeration value="LowVisionReligiousWorshipArea"/>
-                                                <xsd:enumeration value="LowVisionRestroom"/>
-                                                <xsd:enumeration value="LowVisionStairwell"/>
-                                                <xsd:enumeration value="LowVisionWaitingArea"/>
-                                                <xsd:enumeration value="MuseumRestoration"/>
-                                                <xsd:enumeration value="Office250FtOrLess"/>
-                                                <xsd:enumeration value="OfficeGreaterThan250Ft"/>
-                                                <xsd:enumeration value="OfficeOpenPlan"/>
-                                                <xsd:enumeration value="ParkingGarageAreaDaylightAdaptationZone"/>
-                                                <xsd:enumeration value="ParkingGarageAreaDedicatedRamp"/>
-                                                <xsd:enumeration value="ParkingGarageBuildingParkingArea"/>
-                                                <xsd:enumeration value="PharmacyArea"/>
-                                                <xsd:enumeration value="ReligiousWorshipArea"/>
-                                                <xsd:enumeration value="Restroom"/>
-                                                <xsd:enumeration value="RetailFittingRoom"/>
-                                                <xsd:enumeration value="RetailMallConcourse"/>
-                                                <xsd:enumeration value="RetailSalesArea"/>
-                                                <xsd:enumeration value="SportsArenaSeatsGTE5000ClassI"/>
-                                                <xsd:enumeration value="SportsArenaSeatsLimitedClassIV"/>
-                                                <xsd:enumeration value="SportsArenaSeatsLT2000ClassIII"/>
-                                                <xsd:enumeration value="SportsArenaSeatsLT5000ClassII"/>
-                                                <xsd:enumeration value="Stairwell"/>
-                                                <xsd:enumeration value="TheaterMotionPicture"/>
-                                                <xsd:enumeration value="TheaterPerformance"/>
-                                                <xsd:enumeration value="TransportationFunctionConcourseBaggage"/>
-                                                <xsd:enumeration value="TransportationFunctionTicketing"/>
-                                                <xsd:enumeration value="VideoConferencingStudio"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl02cc_WholeBuildingOccupancy" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Primary Function Area</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent And  H05_WholeBuildingOccupancy IsPresent
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H05_SpaceFunction</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls04_SpaceFunction</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="com:SpaceFunction">
+                                                                  <xsd:enumeration value="AllOthersSpace"/>
+                                                                  <xsd:enumeration value="AudienceSeatingArea"/>
+                                                                  <xsd:enumeration value="AuditoriumArea"/>
+                                                                  <xsd:enumeration value="AutoRepairArea"/>
+                                                                  <xsd:enumeration value="BarLoungeFineDiningArea"/>
+                                                                  <xsd:enumeration value="BeautySalonArea"/>
+                                                                  <xsd:enumeration value="CivicMeetingPlaceArea"/>
+                                                                  <xsd:enumeration value="ClassroomLectureTrainingVocationalArea"/>
+                                                                  <xsd:enumeration value="CommercialIndustrialStorageArea"/>
+                                                                  <xsd:enumeration value="CommercialIndustrialWarehouse"/>
+                                                                  <xsd:enumeration value="ConventionConferenceMultipurposeMeetingCenterArea"/>
+                                                                  <xsd:enumeration value="CopyRoom"/>
+                                                                  <xsd:enumeration value="CorridorArea"/>
+                                                                  <xsd:enumeration value="ElectricalMechancialTelephoneRoom"/>
+                                                                  <xsd:enumeration value="ExerciseCenterGymnasiumArea"/>
+                                                                  <xsd:enumeration value="ExhibitMuseumArea"/>
+                                                                  <xsd:enumeration value="FamilyDiningArea"/>
+                                                                  <xsd:enumeration value="FastfoodDining"/>
+                                                                  <xsd:enumeration value="FinancialTransactionsArea"/>
+                                                                  <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaHighBay"/>
+                                                                  <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaLowBay"/>
+                                                                  <xsd:enumeration value="GeneralCommercialIndustrialWorkAreaPrecision"/>
+                                                                  <xsd:enumeration value="GrocerySalesArea"/>
+                                                                  <xsd:enumeration value="HospitalExamTreatment"/>
+                                                                  <xsd:enumeration value="HospitalImaging"/>
+                                                                  <xsd:enumeration value="HospitalMedicalSupply"/>
+                                                                  <xsd:enumeration value="HospitalNursery"/>
+                                                                  <xsd:enumeration value="HospitalNurseStation"/>
+                                                                  <xsd:enumeration value="HospitalOperatingRoom"/>
+                                                                  <xsd:enumeration value="HospitalPatientRoom"/>
+                                                                  <xsd:enumeration value="HospitalPhysicalTherapy"/>
+                                                                  <xsd:enumeration value="HospitalRecovery"/>
+                                                                  <xsd:enumeration value="HotelFunctionArea"/>
+                                                                  <xsd:enumeration value="KitchenCommercialFoodPreparation"/>
+                                                                  <xsd:enumeration value="LaboratoryScientific"/>
+                                                                  <xsd:enumeration value="Laundry"/>
+                                                                  <xsd:enumeration value="LibraryReadingArea"/>
+                                                                  <xsd:enumeration value="LibraryStacks"/>
+                                                                  <xsd:enumeration value="LobbyMainEntry"/>
+                                                                  <xsd:enumeration value="LockerDressingRoom"/>
+                                                                  <xsd:enumeration value="LoungeBreakRoom"/>
+                                                                  <xsd:enumeration value="LowVisionCorridorArea"/>
+                                                                  <xsd:enumeration value="LowVisionDiningArea"/>
+                                                                  <xsd:enumeration value="LowVisionLobbyMainEntry"/>
+                                                                  <xsd:enumeration value="LowVisionMultipurposeRoom"/>
+                                                                  <xsd:enumeration value="LowVisionReligiousWorshipArea"/>
+                                                                  <xsd:enumeration value="LowVisionRestroom"/>
+                                                                  <xsd:enumeration value="LowVisionStairwell"/>
+                                                                  <xsd:enumeration value="LowVisionWaitingArea"/>
+                                                                  <xsd:enumeration value="MuseumRestoration"/>
+                                                                  <xsd:enumeration value="Office250FtOrLess"/>
+                                                                  <xsd:enumeration value="OfficeGreaterThan250Ft"/>
+                                                                  <xsd:enumeration value="OfficeOpenPlan"/>
+                                                                  <xsd:enumeration value="ParkingGarageAreaDaylightAdaptationZone"/>
+                                                                  <xsd:enumeration value="ParkingGarageAreaDedicatedRamp"/>
+                                                                  <xsd:enumeration value="ParkingGarageBuildingParkingArea"/>
+                                                                  <xsd:enumeration value="PharmacyArea"/>
+                                                                  <xsd:enumeration value="ReligiousWorshipArea"/>
+                                                                  <xsd:enumeration value="Restroom"/>
+                                                                  <xsd:enumeration value="RetailFittingRoom"/>
+                                                                  <xsd:enumeration value="RetailMallConcourse"/>
+                                                                  <xsd:enumeration value="RetailSalesArea"/>
+                                                                  <xsd:enumeration value="SportsArenaSeatsGTE5000ClassI"/>
+                                                                  <xsd:enumeration value="SportsArenaSeatsLimitedClassIV"/>
+                                                                  <xsd:enumeration value="SportsArenaSeatsLT2000ClassIII"/>
+                                                                  <xsd:enumeration value="SportsArenaSeatsLT5000ClassII"/>
+                                                                  <xsd:enumeration value="Stairwell"/>
+                                                                  <xsd:enumeration value="TheaterMotionPicture"/>
+                                                                  <xsd:enumeration value="TheaterPerformance"/>
+                                                                  <xsd:enumeration value="TransportationFunctionConcourseBaggage"/>
+                                                                  <xsd:enumeration value="TransportationFunctionTicketing"/>
+                                                                  <xsd:enumeration value="VideoConferencingStudio"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl02cc_WholeBuildingOccupancy" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Primary Function Area</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent And  H05_WholeBuildingOccupancy IsPresent
 result = H05_WholeBuildingOccupancy
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H05_WholeBuildingOccupancy</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="com:WholeBuildingOccupancy">
-                                                <xsd:enumeration value="AllOthersBuildings"/>
-                                                <xsd:enumeration value="AssemblyBuilding"/>
-                                                <xsd:enumeration value="FinancialInstitutionBuilding"/>
-                                                <xsd:enumeration value="GroceryStoreBuilding"/>
-                                                <xsd:enumeration value="GymnasiumBuilding"/>
-                                                <xsd:enumeration value="HospitalBuilding"/>
-                                                <xsd:enumeration value="LibraryBuilding"/>
-                                                <xsd:enumeration value="ManufacturingFacilityBuilding"/>
-                                                <xsd:enumeration value="MotionPictureBuilding"/>
-                                                <xsd:enumeration value="OfficeBuilding"/>
-                                                <xsd:enumeration value="ParkingGarageBuilding"/>
-                                                <xsd:enumeration value="PerformingArtsTheaterBuilding"/>
-                                                <xsd:enumeration value="ReligiousFacilityBuilding"/>
-                                                <xsd:enumeration value="RestaurantBuilding"/>
-                                                <xsd:enumeration value="RetailBuilding"/>
-                                                <xsd:enumeration value="SchoolBuilding"/>
-                                                <xsd:enumeration value="SportsArenaBuilding"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl02cc_NotApplicableMessage" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Primary Function Area</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent And  H05_NotApplicableMessage IsPresent 
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H05_WholeBuildingOccupancy</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="com:WholeBuildingOccupancy">
+                                                                  <xsd:enumeration value="AllOthersBuildings"/>
+                                                                  <xsd:enumeration value="AssemblyBuilding"/>
+                                                                  <xsd:enumeration value="FinancialInstitutionBuilding"/>
+                                                                  <xsd:enumeration value="GroceryStoreBuilding"/>
+                                                                  <xsd:enumeration value="GymnasiumBuilding"/>
+                                                                  <xsd:enumeration value="HospitalBuilding"/>
+                                                                  <xsd:enumeration value="LibraryBuilding"/>
+                                                                  <xsd:enumeration value="ManufacturingFacilityBuilding"/>
+                                                                  <xsd:enumeration value="MotionPictureBuilding"/>
+                                                                  <xsd:enumeration value="OfficeBuilding"/>
+                                                                  <xsd:enumeration value="ParkingGarageBuilding"/>
+                                                                  <xsd:enumeration value="PerformingArtsTheaterBuilding"/>
+                                                                  <xsd:enumeration value="ReligiousFacilityBuilding"/>
+                                                                  <xsd:enumeration value="RestaurantBuilding"/>
+                                                                  <xsd:enumeration value="RetailBuilding"/>
+                                                                  <xsd:enumeration value="SchoolBuilding"/>
+                                                                  <xsd:enumeration value="SportsArenaBuilding"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl02cc_NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Primary Function Area</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent And  H05_NotApplicableMessage IsPresent 
 result = BlankGrayedOut
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">H05_NotApplicableMessage</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:NotApplicableMessage">
-                                                <xsd:enumeration value="BlankGrayedOut"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl03cc_MandatoryLightingDemandResponseNR" type="comp:MandatoryLightingDemandResponseNR" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">H05_NotApplicableMessage</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl03cc_MandatoryLightingDemandResponseNR" type="comp:MandatoryLightingDemandResponseNR" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
 result = H01_MandatoryLightingDemandResponseNR
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="RequiredGT10000SF">Provided</dtyp:displayterm>
-                                                <dtyp:displayterm value="NotRequiredLTE10000SF">NA: Building [d:lt/]10,000SF</dtyp:displayterm>
-                                                <dtyp:displayterm value="NotRequiredLTE0_5WperSF"> NA: Space [d:lte/]0.5W/SF</dtyp:displayterm>
-                                                <dtyp:displayterm value="NotRequiredInstallingAsPAF">Installing As PAF</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H01_MandatoryLightingDemandResponseNR</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl03cc_MandatoryBuildingDemandResponseControlRequired" type="comp:MandatoryBuildingDemandResponseControlRequired" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="RequiredGT10000SF">Provided</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="NotRequiredLTE10000SF">NA: Building [d:lt/]10,000SF</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="NotRequiredLTE0_5WperSF"> NA: Space [d:lte/]0.5W/SF</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="NotRequiredInstallingAsPAF">Installing As PAF</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H01_MandatoryLightingDemandResponseNR</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl03cc_MandatoryBuildingDemandResponseControlRequired" type="comp:MandatoryBuildingDemandResponseControlRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
  result = LtgControls01_MandatoryBuildingDemandResponseControlRequired
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls01_MandatoryBuildingDemandResponseControlRequired</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="Ctrl03_MandatoryLightingDemandResponseNR" type="comp:MandatoryLightingDemandResponseNR" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls01_MandatoryBuildingDemandResponseControlRequired</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="Ctrl03_MandatoryLightingDemandResponseNR" type="comp:MandatoryLightingDemandResponseNR" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl03cc_MandatoryLightingDemandResponseNR IsPresent
 result = Ctrl03cc_MandatoryLightingDemandResponseNR
 Else If Ctrl03cc_MandatoryBuildingDemandResponseControlRequired IsPresent
@@ -1247,47 +1285,47 @@ End If
 Else If Ctrl01_InstalledSameAsCC == false
 User selects from dropdown list 
 End If</xsd:documentation>
-                                          <xsd:appinfo source="displayterm">
-                                             <dtyp:displayterm value="RequiredGT10000SF">Provided</dtyp:displayterm>
-                                             <dtyp:displayterm value="NotRequiredLTE10000SF">NA: Building [d:lt/]10,000SF</dtyp:displayterm>
-                                             <dtyp:displayterm value="NotRequiredLTE0_5WperSF"> NA: Space [d:lte/]0.5W/SF</dtyp:displayterm>
-                                             <dtyp:displayterm value="NotRequiredInstallingAsPAF">Installing PAF</dtyp:displayterm>
-                                          </xsd:appinfo>
-                                          
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl04cc_AreaControlsCompliance" type="comp:AreaControlsCompliance" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Area Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="RequiredGT10000SF">Provided</dtyp:displayterm>
+                                                               <dtyp:displayterm value="NotRequiredLTE10000SF">NA: Building [d:lt/]10,000SF</dtyp:displayterm>
+                                                               <dtyp:displayterm value="NotRequiredLTE0_5WperSF"> NA: Space [d:lte/]0.5W/SF</dtyp:displayterm>
+                                                               <dtyp:displayterm value="NotRequiredInstallingAsPAF">Installing PAF</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl04cc_AreaControlsCompliance" type="comp:AreaControlsCompliance" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Area Controls</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
 result = H06_AreaControlsCompliance
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H06_AreaControlsCompliance</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl04cc_MandatoryAreaControlsRequired" type="comp:MandatoryAreaControlsRequired" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Area Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H06_AreaControlsCompliance</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl04cc_MandatoryAreaControlsRequired" type="comp:MandatoryAreaControlsRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Area Controls</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
  result = LtgControls05_MandatoryAreaControlsRequired
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls05_MandatoryAreaControlsRequired</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="Ctrl04_AreaControlsCompliance" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Area Controls</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls05_MandatoryAreaControlsRequired</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="Ctrl04_AreaControlsCompliance" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Area Controls</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl04cc_AreaControlsCompliance  IsPresent
 result = Ctrl04cc_AreaControlsCompliance
 Else If Ctrl04cc_MandatoryAreaControlsRequired IsPresent
@@ -1296,56 +1334,56 @@ End If
 Else If Ctrl01_InstalledSameAsCC == false
 User selects from dropdown list 
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:AreaControlsCompliance">
-                                             <xsd:enumeration value="AnnunciatedAreaControl"/>
-                                             <xsd:enumeration value="AuthorizedPersonnelAreaControl"/>
-                                             <xsd:enumeration value="ManualOnOff"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl05cc_MultilevelControls" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Multi-Level Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:AreaControlsCompliance">
+                                                               <xsd:enumeration value="AnnunciatedAreaControl"/>
+                                                               <xsd:enumeration value="AuthorizedPersonnelAreaControl"/>
+                                                               <xsd:enumeration value="ManualOnOff"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl05cc_MultilevelControls" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Multi-Level Controls</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
 result = H07_MultilevelControls 
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H07_MultilevelControls</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:MultilevelControls">
-                                                <xsd:enumeration value="BilevelSwitchControl"/>
-                                                <xsd:enumeration value="DimmerControl"/>
-                                                <xsd:enumeration value="MultilevelControlsExempt"/>
-                                                <xsd:enumeration value="MultilevelControlsOther"/>
-                                                <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl05cc_MandatoryMultiLevelControlRequired" type="comp:MandatoryMultiLevelControlRequired" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Multi-Level Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H07_MultilevelControls</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:MultilevelControls">
+                                                                  <xsd:enumeration value="BilevelSwitchControl"/>
+                                                                  <xsd:enumeration value="DimmerControl"/>
+                                                                  <xsd:enumeration value="MultilevelControlsExempt"/>
+                                                                  <xsd:enumeration value="MultilevelControlsOther"/>
+                                                                  <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl05cc_MandatoryMultiLevelControlRequired" type="comp:MandatoryMultiLevelControlRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Multi-Level Controls</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
 result =  LtgControls06_MandatoryMultiLevelControlRequired
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls06_MandatoryMultiLevelControlRequired</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="Ctrl05_MultilevelControls" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Multi-Level Controls</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls06_MandatoryMultiLevelControlRequired</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="Ctrl05_MultilevelControls" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Multi-Level Controls</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl05cc_MultilevelControls  IsPresent
 result = Ctrl05cc_MultilevelControls
 Else If Ctrl05cc_MandatoryMultiLevelControlRequired IsPresent
@@ -1354,63 +1392,63 @@ End If
 Else If Ctrl01_InstalledSameAsCC == false
 User selects from dropdown list 
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:MultilevelControls">
-                                             <xsd:enumeration value="BilevelSwitchControl"/>
-                                             <xsd:enumeration value="DimmerControl"/>
-                                             <xsd:enumeration value="HealthcareNA"/>
-                                             <xsd:enumeration value="LumLT2LampsNA"/>
-                                             <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                             <xsd:enumeration value="RestroomsNA"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl06cc_ShutOffControlsArea" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:MultilevelControls">
+                                                               <xsd:enumeration value="BilevelSwitchControl"/>
+                                                               <xsd:enumeration value="DimmerControl"/>
+                                                               <xsd:enumeration value="HealthcareNA"/>
+                                                               <xsd:enumeration value="LumLT2LampsNA"/>
+                                                               <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
+                                                               <xsd:enumeration value="RestroomsNA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl06cc_ShutOffControlsArea" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
 result = H08_ShutOffControlsArea
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H08_ShutOffControlsArea</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:ShutOffControlsArea">
-                                                <xsd:enumeration value="AutomaticTimerSwitch"/>
-                                                <xsd:enumeration value="BuildingLevelShutOffControl"/>
-                                                <xsd:enumeration value="EMCS"/>
-                                                <xsd:enumeration value="ExemptShutOffControl"/>
-                                                <xsd:enumeration value="OccupancySensor"/>
-                                                <xsd:enumeration value="OtherShutOffControl"/>
-                                                <xsd:enumeration value="PartialOffShutOffControl"/>
-                                                <xsd:enumeration value="PartialOnShutOffControl"/>
-                                                <xsd:enumeration value="VacancyShutOffControl"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl06cc_MandatoryBuildingShutOffControlRequired" type="comp:MandatoryBuildingShutOffControlRequired" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H08_ShutOffControlsArea</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:ShutOffControlsArea">
+                                                                  <xsd:enumeration value="AutomaticTimerSwitch"/>
+                                                                  <xsd:enumeration value="BuildingLevelShutOffControl"/>
+                                                                  <xsd:enumeration value="EMCS"/>
+                                                                  <xsd:enumeration value="ExemptShutOffControl"/>
+                                                                  <xsd:enumeration value="OccupancySensor"/>
+                                                                  <xsd:enumeration value="OtherShutOffControl"/>
+                                                                  <xsd:enumeration value="PartialOffShutOffControl"/>
+                                                                  <xsd:enumeration value="PartialOnShutOffControl"/>
+                                                                  <xsd:enumeration value="VacancyShutOffControl"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl06cc_MandatoryBuildingShutOffControlRequired" type="comp:MandatoryBuildingShutOffControlRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
 result =  LtgControls02_MandatoryBuildingShutOffControlRequired
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls02_MandatoryBuildingShutOffControlRequired</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="Ctrl06_ShutOffControlsArea" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls02_MandatoryBuildingShutOffControlRequired</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="Ctrl06_ShutOffControlsArea" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl06cc_ShutOffControlsArea  IsPresent
 result = Ctrl06cc_ShutOffControlsArea
 Else If Ctrl06cc_MandatoryBuildingShutOffControlRequired IsPresent
@@ -1419,60 +1457,60 @@ End If
 Else If Ctrl01_InstalledSameAsCC == false
 User selects from dropdown list 
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:ShutOffControlsArea">
-                                             <xsd:enumeration value="AutomaticTimerSwitch"/>
-                                             <xsd:enumeration value="BuildingLevelShutOffControl"/>
-                                             <xsd:enumeration value="EMCS"/>
-                                             <xsd:enumeration value="HealthcareNA"/>
-                                             <xsd:enumeration value="OccupancySensor"/>
-                                             <xsd:enumeration value="PartialOffShutOffControl"/>
-                                             <xsd:enumeration value="PartialOnShutOffControl"/>
-                                             <xsd:enumeration value="VacancyShutOffControl"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl07cc_PrimarySkylitDaylightControlsIncluded" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Primary/Skylit Daylighting</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:ShutOffControlsArea">
+                                                               <xsd:enumeration value="AutomaticTimerSwitch"/>
+                                                               <xsd:enumeration value="BuildingLevelShutOffControl"/>
+                                                               <xsd:enumeration value="EMCS"/>
+                                                               <xsd:enumeration value="HealthcareNA"/>
+                                                               <xsd:enumeration value="OccupancySensor"/>
+                                                               <xsd:enumeration value="PartialOffShutOffControl"/>
+                                                               <xsd:enumeration value="PartialOnShutOffControl"/>
+                                                               <xsd:enumeration value="VacancyShutOffControl"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl07cc_PrimarySkylitDaylightControlsIncluded" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Primary/Skylit Daylighting</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
 result = H09_PrimarySkylitDaylightControlsIncluded
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H09_PrimarySkylitDaylightControlsIncluded</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:PrimarySkylitDaylightControlsIncluded">
-                                                <xsd:enumeration value="Exempt"/>
-                                                <xsd:enumeration value="Included"/>
-                                                <xsd:enumeration value="NA"/>
-                                                <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl07cc_MandatoryPrimaryDaylightingControlRequired" type="comp:MandatoryPrimaryDaylightingControlRequired" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Primary/Skylit Daylighting</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H09_PrimarySkylitDaylightControlsIncluded</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:PrimarySkylitDaylightControlsIncluded">
+                                                                  <xsd:enumeration value="Exempt"/>
+                                                                  <xsd:enumeration value="Included"/>
+                                                                  <xsd:enumeration value="NA"/>
+                                                                  <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl07cc_MandatoryPrimaryDaylightingControlRequired" type="comp:MandatoryPrimaryDaylightingControlRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Primary/Skylit Daylighting</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
 result = LtgControls08_MandatoryPrimaryDaylightingControlRequired
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls08_MandatoryPrimaryDaylightingControlRequired</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="Ctrl07_PrimarySkylitDaylightControlsIncluded" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Primary/Skylit Daylighting</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls08_MandatoryPrimaryDaylightingControlRequired</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="Ctrl07_PrimarySkylitDaylightControlsIncluded" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Primary/Skylit Daylighting</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl07cc_PrimarySkylitDaylightControlsIncluded  IsPresent
 result = Ctrl07cc_PrimarySkylitDaylightControlsIncluded
 Else If Ctrl07cc_MandatoryPrimaryDaylightingControlRequired IsPresent
@@ -1481,67 +1519,67 @@ End If
 Else If Ctrl01_InstalledSameAsCC == false
 User selects from dropdown list 
 End If</xsd:documentation>
-                                          <xsd:appinfo source="displayterm">
-                                             <dtyp:displayterm value="Included">Provided</dtyp:displayterm>
-                                          </xsd:appinfo>
-                                          
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:PrimarySkylitDaylightControlsIncluded">
-                                             <xsd:enumeration value="DaylitAppZoneNA"/>
-                                             <xsd:enumeration value="GarageGlazingLT36Ft2NA"/>
-                                             <xsd:enumeration value="GarageLT60NA"/>
-                                             <xsd:enumeration value="GlazingLT24Ft2NA"/>
-                                             <xsd:enumeration value="Included"/>
-                                             <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                             <xsd:enumeration value="NotDaylitZoneNA"/>
-                                             <xsd:enumeration value="OverhangRatioNA"/>
-                                             <xsd:enumeration value="PrimaryLT120NA"/>
-                                             <xsd:enumeration value="RetailNA"/>
-                                             <xsd:enumeration value="SunLT1500HrNA"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl08cc_SecondaryDaylightControlsIncluded" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Secondary Daylighting</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="Included">Provided</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:PrimarySkylitDaylightControlsIncluded">
+                                                               <xsd:enumeration value="DaylitAppZoneNA"/>
+                                                               <xsd:enumeration value="GarageGlazingLT36Ft2NA"/>
+                                                               <xsd:enumeration value="GarageLT60NA"/>
+                                                               <xsd:enumeration value="GlazingLT24Ft2NA"/>
+                                                               <xsd:enumeration value="Included"/>
+                                                               <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
+                                                               <xsd:enumeration value="NotDaylitZoneNA"/>
+                                                               <xsd:enumeration value="OverhangRatioNA"/>
+                                                               <xsd:enumeration value="PrimaryLT120NA"/>
+                                                               <xsd:enumeration value="RetailNA"/>
+                                                               <xsd:enumeration value="SunLT1500HrNA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl08cc_SecondaryDaylightControlsIncluded" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Secondary Daylighting</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
 result = H10_SecondaryDaylightControlsIncluded
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H10_SecondaryDaylightControlsIncluded</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:SecondaryDaylightControlsIncluded">
-                                                <xsd:enumeration value="Exempt"/>
-                                                <xsd:enumeration value="Included"/>
-                                                <xsd:enumeration value="NA"/>
-                                                <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl08cc_MandatorySecondaryDaylightingControlRequired" type="comp:MandatorySecondaryDaylightingControlRequired" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Secondary Daylighting</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H10_SecondaryDaylightControlsIncluded</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:SecondaryDaylightControlsIncluded">
+                                                                  <xsd:enumeration value="Exempt"/>
+                                                                  <xsd:enumeration value="Included"/>
+                                                                  <xsd:enumeration value="NA"/>
+                                                                  <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl08cc_MandatorySecondaryDaylightingControlRequired" type="comp:MandatorySecondaryDaylightingControlRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Secondary Daylighting</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
 result = LtgControls09_MandatorySecondaryDaylightingControlRequired
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls09_MandatorySecondaryDaylightingControlRequired</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="Ctrl08_SecondaryDaylightControlsIncluded" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Secondary Daylighting</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="Required">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgControls09_MandatorySecondaryDaylightingControlRequired</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:element name="Ctrl08_SecondaryDaylightControlsIncluded" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Secondary Daylighting</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl08cc_SecondaryDaylightControlsIncluded  IsPresent
 result = Ctrl08cc_SecondaryDaylightControlsIncluded
 Else If Ctrl08cc_MandatorySecondaryDaylightingControlRequired IsPresent
@@ -1550,96 +1588,103 @@ End If
 Else If Ctrl01_InstalledSameAsCC == false
 User selects from dropdown list 
 End If</xsd:documentation>
-                                          <xsd:appinfo source="displayterm">
-                                             <dtyp:displayterm value="Included">Provided</dtyp:displayterm>
-                                          </xsd:appinfo>
-                                          
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:SecondaryDaylightControlsIncluded">
-                                             <xsd:enumeration value="GarageGlazingLT36Ft2NA"/>
-                                             <xsd:enumeration value="GaragePrimDayLitNA"/>
-                                             <xsd:enumeration value="GlazingLT24Ft2NA"/>
-                                             <xsd:enumeration value="Included"/>
-                                             <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                             <xsd:enumeration value="NotDaylitZoneNA"/>
-                                             <xsd:enumeration value="OverhangRatioNA"/>
-                                             <xsd:enumeration value="PrimSecondaryLT240NA"/>
-                                             <xsd:enumeration value="RetailNA"/>
-                                             <xsd:enumeration value="SecondaryLT120NA"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl09cc_InterlockedLightingSystems" type="lit:InterlockedLightingSystems" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="Included">Provided</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:SecondaryDaylightControlsIncluded">
+                                                               <xsd:enumeration value="GarageGlazingLT36Ft2NA"/>
+                                                               <xsd:enumeration value="GaragePrimDayLitNA"/>
+                                                               <xsd:enumeration value="GlazingLT24Ft2NA"/>
+                                                               <xsd:enumeration value="Included"/>
+                                                               <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
+                                                               <xsd:enumeration value="NotDaylitZoneNA"/>
+                                                               <xsd:enumeration value="OverhangRatioNA"/>
+                                                               <xsd:enumeration value="PrimSecondaryLT240NA"/>
+                                                               <xsd:enumeration value="RetailNA"/>
+                                                               <xsd:enumeration value="SecondaryLT120NA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl09cc_InterlockedLightingSystems" type="lit:InterlockedLightingSystems" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
 result = H11_InterlockedLightingSystems
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="true">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H11_InterlockedLightingSystems</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl09cc_NotApplicableMessage" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="true">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">H11_InterlockedLightingSystems</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl09cc_NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent
 result = BlankGrayedOut
 End If</xsd:documentation>
-                                             <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
-                                             </xsd:appinfo>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:NotApplicableMessage">
-                                                <xsd:enumeration value="BlankGrayedOut"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Ctrl09_InterlockedLightingSystems" type="lit:InterlockedLightingSystems" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
+                                                               </xsd:appinfo>
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Ctrl09_InterlockedLightingSystems" type="lit:InterlockedLightingSystems" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl09cc_InterlockedLightingSystems IsPresent
 result = Ctrl09cc_InterlockedLightingSystems
 End If
 Else If Ctrl01_InstalledSameAsCC == false
 User selects from dropdown list 
 End If</xsd:documentation>
-                                             <xsd:appinfo source="displayterm">
-                                                <dtyp:displayterm value="true">Provided</dtyp:displayterm>
-                                             </xsd:appinfo>
-                                             
-                                          </xsd:annotation>
-                                       </xsd:element>
-                                       <xsd:element name="Ctrl09_NotApplicableMessage" >
-                                          <xsd:annotation>
-                                             <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Ctrl09cc_NotApplicableMessage IsPresent
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="true">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Ctrl09_NotApplicableMessage" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Interlocked Systems</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Ctrl09cc_NotApplicableMessage IsPresent
 result = Ctrl09cc_NotApplicableMessage 
 End If</xsd:documentation>
-                                          </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:NotApplicableMessage">
-                                                <xsd:enumeration value="BlankGrayedOut"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
-                                       </xsd:element>
-                                    </xsd:choice>
-                                    <xsd:element name="Ctrl10_ComplianceResultNRCI" type="comp:ComplianceResultNRCI"  minOccurs="0">
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:NotApplicableMessage">
+                                                                  <xsd:enumeration value="BlankGrayedOut"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
+                                                   </xsd:sequence>
+                                                </xsd:complexType>
+                                             </xsd:element>
+                                          </xsd:choice>
+                                       </xsd:complexType>
+                                    </xsd:element>
+                                    <xsd:element name="Ctrl10_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Controls compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
  result = TableIncomplete  
- 
+Else If Ctrol01_InMyScope == false
+result = NotInScope 
 Else If all following conditions are true for all rows
 Condition 1
 Ctrl03cc_MandatoryLightingDemandResponseNR IsPresent  And Ctrl03cc_MandatoryLightingDemandResponseNR == Ctrl03_MandatoryLightingDemandResponseNR

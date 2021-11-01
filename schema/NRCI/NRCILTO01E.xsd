@@ -173,9 +173,9 @@ End If</xsd:documentation>
  Else If ComplianceResultNRCI == MayNotComply
  result = MayNotComply
   
- Else If All require tables or subsections in Section F  have  ComplianceResultNRCI ==  ExactMatch
+ Else If All required tables or subsections in Section F  have  a combination of ComplianceResultNRCI ==  ExactMatch or NotInScope
  result = ExactMatch
- Else If any have ComplianceResultNRCI ==  EqualBetter
+ Else If All required tables or subsections in Section F  have  a combination of ComplianceResultNRCI ==  EqualBetter or ExactMatch or NotInScope
  result = EqualBetter
  End If</xsd:documentation>
                      </xsd:annotation>
@@ -297,7 +297,9 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Fixture Within Scope?</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User input
- If result == false  Lum03cc-Lum08cc is displayed but Lum03-Lum09 As-built cells are blank and grayed out</xsd:documentation>
+ If result == false  Lum03cc-Lum08cc is displayed but Lum03-Lum09 As-built cells are blank and grayed out
+And D01_ExceptionalConditionMessageNRCILTOE += LumNotInScope  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
                                     <xsd:element name="Lum03cc_LuminaireDescription" type="lit:LuminaireDescription" >
@@ -673,7 +675,10 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Fixture Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any required field is blank
- result = TableIncomplete  
+ result = TableIncomplete   
+Else If Lum02_ScopeIncludesFixture == false
+result = NotInScope
+ 
 Else If Lum07_LuminairePowerByType IsPresent 
 If  Lum07_LuminairePowerByType LT  Lum07cc_LuminairePowerByType 
  result = MayNotComply
@@ -981,35 +986,69 @@ End If</xsd:documentation>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Ctrl01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                    <xsd:element name="Ctrl01_InMyScope" type="comp:InMyScope" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Is this in your scope?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
+ If result == false Ctrl02cc-Ctrl04cc is displayed but Ctrl02-Ctrl04 As-built fields are blank and grayed out
+And D01_ExceptionalConditionMessageNRCILTOE += CtrlNotInScope  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Ctrl02cc_ShutOffControlsOutdoors" >
+                                    <xsd:element name="CtrlScopeChoice" >
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+                                          <xsd:documentation source="FieldText"></xsd:documentation>
+                                       </xsd:annotation>
+                                       <xsd:complexType>
+                                          <xsd:choice >
+                                             <xsd:element name="CtrlScopeNA_NotApplicableMessage" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"></xsd:documentation>
+                                                   <xsd:documentation source="CalculationsAndRules">If Ctrl01_InMyScope == false
+result = BlankGrayedOut for Ctrl02-Ctrl04 As-built fields are blank and grayed out fields
+End If</xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
+                                             </xsd:element>
+                                             <xsd:element name="CtrlInScope" >
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"></xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:complexType>
+                                                   <xsd:sequence>
+                                                      <xsd:element name="Ctrl01_InstalledSameAsCC" type="comp:InstalledSameAsCC"  minOccurs="0">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Ctrl02cc_ShutOffControlsOutdoors" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
 result = H02_ShutOffControlsOutdoors
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTO01E"  usage="copy">H02_ShutOffControlsOutdoors</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:ShutOffControlsOutdoors">
-                                             <xsd:enumeration value="AstronomicalTimer"/>
-                                             <xsd:enumeration value="Exempt"/>
-                                             <xsd:enumeration value="Other"/>
-                                             <xsd:enumeration value="Photocontrol"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:element name="Ctrl02_ShutOffControlsOutdoors" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTO01E"  usage="copy">H02_ShutOffControlsOutdoors</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:ShutOffControlsOutdoors">
+                                                               <xsd:enumeration value="AstronomicalTimer"/>
+                                                               <xsd:enumeration value="Exempt"/>
+                                                               <xsd:enumeration value="Other"/>
+                                                               <xsd:enumeration value="Photocontrol"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:element name="Ctrl02_ShutOffControlsOutdoors" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl02cc_ShutOffControlsOutdoors != Exempt Or Other
 result = Ctrl02cc_ShutOffControlsOutdoors
 Else
@@ -1018,38 +1057,38 @@ End If
 Else
 User selects from list
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:ShutOffControlsOutdoors">
-                                             <xsd:enumeration value="AstronomicalTimer"/>
-                                             <xsd:enumeration value="NotPermittedNA"/>
-                                             <xsd:enumeration value="Photocontrol"/>
-                                             <xsd:enumeration value="TunnelsNA"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:element name="Ctrl03cc_AutoScheduleControlsOutdoors" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Auto-Schedule</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:ShutOffControlsOutdoors">
+                                                               <xsd:enumeration value="AstronomicalTimer"/>
+                                                               <xsd:enumeration value="NotPermittedNA"/>
+                                                               <xsd:enumeration value="Photocontrol"/>
+                                                               <xsd:enumeration value="TunnelsNA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:element name="Ctrl03cc_AutoScheduleControlsOutdoors" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Auto-Schedule</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
 result = H03_AutoScheduleControlsOutdoors
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTO01E"  usage="copy">H03_AutoScheduleControlsOutdoors</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:AutoScheduleControlsOutdoors">
-                                             <xsd:enumeration value="AutoSchedule"/>
-                                             <xsd:enumeration value="EMCS"/>
-                                             <xsd:enumeration value="Exempt"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:element name="Ctrl03_AutoScheduleControlsOutdoors" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Auto-Schedule</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTO01E"  usage="copy">H03_AutoScheduleControlsOutdoors</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:AutoScheduleControlsOutdoors">
+                                                               <xsd:enumeration value="AutoSchedule"/>
+                                                               <xsd:enumeration value="EMCS"/>
+                                                               <xsd:enumeration value="Exempt"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:element name="Ctrl03_AutoScheduleControlsOutdoors" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Auto-Schedule</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl03cc_AutoScheduleControlsOutdoors != Exempt 
 result = Ctrl03cc_AutoScheduleControlsOutdoors
 Else
@@ -1058,39 +1097,39 @@ End If
 Else
 User selects from list
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:AutoScheduleControlsOutdoors">
-                                             <xsd:enumeration value="AutoSchedule"/>
-                                             <xsd:enumeration value="EMCS"/>
-                                             <xsd:enumeration value="NotPermittedNA"/>
-                                             <xsd:enumeration value="TunnelsNA"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:element name="Ctrl04cc_MotionSensorCompliance" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Motion Sensor</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:AutoScheduleControlsOutdoors">
+                                                               <xsd:enumeration value="AutoSchedule"/>
+                                                               <xsd:enumeration value="EMCS"/>
+                                                               <xsd:enumeration value="NotPermittedNA"/>
+                                                               <xsd:enumeration value="TunnelsNA"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:element name="Ctrl04cc_MotionSensorCompliance" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Motion Sensor</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If NRCCLTOE parent
 result = H04_MotionSensorCompliance
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTO01E"  usage="copy">H04_MotionSensorCompliance</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:MotionSensorCompliance">
-                                             <xsd:enumeration value="Exempt"/>
-                                             <xsd:enumeration value="FacadeGTE24Ft"/>
-                                             <xsd:enumeration value="MotionSensorCompliant"/>
-                                             <xsd:enumeration value="WallGTE24Ft"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
-                                    </xsd:element>
-                                    <xsd:element name="Ctrl04_MotionSensorCompliance" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Motion Sensor</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTO01E"  usage="copy">H04_MotionSensorCompliance</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:MotionSensorCompliance">
+                                                               <xsd:enumeration value="Exempt"/>
+                                                               <xsd:enumeration value="FacadeGTE24Ft"/>
+                                                               <xsd:enumeration value="MotionSensorCompliant"/>
+                                                               <xsd:enumeration value="WallGTE24Ft"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                      <xsd:element name="Ctrl04_MotionSensorCompliance" >
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Motion Sensor</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
 If Ctrl04cc_MotionSensorCompliance != Exempt 
 result = Ctrl04cc_MotionSensorCompliance
 Else
@@ -1099,34 +1138,42 @@ End If
 Else
 User selects from list
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                       <xsd:simpleType>
-                                          <xsd:restriction base="comp:MotionSensorCompliance">
-                                             <xsd:enumeration value="AthleticNA"/>
-                                             <xsd:enumeration value="FacadeGTE24Ft"/>
-                                             <xsd:enumeration value="HistoricBuildingNA"/>
-                                             <xsd:enumeration value="IndustrialNA"/>
-                                             <xsd:enumeration value="LandscapeNA"/>
-                                             <xsd:enumeration value="LuminaireLT40NA"/>
-                                             <xsd:enumeration value="MonumentNA"/>
-                                             <xsd:enumeration value="MotionSensorCompliant"/>
-                                             <xsd:enumeration value="NotPermittedNA"/>
-                                             <xsd:enumeration value="PublicRoadNA"/>
-                                             <xsd:enumeration value="RegulatedNA"/>
-                                             <xsd:enumeration value="SignageNA"/>
-                                             <xsd:enumeration value="StairsRampNA"/>
-                                             <xsd:enumeration value="TempLightNA"/>
-                                             <xsd:enumeration value="ThemeParkNA"/>
-                                             <xsd:enumeration value="TunnelsNA"/>
-                                             <xsd:enumeration value="WallGTE24Ft"/>
-                                          </xsd:restriction>
-                                       </xsd:simpleType>
+                                                         </xsd:annotation>
+                                                         <xsd:simpleType>
+                                                            <xsd:restriction base="comp:MotionSensorCompliance">
+                                                               <xsd:enumeration value="AthleticNA"/>
+                                                               <xsd:enumeration value="FacadeGTE24Ft"/>
+                                                               <xsd:enumeration value="HistoricBuildingNA"/>
+                                                               <xsd:enumeration value="IndustrialNA"/>
+                                                               <xsd:enumeration value="LandscapeNA"/>
+                                                               <xsd:enumeration value="LuminaireLT40NA"/>
+                                                               <xsd:enumeration value="MonumentNA"/>
+                                                               <xsd:enumeration value="MotionSensorCompliant"/>
+                                                               <xsd:enumeration value="NotPermittedNA"/>
+                                                               <xsd:enumeration value="PublicRoadNA"/>
+                                                               <xsd:enumeration value="RegulatedNA"/>
+                                                               <xsd:enumeration value="SignageNA"/>
+                                                               <xsd:enumeration value="StairsRampNA"/>
+                                                               <xsd:enumeration value="TempLightNA"/>
+                                                               <xsd:enumeration value="ThemeParkNA"/>
+                                                               <xsd:enumeration value="TunnelsNA"/>
+                                                               <xsd:enumeration value="WallGTE24Ft"/>
+                                                            </xsd:restriction>
+                                                         </xsd:simpleType>
+                                                      </xsd:element>
+                                                   </xsd:sequence>
+                                                </xsd:complexType>
+                                             </xsd:element>
+                                          </xsd:choice>
+                                       </xsd:complexType>
                                     </xsd:element>
                                     <xsd:element name="Ctrl05_ComplianceResultNRCI" type="comp:ComplianceResultNRCI" >
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Controls Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
  result = TableIncomplete  
+Else If Ctrl01_InMyScope == false
+result = NotInScope
 Else If  
  (
 Ctrl02cc_ShutOffControlsOutdoors == Exempt Or Other And Ctrl02_ShutOffControlsOutdoors == NotPermittedNA Or TunnelNA Or 
@@ -1157,11 +1204,11 @@ End If</xsd:documentation>
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
-         <xsd:element name="Section_G" minOccurs="0">
+         <xsd:element name="Section_G" minOccurs="1">
             <xsd:annotation>
                <xsd:documentation source="FieldText">[d:b]G.  DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE[/d:b]</xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">This section is required if NRCC-LTO-E is parent And in Section-P P01_RequireNRCALto02A == true</xsd:documentation>
-               <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
+               <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
