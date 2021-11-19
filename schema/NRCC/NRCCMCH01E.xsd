@@ -2226,7 +2226,7 @@ any field in range H08a-H08b != BlankGrayedOut has data And
 If H08c_FanSystemMaxAllowedHP != BlankGrayedOut has data And 
 for each fan system H06Total_FanSystemTotalHP LTE H08c_FanSystemMaxAllowedHP 
 Then result = true display term Yes; 
-Else result = false display term No And D03_ExceptionalConditionMessageNRCCMCHE += FanPowerIndexExceedsMaxInH; 
+Else result = false display term No And D03_ExceptionalConditionMessageCCMCHE += FanPowerIndexExceedsMaxInH; 
 End If</xsd:documentation>
 								</xsd:annotation>
 							</xsd:element>
@@ -2502,10 +2502,10 @@ Perform evaluation only for fields C01 - C08 != BlankGrayedOut:
 If  C01_CompliantSectionF == false Or C02_CompliantSectionG ==  false Or  C03_CompliantSectionH ==  false Or C04_CompliantSectionI == false Or  C05_CompliantSectionJ ==  false Or  C06_CompliantSectionK ==  false Or  C07_CompliantSectionL == false Or  C08_CompliantSectionM == false
 result = false  display term DOES NOT COMPLY;
  
-Else If D03_  ExceptionalConditionMessageNRCCMCHE NotPresent 
+Else If D03_  ExceptionalConditionMessageCCMCHE NotPresent 
 result = Complies display term COMPLIES; 
  
-Else If D03_  ExceptionalConditionMessageNRCCMCHE IsPresent result = CompliesExceptionalConditions result = true display term COMPLIES with Exceptional Conditions; 
+Else If D03_  ExceptionalConditionMessageCCMCHE IsPresent result = CompliesExceptionalConditions result = true display term COMPLIES with Exceptional Conditions; 
  
 Else result = DoesNotComply  display term DOES NOT COMPLY
 End If</xsd:documentation>
@@ -2565,7 +2565,7 @@ End If</xsd:documentation>
 								</xsd:sequence>
 							</xsd:complexType>
 						</xsd:element>
-						<xsd:element name="D03_ExceptionalConditionMessageNRCCMCHE" type="comp:ExceptionalConditionMessageNRCCMCHE" minOccurs="0" maxOccurs="unbounded">
+						<xsd:element name="D03_ExceptionalConditionMessageCCMCHE" type="comp:ExceptionalConditionMessageCCMCHE" minOccurs="0" maxOccurs="unbounded">
 							<xsd:annotation>
 								<xsd:documentation source="FieldText">Exceptional Messages</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">Auto-filled with any system generated messages that explain exceptional conditions encountered in the the completed compliance document</xsd:documentation>
@@ -5245,7 +5245,7 @@ End If</xsd:documentation>
 														<xsd:documentation source="FieldText">Isolation Valve</xsd:documentation>
 														<xsd:documentation source="CalculationsAndRules">User selects from list; HasValve display term Yes, No1Chiller display term NA: only 1 chiller in plant, NoChillersInSeries display term NA: chillers in series.  I
  
-f result == No1Chiller And Fd03_ChillerCount GT 1  D03_ExceptionalConditionMessageNRCCMCHE += MultipleChillerConflictInF
+f result == No1Chiller And Fd03_ChillerCount GT 1  D03_ExceptionalConditionMessageCCMCHE += MultipleChillerConflictInF
 End If</xsd:documentation>
 													</xsd:annotation>
 												</xsd:element>
@@ -5641,7 +5641,7 @@ Exception5NoCoolingNoGasNonRes display term Exception5: Serving an entire buildi
  
 ExceptionElecResistanceNA display term NA: Alteration, replacement of existing electric resistance heating system.  
  
-For any result   D03_ExceptionalConditionMessageNRCCMCHE += ElectricHeatExceptionInF</xsd:documentation>
+For any result   D03_ExceptionalConditionMessageCCMCHE += ElectricHeatExceptionInF</xsd:documentation>
 													</xsd:annotation>
 												</xsd:element>
 											</xsd:sequence>
@@ -6459,7 +6459,7 @@ Multi-field triggers: If this section is required See B03f_ProjectHasZonalSystem
 								<xsd:documentation source="FieldText">Check the box if the project is showing ventilation calculations on the plans, or attaching the calculations instead of completing this table.</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
  
-If result = true J02a, J02b and J03 are grayed out and all following  tables are minimized in section J and D03_ExceptionalConditionMessageNRCCMCHE += CalculationsAttachedInJ
+If result = true J02a, J02b and J03 are grayed out and all following  tables are minimized in section J and D03_ExceptionalConditionMessageCCMCHE += CalculationsAttachedInJ
 End If</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
@@ -6524,7 +6524,7 @@ End If</xsd:documentation>
 								<xsd:annotation>
 									<xsd:documentation source="FieldText">Check the box if the project is using natural ventilation in any nonresidential or hotel/motel spaces to meet required ventilation rates per [d:t24ref/]120.1(c)2.</xsd:documentation>
 									<xsd:documentation source="CalculationsAndRules">User input: If checked result = true; Else result = false.  
-If result = true  D03_ExceptionalConditionMessageNRCCMCHE += NaturalVentilationInJ</xsd:documentation>
+If result = true  D03_ExceptionalConditionMessageCCMCHE += NaturalVentilationInJ</xsd:documentation>
 								</xsd:annotation>
 							</xsd:element>
 							<xsd:element name="J03_NotApplicableMessage" type="comp:NotApplicableMessage">
@@ -6566,7 +6566,7 @@ End If</xsd:documentation>
 														<xsd:documentation source="FieldText">System Design Transfer Air CFM</xsd:documentation>
 														<xsd:documentation source="CalculationsAndRules">User input;  
  
-If result GT 0 D03_ExceptionalConditionMessageNRCCMCHE += TransferAirUsedInJ
+If result GT 0 D03_ExceptionalConditionMessageCCMCHE += TransferAirUsedInJ
 End If</xsd:documentation>
 													</xsd:annotation>
 												</xsd:element>
@@ -7099,7 +7099,7 @@ End If</xsd:documentation>
 								<xsd:documentation source="FieldText">Check the box if the system is using continuous ventilation to meet the ventilation requirements per [d:t24ref/]120.1(b)2Aivb</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">User input.  If checked result = true; Else result = false.
  
-If result == true D03_ExceptionalConditionMessageNRCCMCHE  += HRRContinuousVentInJ</xsd:documentation>
+If result == true D03_ExceptionalConditionMessageCCMCHE  += HRRContinuousVentInJ</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element name="TableHiRiseResVent" minOccurs="0">
@@ -8088,7 +8088,7 @@ End If</xsd:documentation>
 								<xsd:documentation source="CalculationsAndRules">User input; If checked result = true; Else result = false.  
  
  
-If result == true, fields M02 - M15 are grayed out And D03_ExceptionalConditionMessageNRCCMCHE += CalculationsAttachedInM
+If result == true, fields M02 - M15 are grayed out And D03_ExceptionalConditionMessageCCMCHE += CalculationsAttachedInM
 End If</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
@@ -8247,7 +8247,7 @@ End If</xsd:documentation>
 					<xsd:documentation source="FieldText">[d:b]O.  DECLARATION OF REQUIRED CERTIFICATES OF ACCEPTANCE[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">Values in this section are affected by data in other sections of the document which may change the result to true and select Yes radio button.  
  
-If user changes this value from true to false by selecting the No radio button, an explanation is required in Section E Additional Remarks And D03_ExceptionalConditionMessageNRCCMCHE += UserChangedSelectionInO.
+If user changes this value from true to false by selecting the No radio button, an explanation is required in Section E Additional Remarks And D03_ExceptionalConditionMessageCCMCHE += UserChangedSelectionInO.
 End If
  .</xsd:documentation>
 					<xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
@@ -8865,7 +8865,7 @@ End If</xsd:documentation>
 					<xsd:documentation source="FieldText">[d:b]P.  DECLARATION OF REQUIRED CERTIFICATES OF VERIFICATION[/d:b]</xsd:documentation>
 					<xsd:documentation source="CalculationsAndRules">Values in this section are affected by data in other sections of the document which may change the result to true and select Yes radio button. 
  
- If user changes this value from true to false by selecting the No radio button, an explanation is required in Section E Additional Remarks And D03_ExceptionalConditionMessageNRCCMCHE += UserChangedSelectionInP.
+ If user changes this value from true to false by selecting the No radio button, an explanation is required in Section E Additional Remarks And D03_ExceptionalConditionMessageCCMCHE += UserChangedSelectionInP.
  
 End If</xsd:documentation>
 					<xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
