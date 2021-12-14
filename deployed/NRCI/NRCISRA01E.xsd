@@ -358,6 +358,15 @@ End If</xsd:documentation>
                                           </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
+                                    <xsd:element name="Zone01_InMyScope" type="comp:InMyScope">
+                                       <xsd:annotation>
+                                          <xsd:documentation source="FieldText">Is this in your scope?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
+ If result == false Zone02cc-Zone03cc is displayed but Zone03 As-built fields is blank and grayed out
+And D01_ExceptionalConditionMessageNRCISRAE += SolarZoneNotInScope  
+End If</xsd:documentation>
+                                       </xsd:annotation>
+                                    </xsd:element>
                                     <xsd:element name="Zone01_InstalledSameAsCC" type="comp:InstalledSameAsCC" minOccurs="0">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
@@ -450,7 +459,8 @@ End If</xsd:documentation>
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Solar Zone Free from Obstructions?<d:sup>1</d:sup>
                                              </xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Zone03cc_NotApplicableMessage IsPresent
+                                             <xsd:documentation source="CalculationsAndRules">If Zone01_InMyScope == false 
+Or Zone03cc_NotApplicableMessage IsPresent
 result = Zone03cc_NotApplicableMessage
 End If</xsd:documentation>
                                           </xsd:annotation>
@@ -466,6 +476,9 @@ End If</xsd:documentation>
                                           <xsd:documentation source="FieldText">Solar Zone Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
 result = TableIncomplete 
+Else If Zone01_InMyScope == false 
+result = NotInScope
+ 
 Else If  Zone03_IsSolarZoneSubAreaObstructionsFree IsPresent  And Zone03_IsSolarZoneSubAreaObstructionsFree  == Zone03cc_IsSolarZoneSubAreaObstructionsFree 
 result = ExactMatch
 End If</xsd:documentation>

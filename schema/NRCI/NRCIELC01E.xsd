@@ -390,35 +390,38 @@ End If</xsd:documentation>
                                                             </xsd:appinfo>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Meter03_MeteringCapabilitiesAsBuilt" >
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Instantaneous Demand (kW)</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
-If Meter01_InstalledSameAsCC == true 
-If Meter03cc_MeteringDemandRequired == false
-list only these NA options: UtilityProvidedNA and ElectCode517NA
-Else If Meter03cc_MeteringDemandRequired == true
-list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
-End If
-Else If Meter01_InstalledSameAsCC == false
-List all options for capability
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Meter03_MeteringDemandRequired" type="comp:MeteringDemandRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Instantaneous Demand (kW)</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == true 
+result =  Meter03cc_MeteringDemandRequired
 End If</xsd:documentation>
-                                                            <xsd:appinfo source="displayterm">
-                                                               <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
-                                                               <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
-                                                            </xsd:appinfo>
-                                                            
-                                                         </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
-                                                               <xsd:enumeration value="ElectCode517NA"/>
-                                                               <xsd:enumeration value="ProvidedAtFeeder"/>
-                                                               <xsd:enumeration value="ProvidedAtPanel"/>
-                                                               <xsd:enumeration value="ProvidedAtService"/>
-                                                               <xsd:enumeration value="UtilityProvidedNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Meter03_MeteringCapabilitiesAsBuilt" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Instantaneous Demand (kW)</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == false
+User selects from dropdown options as follows: ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder, UtilityProvidedNA and ElectCode517NA
+End If</xsd:documentation>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                                                  <xsd:enumeration value="ElectCode517NA"/>
+                                                                  <xsd:enumeration value="ProvidedAtFeeder"/>
+                                                                  <xsd:enumeration value="ProvidedAtPanel"/>
+                                                                  <xsd:enumeration value="ProvidedAtService"/>
+                                                                  <xsd:enumeration value="UtilityProvidedNA"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                       <xsd:element name="Meter04cc_MeteringPeakDemandRequired" type="comp:MeteringPeakDemandRequired" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
@@ -435,36 +438,40 @@ End If</xsd:documentation>
                                                             </xsd:appinfo>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Meter04_MeteringCapabilitiesAsBuilt" >
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
-If Meter01_InstalledSameAsCC == true 
-If Meter04cc_MeteringPeakDemandRequired == false
-list only these NA options: UtilityProvidedNA, InstalledLTE250NA and ElectCode517NA
-Else If Meter04cc_MeteringPeakDemandRequired == true
-list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
-End If
-Else If Meter01_InstalledSameAsCC == false
-List all options for capability
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Meter04_MeteringPeakDemandRequired" type="comp:MeteringPeakDemandRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == true 
+result =  Meter04cc_MeteringPeakDemandReq
+uired End If</xsd:documentation>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Meter04_MeteringCapabilitiesAsBuilt" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Historical Peak Demand (kW)</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == false
+User selects from dropdown options as follows: 
+ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder,  UtilityProvidedNA, InstalledLTE250NA and ElectCode517NA
 End If</xsd:documentation>
-                                                            <xsd:appinfo source="displayterm">
-                                                               <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
-                                                               <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
-                                                            </xsd:appinfo>
-                                                            
-                                                         </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
-                                                               <xsd:enumeration value="ElectCode517NA"/>
-                                                               <xsd:enumeration value="InstalledLTE250NA"/>
-                                                               <xsd:enumeration value="ProvidedAtFeeder"/>
-                                                               <xsd:enumeration value="ProvidedAtPanel"/>
-                                                               <xsd:enumeration value="ProvidedAtService"/>
-                                                               <xsd:enumeration value="UtilityProvidedNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
-                                                      </xsd:element>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                                                  <xsd:enumeration value="ElectCode517NA"/>
+                                                                  <xsd:enumeration value="InstalledLTE250NA"/>
+                                                                  <xsd:enumeration value="ProvidedAtFeeder"/>
+                                                                  <xsd:enumeration value="ProvidedAtPanel"/>
+                                                                  <xsd:enumeration value="ProvidedAtService"/>
+                                                                  <xsd:enumeration value="UtilityProvidedNA"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                       <xsd:element name="Meter05cc_MeteringkWhPerUserPeriodRequired" type="comp:MeteringkWhPerUserPeriodRequired" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
@@ -481,35 +488,38 @@ End If</xsd:documentation>
                                                             </xsd:appinfo>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Meter05_MeteringCapabilitiesAsBuilt" >
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
-If Meter01_InstalledSameAsCC == true 
-If Meter05cc_MeteringkWhPerUserPeriodRequired == false
-list only these NA options: UtilityProvidedNA and ElectCode517NA
-Else If Meter05cc_MeteringkWhPerUserPeriodRequired == true
-list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
-End If
-Else If Meter01_InstalledSameAsCC == false
-List all options for capability
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Meter05_MeteringkWhPerUserPeriodRequired" type="comp:MeteringkWhPerUserPeriodRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == true 
+result =  Meter05cc_MeteringkWhPerUserPeriodRequired 
 End If</xsd:documentation>
-                                                            <xsd:appinfo source="displayterm">
-                                                               <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
-                                                               <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
-                                                            </xsd:appinfo>
-                                                            
-                                                         </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
-                                                               <xsd:enumeration value="ElectCode517NA"/>
-                                                               <xsd:enumeration value="ProvidedAtFeeder"/>
-                                                               <xsd:enumeration value="ProvidedAtPanel"/>
-                                                               <xsd:enumeration value="ProvidedAtService"/>
-                                                               <xsd:enumeration value="UtilityProvidedNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Meter05_MeteringCapabilitiesAsBuilt" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">Tracking kWh for user-defined period</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == false
+User selects from dropdown options as follows: ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder, UtilityProvidedNA and ElectCode517NA
+End If</xsd:documentation>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                                                  <xsd:enumeration value="ElectCode517NA"/>
+                                                                  <xsd:enumeration value="ProvidedAtFeeder"/>
+                                                                  <xsd:enumeration value="ProvidedAtPanel"/>
+                                                                  <xsd:enumeration value="ProvidedAtService"/>
+                                                                  <xsd:enumeration value="UtilityProvidedNA"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                       <xsd:element name="Meter06cc_MeteringkWhPerRatePeriodRequired" type="comp:MeteringkWhPerRatePeriodRequired" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
@@ -526,38 +536,40 @@ End If</xsd:documentation>
                                                             </xsd:appinfo>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Meter06_MeteringCapabilitiesAsBuilt" >
-                                                         <xsd:annotation>
-                                                            <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
-                                                            <xsd:documentation source="CalculationsAndRules">User selects from dropdown options as follows: 
-If Meter01_InstalledSameAsCC == true 
-If Meter06cc_MeteringkWhPerRatePeriodRequired
- == false
-list only these NA options: UtilityProvidedNA, InstalledLTE1000NA and ElectCode517NA
-Else If Meter06cc_MeteringkWhPerRatePeriodRequired
- == true
-list ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder
-End If
-Else If Meter01_InstalledSameAsCC == false
-List all options for capability
+                                                      <xsd:choice maxOccurs="1">
+                                                         <xsd:element name="Meter06_MeteringkWhPerRatePeriodRequired" type="comp:MeteringkWhPerRatePeriodRequired" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == true 
+result =  Meter06cc_MeteringkWhPerRatePeriodRequired
 End If</xsd:documentation>
-                                                            <xsd:appinfo source="displayterm">
-                                                               <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
-                                                               <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
-                                                            </xsd:appinfo>
-                                                            
-                                                         </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
-                                                               <xsd:enumeration value="ElectCode517NA"/>
-                                                               <xsd:enumeration value="InstalledLTE1000NA"/>
-                                                               <xsd:enumeration value="ProvidedAtFeeder"/>
-                                                               <xsd:enumeration value="ProvidedAtPanel"/>
-                                                               <xsd:enumeration value="ProvidedAtService"/>
-                                                               <xsd:enumeration value="UtilityProvidedNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
-                                                      </xsd:element>
+                                                            </xsd:annotation>
+                                                         </xsd:element>
+                                                         <xsd:element name="Meter06_MeteringCapabilitiesAsBuilt" >
+                                                            <xsd:annotation>
+                                                               <xsd:documentation source="FieldText">kWh per rate period</xsd:documentation>
+                                                               <xsd:documentation source="CalculationsAndRules">If Meter01_InstalledSameAsCC == false
+User selects from dropdown options as follows: 
+ProvidedAtService, ProvidedAtPanel and ProvidedAtFeeder,  UtilityProvidedNA, InstalledLTE1000NA and ElectCode517NA
+End If</xsd:documentation>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="ProvidedAtService">Capability provided at service(s)[d:sup]1[/d:sup]</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="ProvidedAtFeeder">Capability provided at feeder(s)[d:sup]2[/d:sup]</dtyp:displayterm>
+                                                               </xsd:appinfo>
+                                                               
+                                                            </xsd:annotation>
+                                                            <xsd:simpleType>
+                                                               <xsd:restriction base="comp:MeteringCapabilitiesAsBuilt">
+                                                                  <xsd:enumeration value="ElectCode517NA"/>
+                                                                  <xsd:enumeration value="InstalledLTE1000NA"/>
+                                                                  <xsd:enumeration value="ProvidedAtFeeder"/>
+                                                                  <xsd:enumeration value="ProvidedAtPanel"/>
+                                                                  <xsd:enumeration value="ProvidedAtService"/>
+                                                                  <xsd:enumeration value="UtilityProvidedNA"/>
+                                                               </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                         </xsd:element>
+                                                      </xsd:choice>
                                                    </xsd:sequence>
                                                 </xsd:complexType>
                                              </xsd:element>
@@ -912,11 +924,11 @@ End If</xsd:documentation>
                                                             </xsd:appinfo>
                                                          </xsd:annotation>
                                                       </xsd:element>
-                                                      <xsd:element name="Volt03_CircuitVoltageDropCalculations" >
+                                                      <xsd:element name="Volt03_CircuitVoltageDropCalculations" type="comp:CircuitVoltageDropCalculations" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Voltage Drop Calculations</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Volt01_InstalledSameAsCC == true 
-result = Volt03cc_CircuitVoltageDropCalculations but user can change value
+result = Volt03cc_CircuitVoltageDropCalculations 
 Else If Volt01_InstalledSameAsCC == false
 User selects from list: CalculationsInDocs, CalculationsContractorResponsible
 End If</xsd:documentation>
@@ -925,12 +937,6 @@ End If</xsd:documentation>
                                                             </xsd:appinfo>
                                                             
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:CircuitVoltageDropCalculations">
-                                                               <xsd:enumeration value="CalculationsContractorResponsible"/>
-                                                               <xsd:enumeration value="CalculationsInDocs"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:element name="Volt04cc_NotApplicableMessage" >
                                                          <xsd:annotation>

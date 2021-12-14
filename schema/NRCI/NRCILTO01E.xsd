@@ -625,35 +625,21 @@ End If</xsd:documentation>
                                        </xsd:element>
                                     </xsd:choice>
                                     <xsd:choice maxOccurs="1">
-                                       <xsd:element name="Lum08_LuminairePowerCutoffCompliance" >
+                                       <xsd:element name="Lum08_LuminairePowerCutoffCompliance" type="comp:LuminairePowerCutoffCompliance" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Outdoor Luminaire [d:gte/] 6,200 Lumens</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If Lum02_ScopeIncludesFixture == true 
-If Lum08cc_LuminairePowerCutoffCompliance IsPresent And Lum08cc_LuminairePowerCutoffCompliance != Exempt
+If Lum08cc_LuminairePowerCutoffCompliance IsPresent 
 If Lum01_InstalledSameasCC == true
 result = Lum08cc_LuminairePowerCutoffCompliance  
 Else
-User selects from list
-End If
-Else
-User selects from list
-End If
+User selects from list that includes all values but Exempt
 End If</xsd:documentation>
+                                             <xsd:appinfo source="displayterm">
+                                                <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+                                             </xsd:appinfo>
+                                             
                                           </xsd:annotation>
-                                          <xsd:simpleType>
-                                             <xsd:restriction base="comp:LuminairePowerCutoffCompliance">
-                                                <xsd:enumeration value="CutoffGTE6200Lumens"/>
-                                                <xsd:enumeration value="CutoffLT6200Lumens"/>
-                                                <xsd:enumeration value="CutoffLtgZone0"/>
-                                                <xsd:enumeration value="NotPermittedNA"/>
-                                                <xsd:enumeration value="ReplacePoleMountNA"/>
-                                                <xsd:enumeration value="ResControlledNA"/>
-                                                <xsd:enumeration value="RightOfWayNA"/>
-                                                <xsd:enumeration value="SignageNA"/>
-                                                <xsd:enumeration value="StructuresNA"/>
-                                                <xsd:enumeration value="TempLightNA"/>
-                                             </xsd:restriction>
-                                          </xsd:simpleType>
                                        </xsd:element>
                                        <xsd:element name="Lum08_NotApplicableMessage" >
                                           <xsd:annotation>
@@ -1045,27 +1031,23 @@ End If</xsd:documentation>
                                                             </xsd:restriction>
                                                          </xsd:simpleType>
                                                       </xsd:element>
-                                                      <xsd:element name="Ctrl02_ShutOffControlsOutdoors" >
+                                                      <xsd:element name="Ctrl02_ShutOffControlsOutdoors" type="comp:ShutOffControlsOutdoors" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Shut-Off</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
-If Ctrl02cc_ShutOffControlsOutdoors != Exempt Or Other
 result = Ctrl02cc_ShutOffControlsOutdoors
 Else
-User selects from list
+User selects from list that includes all values but Exempt and Other
 End If
 Else
 User selects from list
 End If</xsd:documentation>
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="Exempt">Exempt</dtyp:displayterm>
+                                                               <dtyp:displayterm value="Other">Other</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:ShutOffControlsOutdoors">
-                                                               <xsd:enumeration value="AstronomicalTimer"/>
-                                                               <xsd:enumeration value="NotPermittedNA"/>
-                                                               <xsd:enumeration value="Photocontrol"/>
-                                                               <xsd:enumeration value="TunnelsNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:element name="Ctrl03cc_AutoScheduleControlsOutdoors" >
                                                          <xsd:annotation>
@@ -1085,27 +1067,19 @@ End If</xsd:documentation>
                                                             </xsd:restriction>
                                                          </xsd:simpleType>
                                                       </xsd:element>
-                                                      <xsd:element name="Ctrl03_AutoScheduleControlsOutdoors" >
+                                                      <xsd:element name="Ctrl03_AutoScheduleControlsOutdoors" type="comp:AutoScheduleControlsOutdoors" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Auto-Schedule</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
-If Ctrl03cc_AutoScheduleControlsOutdoors != Exempt 
 result = Ctrl03cc_AutoScheduleControlsOutdoors
 Else
-User selects from list
-End If
-Else
-User selects from list
+User selects from list that includes all values but Exempt 
 End If</xsd:documentation>
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="Exempt">Exempt;</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:AutoScheduleControlsOutdoors">
-                                                               <xsd:enumeration value="AutoSchedule"/>
-                                                               <xsd:enumeration value="EMCS"/>
-                                                               <xsd:enumeration value="NotPermittedNA"/>
-                                                               <xsd:enumeration value="TunnelsNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:element name="Ctrl04cc_MotionSensorCompliance" >
                                                          <xsd:annotation>
@@ -1126,40 +1100,19 @@ End If</xsd:documentation>
                                                             </xsd:restriction>
                                                          </xsd:simpleType>
                                                       </xsd:element>
-                                                      <xsd:element name="Ctrl04_MotionSensorCompliance" >
+                                                      <xsd:element name="Ctrl04_MotionSensorCompliance" type="comp:MotionSensorCompliance" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Motion Sensor</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
-If Ctrl04cc_MotionSensorCompliance != Exempt 
 result = Ctrl04cc_MotionSensorCompliance
 Else
-User selects from list
-End If
-Else
-User selects from list
+User selects from list that includes all values but Exempt 
 End If</xsd:documentation>
+                                                            <xsd:appinfo source="displayterm">
+                                                               <dtyp:displayterm value="Exempt">Exempt;</dtyp:displayterm>
+                                                            </xsd:appinfo>
+                                                            
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:MotionSensorCompliance">
-                                                               <xsd:enumeration value="AthleticNA"/>
-                                                               <xsd:enumeration value="FacadeGTE24Ft"/>
-                                                               <xsd:enumeration value="HistoricBuildingNA"/>
-                                                               <xsd:enumeration value="IndustrialNA"/>
-                                                               <xsd:enumeration value="LandscapeNA"/>
-                                                               <xsd:enumeration value="LuminaireLT40NA"/>
-                                                               <xsd:enumeration value="MonumentNA"/>
-                                                               <xsd:enumeration value="MotionSensorCompliant"/>
-                                                               <xsd:enumeration value="NotPermittedNA"/>
-                                                               <xsd:enumeration value="PublicRoadNA"/>
-                                                               <xsd:enumeration value="RegulatedNA"/>
-                                                               <xsd:enumeration value="SignageNA"/>
-                                                               <xsd:enumeration value="StairsRampNA"/>
-                                                               <xsd:enumeration value="TempLightNA"/>
-                                                               <xsd:enumeration value="ThemeParkNA"/>
-                                                               <xsd:enumeration value="TunnelsNA"/>
-                                                               <xsd:enumeration value="WallGTE24Ft"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                    </xsd:sequence>
                                                 </xsd:complexType>

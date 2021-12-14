@@ -2176,6 +2176,9 @@ Else If Blr01_InstalledSameAsCC == false
 User input
 End If
 End If</xsd:documentation>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="HasValve">Provided</dtyp:displayterm>
+                                                               </xsd:appinfo>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                          <xsd:element name="Blr08_NotApplicableMessage">
@@ -5308,31 +5311,20 @@ End If</xsd:documentation>
                                                          </xsd:element>
                                                       </xsd:choice>
                                                       <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ctrl03_ControlSystemShutOff">
+                                                         <xsd:element name="Ctrl03_ControlSystemShutOff" type="hvac:ControlSystemShutOff">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Shut-Off Controls</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If Ctrl03cc _ControlSystemShutOff IsPresent
 If Ctrl01_InstalledSameAsCC == true
-If Ctrl03cc _ControlSystemShutOff  != OtherControl
-result = Ctrl03cc _ControlSystemShutOff but user can change the value
-Else If Ctrl01_InstalledSameAsCC == false Or Ctrl03cc _ControlSystemShutOff  == OtherControl
-User input
+result = Ctrl03cc _ControlSystemShutOff
+Else
+User selects from list that includes all values but OtherControl
 End If 
 End If</xsd:documentation>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="OtherControl">Other</dtyp:displayterm>
+                                                               </xsd:appinfo>
                                                             </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="hvac:ControlSystemShutOff">
-                                                                  <xsd:enumeration value="24x7OperationNA"/>
-                                                                  <xsd:enumeration value="4HrTimer"/>
-                                                                  <xsd:enumeration value="AlteredNA"/>
-                                                                  <xsd:enumeration value="AutomaticTimerSwitch"/>
-                                                                  <xsd:enumeration value="CardKeyShutOff"/>
-                                                                  <xsd:enumeration value="EMCS"/>
-                                                                  <xsd:enumeration value="HealthcareNA"/>
-                                                                  <xsd:enumeration value="HighriseResNA"/>
-                                                                  <xsd:enumeration value="OccupancySensor"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
                                                          </xsd:element>
                                                          <xsd:element name="Ctrl03_NotApplicableMessage">
                                                             <xsd:annotation>
@@ -5385,30 +5377,20 @@ End If</xsd:documentation>
                                                          </xsd:element>
                                                       </xsd:choice>
                                                       <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ctrl04_ControlSystemZone">
+                                                         <xsd:element name="Ctrl04_ControlSystemZone" type="hvac:ControlSystemZone">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Isolation Zone Controls</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If Ctrl04cc_ControlSystemZone IsPresent
 If Ctrl01_InstalledSamesCC == true
-If Ctrl04cc _ControlSystemShutOff  != OtherControl
-result = Ctrl04cc_ControlSystemZone but user can change value
-Else If Ctrl01_InstalledSamesCC == false Or If Ctrl04cc _ControlSystemShutOff  == OtherControl
-User input
+result = Ctrl04cc_ControlSystemZone 
+Else If Ctrl01_InstalledSamesCC == false 
+User selects from list that includes all values but OtherControl
 End If 
 End If</xsd:documentation>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="OtherControl">Other</dtyp:displayterm>
+                                                               </xsd:appinfo>
                                                             </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="hvac:ControlSystemZone">
-                                                                  <xsd:enumeration value="4HrTimer"/>
-                                                                  <xsd:enumeration value="AlteredNA"/>
-                                                                  <xsd:enumeration value="AutomaticTimerSwitch"/>
-                                                                  <xsd:enumeration value="ContinuousHeatCoolNA"/>
-                                                                  <xsd:enumeration value="EMCS"/>
-                                                                  <xsd:enumeration value="LT25000ft2NA"/>
-                                                                  <xsd:enumeration value="OccupancySensor"/>
-                                                                  <xsd:enumeration value="SingleZoneNA"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
                                                          </xsd:element>
                                                          <xsd:element name="Ctrl04_NotApplicableMessage">
                                                             <xsd:annotation>
@@ -5470,27 +5452,20 @@ End If</xsd:documentation>
                                                          </xsd:element>
                                                       </xsd:choice>
                                                       <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ctrl05_ControlSystemDR">
+                                                         <xsd:element name="Ctrl05_ControlSystemDR" type="hvac:ControlSystemDR">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Demand Response</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If Ctrl05cc_ControlSystemZone IsPresent
-If Ctrl01_InstalledSameAsCC == true
-If Ctrl05cc _ControlSystemShutOff  != OtherControl
-result = Ctrl05cc_ControlSystemZone but user can change value
-Else If Ctrl01_InstalledSameAsCC == false Or Ctrl05cc _ControlSystemShutOff  == OtherControl
-User input
+If Ctrl01_InstalledSameAsCC == true 
+result = Ctrl05cc_ControlSystemZone  
+Else If Ctrl01_InstalledSameAsCC == false  
+User selects from list that includes all values but OtherControl
 End If 
 End If</xsd:documentation>
+                                                               <xsd:appinfo source="displayterm">
+                                                                  <dtyp:displayterm value="OtherControl">Other</dtyp:displayterm>
+                                                               </xsd:appinfo>
                                                             </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="hvac:ControlSystemDR">
-                                                                  <xsd:enumeration value="EMCS"/>
-                                                                  <xsd:enumeration value="EquipmentNA"/>
-                                                                  <xsd:enumeration value="HealthcareNA"/>
-                                                                  <xsd:enumeration value="TempSensitiveNA"/>
-                                                                  <xsd:enumeration value="ThermostatDR"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
                                                          </xsd:element>
                                                          <xsd:element name="Ctrl05_NotApplicableMessage">
                                                             <xsd:annotation>
@@ -5556,32 +5531,21 @@ End If</xsd:documentation>
                                                          </xsd:element>
                                                       </xsd:choice>
                                                       <xsd:choice maxOccurs="1">
-                                                         <xsd:element name="Ctrl06_ControlSystemTempReset">
+                                                         <xsd:element name="Ctrl06_ControlSystemTempReset" type="hvac:ControlSystemTempReset">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Supply Air Temp. Reset</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If Ctrl06cc_ControlSystemTempReset IsPresent
 If Ctrl01_InstalledSameAsCC == true
-If Ctrl06cc _ControlSystemShutOff  != ResetExempt
 result = Ctrl06cc_ControlSystemTempReset
-Else If Ctrl01_InstalledSameAsCC == false Or If Ctrl06cc _ControlSystemShutOff  == ResetExempt
-User input
+Else If Ctrl01_InstalledSameAsCC == false 
+User selects from list that includes all values but ResetExempt
 End If
 End If</xsd:documentation>
                                                                <xsd:appinfo source="displayterm">
                                                                   <dtyp:displayterm value="ResetIncluded">Provided</dtyp:displayterm>
+                                                                  <dtyp:displayterm value="ResetExempt">Exempt</dtyp:displayterm>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
-                                                            <xsd:simpleType>
-                                                               <xsd:restriction base="hvac:ControlSystemTempReset">
-                                                                  <xsd:enumeration value="AlteredNA"/>
-                                                                  <xsd:enumeration value="ControlsPreventNA"/>
-                                                                  <xsd:enumeration value="HealthcareNA"/>
-                                                                  <xsd:enumeration value="HumidSensitiveNA"/>
-                                                                  <xsd:enumeration value="IncreaseEnergyNA"/>
-                                                                  <xsd:enumeration value="ResetIncluded"/>
-                                                                  <xsd:enumeration value="SingleZoneNA"/>
-                                                               </xsd:restriction>
-                                                            </xsd:simpleType>
                                                          </xsd:element>
                                                          <xsd:element name="Ctrl06_NotApplicableMessage">
                                                             <xsd:annotation>

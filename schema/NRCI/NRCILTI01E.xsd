@@ -1322,7 +1322,7 @@ End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                       </xsd:choice>
-                                                      <xsd:element name="Ctrl04_AreaControlsCompliance" >
+                                                      <xsd:element name="Ctrl04_AreaControlsCompliance" type="comp:AreaControlsCompliance" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Area Controls</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
@@ -1332,16 +1332,9 @@ Else If Ctrl04cc_MandatoryAreaControlsRequired IsPresent
 User selects from dropdown list 
 End If
 Else If Ctrl01_InstalledSameAsCC == false
-User selects from dropdown list 
+User selects from list that includes all values but AreaControlsExempt, AreaControlsOther
 End If</xsd:documentation>
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:AreaControlsCompliance">
-                                                               <xsd:enumeration value="AnnunciatedAreaControl"/>
-                                                               <xsd:enumeration value="AuthorizedPersonnelAreaControl"/>
-                                                               <xsd:enumeration value="ManualOnOff"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:choice maxOccurs="1">
                                                          <xsd:element name="Ctrl05cc_MultilevelControls" >
@@ -1380,7 +1373,7 @@ End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                       </xsd:choice>
-                                                      <xsd:element name="Ctrl05_MultilevelControls" >
+                                                      <xsd:element name="Ctrl05_MultilevelControls" type="comp:MultilevelControls" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Multi-Level Controls</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
@@ -1390,19 +1383,9 @@ Else If Ctrl05cc_MandatoryMultiLevelControlRequired IsPresent
 User selects from dropdown list 
 End If
 Else If Ctrl01_InstalledSameAsCC == false
-User selects from dropdown list 
+User selects from list that includes all values but  MultilevelControlsExempt and MultilevelControlsOther
 End If</xsd:documentation>
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:MultilevelControls">
-                                                               <xsd:enumeration value="BilevelSwitchControl"/>
-                                                               <xsd:enumeration value="DimmerControl"/>
-                                                               <xsd:enumeration value="HealthcareNA"/>
-                                                               <xsd:enumeration value="LumLT2LampsNA"/>
-                                                               <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                                               <xsd:enumeration value="RestroomsNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:choice maxOccurs="1">
                                                          <xsd:element name="Ctrl06cc_ShutOffControlsArea" >
@@ -1455,7 +1438,7 @@ Else If Ctrl06cc_MandatoryBuildingShutOffControlRequired IsPresent
 User selects from dropdown list 
 End If
 Else If Ctrl01_InstalledSameAsCC == false
-User selects from dropdown list 
+User selects from list that includes all values but  ExemptShutOffControl and OtherShutOffControl
 End If</xsd:documentation>
                                                          </xsd:annotation>
                                                          <xsd:simpleType>
@@ -1463,8 +1446,10 @@ End If</xsd:documentation>
                                                                <xsd:enumeration value="AutomaticTimerSwitch"/>
                                                                <xsd:enumeration value="BuildingLevelShutOffControl"/>
                                                                <xsd:enumeration value="EMCS"/>
+                                                               <xsd:enumeration value="ExemptShutOffControl"/>
                                                                <xsd:enumeration value="HealthcareNA"/>
                                                                <xsd:enumeration value="OccupancySensor"/>
+                                                               <xsd:enumeration value="OtherShutOffControl"/>
                                                                <xsd:enumeration value="PartialOffShutOffControl"/>
                                                                <xsd:enumeration value="PartialOnShutOffControl"/>
                                                                <xsd:enumeration value="VacancyShutOffControl"/>
@@ -1507,7 +1492,7 @@ End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                       </xsd:choice>
-                                                      <xsd:element name="Ctrl07_PrimarySkylitDaylightControlsIncluded" >
+                                                      <xsd:element name="Ctrl07_PrimarySkylitDaylightControlsIncluded" type="comp:PrimarySkylitDaylightControlsIncluded" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Primary/Skylit Daylighting</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
@@ -1517,28 +1502,13 @@ Else If Ctrl07cc_MandatoryPrimaryDaylightingControlRequired IsPresent
 User selects from dropdown list 
 End If
 Else If Ctrl01_InstalledSameAsCC == false
-User selects from dropdown list 
+User selects from list that includes all values but  Exempt and NA 
 End If</xsd:documentation>
                                                             <xsd:appinfo source="displayterm">
                                                                <dtyp:displayterm value="Included">Provided</dtyp:displayterm>
                                                             </xsd:appinfo>
                                                             
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:PrimarySkylitDaylightControlsIncluded">
-                                                               <xsd:enumeration value="DaylitAppZoneNA"/>
-                                                               <xsd:enumeration value="GarageGlazingLT36Ft2NA"/>
-                                                               <xsd:enumeration value="GarageLT60NA"/>
-                                                               <xsd:enumeration value="GlazingLT24Ft2NA"/>
-                                                               <xsd:enumeration value="Included"/>
-                                                               <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                                               <xsd:enumeration value="NotDaylitZoneNA"/>
-                                                               <xsd:enumeration value="OverhangRatioNA"/>
-                                                               <xsd:enumeration value="PrimaryLT120NA"/>
-                                                               <xsd:enumeration value="RetailNA"/>
-                                                               <xsd:enumeration value="SunLT1500HrNA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:choice maxOccurs="1">
                                                          <xsd:element name="Ctrl08cc_SecondaryDaylightControlsIncluded" >
@@ -1576,7 +1546,7 @@ End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                       </xsd:choice>
-                                                      <xsd:element name="Ctrl08_SecondaryDaylightControlsIncluded" >
+                                                      <xsd:element name="Ctrl08_SecondaryDaylightControlsIncluded" type="comp:SecondaryDaylightControlsIncluded" >
                                                          <xsd:annotation>
                                                             <xsd:documentation source="FieldText">Secondary Daylighting</xsd:documentation>
                                                             <xsd:documentation source="CalculationsAndRules">If Ctrl01_InstalledSameAsCC == true
@@ -1586,27 +1556,14 @@ Else If Ctrl08cc_MandatorySecondaryDaylightingControlRequired IsPresent
 User selects from dropdown list 
 End If
 Else If Ctrl01_InstalledSameAsCC == false
-User selects from dropdown list 
+User selects from list that includes all values but  Exempt and NA 
+ 
 End If</xsd:documentation>
                                                             <xsd:appinfo source="displayterm">
                                                                <dtyp:displayterm value="Included">Provided</dtyp:displayterm>
                                                             </xsd:appinfo>
                                                             
                                                          </xsd:annotation>
-                                                         <xsd:simpleType>
-                                                            <xsd:restriction base="comp:SecondaryDaylightControlsIncluded">
-                                                               <xsd:enumeration value="GarageGlazingLT36Ft2NA"/>
-                                                               <xsd:enumeration value="GaragePrimDayLitNA"/>
-                                                               <xsd:enumeration value="GlazingLT24Ft2NA"/>
-                                                               <xsd:enumeration value="Included"/>
-                                                               <xsd:enumeration value="NA_LTE80PctAllowedLP"/>
-                                                               <xsd:enumeration value="NotDaylitZoneNA"/>
-                                                               <xsd:enumeration value="OverhangRatioNA"/>
-                                                               <xsd:enumeration value="PrimSecondaryLT240NA"/>
-                                                               <xsd:enumeration value="RetailNA"/>
-                                                               <xsd:enumeration value="SecondaryLT120NA"/>
-                                                            </xsd:restriction>
-                                                         </xsd:simpleType>
                                                       </xsd:element>
                                                       <xsd:choice maxOccurs="1">
                                                          <xsd:element name="Ctrl09cc_InterlockedLightingSystems" type="lit:InterlockedLightingSystems" >
