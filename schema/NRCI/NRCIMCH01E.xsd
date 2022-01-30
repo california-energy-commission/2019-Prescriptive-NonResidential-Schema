@@ -99,34 +99,36 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A04_PermitSetName" type="comp:PermitSetName" >
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Name of Permit Set used for construction</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="A05_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction" >
+                  <xsd:element name="A04_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Authority Having Jurisdiction</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A06_PermitNumber" type="comp:PermitNumber" >
+                  <xsd:element name="A05_PermitNumber" type="comp:PermitNumber" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Building Permit #</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A07_AsBuiltSetDate" type="comp:AsBuiltSetDate" >
+                  <xsd:element name="A06_AsBuiltSetDate" type="comp:AsBuiltSetDate" >
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Date of As-built Set</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName" >
+                  <xsd:element name="A07_PermitSetName" type="comp:PermitSetName"  minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Name of As-built Set</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Name of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This data is not currently required but may be needed in the future</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName"  minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Name of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This data is not currently required but may be needed in the future</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -5934,196 +5936,236 @@ The result is displayed in both the Per NRCC and As-built conditions</xsd:docume
                                                                               </xsd:appinfo>
                                                                            </xsd:annotation>
                                                                         </xsd:element>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="Ventnr06cc_ExhaustPerSpace" type="com:ExhaustPerSpace" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+                                                                        <xsd:element name="Ventnr05_InMyScope" type="comp:InMyScope" >
+                                                                           <xsd:annotation>
+                                                                              <xsd:documentation source="FieldText">Is this in your scope?</xsd:documentation>
+                                                                              <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
+ If result == false Ventnr02cc-Ventnr08cc is displayed but Ventnr02-Ventnr08 As-built fields are blank and grayed out
+And D01_ExceptionalConditionMessageNRCIMCHE += VentnrNotInScope  
+End If</xsd:documentation>
+                                                                           </xsd:annotation>
+                                                                        </xsd:element>
+                                                                        <xsd:element name="VentnrspaceScopeChoice" >
+                                                                           <xsd:annotation>
+                                                                              <xsd:documentation source="FieldText"></xsd:documentation>
+                                                                           </xsd:annotation>
+                                                                           <xsd:complexType>
+                                                                              <xsd:choice >
+                                                                                 <xsd:element name="VentnrspaceScopeNA_NotApplicableMessage" >
+                                                                                    <xsd:annotation>
+                                                                                       <xsd:documentation source="FieldText"></xsd:documentation>
+                                                                                       <xsd:documentation source="CalculationsAndRules">If Ventnr01_InMyScope == false
+result = BlankGrayedOut for Ventnr02-Ventnr08 As-built fields are blank and grayed out 
+End If</xsd:documentation>
+                                                                                    </xsd:annotation>
+                                                                                    <xsd:simpleType>
+                                                                                       <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                          <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                       </xsd:restriction>
+                                                                                    </xsd:simpleType>
+                                                                                 </xsd:element>
+                                                                                 <xsd:element name="VentnrspaceInScope" >
+                                                                                    <xsd:annotation>
+                                                                                       <xsd:documentation source="FieldText"></xsd:documentation>
+                                                                                    </xsd:annotation>
+                                                                                    <xsd:complexType>
+                                                                                       <xsd:sequence>
+                                                                                          <xsd:choice maxOccurs="1">
+                                                                                             <xsd:element name="Ventnr06cc_ExhaustPerSpace" type="com:ExhaustPerSpace" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 If J15_ExhaustPerSpace IsPresent  
 result = J15_ExhaustPerSpace
 End If
 Else If NRCC-PRF parent
 result = Vent05_ExhaustFlowRate
 End If</xsd:documentation>
-                                                                                 <xsd:appinfo source="NRCIsrc">
-                                                                                    <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J15_ExhaustPerSpace</dtyp:srcSchema>
-                                                                                    <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Vent05_ExhaustFlowRate</dtyp:srcSchema>
-                                                                                 </xsd:appinfo>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="Ventnr06cc_NotApplicableMessage" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+                                                                                                   <xsd:appinfo source="NRCIsrc">
+                                                                                                      <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J15_ExhaustPerSpace</dtyp:srcSchema>
+                                                                                                      <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Vent05_ExhaustFlowRate</dtyp:srcSchema>
+                                                                                                   </xsd:appinfo>
+                                                                                                </xsd:annotation>
+                                                                                             </xsd:element>
+                                                                                             <xsd:element name="Ventnr06cc_NotApplicableMessage" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 If J15_NotApplicableMessage IsPresent
 result =J15_NotApplicableMessage
 End If</xsd:documentation>
-                                                                                 <xsd:appinfo source="NRCIsrc">
-                                                                                    <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J15_NotApplicableMessage</dtyp:srcSchema>
-                                                                                 </xsd:appinfo>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="Ventnr06_ExhaustPerSpace" type="com:ExhaustPerSpace" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If Ventnr06cc_ExhaustPerSpace IsPresent  
+                                                                                                   <xsd:appinfo source="NRCIsrc">
+                                                                                                      <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J15_NotApplicableMessage</dtyp:srcSchema>
+                                                                                                   </xsd:appinfo>
+                                                                                                </xsd:annotation>
+                                                                                                <xsd:simpleType>
+                                                                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                                   </xsd:restriction>
+                                                                                                </xsd:simpleType>
+                                                                                             </xsd:element>
+                                                                                          </xsd:choice>
+                                                                                          <xsd:choice maxOccurs="1">
+                                                                                             <xsd:element name="Ventnr06_ExhaustPerSpace" type="com:ExhaustPerSpace" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If Ventnr06cc_ExhaustPerSpace IsPresent  
 If Ventnr01_InstalledSameAsCC == true
 result = Ventnr06cc_ExhaustPerSpace but value can be changed
 Else If Ventnr01_InstalledSameAsCC == false
 User input 
 End If 
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="Ventnr06_NotApplicableMessage" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If Ventnr06cc_NotApplicableMessage IsPresent
+                                                                                                </xsd:annotation>
+                                                                                             </xsd:element>
+                                                                                             <xsd:element name="Ventnr06_NotApplicableMessage" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Exhaust Ventilation CFM</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If Ventnr06cc_NotApplicableMessage IsPresent
 result = Ventnr06cc_NotApplicableMessage
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="Ventnr07cc_OccupantSensorVent" type="comp:OccupantSensorVent" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+                                                                                                </xsd:annotation>
+                                                                                                <xsd:simpleType>
+                                                                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                                   </xsd:restriction>
+                                                                                                </xsd:simpleType>
+                                                                                             </xsd:element>
+                                                                                          </xsd:choice>
+                                                                                          <xsd:choice maxOccurs="1">
+                                                                                             <xsd:element name="Ventnr07cc_OccupantSensorVent" type="comp:OccupantSensorVent" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 result = J16b_OccupantSensorVent
 Else If NRCC-PRF parent
 If Vent07_MechVentControls IsPresent And == OccupantSensors
 result = ProvidedOccSensors 
 End If
 End If</xsd:documentation>
-                                                                                 <xsd:appinfo source="NRCIsrc">
-                                                                                    <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J16b_OccupantSensorVent</dtyp:srcSchema>
-                                                                                    <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
-                                                                                 </xsd:appinfo>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="Ventnr07cc_NotApplicableMessage" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If NRCC-PRF parent
+                                                                                                   <xsd:appinfo source="NRCIsrc">
+                                                                                                      <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J16b_OccupantSensorVent</dtyp:srcSchema>
+                                                                                                      <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
+                                                                                                   </xsd:appinfo>
+                                                                                                </xsd:annotation>
+                                                                                             </xsd:element>
+                                                                                             <xsd:element name="Ventnr07cc_NotApplicableMessage" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-PRF parent
 If Vent07_NotApplicableMessage IsPresent Or 
 Vent07_MechVentControls IsPresent And != OccupantSensors
 result = BlankGrayedOut
 End If</xsd:documentation>
-                                                                                 <xsd:appinfo source="NRCIsrc">
-                                                                                    <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_NotApplicableMessage</dtyp:srcSchema>
-                                                                                    <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
-                                                                                 </xsd:appinfo>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="Ventnr07_OccupantSensorVent" type="comp:OccupantSensorVent" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If Ventnr07cc_OccupantSensorVent IsPresent 
+                                                                                                   <xsd:appinfo source="NRCIsrc">
+                                                                                                      <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_NotApplicableMessage</dtyp:srcSchema>
+                                                                                                      <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
+                                                                                                   </xsd:appinfo>
+                                                                                                </xsd:annotation>
+                                                                                                <xsd:simpleType>
+                                                                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                                   </xsd:restriction>
+                                                                                                </xsd:simpleType>
+                                                                                             </xsd:element>
+                                                                                          </xsd:choice>
+                                                                                          <xsd:choice maxOccurs="1">
+                                                                                             <xsd:element name="Ventnr07_OccupantSensorVent" type="comp:OccupantSensorVent" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If Ventnr07cc_OccupantSensorVent IsPresent 
 If Ventnr01_InstalledSameAsCC == true
 result = Ventnr07cc_OccupantSensorVent but user can change value
 Else If Ventnr01_InstalledSameAsCC == false
 User input
 End If
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="Ventnr07_NotApplicableMessage" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If Ventnr07cc_NotApplicableMessage IsPresent 
+                                                                                                </xsd:annotation>
+                                                                                             </xsd:element>
+                                                                                             <xsd:element name="Ventnr07_NotApplicableMessage" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Occupant Sensor Controls</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If Ventnr07cc_NotApplicableMessage IsPresent 
 result = Ventnr07cc_NotApplicableMessage
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="Ventnr08cc_DemandControlVent" type="comp:DemandControlVent" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
+                                                                                                </xsd:annotation>
+                                                                                                <xsd:simpleType>
+                                                                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                                   </xsd:restriction>
+                                                                                                </xsd:simpleType>
+                                                                                             </xsd:element>
+                                                                                          </xsd:choice>
+                                                                                          <xsd:choice maxOccurs="1">
+                                                                                             <xsd:element name="Ventnr08cc_DemandControlVent" type="comp:DemandControlVent" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent
 result = J16a_DemandControlVent
 Else If NRCC-PRF parent
 If Vent07_MechVentControls IsPresent And == DCV
 result = ProvidedDCV 
 End If
 End If</xsd:documentation>
-                                                                                 <xsd:appinfo source="NRCIsrc">
-                                                                                    <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J16a_DemandControlVent</dtyp:srcSchema>
-                                                                                    <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
-                                                                                 </xsd:appinfo>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="Ventnr08cc_NotApplicableMessage" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If NRCC-PRF parent
+                                                                                                   <xsd:appinfo source="NRCIsrc">
+                                                                                                      <dtyp:srcSchema form="NRCCMCH01E"  usage="copy">J16a_DemandControlVent</dtyp:srcSchema>
+                                                                                                      <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
+                                                                                                   </xsd:appinfo>
+                                                                                                </xsd:annotation>
+                                                                                             </xsd:element>
+                                                                                             <xsd:element name="Ventnr08cc_NotApplicableMessage" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If NRCC-PRF parent
 If Vent07_NotApplicableMessage IsPresent Or 
 Vent07_MechVentControls IsPresent And != DCV
 result = BlankGrayedOut
 End If</xsd:documentation>
-                                                                                 <xsd:appinfo source="NRCIsrc">
-                                                                                    <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
-                                                                                    <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_NotApplicableMessage</dtyp:srcSchema>
-                                                                                 </xsd:appinfo>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
-                                                                        <xsd:choice maxOccurs="1">
-                                                                           <xsd:element name="Ventnr08_DemandControlVent" type="comp:DemandControlVent" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If Ventnr08cc_DemandControlVent IsPresent 
+                                                                                                   <xsd:appinfo source="NRCIsrc">
+                                                                                                      <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_MechVentControls</dtyp:srcSchema>
+                                                                                                      <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Vent07_NotApplicableMessage</dtyp:srcSchema>
+                                                                                                   </xsd:appinfo>
+                                                                                                </xsd:annotation>
+                                                                                                <xsd:simpleType>
+                                                                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                                   </xsd:restriction>
+                                                                                                </xsd:simpleType>
+                                                                                             </xsd:element>
+                                                                                          </xsd:choice>
+                                                                                          <xsd:choice maxOccurs="1">
+                                                                                             <xsd:element name="Ventnr08_DemandControlVent" type="comp:DemandControlVent" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If Ventnr08cc_DemandControlVent IsPresent 
 If Ventnr01_InstalledSameAsCC == true
 result = Ventnr08cc_DemandControlVent but user can change value
 Else If Ventnr01_InstalledSameAsCC == false
 User input
 End If
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                           </xsd:element>
-                                                                           <xsd:element name="Ventnr08_NotApplicableMessage" >
-                                                                              <xsd:annotation>
-                                                                                 <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
-                                                                                 <xsd:documentation source="CalculationsAndRules">If Ventnr08cc_NotApplicableMessage IsPresent  
+                                                                                                </xsd:annotation>
+                                                                                             </xsd:element>
+                                                                                             <xsd:element name="Ventnr08_NotApplicableMessage" >
+                                                                                                <xsd:annotation>
+                                                                                                   <xsd:documentation source="FieldText">Demand Control Ventilation</xsd:documentation>
+                                                                                                   <xsd:documentation source="CalculationsAndRules">If Ventnr08cc_NotApplicableMessage IsPresent  
 result = Ventnr08cc_NotApplicableMessage
 End If</xsd:documentation>
-                                                                              </xsd:annotation>
-                                                                              <xsd:simpleType>
-                                                                                 <xsd:restriction base="comp:NotApplicableMessage">
-                                                                                    <xsd:enumeration value="BlankGrayedOut"/>
-                                                                                 </xsd:restriction>
-                                                                              </xsd:simpleType>
-                                                                           </xsd:element>
-                                                                        </xsd:choice>
+                                                                                                </xsd:annotation>
+                                                                                                <xsd:simpleType>
+                                                                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                                                                   </xsd:restriction>
+                                                                                                </xsd:simpleType>
+                                                                                             </xsd:element>
+                                                                                          </xsd:choice>
+                                                                                       </xsd:sequence>
+                                                                                    </xsd:complexType>
+                                                                                 </xsd:element>
+                                                                              </xsd:choice>
+                                                                           </xsd:complexType>
+                                                                        </xsd:element>
                                                                      </xsd:sequence>
                                                                   </xsd:complexType>
                                                                </xsd:element>
@@ -7284,6 +7326,10 @@ This subsection consists of a display of static table and has no reported data</
          <xsd:element name="Section_G" minOccurs="1">
             <xsd:annotation>
                <xsd:documentation source="FieldText">[d:b]G.  ACCEPTANCE TESTS &amp; FIELD VERIFICATION[/d:b]</xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">Values in this section are affected by data in other sections of the document which may change the result to true and select Yes radio button.  
+ 
+If user changes this value from true to false by selecting the No radio button, an explanation is required in Section E Additional Remarks And D03_ExceptionalConditionMessageNRCIMCHE += UserChangedNRCASelection.
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>

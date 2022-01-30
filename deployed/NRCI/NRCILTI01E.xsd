@@ -91,34 +91,36 @@ End If</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A04_PermitSetName" type="comp:PermitSetName">
-                     <xsd:annotation>
-                        <xsd:documentation source="FieldText">Name of Permit Set used for construction</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
-                     </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element name="A05_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction">
+                  <xsd:element name="A04_AuthorityHavingJurisdiction" type="comp:AuthorityHavingJurisdiction">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Authority Having Jurisdiction</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A06_PermitNumber" type="comp:PermitNumber">
+                  <xsd:element name="A05_PermitNumber" type="comp:PermitNumber">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Building Permit #</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A07_AsBuiltSetDate" type="comp:AsBuiltSetDate">
+                  <xsd:element name="A06_AsBuiltSetDate" type="comp:AsBuiltSetDate">
                      <xsd:annotation>
                         <xsd:documentation source="FieldText">Date of As-built Set</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName">
+                  <xsd:element name="A07_PermitSetName" type="comp:PermitSetName" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Name of As-built Set</xsd:documentation>
-                        <xsd:documentation source="CalculationsAndRules">User input</xsd:documentation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Name of Permit Set used for construction</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This data is not currently required but may be needed in the future</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="A08_AsBuiltSetName" type="comp:AsBuiltSetName" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                        <xsd:documentation source="AdditionalRequirements">Name of As-built Set</xsd:documentation>
+                        <xsd:documentation source="CalculationsAndRules">This data is not currently required but may be needed in the future</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
                </xsd:sequence>
@@ -1028,12 +1030,13 @@ Sum All rows ( Lum06cc_TrackLightingLength x Lum07cc_TrackLightingCurrentLimiter
                         </xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">This subsection is applicable 
 If B01a Or B01b  == true And
-If NRCCLTIE parent
-A03_WholeBuildingOccupancy includes HighRiseResidential Or HotelMotel
-Else If NRCCPRF parent 
-Info13_TopLevelOccupancy == HighRiseResidential Or HotelMotel
+If NRCCLTIE parent And its A03_WholeBuildingOccupancy includes HighRiseResidential Or HotelMotel
+Else If NRCCPRF parent And its Info13_TopLevelOccupancy == HighRiseResidential Or HotelMotel
 End If
 End If</xsd:documentation>
+                        <xsd:appinfo source="NRCIsrc">
+                           <dtyp:srcSchema form="NRCCLTI01E" usage="reference">A03_WholeBuildingOccupancy</dtyp:srcSchema>
+                        </xsd:appinfo>
                      </xsd:annotation>
                      <xsd:complexType>
                         <xsd:sequence>
@@ -2419,6 +2422,10 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>G. ACCEPTANCE TESTS &amp;amp; FIELD VERIFICATION</d:b>
                </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">Values in this section are affected by data in other sections of the document which may change the result to true and select Yes radio button.  
+ 
+If user changes this value from true to false by selecting the No radio button, an explanation is required in Section E Additional Remarks And D03_ExceptionalConditionMessageNRCILTIE += UserChangedNRCASelection.
+End If</xsd:documentation>
                <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>

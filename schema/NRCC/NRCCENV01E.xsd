@@ -6633,7 +6633,7 @@ Else If Hframed07_PartitionFramingMaterial == Metal result = 0.151;
 End if  
  
 Else If Hframed06_WallType == ExteriorWall 
-Switch (Hframed04b_TopLevelOccupancy) 
+Switch (Hframed04a_TopLevelOccupancy) 
 case  Nonresidential: 
 If Hframed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum 
 If A03_ClimateZoneNumber == 1 result = 0.095; 
@@ -6641,13 +6641,34 @@ Else  If A03_ClimateZoneNumber == 2, 4, 9, 10, 12, 13, 14, Or 16 result = 0.059;
 Else If A03_ClimateZoneNumber == 3, 6, Or 7 result = 0.110; 
 Else If A03_ClimateZoneNumber == 5 Or 8 result = 0.102; 
 Else If A03_ClimateZoneNumber == 11 result = 0.045;
-Else If A03_ClimateZoneNumber == 11 result = 0.042; 
+Else If A03_ClimateZoneNumber == 15 result = 0.042; 
 End If       
 Else If Hframed07_PartitionFramingMaterial == Metal  
 If A03_ClimateZoneNumber == 1, 6 Or 7 result = 0.069; 
 Else If A03_ClimateZoneNumber == 2, 4, 5, Or  InRange(8, 16) result = 0.062; 
 Else If A03_ClimateZoneNumber == 3 result = 0.082; 
 End If
+End If  
+ 
+case ResidentialNR:
+If Hframed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum 
+If A03_ClimateZoneNumber == InRange(1,10) Or 12 Or 13  result = 0.059
+Else If A03_ClimateZoneNumber == 11 Or 14 Or 15 Or 16  result = 0.042
+End If
+Else If Hframed07_PartitionFramingMaterial == Metal  
+If A03_ClimateZoneNumber == InRange(1,6) Or InRange(8,14) Or 16  result = 0.069
+Else If A03_ClimateZoneNumber == 7  result = 0.105
+Else If A03_ClimateZoneNumber == 15  result = 0.048
+End If
+End If
+ 
+case RelocableSchoolBuildingAllZones:
+If Hframed07_PartitionFramingMaterial == WoodFraming Or Wood0_625Gypsum 
+result = 0.042
+Else If Hframed07_PartitionFramingMaterial == Metal 
+result = 0.057
+End If
+End Switch
 End If</xsd:documentation>
 																	</xsd:annotation>
 																</xsd:element>
