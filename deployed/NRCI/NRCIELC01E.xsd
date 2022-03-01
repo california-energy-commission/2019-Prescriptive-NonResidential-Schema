@@ -23,8 +23,7 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCI"/>
                      <xsd:element ref="nRCIELC01E"/>
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded"/>
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCI" maxOccurs="unbounded"/>
+                     <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -188,7 +187,7 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="CalculationsAndRules">Calculated result:  
-If in any required tables or subsections in Section F  ComplianceResultNRCI ==  FormNotComplete
+If in any required tables or subsections in Section F  ComplianceResultNRCI ==  TableIncomplete
 result = FormNotComplete
 Else If in any required tables or subsections in Section F ComplianceResultNRCI == MayNotComply
 result = MayNotComply
@@ -599,11 +598,20 @@ End If</xsd:documentation>
 result = TableIncomplete 
 Else If Meter01_InMyScope == false 
 result = NotInScope 
+ 
 Else If Meter01_InstalledSameAsCC == true
 If Meter02_ElectricalServiceRating == Meter02cc_ElectricalServiceRating 
 And
+Meter03_MeteringDemandRequired == Meter03cc_MeteringDemandRequired And 
+Meter04_MeteringPeakDemandReq == Meter04cc_MeteringPeakDemandReq And 
+Meter05_MeteringkWhPerUserPeriodRequired == Meter05cc_MeteringkWhPerUserPeriodRequired And 
+Meter06_MeteringkWhPerRatePeriodRequired == Meter06cc_MeteringkWhPerRatePeriodRequired 
+result =  ExactMatch
+End If
  
-Meter03cc_MeteringDemandRequired == false And 
+Else If Meter01_InstalledSameAsCC == false
+ 
+If Meter03cc_MeteringDemandRequired == false And 
 Meter03_MeteringCapabilitiesAsBuilt == UtilityProvidedNA Or ElectCode517NA
 Or  
 Meter03cc_MeteringDemandRequired == true And
@@ -630,14 +638,11 @@ Or
 Meter06cc_MeteringkWhPerRatePeriodRequired == true And 
 Meter06_MeteringCapabilitiesAsBuilt ==  ProvidedAtService, ProvidedAtPanel Or  ProvidedAtFeeder
  
-result = ExactMatch
+result = EqualBetter
 Else 
 D01_ExceptionalConditionMessageNRCIELCE += MeteringNoMatch
 result = EqualBetter
 End If
-Else If Meter01_InstalledSameAsCC == false
-D01_ExceptionalConditionMessageNRCIELCE += MeteringNoMatch
-result = EqualBetter
 End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>

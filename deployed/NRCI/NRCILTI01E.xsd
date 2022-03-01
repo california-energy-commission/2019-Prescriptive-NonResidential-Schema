@@ -23,8 +23,7 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCI"/>
                      <xsd:element ref="nRCILTI01E"/>
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded"/>
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCI" maxOccurs="unbounded"/>
+                     <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -274,7 +273,7 @@ End If</xsd:documentation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="CalculationsAndRules">Calculated result:  
  If in any required tables or subsections in Section F 
-  ComplianceResultNRCI ==  FormNotComplete
+  ComplianceResultNRCI ==  TableIncomplete
  result = FormNotComplete
  Else If ComplianceResultNRCI == MayNotComply
  result = MayNotComply
@@ -1774,16 +1773,51 @@ End If</xsd:documentation>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Paf01_InstalledSameAsCC" type="comp:InstalledSameAsCC" minOccurs="0">
+                                    <xsd:element name="Paf01_InMyScope" type="comp:InMyScope">
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                          <xsd:documentation source="FieldText">Is this in your scope?</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
+ If result == false Paf02cc-Paf06cc is displayed but Paf02-Paf06As-built fields are blank and grayed out
+And D01_ExceptionalConditionMessageNRCILTIE += PafNotInScope  
+End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Paf02cc_PAFCreditType" type="comp:PAFCreditType" maxOccurs="2">
+                                    <xsd:element name="PafScopeChoice">
                                        <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Controls for Wattage Credit</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">Only 2 PAF's are allowed for a space.  Start with Count == 0  and when Count == 2 stop assignments
+                                          <xsd:documentation source="FieldText"/>
+                                       </xsd:annotation>
+                                       <xsd:complexType>
+                                          <xsd:choice>
+                                             <xsd:element name="PafScopeNA_NotApplicableMessage">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">If Pafl01_InMyScope == false
+result = BlankGrayedOut forPaf02-Paf06As-built fields are blank and grayed out fields
+End If</xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:simpleType>
+                                                   <xsd:restriction base="comp:NotApplicableMessage">
+                                                      <xsd:enumeration value="BlankGrayedOut"/>
+                                                   </xsd:restriction>
+                                                </xsd:simpleType>
+                                             </xsd:element>
+                                             <xsd:element name="PafInScope">
+                                                <xsd:annotation>
+                                                   <xsd:documentation source="FieldText"/>
+                                                   <xsd:documentation source="CalculationsAndRules">This subsection is required if If Pafl01_InMyScope == true</xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:complexType>
+                                                   <xsd:sequence>
+                                                      <xsd:element name="Paf01_InstalledSameAsCC" type="comp:InstalledSameAsCC" minOccurs="0">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">NOT REPORTED IN PDF</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf02cc_PAFCreditType" type="comp:PAFCreditType" maxOccurs="2">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Controls for Wattage Credit</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">Only 2 PAF's are allowed for a space.  Start with Count == 0  and when Count == 2 stop assignments
  
 If NRCCLTIE parent
 Evaluate the Pc02 value If Paf01cc is loaded from Pc01_SpaceDescription. Evaluate the Pu02 value If Paf01cc is loaded from Pu01_SpaceDescription:
@@ -1835,75 +1869,75 @@ If LtgCredits03_PAFCreditType[1] not null
 result += LtgCredits03_PAFCreditType[1] //second value
 End If
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02a_ApplyDayightDimmingPlusOff</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02a_ApplyDayightDimmingPlusOff</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02b_ApplyOccupantSensingControlsUpTo125SF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02b_ApplyOccupantSensingControlsUpTo125SF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02c_ApplyOccupantSensingControls125To250SF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02c_ApplyOccupantSensingControls125To250SF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02d_ApplyOccupantSensingControls251To500SF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02d_ApplyOccupantSensingControls251To500SF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02e_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02e_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02f_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02f_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02g_ApplyDemandResponsiveControl</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02g_ApplyDemandResponsiveControl</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02h_ApplyClerestoryFenestrationPAF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02h_ApplyClerestoryFenestrationPAF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02i_ApplyHorizontalSlatsPAF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02i_ApplyHorizontalSlatsPAF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02j_ApplyLightShelvesPAF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02j_ApplyLightShelvesPAF</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits03_PAFCreditType</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf03cc_LuminaireName" type="lit:LuminaireName">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Luminaire Name or Item Tag</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02a_ApplyDayightDimmingPlusOff</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02a_ApplyDayightDimmingPlusOff</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02b_ApplyOccupantSensingControlsUpTo125SF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02b_ApplyOccupantSensingControlsUpTo125SF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02c_ApplyOccupantSensingControls125To250SF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02c_ApplyOccupantSensingControls125To250SF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02d_ApplyOccupantSensingControls251To500SF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02d_ApplyOccupantSensingControls251To500SF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02e_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02e_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02f_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02f_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02g_ApplyDemandResponsiveControl</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02g_ApplyDemandResponsiveControl</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02h_ApplyClerestoryFenestrationPAF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02h_ApplyClerestoryFenestrationPAF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02i_ApplyHorizontalSlatsPAF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02i_ApplyHorizontalSlatsPAF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pc02j_ApplyLightShelvesPAF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="reference">Pu02j_ApplyLightShelvesPAF</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits03_PAFCreditType</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf03cc_LuminaireName" type="lit:LuminaireName">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Luminaire Name or Item Tag</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
 If Paf01cc is loaded from Pc01_SpaceDescription value 
-If Pc03_LuminaireName == Lum01cc_LuminaireName where Lum02_ScopeIncludesFixture == true
+If Pc03_LuminaireName == Lum01cc_LuminaireName where Lum01_ScopeIncludesFixture == true
 result = Pc03_LuminaireName
 Else skip this Pc03_LuminaireName -  not in installer's scope
 End If
 Else If Paf01cc is loaded from Pu01_SpaceDescription
-If Pu03_LuminaireName == Lum01cc_LuminaireName where Lum02_ScopeIncludesFixture == true
+If Pu03_LuminaireName == Lum01cc_LuminaireName where Lum01_ScopeIncludesFixture == true
 result = Pu03_LuminaireName
 Else skip this Pc03_LuminaireName -  not in installer's scope
 End If
 End If
 Else If NRCCPRFE parent 
 If LtgCredits05_LuminaireName
- == Lum01cc_LuminaireName where Lum02_ScopeIncludesFixture == true
+ == Lum01cc_LuminaireName where Lum01_ScopeIncludesFixture == true
 result = LtgCredits05_LuminaireName
 Else skip this LtgCredits05_LuminaireName -  not in installer's scope
 End If
  
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc03_LuminaireName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu03_LuminaireName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits05_LuminaireName</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf03_LuminaireName" type="lit:LuminaireName">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Luminaire Name or Item Tag</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If Paf01_InstalledSameAsCC == true
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc03_LuminaireName</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu03_LuminaireName</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits05_LuminaireName</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf03_LuminaireName" type="lit:LuminaireName">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Luminaire Name or Item Tag</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If Paf01_InstalledSameAsCC == true
 result =  Paf03cc_LuminaireName
 Else 
-User selects from list of luminiares generated from  Lum01cc_LuminaireName values where Lum02_ScopeIncludesFixture == true
+User selects from list of luminiares generated from  Lum01cc_LuminaireName values where Lum01_ScopeIncludesFixture == true
 End If</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf04cc_LuminairePower" type="lit:LuminairePower">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf04cc_LuminairePower" type="lit:LuminairePower">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
 If Paf01cc is loaded from Pc01_SpaceDescription 
 result = Pc04_LuminairePower 
 Else If Paf01cc is loaded from Pu01_SpaceDescription
@@ -1912,23 +1946,23 @@ End If
 Else If NRCCPRFE parent
 result = LtgCredits06_LuminairePower 
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc04_LuminairePower</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu04_LuminairePower</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits06_LuminairePower</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf04_LuminairePower" type="lit:LuminairePower">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">result = Lum11_LuminairePower for the Lum01_LuminaireName assigned to Paf03_LuminaireName</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf05cc_LuminaireCountByType" type="lit:LuminaireCountByType">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Number of Luminaires</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc04_LuminairePower</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu04_LuminairePower</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits06_LuminairePower</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf04_LuminairePower" type="lit:LuminairePower">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">result = Lum11_LuminairePower for the Lum01_LuminaireName assigned to Paf03_LuminaireName</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf05cc_LuminaireCountByType" type="lit:LuminaireCountByType">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Number of Luminaires</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
 If Paf01cc is loaded from Pc01_SpaceDescription 
 result = Pc05_LuminaireCountByType 
 Else If Paf01cc is loaded from Pu01_SpaceDescription
@@ -1937,23 +1971,23 @@ End If
 Else If NRCCPRFE parent
 result = LtgCredits07_LuminaireCountByType  
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc05_LuminaireCountByType</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu05_LuminaireCountByType</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits07_LuminaireCountByType</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf05_LuminaireCountByType" type="lit:LuminaireCountByType">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Number of Luminaires</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">result = Paf05cc_LuminaireCountByType  but user can change value</xsd:documentation>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf06cc_LuminairePowerByType" type="lit:LuminairePowerByType">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Lighting Controlled (Watts)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc05_LuminaireCountByType</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu05_LuminaireCountByType</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits07_LuminaireCountByType</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf05_LuminaireCountByType" type="lit:LuminaireCountByType">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Number of Luminaires</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">result = Paf05cc_LuminaireCountByType  but user can change value</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf06cc_LuminairePowerByType" type="lit:LuminairePowerByType">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Lighting Controlled (Watts)</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
 If Paf01cc is loaded from Pc01_SpaceDescription 
 result = Pc06_LuminairePowerByType 
 Else If Paf01cc is loaded from Pu01_SpaceDescription
@@ -1962,25 +1996,32 @@ End If
 Else If NRCCPRFE parent
 result = LtgCredits08_LuminairePowerInArea  
 End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc06_LuminairePowerByType</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu06_LuminairePowerByType</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits08_LuminairePowerInArea</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
-                                    <xsd:element name="Paf06_LuminairePowerByType" type="lit:LuminairePowerByType">
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Lighting Controlled (Watts)</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">result = Paf04_LuminairePower x Paf05_LuminaireCountByType</xsd:documentation>
-                                       </xsd:annotation>
+                                                            <xsd:appinfo source="NRCIsrc">
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pc06_LuminairePowerByType</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E" usage="copy">Pu06_LuminairePowerByType</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCPRF01E" usage="copy">LtgCredits08_LuminairePowerInArea</dtyp:srcSchema>
+                                                            </xsd:appinfo>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                      <xsd:element name="Paf06_LuminairePowerByType" type="lit:LuminairePowerByType">
+                                                         <xsd:annotation>
+                                                            <xsd:documentation source="FieldText">Lighting Controlled (Watts)</xsd:documentation>
+                                                            <xsd:documentation source="CalculationsAndRules">result = Paf04_LuminairePower x Paf05_LuminaireCountByType</xsd:documentation>
+                                                         </xsd:annotation>
+                                                      </xsd:element>
+                                                   </xsd:sequence>
+                                                </xsd:complexType>
+                                             </xsd:element>
+                                          </xsd:choice>
+                                       </xsd:complexType>
                                     </xsd:element>
                                     <xsd:element name="Paf07_ComplianceResultNRCI" type="comp:ComplianceResultNRCI">
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Controls for Credit Compliance</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If any user input field is blank
  result = TableIncomplete  
- 
+Else If Paf01_InMyScope == false
+result = NotInScope 
 Else If for all rows 
 Paf04cc_LuminairePower == Paf04_LuminairePower 
 And 

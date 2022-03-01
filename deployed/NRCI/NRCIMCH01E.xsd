@@ -23,8 +23,7 @@
                   <xsd:sequence>
                      <xsd:element name="Header" type="comp:HeaderNRCI"/>
                      <xsd:element ref="nRCIMCH01E"/>
-                     <xsd:element name="DocAuthor" type="comp:DocumentAuthor" maxOccurs="unbounded"/>
-                     <xsd:element name="RespPerson" type="comp:ResponsiblePersonNRCI" maxOccurs="unbounded"/>
+                     <xsd:element name="DeclarationsBlock" type="comp:DeclarationsNRCC" maxOccurs="unbounded"/>
                      <xsd:element name="Footer" type="comp:FooterNRCC"/>
                   </xsd:sequence>
                </xsd:complexType>
@@ -275,7 +274,7 @@ End If</xsd:documentation>
                      <xsd:annotation>
                         <xsd:documentation source="FieldText"/>
                         <xsd:documentation source="CalculationsAndRules">Calculated result:  
-If in any required tables or subsections in Section F  ComplianceResultNRCI ==  FormNotComplete
+If in any required tables or subsections in Section F  ComplianceResultNRCI ==  TableIncomplete
 result = FormNotComplete
 Else If in any required tables or subsections in Section F ComplianceResultNRCI == MayNotComply
 result = MayNotComply
@@ -854,7 +853,7 @@ End If,</xsd:documentation>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                          </xsd:element>
-                                                         <xsd:element name="Dry5cc_NotApplicableMessage">
+                                                         <xsd:element name="Dry05cc_NotApplicableMessage">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Supplemental Heating Output (kBtu/h)</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent and F07_NotApplicableMessage IsPresent
@@ -2936,13 +2935,13 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Isolation Valve</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent 
-result = NRCC-MCH   Fd09_ChillIerIsolationValve  
+result = NRCC-MCH   Fd09_ChillerIsolationValve  
 End If</xsd:documentation>
                                                                <xsd:appinfo source="displayterm">
                                                                   <dtyp:displayterm value="HasValve">Provided</dtyp:displayterm>
                                                                </xsd:appinfo>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">Fd09_ChillIerIsolationValve</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">Fd09_ChillerIsolationValve</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                          </xsd:element>
@@ -2967,9 +2966,9 @@ End If</xsd:documentation>
                                                          <xsd:element name="Chlr10_ChillerIsolationValve" type="hvac:ChillerIsolationValve">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Isolation Valve</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Chlr10cc_ChillIerIsolationValve IsPresent 
+                                                               <xsd:documentation source="CalculationsAndRules">If Chlr10cc_ChillerIsolationValve IsPresent 
 If Chlr01_InstalledSameAsCC == true
-result = Chlr10cc_ChillIerIsolationValve but user can change value
+result = Chlr10cc_ChilIerIsolationValve but user can change value
 Else If Chlr01_InstalledSameAsCC == false
 User input
 End If
@@ -4011,7 +4010,7 @@ End If</xsd:documentation>
 result = Ff02_ElectricResistanceHeatingCapacity
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">Ff02_ElectricResistanceHeatingType</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">Ff03_ElectricResistanceHeatingCapacity</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                          </xsd:element>
@@ -4260,7 +4259,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Variable Flow Controls</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And G05_NotApplicableMessage IsPresent
-result = G05_NotAppicableMessage
+result = G05_NotApplicableMessage
 Else If NRCC-PRF parent 
 If Pump06_IsVSD == false
 result = BlankGrayedOut
@@ -4296,8 +4295,8 @@ End If</xsd:documentation>
                                                          <xsd:element name="Pump05_NotApplicableMessage">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Variable Flow Controls</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Pump05cc_NotAppicableMessage IsPresent
-result = Pump05cc_NotAppicableMessage
+                                                               <xsd:documentation source="CalculationsAndRules">If Pump05cc_NotApplicableMessage IsPresent
+result = Pump05cc_NotApplicableMessage
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -4325,13 +4324,13 @@ End If</xsd:documentation>
                                                          <xsd:element name="Pump06cc_NotApplicableMessage">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Hydronic Heat Pump Isolation</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And G06_NotAppicableMessage IsPresent
-result = G06_NotAppicableMessage
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And G06_NotApplicableMessage IsPresent
+result = G06_NotApplicableMessage
 Else If NRCC-PRF parent 
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">G06_NotAppicableMessage</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">G06_NotApplicableMessage</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="value">BlankGrayedOut</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
@@ -4361,8 +4360,8 @@ End If</xsd:documentation>
                                                          <xsd:element name="Pump06_NotApplicableMessage">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Hydronic Heat Pump Isolation</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Pump06cc_NotAppicableMessage IsPresent
-result = Pump06cc_NotAppicableMessage
+                                                               <xsd:documentation source="CalculationsAndRules">If Pump06cc_NotApplicableMessage IsPresent
+result = Pump06cc_NotApplicableMessage
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -4398,14 +4397,14 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">VSD on Pumps 
                                                                   <d:gt/> 5HP</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And G07_NotAppicableMessage IsPresent
-result = G07_NotAppicableMessage
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And G07_NotApplicableMessage IsPresent
+result = G07_NotApplicableMessage
 Else If NRCC-PRF parent 
 If Pump06_IsVSD == false Or Pump04_PumpMotorHP LTE 5
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">G07_NotAppicableMessage</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">G07_NotApplicableMessage</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="reference">Pump06_IsVSD</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="reference">Pump04_PumpMotorHP</dtyp:srcSchema>
                                                                </xsd:appinfo>
@@ -4997,10 +4996,13 @@ End If</xsd:documentation>
                                                          <xsd:element name="Fan08cc_NotApplicableMessage">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Pressure Drop Adjustment Device</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-PRF parent 
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And H05_HorsePowerUnit == BHP
+result = BlankGrayedOut
+Else If NRCC-PRF parent
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="value">BlankGrayedOut</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="value">BlankGrayedOut</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
@@ -6757,10 +6759,10 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="FieldText">Zonal Control Strategy per 
                                                                   <d:t24refnolink/>140.4(d)</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent 
-result = K02_ZoneControlStrategy
+result = K02_ZonalControlStrategy
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">K02_ZoneControlStrategy</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">K02_ZonalControlStrategy</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                          </xsd:element>
@@ -6799,9 +6801,9 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Zonal Control Strategy per 
                                                                   <d:t24refnolink/>140.4(d)</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Zone02cc_ZoneControlStrategy IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If Zone02cc_ZonalControlStrategy IsPresent
 If Zone01_InstalledSameAsCC == true 
-result = Zone02cc_ZoneControlStrategy but user can change value
+result = Zone02cc_ZonalControlStrategy but user can change value
 Else If Zone01_InstalledSameAsCC == false
 User input
 End If
@@ -6881,7 +6883,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Peak Primary Airflow 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZoneControlStrategy IsPresent And  == VAVwithDDC Or VAVNoDDC
+                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZonalControlStrategy IsPresent And  == VAVwithDDC Or VAVNoDDC
 If Zone03cc_PrimaryAirFlowMaximum IsPresent
 If Zone01_InstalledSameAsCC == true
 result = Zone03cc_PrimaryAirFlowMaximum but user can change value
@@ -6898,7 +6900,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Peak Primary Airflow 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZoneControlStrategy IsPresent And  != VAVwithDDC And != VAVNoDDC
+                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZonalControlStrategy IsPresent And  != VAVwithDDC And != VAVNoDDC
 result = BlankGrayedOut.
 Else If Zone03cc_NotApplicableMessage IsPresent 
 result = Zone03cc_NotApplicableMessage.
@@ -6931,13 +6933,14 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Primary Air in Deadband 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K03toK11NA_NotApplicableMessage IsPresent 
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K03toK11NA_NotApplicableMessage IsPresent Or K04_NotApplicableMessage IsPresent
 result = BlankGrayedOut.
 Else If NRCC-PRF parent And Zone07_NotApplicableMessage IsPresent 
 result = BlankGrayedOut.
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
                                                                   <dtyp:srcSchema form="NRCCMCH01E" usage="reference">K03toK11NA_NotApplicableMessage</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="reference">K04_NotApplicableMessage</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="reference">Zone07_NotApplicableMessage</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
@@ -6953,7 +6956,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Primary Air in Deadband 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZoneControlStrategy IsPresent And  == VAVwithDDC
+                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZonalControlStrategy IsPresent And  == VAVwithDDC
 If Zone04cc_PrimaryAirInDeadband IsPresent
 If Zone01_InstalledSameAsCC == true
 result = Zone04cc_PrimaryAirInDeadband but user can change value
@@ -6970,7 +6973,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Primary Air in Deadband 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZoneControlStrategy IsPresent And  != VAVwithDDC Or  == VAVNoDDC
+                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZonalControlStrategy IsPresent And  != VAVwithDDC Or  == VAVNoDDC
 result = BlankGrayedOut.
 Else If Zone04cc_NotApplicableMessage IsPresent 
 result = Zone04cc_NotApplicableMessage.
@@ -7022,7 +7025,7 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Reheated Recooled Mixed Airflow 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZoneControlStrategy IsPresent And  == VAVwithDDC Or  == VAVNoDDC
+                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZonalControlStrategy IsPresent And  == VAVwithDDC Or  == VAVNoDDC
 If Zone05cc_ReheatRecoolMixAirFlow IsPresent
 If Zone01_InstalledSameAsCC == true
 result = Zone05cc_ReheatRecoolMixAirFlow but user can change value
@@ -7057,11 +7060,11 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Outside Air 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K06_TermnalUnitOA IsPresent
-result = K06_TermnalUnitOA
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K06_TerminalUnitOA IsPresent
+result = K06_TerminalUnitOA
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">K06_TermnalUnitOA</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">K06_TerminalUnitOA</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                          </xsd:element>
@@ -7091,10 +7094,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Outside Air 
                                                                   <d:line1/> CFM</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZoneControlStrategy IsPresent And  == VAVwithDDC Or  == VAVNoDDC
-If Zone06cc_TermnalUnitOA IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If  Zone02_ZonalControlStrategy IsPresent And  == VAVwithDDC Or  == VAVNoDDC
+If Zone06cc_TerminalUnitOA IsPresent
 If Zone01_InstalledSameAsCC == true
-result = Zone06cc_TermnalUnitOA but user can change the value
+result = Zone06cc_TerminalUnitOA but user can change the value
 Else If Zone01_InstalledSameAsCC == false
 User input
 End If
@@ -7145,13 +7148,14 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="FieldText">1<d:sup>st</d:sup> Stage Modulates 
                                                                   <d:lte/>95
                                                                   <d:deg/>F and Maintains DB Rate?</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K03toK11NA_NotApplicableMessage IsPresent 
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K03toK11NA_NotApplicableMessage IsPresent Or K10_NotApplicableMessage IsPresent
 result = BlankGrayedOut.
 Else If NRCC-PRF parent 
 result = BlankGrayedOut.
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
                                                                   <dtyp:srcSchema form="NRCCMCH01E" usage="reference">K03toK11NA_NotApplicableMessage</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="reference">K10_NotApplicableMessage</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="value">BlankGrayedOut</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
@@ -7215,13 +7219,15 @@ End If</xsd:documentation>
                                                          <xsd:element name="Zone08cc_NotApplicableMessage">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">2<d:sup>nd</d:sup> Stage Modulates from DB Flow to Heating Max Flow?</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K03toK11NA_NotApplicableMessage IsPresent 
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And K03toK11NA_NotApplicableMessage IsPresent  Or 
+K11_NotApplicableMessage IsPresent 
 result = BlankGrayedOut.
 Else If NRCC-PRF parent 
 result = BlankGrayedOut.
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
                                                                   <dtyp:srcSchema form="NRCCMCH01E" usage="reference">K03toK11NA_NotApplicableMessage</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="reference">K11_NotApplicableMessage</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="value">BlankGrayedOut</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
