@@ -1353,7 +1353,7 @@ End If</xsd:documentation>
                   </xsd:choice>
                   <xsd:element name="A03a_TypeOtherDescription" type="com:TypeOtherDescription" minOccurs="0">
                      <xsd:annotation>
-                        <xsd:documentation source="FieldText">Other (write in)</xsd:documentation>
+                        <xsd:documentation source="FieldText">Other (Write In)</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">This field is required If A03_WholeBuildingOccupancy  Or A03OtherOnly_WholeBuildingOccupancy  include AllOthersBuildings.  User input should describe the type of  occupancy.</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
@@ -2941,7 +2941,14 @@ End if</xsd:documentation>
                         <xsd:documentation source="CalculationsAndRules">User selects from dropdown list: RequiredGT10000SF display term Required greater than 10,000 SF, NotRequiredLT10000SF display term Not Required less than 10,000 SF, NotRequiredInstallingAsPAF display term Not Required - Installing as PAF, NotRequiredLTE0_5WperSF display term  Not Required- Building less than or equal to 0.5W/SF, NA_LT80PctAllowedLP display term NA: less than or equal to 80 % LP (alt only)  
  
  
-If result == NA_LT80PctAllowedLP then If Bnew01 and Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And C08 GT PRODUCT (SUM (C01, C02), 0.8)  D03  ExceptionalConditionMessageCCLTIE = LP80PercentAlterationIssueInH
+If result == NA_LT80PctAllowedLP then 
+If Bnew01 And Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And 
+C08Row01_LightingPowerInstalledTotalConditionedAdjusted IsPresent And  LTE  (C05Row01_LightingPowerAllowanceTotalConditioned   x 0.8)  
+Or C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted IsPresent And  LTE  (C05Row02_LightingPowerAllowanceTotalUnconditioned   x 0.8)  
+ 
+D03_ExceptionalConditionMessageCCLTIE += LP80PercentAlterationOnlyIssueInH
+End If
+End If
  
 Mandatory Measure Block Triggers:
 If result == RequiredGT10000SF Or NotRequiredLTE0_5WperSF in MM Block  MM110_12c_MeasureApplies  = true and is displayed
@@ -3149,7 +3156,15 @@ End If</xsd:documentation>
                                           </xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list.  If selection has an asterisk, the user must provide a note in H_Exception02_ExceptionalConditionNote for this area explaining how compliance is achieved with this selection
  
-If result == NA_LT80PctAllowedLP then If Bnew01 and Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And C08 GT PRODUCT (SUM (C01, C02), 0.8)  D03  ExceptionalConditionMessageCCLTIE = LP80PercentAlterationIssueInH
+ 
+If result == NA_LT80PctAllowedLP then 
+If Bnew01 And Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And 
+C08Row01_LightingPowerInstalledTotalConditionedAdjusted IsPresent And  LTE  (C05Row01_LightingPowerAllowanceTotalConditioned   x 0.8)  
+Or C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted IsPresent And  LTE  (C05Row02_LightingPowerAllowanceTotalUnconditioned   x 0.8)  
+ 
+D03_ExceptionalConditionMessageCCLTIE += LP80PercentAlterationOnlyIssueInH
+End If
+End If
  
 Mandatory Measure Triggers:
 If result == BilevelSwitchControl Or DimmerControl
@@ -3218,7 +3233,13 @@ Multi-field triggers: See H02_ShutOffControlsBuilding CalculationsAndRules for t
                                           <xsd:documentation source="CalculationsAndRules">User selects from dropdown list.  
 If selection has an asterisk, the user must provide a note in H_Exception02_ExceptionalConditionNote for this area explaining how compliance is achieved with this selection.  
  
-If result == NA_LT80PctAllowedLP then If Bnew01 and Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And C08 GT PRODUCT (SUM (C01, C02), 0.8)  D03  ExceptionalConditionMessageCCLTIE = LP80PercentAlterationIssueInH
+If result == NA_LT80PctAllowedLP then 
+If Bnew01 And Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And 
+C08Row01_LightingPowerInstalledTotalConditionedAdjusted IsPresent And  LTE  (C05Row01_LightingPowerAllowanceTotalConditioned   x 0.8)  
+Or C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted IsPresent And  LTE  (C05Row02_LightingPowerAllowanceTotalUnconditioned   x 0.8)  
+ 
+D03_ExceptionalConditionMessageCCLTIE += LP80PercentAlterationOnlyIssueInH
+End If
 End If
  
 Mandatory Measure Block Triggers:
@@ -3237,7 +3258,17 @@ Note: MM130_1d includes text for 130.1d,  130.1d3, 130.1d4, and 130.1d5,</xsd:do
                                           <xsd:documentation source="FieldText">Secondary Daylighting 
                                              <d:t24ref h="140.6(d)"/>
                                           </xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list.  If selection has an asterisk, the user must provide a note in H_Exception02_ExceptionalConditionNote for this area explaining how compliance is achieved with this selection.  If result == NA_LT80PctAllowedLP then If Bnew01 and Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And C08 GT PRODUCT (SUM (C01, C02), 0.8)  D03  ExceptionalConditionMessageCCLTIE = LP80PercentAlterationIssueInH</xsd:documentation>
+                                          <xsd:documentation source="CalculationsAndRules">User selects from dropdown list. 
+ If selection has an asterisk, the user must provide a note in H_Exception02_ExceptionalConditionNote for this area explaining how compliance is achieved with this selection. 
+ 
+If result == NA_LT80PctAllowedLP then 
+If Bnew01 And Bpark01 LightingProjectScopeNR == NotApplicableLightingScope And Baltered01 LightingProjectScopeNR == AlteredLightingSystem And 
+C08Row01_LightingPowerInstalledTotalConditionedAdjusted IsPresent And  LTE  (C05Row01_LightingPowerAllowanceTotalConditioned   x 0.8)  
+Or C08Row02_LightingPowerInstalledTotalUnconditionedAdjusted IsPresent And  LTE  (C05Row02_LightingPowerAllowanceTotalUnconditioned   x 0.8)  
+ 
+D03_ExceptionalConditionMessageCCLTIE += LP80PercentAlterationOnlyIssueInH
+End If
+End If</xsd:documentation>
                                           <xsd:appinfo source="displayterm">
                                              <dtyp:displayterm value="Exempt">Exempt*</dtyp:displayterm>
                                           </xsd:appinfo>
@@ -6732,7 +6763,10 @@ this table is always required</xsd:documentation>
                   <d:b>R. 80% LIGHTING POWER FOR ALL ALTERATIONS - CONTROLS EXCEPTIONS</d:b>
                </xsd:documentation>
                <xsd:documentation source="CalculationsAndRules">This section is required If Bnew01__LightingProjectScopeNR == NewLightingSystem AND Baltered01_LightingProjectScopeNR == AlteredlightingSystem  
-And If H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_PrimarySkylitDaylightControlsIncluded Or H10_ SecondaryDaylightControlsIncluded == NA_LTE80PctAllowedLP</xsd:documentation>
+And If H01_MandatoryLightingDemandResponseNR Or H07_MultilevelControls Or H09_PrimarySkylitDaylightControlsIncluded Or H10_ SecondaryDaylightControlsIncluded == NA_LTE80PctAllowedLP   
+ 
+If thiis section is required check that all rows have data in  R01, R02, R03, R04 R06 R07 Or R08 
+Else  D03_ExceptionalConditionMessageCCLTIE += LP80PercentAlterationMissingDataInR</xsd:documentation>
                <xsd:documentation source="MinOccurs">If this section doesn't apply, do not display anything for this section</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>

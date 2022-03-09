@@ -2591,11 +2591,14 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent 
 If Fd06a_ChillerCOP IsPresent 
 result = NRCC-MCH   Fd06a_ChillerCOP
+Else If  Fd06a_EfficiencyCOP IsPresent 
+result = NRCC-MCH   Fd06a_EfficiencyCOP
 Else If NRCC-PRF parent And HvacWet06_EfficiencyCOP IsPresent
 result = NRCC-PRF parent And HvacWet06_EfficiencyCOP 
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
                                                                   <dtyp:srcSchema form="NRCCMCH01E" usage="copy">Fd06a_ChillerCOP</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCMCH01E" usage="copy">Fd06a_EfficiencyCOP</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E" usage="copy">HvacWet06_EfficiencyCOP</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
@@ -4996,7 +4999,7 @@ End If</xsd:documentation>
                                                          <xsd:element name="Fan08cc_NotApplicableMessage">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Pressure Drop Adjustment Device</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And H05_HorsePowerUnit == BHP
+                                                               <xsd:documentation source="CalculationsAndRules">If NRCC-MCH parent And H05_HorsePowerUnit != BHP
 result = BlankGrayedOut
 Else If NRCC-PRF parent
 result = BlankGrayedOut
@@ -5066,8 +5069,7 @@ Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  GT  Fan05cc_
 Or
 Fan07_MaximumAirflowRate LT Fan07cc_MaximumAirflowRate
 Or 
-Fan08_PressureDropAdjustmentDevice  IsPresent And  Fan08_PressureDropAdjustmentDevice == false
-result = MayNotComply
+Fan08_PressureDropAdjustmentDevice  IsPresent And  Fan08_PressureDropAdjustmentDevice != Fan08cc_PressureDropAdjustmentDeviceresult = MayNotComply
  
 Else If 
 Fan02_FanCount == Fan02cc_FanCount 
@@ -5093,8 +5095,7 @@ Fan05_TotalStaticPressure  IsPresent And Fan05_TotalStaticPressure  == Fan05cc_T
 And
 Fan07_MaximumAirflowRate == Fan07cc_MaximumAirflowRate
 And
-Fan08_NotApplicableMessage IsPresent Or Fan08_PressureDropAdjustmentDevice == true
- 
+Fan08_NotApplicableMessage IsPresent Or Fan08_PressureDropAdjustmentDevice == Fan08cc_PressureDropAdjustmentDevice  
 result = ExactMatch
  
 Else If 

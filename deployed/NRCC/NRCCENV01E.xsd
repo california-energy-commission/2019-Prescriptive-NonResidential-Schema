@@ -3180,7 +3180,11 @@ MechanicalEquipmentOnRoof display term Mechanical equipment will not be lifted a
  
 NoExceptionApplies display term None of these exceptions apply, 
  
-R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089</xsd:documentation>
+R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089
+ 
+If result !=  NoExceptionApplies    
+D03_ExceptionalConditionMessageCCENVE += RoofAlterationExceptionInF
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="FSIPS05_NotApplicableMessage">
@@ -4032,7 +4036,11 @@ MechanicalEquipmentOnRoof display term Mechanical equipment will not be lifted a
  
 NoExceptionApplies display term None of these exceptions apply, 
  
-R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089</xsd:documentation>
+R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089
+ 
+If result !=  NoExceptionApplies    
+D03_ExceptionalConditionMessageCCENVE += RoofAlterationExceptionInF
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fspan05_NotApplicableMessage">
@@ -4605,7 +4613,11 @@ MechanicalEquipmentOnRoof display term Mechanical equipment will not be lifted a
  
 NoExceptionApplies display term None of these exceptions apply 
  
-R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089</xsd:documentation>
+R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089
+ 
+If result !=  NoExceptionApplies    
+D03_ExceptionalConditionMessageCCENVE += RoofAlterationExceptionInF
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fmetalp05_NotApplicableMessage">
@@ -4936,7 +4948,11 @@ MechanicalEquipmentOnRoof display term Mechanical equipment will not be lifted a
  
 NoExceptionApplies display term None of these exceptions apply, 
  
-R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089</xsd:documentation>
+R7OrUfactorLT0_089 display term Existing roof is insulated with at least R-7 or has a U-factor lower than 0.089
+ 
+If result !=  NoExceptionApplies    
+D03_ExceptionalConditionMessageCCENVE += RoofAlterationExceptionInF
+End If</xsd:documentation>
                                                    </xsd:annotation>
                                                 </xsd:element>
                                                 <xsd:element name="Fmetalb05_NotApplicableMessage">
@@ -6687,7 +6703,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed06_WallType">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Location</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue Or If Hframed04b_Status == ExistingAlteration result = BlankGrayedOut stored in NotApplicableMessage;  
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAlteration result = BlankGrayedOut stored in NotApplicableMessage;  
 Else User selects from list: ExteriorWall display term Exterior, DemisingWall display term Demising
 End If
  
@@ -6732,7 +6748,7 @@ End If</xsd:documentation>
                                                 <xsd:element name="Hframed06_NotApplicableMessage">
                                                    <xsd:annotation>
                                                       <xsd:documentation source="FieldText">Location</xsd:documentation>
-                                                      <xsd:documentation source="CalculationsAndRules">If Hframed10_ConstructionSpecificationMethod == RValue Or If Hframed04b_Status == ExistingAlteration result = BlankGrayedOut stored in NotApplicableMessage;
+                                                      <xsd:documentation source="CalculationsAndRules">If Hframed04b_Status == ExistingAlteration result = BlankGrayedOut stored in NotApplicableMessage;
 End If</xsd:documentation>
                                                    </xsd:annotation>
                                                    <xsd:simpleType>
@@ -12700,7 +12716,7 @@ If Iframed03b_Status == ExistingAlteration
 If Iframed03a_TopLevelOccupancy == OtherOccupancy  result = 0.071; 
 End If
 Else If Iframed03b_Status == New
-Switch (  Iframed03b_TopLevelOccupancy) 
+Switch (  Iframed03a_TopLevelOccupancy) 
 case  Nonresidential: 
 If A03_ClimateZoneNumber == 1 result = 0.048; 
 Else  If A03_ClimateZoneNumber == 2, 11, 14, 15 Or 16 result = 0.039; 
@@ -15573,8 +15589,9 @@ End If</xsd:documentation>
 Switch (Kvertperf22_FenestrationFramingNR) 
 case MetalFraming:  
 If Kvertperf23_FenestrationPanes == SinglePane result = 1.25; 
-Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.77; 
-Else If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.82
+Else If Kvertperf23_FenestrationPanes == DoublePane result = 0.77;
+Else  If Kvertperf23_FenestrationPanes == DoubleWithSpacers Or DoublePaneDivided result = 0.82  
+End If
 End If
  
 case MetalFramingWithThermalBreak: 
@@ -17401,6 +17418,7 @@ End If</xsd:documentation>
                <xsd:documentation source="FieldText">
                   <d:b>M. DECLARATION OF REQUIRED CERTIFICATES OF INSTALLATION</d:b>
                </xsd:documentation>
+               <xsd:documentation source="CalculationsAndRules">If value is set to true by the software and the user changes this value from true to false, an explanation is required in Section E Additional Remarks And D03_ExceptionalConditionMessageCCENVE += UserChangedSelectionInM</xsd:documentation>
                <xsd:documentation source="MinOccurs">This section is required.</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>

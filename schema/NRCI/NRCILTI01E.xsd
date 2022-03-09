@@ -821,11 +821,11 @@ Else  If G03iii02_TrackOvercurrentPanelsTotalPower NotPresent
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Maximum Rated Input Wattage [d:sup]2[/d:sup]</xsd:documentation>
                                              <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent 
- If G03iv01_TrackTrackLightingPowerSourceRatedWattage IsPresent 
- result = G03iv01_TrackTrackLightingPowerSourceRatedWattage
+ If G03iv01_TrackLightingPowerSourceRatedWattage IsPresent 
+ result = G03iv01_TrackLightingPowerSourceRatedWattage
  End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">G03iv01_TrackTrackLightingPowerSourceRatedWattage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">G03iv01_TrackLightingPowerSourceRatedWattage</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                        </xsd:element>
@@ -836,11 +836,11 @@ Else  If G03iii02_TrackOvercurrentPanelsTotalPower NotPresent
  result = BlankGrayedOut  
  Else If Lum05cc_LuminaireUse != TrackLighting
  result = BlankGrayedOut 
-Else  If G03iv01_TrackTrackLightingPowerSourceRatedWattage NotPresent 
+Else  If G03iv01_TrackLightingPowerSourceRatedWattage NotPresent 
  result = BlankGrayedOut 
  End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
-                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">G03iv01_TrackTrackLightingPowerSourceRatedWattage</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">G03iv01_TrackLightingPowerSourceRatedWattage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -855,9 +855,9 @@ Else  If G03iv01_TrackTrackLightingPowerSourceRatedWattage NotPresent
                                        <xsd:element name="Lum10_TrackLightingPowerSourceRatedWattage" type="lit:TrackLightingPowerSourceRatedWattage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Maximum Rated Input Wattage [d:sup]2[/d:sup]</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum10cc_TrackTrackLightingPowerSourceRatedWattage IsPresent
+                                             <xsd:documentation source="CalculationsAndRules">If Lum10cc_TrackLightingPowerSourceRatedWattage IsPresent
  If Lum01_InstalledSameAsCC == true
- result = Lum10cc_TrackTrackLightingPowerSourceRatedWattage but user can change value
+ result = Lum10cc_TrackLightingPowerSourceRatedWattage but user can change value
  Else If Lum01_InstalledSameAsCC == false
  Usr input
  End If</xsd:documentation>
@@ -1783,7 +1783,7 @@ End If</xsd:documentation>
 If NRCCLTIE parent
 Evaluate the Pc02 value If Paf01cc is loaded from Pc01_SpaceDescription. Evaluate the Pu02 value If Paf01cc is loaded from Pu01_SpaceDescription:
  
-If Pc02a_ApplyDayightDimmingPlusOff == true Or Pu02a_ApplyDayightDimmingPlusOff == true
+If Pc02a_ApplyDaylightDimmingPlusOff == true Or Pu02a_ApplyDaylightDimmingPlusOff == true
 result += DaylightDimmingPlusOff
 Count  += 1
 End If
@@ -1799,12 +1799,12 @@ If Count LT 2 And Pc02d_ApplyOccupantSensingControls251To500SF == true Or Pu02d_
 result += OccupantSensingControls_251To500SF
 Count += 1
 End If
-If Count LT 2 And Pc02e_ApplyInstitutionalTuningDaylit == true Or Pu02e_ApplyInstitutionalTuningDaylit == true
-result += InstitutionalTuning
+If Count LT 2 And Pc02e_ApplyInstitutionalTuningNonDaylit == true Or Pu02e_ApplyInstitutionalTuningNonDaylit == true
+result += InstitutionalTuningNonDaylit
 Count += 1
 End If
-If Count LT 2 And Pc02f_ApplyInstitutionalTuningNonDaylit == true Or Pu02f_ApplyInstitutionalTuningNonDaylit == true
-result += InstitutionalTuningNonDaylit
+If Count LT 2 And Pc02f_ApplyInstitutionalTuningDaylit == true Or Pu02f_ApplyInstitutionalTuningDaylit == true
+result += InstitutionalTuning
 Count += 1
 End If
 If Count LT 2 And Pc02g_ApplyDemandResponsiveControl == true Or Pu02g_ApplyDemandResponsiveControl == true
@@ -1831,18 +1831,18 @@ result += LtgCredits03_PAFCreditType[1] //second value
 End If
 End If</xsd:documentation>
                                                             <xsd:appinfo source="NRCIsrc">
-                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02a_ApplyDayightDimmingPlusOff</dtyp:srcSchema>
-                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02a_ApplyDayightDimmingPlusOff</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02a_ApplyDaylightDimmingPlusOff</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02a_ApplyDaylightDimmingPlusOff</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02b_ApplyOccupantSensingControlsUpTo125SF</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02b_ApplyOccupantSensingControlsUpTo125SF</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02c_ApplyOccupantSensingControls125To250SF</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02c_ApplyOccupantSensingControls125To250SF</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02d_ApplyOccupantSensingControls251To500SF</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02d_ApplyOccupantSensingControls251To500SF</dtyp:srcSchema>
-                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02e_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
-                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02e_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
-                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02f_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
-                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02f_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02e_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02e_ApplyInstitutionalTuningNonDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02f_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
+                                                               <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02f_ApplyInstitutionalTuningDaylit</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02g_ApplyDemandResponsiveControl</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pu02g_ApplyDemandResponsiveControl</dtyp:srcSchema>
                                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Pc02h_ApplyClerestoryFenestrationPAF</dtyp:srcSchema>
