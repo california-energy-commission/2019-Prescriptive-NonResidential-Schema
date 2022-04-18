@@ -384,13 +384,14 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Name or Item Tag</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
- result loaded from Fc01_LuminaireName Or Fu01_LuminaireName
+ result loaded from Fc01_LuminaireName Or Fu01_LuminaireName Or Q03_LuminaireName
  Else If NRCCPRFE parent
  result loaded from LtgSched01_LuminaireName
 End If</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fc01_LuminaireName</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fu01_LuminaireName</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Q03_LuminaireName</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgSched01_LuminaireName</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
@@ -420,8 +421,11 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
  If Lum01cc_LuminaireName is loaded from  Fc01_LuminaireName
  result = Fc02_LuminaireDescription
- Else
+ Else If Lum01cc_LuminaireName is loaded from  Fu01_LuminaireName
  result = Fu02_LuminaireDescription
+ Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = Q04_LuminaireDescription
+ 
  End If
  Else If NRCCPRFE parent
  result = LtgSched02_LuminaireDescription
@@ -429,6 +433,7 @@ End If</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fc02_LuminaireDescription</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fu02_LuminaireDescription</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Q04_LuminaireDescription</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgSched02_LuminaireDescription</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
@@ -458,10 +463,11 @@ End If</xsd:documentation>
                                           </xsd:simpleType>
                                        </xsd:element>
                                     </xsd:choice>
-                                    <xsd:element name="Lum04cc_ConditioningType" type="com:ConditioningType" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Used in Conditioned or Unconditioned</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum04cc_ConditioningType" type="com:ConditioningType" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Used in Conditioned or Unconditioned</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
  If Fc01_LuminaireName was loaded into Lum01cc_LuminaireName  
  result = Conditioned
 Else If  Fu01_LuminaireName was loaded into Lum01cc_LuminaireName 
@@ -470,13 +476,31 @@ Else If  Fu01_LuminaireName was loaded into Lum01cc_LuminaireName
  Else If NRCCPRFE parent
  result = Conditioned
  End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Fc01_LuminaireName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Fu01_LuminaireName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="value">Conditioned</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Fc01_LuminaireName</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Fu01_LuminaireName</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="value">Conditioned</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum04cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Used in Conditioned or Unconditioned</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+ If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = BlankGrayedOut
+ End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Q03_LuminaireName</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="Lum05cc_LuminaireUse" type="lit:LuminaireUse"  maxOccurs="unbounded">
                                           <xsd:annotation>
@@ -520,6 +544,8 @@ Else If  Fu01_LuminaireName was loaded into Lum01cc_LuminaireName
  Else If Lum01cc_LuminaireName is loaded from  Fu01_LuminaireName
  If Fu03_IsLuminaireTrackLighting == false And  Fu04_IsLuminaireSmallApertureColorChanging == false
  result = BlankGrayedOut
+ Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = BlankGrayedOut
  End If
  End If
  End If</xsd:documentation>
@@ -528,6 +554,7 @@ Else If  Fu01_LuminaireName was loaded into Lum01cc_LuminaireName
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Fc04_IsLuminaireSmallApertureColorChanging</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Fu03_IsLuminaireTrackLighting</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Fu04_IsLuminaireSmallApertureColorChanging</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Q03_LuminaireName</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
@@ -592,10 +619,14 @@ End If</xsd:documentation>
  result = BlankGrayedOut  
  Else If NRCCLTIE parent And G03i01_TracklightingLength NotPresent
  result = BlankGrayedOut
+ Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = BlankGrayedOut
+ 
  End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">G03i01_TrackLightingLength</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Q03_LuminaireName</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -655,10 +686,14 @@ Else If Lum06cc_NotApplicableMessage IsPresent
 result = BlankGrayedOut 
 Else If G03ii01_TrackLightingCurrentLimiterPower NotPresent
  result = BlankGrayedOut 
+ Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = BlankGrayedOut
+ 
  End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">G03ii01_TrackLightingCurrentLimiterPower</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Q03_LuminaireName</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -713,10 +748,14 @@ Else If G03ii01_TrackLightingCurrentLimiterPower NotPresent
  result = BlankGrayedOut 
 Else If G03iii01_TrackLightingBranchCircuitPower NotPresent 
  result = BlankGrayedOut 
+Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = BlankGrayedOut
+ 
  End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">G03iii01_TrackLightingBranchCircuitPower</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Q03_LuminaireName</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -775,10 +814,15 @@ Else If G03iii01_TrackLightingBranchCircuitPower NotPresent
  Else If Lum05cc_LuminaireUse != TrackLighting
  result = BlankGrayedOut 
 Else  If G03iii02_TrackOvercurrentPanelsTotalPower NotPresent
+ result = BlankGrayedOut 
+Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = BlankGrayedOut
+ 
  End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">G03iii02_TrackOvercurrentPanelsTotalPower</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Q03_LuminaireName</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -838,10 +882,14 @@ Else  If G03iii02_TrackOvercurrentPanelsTotalPower NotPresent
  result = BlankGrayedOut 
 Else  If G03iv01_TrackLightingPowerSourceRatedWattage NotPresent 
  result = BlankGrayedOut 
+Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = BlankGrayedOut
+ 
  End If</xsd:documentation>
                                              <xsd:appinfo source="NRCIsrc">
                                                 <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">G03iv01_TrackLightingPowerSourceRatedWattage</dtyp:srcSchema>
                                                 <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="reference">Q03_LuminaireName</dtyp:srcSchema>
                                              </xsd:appinfo>
                                           </xsd:annotation>
                                           <xsd:simpleType>
@@ -885,8 +933,10 @@ Else  If G03iv01_TrackLightingPowerSourceRatedWattage NotPresent
                                           <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
  If Lum01cc_LuminaireName is loaded from  Fc01_LuminaireName
  result = Fc05_LuminairePower
- Else
+ Else  If Lum01cc_LuminaireName is loaded from  Fu01_LuminaireName
  result = Fu05_LuminairePower
+ If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+ result = Q05_LuminairePower
  End If
  Else If NRCCPRFE parent
  result = LtgSched03_LuminairePower
@@ -895,6 +945,7 @@ Else  If G03iv01_TrackLightingPowerSourceRatedWattage NotPresent
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fc05_LuminairePower</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fu05_LuminairePower</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgSched03_LuminairePower</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Q05_LuminairePower</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
                                     </xsd:element>
@@ -929,8 +980,11 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
  If Lum01cc_LuminaireName is loaded from  Fc01_LuminaireName
  result = Fc07_LuminaireCountByType
- Else
+ Else If Lum01cc_LuminaireName is loaded from  Fu01_LuminaireName
  result = Fu07_LuminaireCountByType
+ Else If Lum01cc_LuminaireName is loaded from  Q03_LuminaireName
+result = Q07_LuminaireCountByType
+ 
  End If
  Else If NRCCPRFE parent
  result = LtgSched05_LuminaireCountByType
@@ -938,6 +992,7 @@ End If</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fc07_LuminaireCountByType</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fu07_LuminaireCountByType</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Q07_LuminaireCountByType</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgSched05_LuminaireCountByType</dtyp:srcSchema>
                                           </xsd:appinfo>
                                        </xsd:annotation>
@@ -983,14 +1038,27 @@ Else If in any row Lum05_LuminaireUse != Lum05cc_LuminaireUse
  Lum06cc_NotApplicableMessage IsPresent Or Lum06_TrackLightingLength == Lum06cc_TrackLightingLength
  And 
  Lum07cc_NotApplicableMessage IsPresent Or  Lum07_TrackLightingCurrentLimiterPower  == Lum07cc_TrackLightingCurrentLimiterPower 
+And 
+Lum08cc_NotApplicableMessage IsPresent Or Lum08cc_TrackLightingBranchCircuitPower  == Lum08_TrackLightingBranchCircuitPower 
+And 
+Lum09cc_NotApplicableMessage IsPresent Or Lum09cc_TrackOvercurrentPanelsTotalPower  == Lum09_TrackOvercurrentPanelsTotalPower 
+And 
+Lum10cc_NotApplicableMessage IsPresent Or Lum10cc_TrackLightingPowerSourceRatedWattage == Lum10_TrackLightingPowerSourceRatedWattage
+And
+Lum11cc_LuminairePower IsPresent  And Lum11cc_LuminairePower == Lum11_LuminairePower
+And
+Lum12cc_LuminaireCountByType IsPresent And Lum12cc_LuminaireCountByType == Lum12_LuminaireCountByType
  result = ExactMatch
  
-Else 
-Sum All rows ( Lum06cc_TrackLightingLength x Lum07cc_TrackLightingCurrentLimiterPower )  GTE Sum All rows ( Lum06_TrackLightingLength x Lum07_TrackLightingCurrentLimiterPower ) 
+Else If Lum05_LuminaireUse == Lum05cc_LuminaireUse
+And 
+Sum All rows ( Lum11cc_LuminairePower x Lum12cc_LuminaireCountByType)  GTE Sum All rows ( Lum11_LuminairePower x Lum12_LuminaireCountByType) 
  result = EqualBetter
- Else
-Sum All rows ( Lum06cc_TrackLightingLength x Lum07cc_TrackLightingCurrentLimiterPower )  LT Sum All rows ( Lum06_TrackLightingLength x Lum07_TrackLightingCurrentLimiterPower ) 
- MayNotComply
+ Else 
+If Lum05_LuminaireUse != Lum05cc_LuminaireUse
+Or
+Sum All rows (  Lum11cc_LuminairePower x Lum12cc_LuminaireCountByType )  LT Sum All rows (  Lum11_LuminairePower x Lum12_LuminaireCountByType) 
+ result = MayNotComply
  End If</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
