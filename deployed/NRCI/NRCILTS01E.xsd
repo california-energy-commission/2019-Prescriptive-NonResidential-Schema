@@ -329,7 +329,7 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Fixture Within Scope?</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
- If result == false  Sign03cc-Sign07cc is displayed but Sign03-Sign07 As-built cells are blank and grayed out
+ If result == false  Sign03cc-Sign07cc and Sign03-Sign07 As-built cells are blank and grayed out
 And D01_ExceptionalConditionMessageNRCILTSE += SignNotInScope  
 End If</xsd:documentation>
                                        </xsd:annotation>
@@ -344,7 +344,7 @@ End If</xsd:documentation>
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText"/>
                                                    <xsd:documentation source="CalculationsAndRules">If Sign01_InMyScope == false
-result = BlankGrayedOut for Sign03-Sign07 As-built fields are blank and grayed out fields
+result = BlankGrayedOut for Sign03cc-Sign07cc and Sign03-Sign07 As-built fields are blank and grayed out fields
 End If</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
@@ -395,10 +395,12 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
 If NRCCLTSE F01_LightedSignName != Sign01cc_LightedSignName assigned from NRCCLTSE  C01_LightedSignName
+Or If NRCCLTSE F03_IlluminationMethod == Internal
 result = BlankGrayedOut
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
                                                                   <dtyp:srcSchema form="NRCCLTS01E" usage="reference">F01_LightedSignName</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCLTS01E" usage="reference">F03_IlluminationMethod</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -456,8 +458,13 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
 If Sign03cc_NotApplicableMessage IsPresent
 result = Sign03cc_NotApplicableMessage
+Or If NRCCLTSE F03_IlluminationMethod == Internal
+result = BlankGrayedOut
 End If
 End If</xsd:documentation>
+                                                               <xsd:appinfo source="NRCIsrc">
+                                                                  <dtyp:srcSchema form="NRCCLTS01E" usage="reference">F03_IlluminationMethod</dtyp:srcSchema>
+                                                               </xsd:appinfo>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
                                                                <xsd:restriction base="comp:NotApplicableMessage">
@@ -762,7 +769,7 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Is this in your scope?</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects from true value display term Yes and false value display term No, by others
- If result == false Ctrl02cc-Ctrl05cc is displayed but Ctrl03-Ctrl05 As-built fields are blank and grayed out
+ If result == false Ctrl02cc-Ctrl05cc and Ctrl03-Ctrl05 As-built fields are blank and grayed out
 And D01_ExceptionalConditionMessageNRCILTSE += CtrlNotInScope  
 End If</xsd:documentation>
                                        </xsd:annotation>
@@ -777,7 +784,7 @@ End If</xsd:documentation>
                                                 <xsd:annotation>
                                                    <xsd:documentation source="FieldText"/>
                                                    <xsd:documentation source="CalculationsAndRules">If Ctrl01_InMyScope == false
-result = BlankGrayedOut for Ctrl03-Ctrl05 As-built fields are blank and grayed out fields
+result = BlankGrayedOut for Ctrl02cc-Ctrl05cc and Ctrl03-Ctrl05 As-built fields are blank and grayed out fields
 End If</xsd:documentation>
                                                 </xsd:annotation>
                                                 <xsd:simpleType>
