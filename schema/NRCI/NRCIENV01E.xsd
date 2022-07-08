@@ -4123,15 +4123,23 @@ End If</xsd:documentation>
                                        <xsd:annotation>
                                           <xsd:documentation source="FieldText">Tag/Plan Detail ID</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If I01Framed_FloorTypeApplies == true
+If TableIframed IsPresent
+For each row in TableIframed add a row with 
 result = Iframed02_FloorAssemblyName
-Else If I01SIPS_FloorTypeApplies == true
+And
+If TableISIPS IsPresent
+For each row in  TableISIPS add a row with
 result = ISIPS02_FloorAssemblyName 
-Else If I01Mass_FloorTypeApplies == true
+And
+If TableImass IsPresent
+For each row in TableImass add a row with
 result = Imass02_FloorAssemblyName
-Else If I01Heated_FloorTypeApplies == true
+And 
+If TableIheated IsPresent
+For each row in TableIheated add a row with
 result = Iheated01_FloorAssemblyName
 End If
+ 
 Else If NRCC-PRF parent
 If Opaq02_CompatibleSurfaceType == ExteriorFloor Or InteriorFloor Or UndergroundFloor
 result = Opaq01_ConstructionAssemblyNameString
@@ -4139,13 +4147,13 @@ End If
 End If
 Note: All following fields in this table reference NRCC parent fields for the floor assigned to Floors01cc_FloorAssemblyName</xsd:documentation>
                                           <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01Framed_FloorTypeApplies</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">TableIframed</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCENV01E"  usage="copy">Iframed02_FloorAssemblyName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01SIPS_FloorTypeApplies</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">TableISIPS</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCENV01E"  usage="copy">ISIPS02_FloorAssemblyName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01Mass_FloorTypeApplies</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">TableImass</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCENV01E"  usage="copy">Imass02_FloorAssemblyName</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01Heated_FloorTypeApplies</dtyp:srcSchema>
+                                             <dtyp:srcSchema form="NRCCENV01E"  usage="reference">TableIheated</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCENV01E"  usage="copy">Iheated01_FloorAssemblyName</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Opaq02_CompatibleSurfaceType</dtyp:srcSchema>
                                              <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">Opaq01_ConstructionAssemblyNameString</dtyp:srcSchema>
@@ -4192,21 +4200,22 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Floor Type</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If I01Framed_FloorTypeApplies == true
+For current row 
+If Floors01cc_FloorAssemblyName was assigned Iframed02_FloorAssemblyName 
 result = Framed
-Else If I01SIPS_FloorTypeApplies == true
+Else If Floors01cc_FloorAssemblyName was assigned  ISIPS02_FloorAssemblyName
 result = SIPS
-Else If I01Mass_FloorTypeApplies == true
+Else If Floors01cc_FloorAssemblyName was assigned  Imass02_FloorAssemblyName
 result = Mass
-Else If I01Heated_FloorTypeApplies == true
+Else If Floors01cc_FloorAssemblyName was assigned  Iheated01_FloorAssemblyName
 result = HeatedSlab
 End If
 End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
-                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01Framed_FloorTypeApplies</dtyp:srcSchema>
-                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01SIPS_FloorTypeApplies</dtyp:srcSchema>
-                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01Mass_FloorTypeApplies</dtyp:srcSchema>
-                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">I01Heated_FloorTypeApplies</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">Iframed02_FloorAssemblyName</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">ISIPS02_FloorAssemblyName</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">Imass02_FloorAssemblyName</dtyp:srcSchema>
+                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="reference">Iheated01_FloorAssemblyName</dtyp:srcSchema>
                                                                </xsd:appinfo>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -4241,7 +4250,7 @@ End If</xsd:documentation>
                                                                <xsd:documentation source="FieldText">Floor Type</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If Floors02cc_AssemblyType IsPresent
 If Floors01_InstalledSameAsCC == true
-resut = Floors02cc_AssemblyType
+result = Floors02cc_AssemblyType
 Else
 User selects from list
 End If
@@ -4279,6 +4288,7 @@ result = Floors02cc_NotApplicableMessage</xsd:documentation>
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == Framed And Iframed06_PartitionFramingMaterial IsPresent
 this choice applies
 End If
@@ -4290,7 +4300,7 @@ Display is concatenation of: Iframed06_PartitionFramingMaterial + Iframed06_Fram
                                                                         <xsd:element name="FloorsFramed03cc_PartitionFramingMaterial" >
                                                                            <xsd:annotation>
                                                                               <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                              <xsd:documentation source="CalculationsAndRules">result = Iframed06_PartitionFramingMaterial</xsd:documentation>
+                                                                              <xsd:documentation source="CalculationsAndRules">result = Iframed06_PartitionFramingMaterial for NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName</xsd:documentation>
                                                                               <xsd:appinfo source="NRCIsrc">
                                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="copy">Iframed06_PartitionFramingMaterial</dtyp:srcSchema>
                                                                               </xsd:appinfo>
@@ -4305,7 +4315,7 @@ Display is concatenation of: Iframed06_PartitionFramingMaterial + Iframed06_Fram
                                                                         <xsd:element name="FloorsFramed03cc_FramingSpacing" >
                                                                            <xsd:annotation>
                                                                               <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                              <xsd:documentation source="CalculationsAndRules">result = Iframed06_FramingSpacing</xsd:documentation>
+                                                                              <xsd:documentation source="CalculationsAndRules">result = Iframed06_FramingSpacing for NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName</xsd:documentation>
                                                                               <xsd:appinfo source="displayterm">
                                                                                  <dtyp:displayterm value="16InchOC">16" OC</dtyp:displayterm>
                                                                                  <dtyp:displayterm value="24InchOC">24" OC</dtyp:displayterm>
@@ -4325,7 +4335,7 @@ Display is concatenation of: Iframed06_PartitionFramingMaterial + Iframed06_Fram
                                                                         <xsd:element name="FloorsFramed03cc_FramingSize" >
                                                                            <xsd:annotation>
                                                                               <xsd:documentation source="FieldText"></xsd:documentation>
-                                                                              <xsd:documentation source="CalculationsAndRules">result = Iframed06_FramingSize</xsd:documentation>
+                                                                              <xsd:documentation source="CalculationsAndRules">result = Iframed06_FramingSize for NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName</xsd:documentation>
                                                                               <xsd:appinfo source="NRCIsrc">
                                                                                  <dtyp:srcSchema form="NRCCENV01E"  usage="copy">Iframed06_FramingSize</dtyp:srcSchema>
                                                                               </xsd:appinfo>
@@ -4347,8 +4357,11 @@ Display is concatenation of: Iframed06_PartitionFramingMaterial + Iframed06_Fram
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Framed And Iframed06_FramingMaterialOther IsPresent
-result = Iframed06_FramingMaterialOther
+For current NRCI row 
+If Floors02cc_AssemblyType == Framed 
+If in NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iframed06_FramingMaterialOther IsPresent
+result = Iframed06_FramingMaterialOther 
 End If
 End If</xsd:documentation>
                                                                      <xsd:appinfo source="NRCIsrc">
@@ -4360,7 +4373,10 @@ End If</xsd:documentation>
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == SIPS And ISIPS06_SplineType IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == SIPS 
+If in NRCC row where the ISIPS02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+ISIPS06_SplineType IsPresent
 result = ISIPS06_SplineType
 End If
 End If</xsd:documentation>
@@ -4380,7 +4396,10 @@ End If</xsd:documentation>
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == SIPS And ISIPS06_SplineTypeOther IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == SIPS 
+If in NRCC row where the ISIPS02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+ISIPS06_SplineTypeOther IsPresent
 result = ISIPS06_SplineTypeOther
 End If
 End If</xsd:documentation>
@@ -4406,10 +4425,21 @@ End If</xsd:documentation>
                                                                   <xsd:annotation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Framed And Iframed06_NotApplicableMessage IsPresent Or
-Floors02cc_AssemblyType == Mass And Imass06_NotApplicableMessage IsPresent 
+For current NRCI row 
+If Floors02cc_AssemblyType == Framed   
+If in NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iframed06_NotApplicableMessage IsPresent 
 result = BlankGrayedOut
 End If
+Else If Floors02cc_AssemblyType == Mass   
+If in NRCC row where the Imass02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Imass06_NotApplicableMessage IsPresent 
+result = BlankGrayedOut
+End If
+Else If Floors02cc_AssemblyType == HeatedSlab
+result = BlankGrayedOut
+End If
+ 
 Else If NRCC-PRF parentIf Opaq04_NotApplicableMessage IsPresent 
 result =  BlankGrayedOut
 End If
@@ -4453,7 +4483,7 @@ End If</xsd:documentation>
                                                                               <xsd:documentation source="FieldText"></xsd:documentation>
                                                                               <xsd:documentation source="CalculationsAndRules">If FloorsFramed03cc_PartitionFramingMaterial IsPresent
 If Floors01_InstalledSameAsCC == true
-resut = FloorsFramed03cc_PartitionFramingMaterial
+result = FloorsFramed03cc_PartitionFramingMaterial
 Else
 User selects from list
 End If
@@ -4471,7 +4501,7 @@ End If</xsd:documentation>
                                                                               <xsd:documentation source="FieldText"></xsd:documentation>
                                                                               <xsd:documentation source="CalculationsAndRules">If FloorsFramed03cc_FramingSpacing IsPresent
 If Floors01_InstalledSameAsCC == true
-resut = FloorsFramed03cc_FramingSpacing
+result = FloorsFramed03cc_FramingSpacing
 Else
 User selects from list
 End If
@@ -4494,7 +4524,7 @@ End If</xsd:documentation>
                                                                               <xsd:documentation source="FieldText"></xsd:documentation>
                                                                               <xsd:documentation source="CalculationsAndRules">If FloorsFramed03cc_FramingSize  IsPresent
 If Floors01_InstalledSameAsCC == true
-resut = FloorsFramed03cc_FramingSize
+result = FloorsFramed03cc_FramingSize
 Else
 User selects from list
 End If
@@ -4518,7 +4548,7 @@ End If</xsd:documentation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If FloorsFramed03cc_FramingMaterialOther IsPresent
 If Floors01_InstalledSameAsCC == true
-resut = FloorsFramed03cc_FramingMaterialOther
+result = FloorsFramed03cc_FramingMaterialOther
 Else
 User selects from list
 End If
@@ -4530,7 +4560,7 @@ End If</xsd:documentation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If FloorsSIPS03cc_SplineType IsPresent
 If Floors01_InstalledSameAsCC == true
-resut = FloorsSIPS03cc_SplineType
+result = FloorsSIPS03cc_SplineType
 Else
 User selects from list
 End If
@@ -4549,7 +4579,7 @@ End If</xsd:documentation>
                                                                      <xsd:documentation source="FieldText">Floor/ Spline Material</xsd:documentation>
                                                                      <xsd:documentation source="CalculationsAndRules">If FloorsSIPS03cc_SplineTypeOther  IsPresent
 If Floors01_InstalledSameAsCC == true
-resut = FloorsSIPS03cc_SplineTypeOther
+result = FloorsSIPS03cc_SplineTypeOther
 Else
 User selects from list
 End If
@@ -4589,7 +4619,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Insulation Location</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Mass And Imass06_InsulationPlacement IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == Mass 
+If in NRCC row where the Imass02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Imass06_InsulationPlacement IsPresent
 result = Imass06_InsulationPlacement
 End If
 End If</xsd:documentation>
@@ -4616,7 +4649,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Insulation Location</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == HeatedSlab And Iheated03_InsulationPlacement IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == HeatedSlab 
+If in NRCC row where the Iheated01_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iheated03_InsulationPlacement IsPresent
 result = Iheated03_InsulationPlacement
 End If
 End If</xsd:documentation>
@@ -4635,7 +4671,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Insulation Location</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Mass And Imass06_InsulationOther IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == Mass 
+If in NRCC row where the Imass02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Imass06_InsulationOther IsPresent
 result = Imass06_InsulationOther
 End If
 End If</xsd:documentation>
@@ -4663,11 +4702,20 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Insulation Location</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Mass And Imass06_NotApplicableMessage
+For current NRCI row
+If Floors02cc_AssemblyType == Mass 
+If in NRCC row where the Imass02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+ Imass06_NotApplicableMessage IsPresent
 result = BlankGrayedOut
+End If
+Else If Floors02cc_AssemblyType != Mass And != HeatedSlab
+result = BlankGrayedOut
+End If
 Else If NRCC-PRF parent
 If Opaq09slab_SlabType NotPresent Or != HeatedSlabOnGrade
-result = BlankGrayedOut</xsd:documentation>
+result = BlankGrayedOut
+End If
+End If</xsd:documentation>
                                                                <xsd:appinfo source="NRCIsrc">
                                                                   <dtyp:srcSchema form="NRCCENV01E"  usage="reference">Imass06_NotApplicableMessage</dtyp:srcSchema>
                                                                   <dtyp:srcSchema form="NRCCPRF01E"  usage="reference">Opaq09slab_SlabType</dtyp:srcSchema>
@@ -4768,8 +4816,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Core/Cavity  Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Framed
-If Iframed07_CavityInsulationNR IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == Framed 
+If in NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iframed07_CavityInsulationNR IsPresent
 result = Iframed07_CavityInsulationNR
 End If
 End If
@@ -4795,8 +4845,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Core/Cavity  Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Framed
-If Iframed07_CavityInsulationOther IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == Framed 
+If in NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iframed07_CavityInsulationOther IsPresent
 result = Iframed07_CavityInsulationOther
 End If
 End If
@@ -4810,8 +4862,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Core/Cavity  Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == SIPS
-If ISIPS08_CoreInsulation IsPresent
+If in NRCC row where the ISIPS02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+ISIPS08_CoreInsulation IsPresent
 result = ISIPS08_CoreInsulation
 End If
 End If
@@ -4833,8 +4887,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Core/Cavity  Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == SIPS
-If ISIPS08_CoreInsulationOther IsPresent
+If in NRCC row where the ISIPS02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+ISIPS08_CoreInsulationOther IsPresent
 result = ISIPS08_CoreInsulationOther
 End If
 End If
@@ -5037,8 +5093,10 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Framed
-If Iframed08_ContinuousInsulationNR IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == Framed 
+If in NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iframed08_ContinuousInsulationNR IsPresent
 result = Iframed08_ContinuousInsulationNR
 End If
 End If
@@ -5065,8 +5123,10 @@ The displayed result fills the row cell and there is no division into top and bo
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Floors02cc_AssemblyType == Framed
-If Iframed08_ContinuousInsulationOther IsPresent
+For current NRCI row 
+If Floors02cc_AssemblyType == Framed 
+If in NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iframed08_ContinuousInsulationOther IsPresent
 result = Iframed08_ContinuousInsulationOther
 End If
 End If
@@ -5081,8 +5141,10 @@ The displayed result fills the row cell and there is no division into top and bo
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == SIPS
-If ISIPS09_ContinuousInsulationNR IsPresent
+If in NRCC row where the ISIPS02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+ISIPS09_ContinuousInsulationNR IsPresent
 result = ISIPS09_ContinuousInsulationNR
 End If
 End If
@@ -5108,8 +5170,10 @@ The displayed result fills the row cell and there is no division into top and bo
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == SIPS
-If ISIPS09_ContinuousInsulationOther IsPresent
+If in NRCC row where the ISIPS02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+ISIPS09_ContinuousInsulationOther IsPresent
 result = ISIPS09_ContinuousInsulationOther
 End If
 End If
@@ -5124,8 +5188,10 @@ The displayed result fills the row cell and there is no division into top and bo
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == Mass
-If Imass07_ContinuousInsulationNR IsPresent
+If in NRCC row where the Imass02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Imass07_ContinuousInsulationNR IsPresent
 result = Imass07_ContinuousInsulationNR
 End If
 End If
@@ -5155,8 +5221,10 @@ End If
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == Mass
-If Imass07_ContinuousInsulationOther IsPresent
+If in NRCC row where the Imass02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Imass07_ContinuousInsulationOther IsPresent
 result = Imass07_ContinuousInsulationOther
 End If
 End If
@@ -5171,7 +5239,9 @@ End If
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
+For current NRCI row 
 If Floors02cc_AssemblyType == HeatedSlab
+For NRCC row where the Iheated01_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
 result 1 = Iheated06a_InsulationInteriorRValue displayed in top part of cell 
 If Iheated06b_InsulationInteriorRValue IsPresent
 result 2 = Iheated06b_InsulationInteriorRValue displayed in bottom part of cell
@@ -5203,7 +5273,10 @@ The displayed result fills the row cell and there is no division into top and bo
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Continuous Insulation R-value</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCC-ENV parent
-If Iframed08_NotApplicableMessage IsPresent 
+For current NRCI row 
+If Floors02cc_AssemblyType == Framed 
+If in NRCC row where the Iframed02_FloorAssemblyName was assigned to current NRCI row Floors01cc_FloorAssemblyName 
+Iframed08_NotApplicableMessage IsPresent 
 result = BlankGrayedOut
 End If
 Else If NRCC-PRF parent

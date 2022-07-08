@@ -400,21 +400,24 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign03_LuminairePower" type="lit:LuminairePower" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Sign03cc_LuminairePower IsPresent
-If Sign01_InstalledSameAsCC == true
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true
+If Sign03cc_LuminairePower IsPresent
 result = Sign03cc_LuminairePower 
-Else
+End If
+Else If Sign01_InstalledSameAsCC == false
 User input 
-End If
-End If
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                          <xsd:element name="Sign03_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Watts per Luminaire</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Sign03cc_NotApplicableMessage IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true
+If Sign03cc_NotApplicableMessage IsPresent
 result = Sign03cc_NotApplicableMessage
+End If
+Else If Sign01_InstalledSameAsCC == false And As-Built IlluminationMethod == Internal
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -463,21 +466,24 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign04_LuminaireCountByType" type="lit:LuminaireCountByType" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Sign04cc_LuminaireCountByType IsPresent
-If Sign01_InstalledSameAsCC == true
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true
+If Sign04cc_LuminaireCountByType IsPresent
 result = Sign04cc_LuminaireCountByType
-Else
+End If
+Else If Sign01_InstalledSameAsCC == false
 User input 
-End If
-End If
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                          <xsd:element name="Sign04_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Total Number of Luminaires</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Sign04cc_NotApplicableMessage IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true 
+If Sign04cc_NotApplicableMessage IsPresent
 result = Sign04cc_NotApplicableMessage
+End If
+Else If Sign01_InstalledSameAsCC == false And As-Built IlluminationMethod == Internal
+result = BlankGrayedOut
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -492,7 +498,6 @@ End If</xsd:documentation>
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
                                                                <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
-If Sign03cc_LuminairePower IsPresent
 result = F07_LightedSignDesignedPower
 End If
 End If</xsd:documentation>
@@ -504,11 +509,6 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign05cc_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If NRCCLTSE parent
-If Sign03cc_NotApplicableMessage IsPresent
-result = Sign03cc_NotApplicableMessage
-End If
-End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
                                                                <xsd:restriction base="comp:NotApplicableMessage">
@@ -521,9 +521,16 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign05_LightedSignDesignedPower" type="comp:LightedSignDesignedPower" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Sign03cc_LuminairePower IsPresent And
-Sign04cc_LuminaireCountByType IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true 
+If Sign05cc_LuminairePower IsPresent
+result = Sign05cc_LuminairePower
+End If
+Else If If Sign01_InstalledSameAsCC == false
+If Sign03_LuminairePower IsPresent And
+Sign04_LuminaireCountByType IsPresent
 result =Sign03_LuminairePower x  Sign04_LuminaireCountByType
+Else
+User input
 End If
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -531,8 +538,10 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign05_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Total Watts</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Sign05cc_NotApplicableMessage IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true 
+If Sign05cc_NotApplicableMessage IsPresent
 result = Sign05cc_NotApplicableMessage
+End If
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
@@ -578,20 +587,20 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign06_CompliantLightSource" type="comp:CompliantLightSource"  maxOccurs="unbounded">
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Compliant Light Sources</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Sign06cc_CompliantLightSource IsPresent
-If Sign01_InstalledSameAsCC == true
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true
+If Sign06cc_CompliantLightSource IsPresent
 result = Sign06cc_CompliantLightSource
-Else
+End If
+Else If Sign01_InstalledSameAsCC == false
 User  selects one or more from list 
-End If
-End If
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                          </xsd:element>
                                                          <xsd:element name="Sign06_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">Compliant Light Sources</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Sign06cc_NotApplicableMessage IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true  
+If  Sign06cc_NotApplicableMessage IsPresent
 result = Sign06cc_NotApplicableMessage
 End If</xsd:documentation>
                                                             </xsd:annotation>
@@ -644,13 +653,12 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign07_IsMethodEnergyVerifiedLabel" type="comp:IsMethodEnergyVerifiedLabel" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:sup]1[/d:sup]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If Sign07cc_IsMethodEnergyVerifiedLabel IsPresent
-If Sign01_InstalledSameAsCC == true
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true  
+If Sign07cc_IsMethodEnergyVerifiedLabel IsPresent
 result = Sign07cc_IsMethodEnergyVerifiedLabel
-Else
+End If
+Else If Sign01_InstalledSameAsCC == false
 User  selects from list  of true value display term is ENERGY VERIFIED Sign Installed and false value display term No ENERGY VERIFIED Label
-End If
-End If
 End If</xsd:documentation>
                                                                <xsd:appinfo source="displayterm">
                                                                   <dtyp:displayterm value="true"> ENERGY VERIFIED Sign Installed</dtyp:displayterm>
@@ -662,8 +670,10 @@ End If</xsd:documentation>
                                                          <xsd:element name="Sign07_NotApplicableMessage" >
                                                             <xsd:annotation>
                                                                <xsd:documentation source="FieldText">ENERGY VERIFIED Label [d:sup]1[/d:sup]</xsd:documentation>
-                                                               <xsd:documentation source="CalculationsAndRules">If  Sign07cc_NotApplicableMessage IsPresent
+                                                               <xsd:documentation source="CalculationsAndRules">If Sign01_InstalledSameAsCC == true  
+If  Sign07cc_NotApplicableMessage IsPresent
 result = Sign07cc_NotApplicableMessage
+End If
 End If</xsd:documentation>
                                                             </xsd:annotation>
                                                             <xsd:simpleType>
