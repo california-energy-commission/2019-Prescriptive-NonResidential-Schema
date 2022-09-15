@@ -934,6 +934,7 @@ End If</xsd:documentation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="comp:CondenserTempControls">
                                                                <xsd:enumeration value="SetpointLTE70db"/>
+                                                               <xsd:enumeration value="SetpointLTE70wb"/>
                                                                <xsd:enumeration value="SetpointTempNA"/>
                                                             </xsd:restriction>
                                                          </xsd:simpleType>
@@ -951,6 +952,7 @@ End If</xsd:documentation>
                                                          <xsd:simpleType>
                                                             <xsd:restriction base="comp:CondenserTempControls">
                                                                <xsd:enumeration value="SetpointLTE70db"/>
+                                                               <xsd:enumeration value="SetpointLTE70wb"/>
                                                                <xsd:enumeration value="SetpointTempNA"/>
                                                             </xsd:restriction>
                                                          </xsd:simpleType>
@@ -2441,6 +2443,8 @@ End If
 End If</xsd:documentation>
                                                       <xsd:appinfo source="NRCIsrc">
                                                          <dtyp:srcSchema form="NRCCPRC01E"  usage="copy">H10_FanName</dtyp:srcSchema>
+                                                         <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">ProcGarage01_ExhaustFanName</dtyp:srcSchema>
+                                                         <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">ProcGarage01_ExhaustFanName</dtyp:srcSchema>
                                                       </xsd:appinfo>
                                                    </xsd:annotation>
                                                 </xsd:element>
@@ -4062,7 +4066,7 @@ result = TableIncomplete
 result = NotInScope
  
 Else If
-Elev02_NotApplicableMessage IsPresent Or Elev02_ElevatorFanPower == Elev02cc_ElevatorFanPower
+Elev02_NotApplicableMessage IsPresent Or  Or Elev02_ElevatorFanPower == Elev02cc_ElevatorFanPower
 And
 Elev03_NotApplicableMessage IsPresent Or Elev03_FanDeviceFlow == Elev03cc_FanDeviceFlow
 And 
@@ -4073,7 +4077,7 @@ Elev05_NotApplicableMessage IsPresent Or Elev05_OccupancySensorControl == Elev05
 result = ExactMatch
  
 Else If
-Elev04_FanPowerPerFlow IsPresent And Elev04_FanPowerPerFlow LTE  Elev04cc_FanPowerPerFlow
+Elev04cc_FanPowerPerFlow IsPresent And Elev04_FanPowerPerFlow IsPresent  And Elev04_FanPowerPerFlow LTE  Elev04cc_FanPowerPerFlow
 result = EqualBetter
 End If</xsd:documentation>
                                        </xsd:annotation>

@@ -415,10 +415,11 @@ End If</xsd:documentation>
                                           <xsd:documentation source="CalculationsAndRules">User selects true if installed is the same as NRCC value  Or false if installed is different than NRCC value</xsd:documentation>
                                        </xsd:annotation>
                                     </xsd:element>
-                                    <xsd:element name="Lum03cc_LuminaireDescription" type="lit:LuminaireDescription" >
-                                       <xsd:annotation>
-                                          <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
-                                          <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
+                                    <xsd:choice maxOccurs="1">
+                                       <xsd:element name="Lum03cc_LuminaireDescription" type="lit:LuminaireDescription" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCLTIE parent
  If Lum01cc_LuminaireName is loaded from  Fc01_LuminaireName
  result = Fc02_LuminaireDescription
  Else If Lum01cc_LuminaireName is loaded from  Fu01_LuminaireName
@@ -430,14 +431,31 @@ End If</xsd:documentation>
  Else If NRCCPRFE parent
  result = LtgSched02_LuminaireDescription
  End If</xsd:documentation>
-                                          <xsd:appinfo source="NRCIsrc">
-                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fc02_LuminaireDescription</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fu02_LuminaireDescription</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Q10_LuminaireDescription</dtyp:srcSchema>
-                                             <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgSched02_LuminaireDescription</dtyp:srcSchema>
-                                          </xsd:appinfo>
-                                       </xsd:annotation>
-                                    </xsd:element>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fc02_LuminaireDescription</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Fu02_LuminaireDescription</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCLTI01E"  usage="copy">Q10_LuminaireDescription</dtyp:srcSchema>
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="copy">LtgSched02_LuminaireDescription</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                       </xsd:element>
+                                       <xsd:element name="Lum03cc_NotApplicableMessage" >
+                                          <xsd:annotation>
+                                             <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
+                                             <xsd:documentation source="CalculationsAndRules">If NRCCPRFE parent And LtgSched02_LuminaireDescription NotPresent
+ result = BlankGrayedOut
+ End If</xsd:documentation>
+                                             <xsd:appinfo source="NRCIsrc">
+                                                <dtyp:srcSchema form="NRCCPRF01E"  usage="value">BlankGrayedOut</dtyp:srcSchema>
+                                             </xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:simpleType>
+                                             <xsd:restriction base="comp:NotApplicableMessage">
+                                                <xsd:enumeration value="BlankGrayedOut"/>
+                                             </xsd:restriction>
+                                          </xsd:simpleType>
+                                       </xsd:element>
+                                    </xsd:choice>
                                     <xsd:choice maxOccurs="1">
                                        <xsd:element name="Lum03_LuminaireDescription" type="lit:LuminaireDescription" >
                                           <xsd:annotation>
@@ -452,7 +470,7 @@ End If</xsd:documentation>
                                        <xsd:element name="Lum03_NotApplicableMessage" >
                                           <xsd:annotation>
                                              <xsd:documentation source="FieldText">Luminaire Description</xsd:documentation>
-                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false
+                                             <xsd:documentation source="CalculationsAndRules">If Lum01_ScopeIncludesFixture == false Or Lum03cc_NotApplicableMessage IsPresent 
  result = BlankGrayedOut
  End If</xsd:documentation>
                                           </xsd:annotation>
